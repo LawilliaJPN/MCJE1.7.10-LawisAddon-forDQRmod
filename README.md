@@ -2,7 +2,7 @@
   
 Lawi's Addon for DQRmod (Minecraft Java Edition ver.1.7.10)  
   
-## 詳細(details)  
+## 詳細(Details)  
   
 ### mod概要(Overview)  
 マイクラJava版 ver.1.7.10のDQR modに、要素を追加するためのmodです。  
