@@ -5,15 +5,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 public class Room11GrassWell {
-	public static void RoomGrassWell(World world, EntityPlayer player, int direction) {
-		int playerX = (int)player.posX;				// プレイヤーのX座標
-		int playerY = (int)player.posY;				// プレイヤーのY座標
-		int playerZ = (int)player.posZ;				// プレイヤーのZ座標
+	/*
+	 * バニラの村の井戸をモチーフとした戦闘部屋
+	 */
+	public static void setRoomGrassWell(World world, EntityPlayer player, int direction) {
+		int playerX = (int)player.posX;	// プレイヤーのX座標
+		int playerY = (int)player.posY;	// プレイヤーのY座標
+		int playerZ = (int)player.posZ;	// プレイヤーのZ座標
 
-		int roomX = playerX;							// 部屋の起点となるX座標
-		int roomZ = playerZ;							// 部屋の起点となるZ座標
-		int roomHeight = 6;							// 部屋の高さ
-		int roomWidth = 12;							// 部屋の幅
+		int roomX = playerX;				// 部屋の起点となるX座標
+		int roomZ = playerZ;				// 部屋の起点となるZ座標
+		int roomHeight = 6;				// 部屋の高さ
+		int roomWidth = 12;				// 部屋の幅
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch(direction){

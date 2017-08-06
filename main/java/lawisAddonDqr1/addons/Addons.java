@@ -8,8 +8,10 @@ import net.minecraftforge.common.MinecraftForge;
 public class Addons {
 	private static boolean DqrLoaded = false;
 
+	/*
+	 *  連携先のDQRmodと併用されているかを確認するメソッド
+	 */
 	public static void loadDQR(){
-		//DQRアドオン
 		if (Loader.isModLoaded("DQMIIINext")) {
 			try{
 				// System.out.println("DQRAddon OK");
@@ -21,6 +23,9 @@ public class Addons {
 		}
 	}
 
+	/*
+	 *  変数 DqrLoaded の getter
+	 */
 	public static boolean isDqrLoaded(){
 		return DqrLoaded;
 	}

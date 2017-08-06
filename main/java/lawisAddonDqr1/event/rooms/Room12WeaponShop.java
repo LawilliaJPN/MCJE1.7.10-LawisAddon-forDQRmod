@@ -4,24 +4,30 @@ import dqr.api.Blocks.DQDecorates;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class Room12WeaponShop {
-	public static void RoomWeaponShop(World world, EntityPlayer player, int direction) {
-		int playerX = (int)player.posX;				// プレイヤーのX座標
-		int playerY = (int)player.posY;				// プレイヤーのY座標
-		int playerZ = (int)player.posZ;				// プレイヤーのZ座標
+	/*
+	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
+	 */
+	public static void setRoomWeaponShop(World world, EntityPlayer player, int direction) {
+		player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
 
-		int roomX = playerX;							// 部屋の起点となるX座標
-		int roomZ = playerZ;							// 部屋の起点となるZ座標
-		int roomWidthX = 9;							// 部屋のX座標方向の幅
-		int roomWidthZ = 9;							// 部屋のZ座標方向の幅
-		int roomHeight = 4;							// 部屋の高さ
+		int playerX = (int)player.posX;	// プレイヤーのX座標
+		int playerY = (int)player.posY;	// プレイヤーのY座標
+		int playerZ = (int)player.posZ;	// プレイヤーのZ座標
+
+		int roomX = playerX;				// 部屋の起点となるX座標
+		int roomZ = playerZ -1;			// 部屋の起点となるZ座標（何故か-1しないとズレる）
+		int roomWidthX = 9;				// 部屋のX座標方向の幅
+		int roomWidthZ = 9;				// 部屋のZ座標方向の幅
+		int roomHeight = 4;				// 部屋の高さ
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch(direction){
 		case 0:
-			roomX -= 6;
+			roomX -= 4;
 			roomZ -= 4;
 			roomWidthX++;
 			roomWidthZ--;
@@ -33,7 +39,7 @@ public class Room12WeaponShop {
 			roomWidthZ++;
 			break;
 		case 2:
-			roomX -= 4;
+			roomX -= 6;
 			roomZ -= 4;
 			roomWidthX++;
 			roomWidthZ--;
@@ -117,11 +123,11 @@ public class Room12WeaponShop {
 			o,0,1,2,3,4,5,6,7,8,9,10,x
 			0,_,_,_,_,_,_,_,_,_,_,_,
 			1,_,w,w,g,g,w,g,g,w,w,_,
-			2,s,w,_,_,l,s,_,_,b,w,_,
-			3,_,w,_,_,c,s,_,_,_,w,_,
-			4,_,d,_,_,_,s,p,_,b,w,_,
-			5,_,w,_,_,c,l,_,_,_,w,_,
-			6,s,w,_,_,l,s,w,p,p,w,_,
+			2,_,w,b,_,_,s,l,_,_,w,s,
+			3,_,w,_,_,_,l,c,_,_,w,_,
+			4,_,w,b,_,p,s,_,_,_,d,_,
+			5,_,w,_,_,_,s,c,_,_,w,_,
+			6,_,w,p,p,w,s,l,_,_,w,s,
 			7,_,w,w,g,g,w,g,g,w,w,_,
 			8,_,_,_,_,_,_,_,_,_,_,_,
 			z
@@ -131,12 +137,43 @@ public class Room12WeaponShop {
 			// 「窓ガラス」の設置
 			world.setBlock(roomX +3, playerY +1, roomZ +1, Blocks.glass_pane);
 			world.setBlock(roomX +4, playerY +1, roomZ +1, Blocks.glass_pane);
-			world.setBlock(roomX +6, playerY +1, roomZ +1, Blocks.glass_pane);
-			world.setBlock(roomX +7, playerY +1, roomZ +1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -3, playerY +1, roomZ +1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -4, playerY +1, roomZ +1, Blocks.glass_pane);
 			world.setBlock(roomX +3, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
 			world.setBlock(roomX +4, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
-			world.setBlock(roomX +6, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
-			world.setBlock(roomX +7, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -3, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -4, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
+			// 「ドア」の設置 2 5
+			world.setBlockToAir(roomX +roomWidthX -1, playerY, roomZ +4);
+			world.setBlockToAir(roomX +roomWidthX -1, playerY +1, roomZ +4);
+			ItemDoor.placeDoorBlock(world, roomX +roomWidthX -1, playerY, roomZ +4, 2, Blocks.wooden_door);
+			// 「看板」の設置
+			world.setBlock(roomX +roomWidthX, playerY +1, roomZ +2, DQDecorates.DqmBlockBukiya, 1, 2);
+			world.setBlock(roomX +roomWidthX, playerY +1, roomZ +roomWidthZ -2, DQDecorates.DqmBlockBukiya, 1, 2);
+
+			/* 建物内装 */
+			// 「小さい椅子」の設置
+			world.setBlock(roomX +roomWidthX -4, playerY, roomZ +3, DQDecorates.DqmBlockIsu);
+			world.setBlock(roomX +roomWidthX -4, playerY, roomZ +roomWidthZ -3, DQDecorates.DqmBlockIsu);
+			// 「キャンドルスタンド」の設置
+			world.setBlock(roomX +roomWidthX -4, playerY, roomZ +2, DQDecorates.DqmBlockTaimatu2);
+			world.setBlock(roomX +roomWidthX -4, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTaimatu2);
+			// 「薪」の設置
+			world.setBlock(roomX +4, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockMaki, 1, 2);
+			// 「ツボ」の設置
+			world.setBlock(roomX +2, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTubo);
+			world.setBlock(roomX +3, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTubo);
+			// 「タル」の設置
+			world.setBlock(roomX +2, playerY, roomZ +2, DQDecorates.DqmBlockTaru);
+			// 「本棚」の設置
+			world.setBlock(roomX +2, playerY, roomZ +4, DQDecorates.DqmBlockHondana, 1, 2);
+			// 「ヘパイトスのひだね」の設置
+			world.setBlock(roomX +5, playerY +1, roomZ +3, DQDecorates.DqmBlockHepaitosu, 1, 2);
+			// カウンターとなる「階段」の設置
+			for (int z = 2; z <= roomWidthZ -2; z++) {
+				world.setBlock(roomX +5, playerY, roomZ +z, Blocks.oak_stairs, 5, 2);
+			}
+
 
 		} else if (direction == 1) {
 			/*
@@ -159,23 +196,54 @@ public class Room12WeaponShop {
 			// 「窓ガラス」の設置
 			world.setBlock(roomX +1, playerY +1, roomZ +3, Blocks.glass_pane);
 			world.setBlock(roomX +1, playerY +1, roomZ +4, Blocks.glass_pane);
-			world.setBlock(roomX +1, playerY +1, roomZ +6, Blocks.glass_pane);
-			world.setBlock(roomX +1, playerY +1, roomZ +7, Blocks.glass_pane);
+			world.setBlock(roomX +1, playerY +1, roomZ +roomWidthZ -3, Blocks.glass_pane);
+			world.setBlock(roomX +1, playerY +1, roomZ +roomWidthZ -4, Blocks.glass_pane);
 			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +3, Blocks.glass_pane);
 			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +4, Blocks.glass_pane);
-			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +6, Blocks.glass_pane);
-			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +7, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +roomWidthZ -3, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +roomWidthZ -4, Blocks.glass_pane);
+			// 「ドア」の設置
+			world.setBlockToAir(roomX +4, playerY, roomZ +roomWidthZ -1);
+			world.setBlockToAir(roomX +4, playerY +1, roomZ +roomWidthZ -1);
+			ItemDoor.placeDoorBlock(world, roomX +4, playerY, roomZ +roomWidthZ -1, 3, Blocks.wooden_door);
+			// 「看板」の設置
+			world.setBlock(roomX +2, playerY +1, roomZ +roomWidthZ, DQDecorates.DqmBlockBukiya, 2, 2);
+			world.setBlock(roomX +roomWidthX -2, playerY +1, roomZ +roomWidthZ, DQDecorates.DqmBlockBukiya, 2, 2);
+
+			/* 建物内装 */
+			// 「小さい椅子」の設置
+			world.setBlock(roomX +3, playerY, roomZ +roomWidthZ -4, DQDecorates.DqmBlockIsu);
+			world.setBlock(roomX +roomWidthX -3, playerY, roomZ +roomWidthZ -4, DQDecorates.DqmBlockIsu);
+			// 「キャンドルスタンド」の設置
+			world.setBlock(roomX +2, playerY, roomZ +roomWidthZ -4, DQDecorates.DqmBlockTaimatu2);
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +roomWidthZ -4, DQDecorates.DqmBlockTaimatu2);
+			// 「薪」の設置
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +4, DQDecorates.DqmBlockMaki, 0, 2);
+			// 「ツボ」の設置
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +2, DQDecorates.DqmBlockTubo);
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +3, DQDecorates.DqmBlockTubo);
+			// 「タル」の設置
+			world.setBlock(roomX +2, playerY, roomZ +2, DQDecorates.DqmBlockTaru);
+			// 「本棚」の設置
+			world.setBlock(roomX +4, playerY, roomZ +2, DQDecorates.DqmBlockHondana, 2, 2);
+			// 「ヘパイトスのひだね」の設置
+			world.setBlock(roomX +roomWidthX -3, playerY +1, roomZ +5, DQDecorates.DqmBlockHepaitosu, 2, 2);
+			// カウンターとなる「階段」の設置×
+			for (int x = 2; x <= roomWidthX -2; x++) {
+				world.setBlock(roomX +x, playerY, roomZ +5, Blocks.oak_stairs, 7, 2);
+			}
+
 
 		} else if (direction == 2) {
 			/*
 			o,0,1,2,3,4,5,6,7,8,9,10,x
 			0,_,_,_,_,_,_,_,_,_,_,_,
 			1,_,w,w,g,g,w,g,g,w,w,_,
-			2,_,w,b,_,_,s,l,_,_,w,s,
-			3,_,w,_,_,_,l,c,_,_,w,_,
-			4,_,w,b,_,p,s,_,_,_,d,_,
-			5,_,w,_,_,_,s,c,_,_,w,_,
-			6,_,w,p,p,w,s,l,_,_,w,s,
+			2,s,w,_,_,l,s,_,_,b,w,_,
+			3,_,w,_,_,c,s,_,_,_,w,_,
+			4,_,d,_,_,_,s,p,_,b,w,_,
+			5,_,w,_,_,c,l,_,_,_,w,_,
+			6,s,w,_,_,l,s,w,p,p,w,_,
 			7,_,w,w,g,g,w,g,g,w,w,_,
 			8,_,_,_,_,_,_,_,_,_,_,_,
 			z
@@ -185,12 +253,42 @@ public class Room12WeaponShop {
 			// 「窓ガラス」の設置
 			world.setBlock(roomX +3, playerY +1, roomZ +1, Blocks.glass_pane);
 			world.setBlock(roomX +4, playerY +1, roomZ +1, Blocks.glass_pane);
-			world.setBlock(roomX +6, playerY +1, roomZ +1, Blocks.glass_pane);
-			world.setBlock(roomX +7, playerY +1, roomZ +1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -3, playerY +1, roomZ +1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -4, playerY +1, roomZ +1, Blocks.glass_pane);
 			world.setBlock(roomX +3, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
 			world.setBlock(roomX +4, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
-			world.setBlock(roomX +6, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
-			world.setBlock(roomX +7, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -3, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -4, playerY +1, roomZ +roomWidthZ -1, Blocks.glass_pane);
+			// 「ドア」の設置
+			world.setBlockToAir(roomX +1, playerY, roomZ +4);
+			world.setBlockToAir(roomX +1, playerY +1, roomZ +4);
+			ItemDoor.placeDoorBlock(world, roomX +1, playerY, roomZ +4, 0, Blocks.wooden_door);
+			// 「看板」の設置
+			world.setBlock(roomX, playerY +1, roomZ +2, DQDecorates.DqmBlockBukiya, 3, 2);
+			world.setBlock(roomX, playerY +1, roomZ +roomWidthZ -2, DQDecorates.DqmBlockBukiya, 3, 2);
+
+			/* 建物内装 */
+			// 「小さい椅子」の設置
+			world.setBlock(roomX +4, playerY, roomZ +3, DQDecorates.DqmBlockIsu);
+			world.setBlock(roomX +4, playerY, roomZ +roomWidthZ -3, DQDecorates.DqmBlockIsu);
+			// 「キャンドルスタンド」の設置
+			world.setBlock(roomX +4, playerY, roomZ +2, DQDecorates.DqmBlockTaimatu2);
+			world.setBlock(roomX +4, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTaimatu2);
+			// 「薪」の設置
+			world.setBlock(roomX +roomWidthX -4, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockMaki, 1, 2);
+			// 「ツボ」の設置
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTubo);
+			world.setBlock(roomX +roomWidthX -3, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTubo);
+			// 「タル」の設置
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +2, DQDecorates.DqmBlockTaru);
+			// 「本棚」の設置×
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +4, DQDecorates.DqmBlockHondana, 3, 2);
+			// 「ヘパイトスのひだね」の設置×
+			world.setBlock(roomX +5, playerY +1, roomZ +roomWidthZ -3, DQDecorates.DqmBlockHepaitosu, 3, 2);
+			// カウンターとなる「階段」の設置
+			for (int z = 2; z <= roomWidthZ -2; z++) {
+				world.setBlock(roomX +5, playerY, roomZ +z, Blocks.oak_stairs, 4, 2);
+			}
 
 		} else if (direction == 3) {
 			/*
@@ -214,20 +312,19 @@ public class Room12WeaponShop {
 			// 「窓ガラス」の設置
 			world.setBlock(roomX +1, playerY +1, roomZ +3, Blocks.glass_pane);
 			world.setBlock(roomX +1, playerY +1, roomZ +4, Blocks.glass_pane);
-			world.setBlock(roomX +1, playerY +1, roomZ +6, Blocks.glass_pane);
-			world.setBlock(roomX +1, playerY +1, roomZ +7, Blocks.glass_pane);
+			world.setBlock(roomX +1, playerY +1, roomZ +roomWidthZ -3, Blocks.glass_pane);
+			world.setBlock(roomX +1, playerY +1, roomZ +roomWidthZ -4, Blocks.glass_pane);
 			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +3, Blocks.glass_pane);
 			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +4, Blocks.glass_pane);
-			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +6, Blocks.glass_pane);
-			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +7, Blocks.glass_pane);
-			// 「ドア」の設置
+			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +roomWidthZ -3, Blocks.glass_pane);
+			world.setBlock(roomX +roomWidthX -1, playerY +1, roomZ +roomWidthZ -4, Blocks.glass_pane);
+			// 「ドア」の設置 1
 			world.setBlockToAir(roomX +4, playerY, roomZ +1);
 			world.setBlockToAir(roomX +4, playerY +1, roomZ +1);
-			ItemDoor.placeDoorBlock(world, roomX +4, playerY, roomZ +1, 4, Blocks.wooden_door);
+			ItemDoor.placeDoorBlock(world, roomX +4, playerY, roomZ +1, 1, Blocks.wooden_door);
 			// 「看板」の設置
 			world.setBlock(roomX +2, playerY +1, roomZ, DQDecorates.DqmBlockBukiya, 0, 2);
 			world.setBlock(roomX +roomWidthX -2, playerY +1, roomZ, DQDecorates.DqmBlockBukiya, 0, 2);
-
 
 			/* 建物内装 */
 			// 「小さい椅子」の設置
@@ -237,14 +334,14 @@ public class Room12WeaponShop {
 			world.setBlock(roomX +2, playerY, roomZ +4, DQDecorates.DqmBlockTaimatu2);
 			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +4, DQDecorates.DqmBlockTaimatu2);
 			// 「薪」の設置
-			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +6, DQDecorates.DqmBlockMaki, 0, 2);
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +roomWidthZ -4, DQDecorates.DqmBlockMaki, 0, 2);
 			// 「ツボ」の設置
-			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +7, DQDecorates.DqmBlockTubo);
-			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +8, DQDecorates.DqmBlockTubo);
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTubo);
+			world.setBlock(roomX +roomWidthX -2, playerY, roomZ +roomWidthZ -3, DQDecorates.DqmBlockTubo);
 			// 「タル」の設置
-			world.setBlock(roomX +2, playerY, roomZ +8, DQDecorates.DqmBlockTaru);
+			world.setBlock(roomX +2, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockTaru);
 			// 「本棚」の設置
-			world.setBlock(roomX +4, playerY, roomZ +8, DQDecorates.DqmBlockHondana, 0, 2);
+			world.setBlock(roomX +4, playerY, roomZ +roomWidthZ -2, DQDecorates.DqmBlockHondana, 0, 2);
 			// 「ヘパイトスのひだね」の設置
 			world.setBlock(roomX +3, playerY +1, roomZ +5, DQDecorates.DqmBlockHepaitosu, 0, 2);
 			// カウンターとなる「階段」の設置

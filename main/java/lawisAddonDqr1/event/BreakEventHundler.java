@@ -20,6 +20,7 @@ public class BreakEventHundler {
 
 	/*
 	 * ブロックが破壊された時に呼び出される処理
+	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
 	 */
 	@SubscribeEvent
 	public void BreakBlockEvent (BreakEvent event) {
@@ -29,7 +30,7 @@ public class BreakEventHundler {
 		int dim = event.world.provider.dimensionId;
 		if (block == null) return;
 
-		// Y=6～40の、石ブロックが破壊された時のみ処理を実行
+		// オーバーワールドのY座標=6～40の、石ブロックが破壊された時のみ処理を実行
 		if ((dim == 0) && (block == Blocks.stone) && (event.y <= 45) && (event.y >= 6)) {
 			MiningPenalty(event.world, event.getPlayer());
 		}
@@ -46,21 +47,21 @@ public class BreakEventHundler {
 		int r = rand.nextInt(numOfRooms);
 		if (r >= 0) r = debugRoom;
 
-
+		// 戦闘部屋の生成
 		if (!world.isRemote) {
 			switch(r){
 			case 0:
-				Room11GrassWell.RoomGrassWell(world, player, getDirectionStone(player, 1));
+				Room11GrassWell.setRoomGrassWell(world, player, getDirectionStone(player, 1));
 				break;
 			case 1:
-				Room12WeaponShop.RoomWeaponShop(world, player, getDirectionStone(player, 0));
+				Room12WeaponShop.setRoomWeaponShop(world, player, getDirectionStone(player, 0));
 				break;
 			}
 		}
 	}
 
 	/*
-	 * プレイヤーの水平方向を取得して、部屋の生成方向を決定するメソッド
+	 * プレイヤーの水平方向の向きから、部屋の生成方向を決定するメソッド
 	 */
 	public static int getDirectionStone (EntityPlayer player, int i) {
 		/* i == 0 -> 上下左右, i == 1 ->斜め
