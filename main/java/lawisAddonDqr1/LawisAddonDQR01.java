@@ -38,7 +38,7 @@ public class LawisAddonDQR01 {
 	@EventHandler
 	public void postInit (FMLPostInitializationEvent event){
 		// DQRmodへのアドオン
-		new Addons();
+		Addons.loadDQR();
 	}
 }
 

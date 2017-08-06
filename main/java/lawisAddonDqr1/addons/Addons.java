@@ -6,19 +6,23 @@ import lawisAddonDqr1.event.BreakEventHundler;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Addons {
-	public static boolean DQRAddon = false;
+	private static boolean DqrLoaded = false;
 
-	public Addons(){
+	public static void loadDQR(){
 		//DQRアドオン
 		if (Loader.isModLoaded("DQMIIINext")) {
 			try{
 				// System.out.println("DQRAddon OK");
-				DQRAddon = true;
+				DqrLoaded = true;
 				MinecraftForge.EVENT_BUS.register(new BreakEventHundler());
 			} catch (Throwable t) {
-				LawisAddonDQR01.logger.warn("Failed to get DQR mod");
+				LawisAddonDQR01.logger.warn("Failed to load DQR mod");
 			}
 		}
+	}
+
+	public static boolean isDqrLoaded(){
+		return DqrLoaded;
 	}
 }
 
