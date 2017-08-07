@@ -16,8 +16,9 @@ Lawi's Addon for DQRmod (Minecraft Java Edition ver.1.7.10)
   
 ### ライセンス(License)  
   
-GNU General Public License v3.0  
-  
+*GNU General Public License v3.0  
+*Copyright © 2017 Lawillia
+  
 ## 関連リンク(Websights)  
   
 製作過程メモ  
