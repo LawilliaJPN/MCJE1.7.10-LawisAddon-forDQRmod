@@ -17,7 +17,7 @@ public class LawisAddonDQR01 {
 	public static Logger logger = LogManager.getLogger("lawisadoondqr01");
 
 	@EventHandler
-	public void postInit (FMLPostInitializationEvent event){
+	public void postInit(FMLPostInitializationEvent event) {
 		// DQRmodへのアドオン
 		Addons.loadDQR();
 	}

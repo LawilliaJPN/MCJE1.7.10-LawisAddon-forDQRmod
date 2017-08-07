@@ -5,6 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import lawisAddonDqr1.event.rooms.Room11GrassWell;
 import lawisAddonDqr1.event.rooms.Room12WeaponShop;
+import lawisAddonDqr1.event.rooms.Room13DesertWell;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -14,16 +15,16 @@ import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class BreakEventHundler {
 	// 戦闘部屋の種類数
-	final public static int numOfRooms = 2;
+	final public static int numOfRooms = 3;
 	// デバッグ時、戦闘部屋固定用
-	final public static int debugRoom = 1;
+	final public static int debugRoom = 2;
 
 	/*
 	 * ブロックが破壊された時に呼び出される処理
 	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
 	 */
 	@SubscribeEvent
-	public void BreakBlockEvent (BreakEvent event) {
+	public void BreakBlockEvent(BreakEvent event) {
 		// System.out.println("BreakBlockEvent OK");
 
 		Block block = event.block;
@@ -49,12 +50,15 @@ public class BreakEventHundler {
 
 		// 戦闘部屋の生成
 		if (!world.isRemote) {
-			switch(r){
+			switch(r) {
 			case 0:
 				Room11GrassWell.setRoomGrassWell(world, player, getDirectionStone(player, 1));
 				break;
 			case 1:
 				Room12WeaponShop.setRoomWeaponShop(world, player, getDirectionStone(player, 0));
+				break;
+			case 2:
+				Room13DesertWell.setRoomDesertWell(world, player, getDirectionStone(player, 0));
 				break;
 			}
 		}
@@ -63,7 +67,7 @@ public class BreakEventHundler {
 	/*
 	 * プレイヤーの水平方向の向きから、部屋の生成方向を決定するメソッド
 	 */
-	public static int getDirectionStone (EntityPlayer player, int i) {
+	public static int getDirectionStone(EntityPlayer player, int i) {
 		/* i == 0 -> 上下左右, i == 1 ->斜め
 		   ,-0+X
 		  -,130
@@ -72,7 +76,7 @@ public class BreakEventHundler {
 		  Z
 		*/
 
-		switch(i){
+		switch(i) {
 		case 0:
 			return MathHelper.floor_double((double)((player.rotationYaw +180.0F) *4.0F /360.0F) -0.5D) & 3;
 		case 1:

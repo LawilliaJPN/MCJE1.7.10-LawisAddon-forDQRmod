@@ -4,7 +4,6 @@ import dqr.api.Blocks.DQDecorates;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class Room12WeaponShop {
@@ -12,20 +11,20 @@ public class Room12WeaponShop {
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
 	 */
 	public static void setRoomWeaponShop(World world, EntityPlayer player, int direction) {
-		player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
+		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
 
-		int playerX = (int)player.posX;	// プレイヤーのX座標
-		int playerY = (int)player.posY;	// プレイヤーのY座標
-		int playerZ = (int)player.posZ;	// プレイヤーのZ座標
+		int playerX = (int)player.posX;		// プレイヤーのX座標
+		int playerY = (int)player.posY;		// プレイヤーのY座標
+		int playerZ = (int)player.posZ;		// プレイヤーのZ座標
 
-		int roomX = playerX;				// 部屋の起点となるX座標
-		int roomZ = playerZ -1;			// 部屋の起点となるZ座標（何故か-1しないとズレる）
-		int roomWidthX = 9;				// 部屋のX座標方向の幅
-		int roomWidthZ = 9;				// 部屋のZ座標方向の幅
-		int roomHeight = 4;				// 部屋の高さ
+		int roomX = playerX;					// 部屋の起点となるX座標
+		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（何故か-1しないとズレる）
+		int roomWidthX = 9;					// 部屋のX座標方向の幅
+		int roomWidthZ = 9;					// 部屋のZ座標方向の幅
+		int roomHeight = 4;					// 部屋の高さ
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
-		switch(direction){
+		switch(direction) {
 		case 0:
 			roomX -= 4;
 			roomZ -= 4;
@@ -69,8 +68,8 @@ public class Room12WeaponShop {
 
 		// 空間の確保のために「空気」を設置する
 		for (int x = 0; x <= roomWidthX; x++) {
-			for (int y = 0; y <= roomHeight+1; y++) {
-				for (int z = 0; z <= roomWidthZ; z++) {
+			for (int z = 0; z <= roomWidthZ; z++) {
+				for (int y = 0; y <= roomHeight+1; y++) {
 					world.setBlockToAir(roomX +x, playerY +y, roomZ +z);
 				}
 			}

@@ -9,17 +9,19 @@ public class Room11GrassWell {
 	 * バニラの村の井戸をモチーフとした戦闘部屋
 	 */
 	public static void setRoomGrassWell(World world, EntityPlayer player, int direction) {
-		int playerX = (int)player.posX;	// プレイヤーのX座標
-		int playerY = (int)player.posY;	// プレイヤーのY座標
-		int playerZ = (int)player.posZ;	// プレイヤーのZ座標
+		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
 
-		int roomX = playerX;				// 部屋の起点となるX座標
-		int roomZ = playerZ;				// 部屋の起点となるZ座標
-		int roomHeight = 6;				// 部屋の高さ
-		int roomWidth = 12;				// 部屋の幅
+		int playerX = (int)player.posX;		// プレイヤーのX座標
+		int playerY = (int)player.posY;		// プレイヤーのY座標
+		int playerZ = (int)player.posZ;		// プレイヤーのZ座標
+
+		int roomX = playerX;					// 部屋の起点となるX座標
+		int roomZ = playerZ;					// 部屋の起点となるZ座標
+		int roomHeight = 6;					// 部屋の高さ
+		int roomWidth = 12;					// 部屋の幅
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
-		switch(direction){
+		switch(direction) {
 		case 0:
 			roomX -= 1;
 			roomZ -= 10;
@@ -68,8 +70,8 @@ public class Room11GrassWell {
 		/* 空間 */
 		// 「空気」の設置
 		for (int x = 0; x < roomWidth; x++) {
-			for (int y = 0; y < roomHeight; y++) {
-				for (int z = 0; z < roomWidth; z++) {
+			for (int z = 0; z < roomWidth; z++) {
+				for (int y = 0; y < roomHeight; y++) {
 					world.setBlockToAir(roomX +x, playerY +y, roomZ +z);
 				}
 			}

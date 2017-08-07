@@ -11,9 +11,9 @@ public class Addons {
 	/*
 	 *  連携先のDQRmodと併用されているかを確認するメソッド
 	 */
-	public static void loadDQR(){
+	public static void loadDQR() {
 		if (Loader.isModLoaded("DQMIIINext")) {
-			try{
+			try {
 				// System.out.println("DQRAddon OK");
 				DqrLoaded = true;
 				MinecraftForge.EVENT_BUS.register(new BreakEventHundler());
