@@ -49,7 +49,6 @@ public class Room14IcePlains {
 				}
 			}
 		}
-		// player.motionY = 0.3;
 
 		/* 地面 */
 		// 地面に4段「土ブロック」を敷く

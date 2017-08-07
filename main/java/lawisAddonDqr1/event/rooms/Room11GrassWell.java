@@ -8,7 +8,7 @@ public class Room11GrassWell {
 	/*
 	 * バニラの村の井戸をモチーフとした戦闘部屋
 	 */
-	public static void setRoomGrassWell(World world, EntityPlayer player, int direction) {
+	public static void setRoomGrassWell(World world, EntityPlayer player, int direction){
 		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
 
 		int playerX = (int)player.posX;		// プレイヤーのX座標
@@ -131,6 +131,7 @@ public class Room11GrassWell {
 		world.setBlock(roomX +9, playerY, roomZ +2, Blocks.torch, 5, 3);
 		world.setBlock(roomX +2, playerY, roomZ +9, Blocks.torch, 5, 3);
 		world.setBlock(roomX +9, playerY, roomZ +9, Blocks.torch, 5, 3);
+
 	}
 }
 /* 設計図

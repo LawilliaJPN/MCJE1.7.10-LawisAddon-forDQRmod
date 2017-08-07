@@ -7,6 +7,7 @@ import lawisAddonDqr1.event.rooms.Room11GrassWell;
 import lawisAddonDqr1.event.rooms.Room12WeaponShop;
 import lawisAddonDqr1.event.rooms.Room13DesertWell;
 import lawisAddonDqr1.event.rooms.Room14IcePlains;
+import lawisAddonDqr1.event.rooms.Room41Rare1;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,10 +16,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class BreakEventHundler {
-	// 戦闘部屋の種類数
+	// 戦闘部屋の種類の数
 	final public static int numOfRooms = 4;
-	// デバッグ時、戦闘部屋固定用
-	private static int debugRoom = -1;
+	// 戦闘が起こるかどうかのカウント
+	public static int countRandomEncounter = 0;
+
+	/* デバッグ用 */
+	// デバッグ用 戦闘部屋固定
+	private static int debugRoom = 101;
+	// デバッグ用 戦闘確率100％
+	private static boolean debugCountRandomEncounter0 = true;
 
 	/*
 	 * ブロックが破壊された時に呼び出される処理
@@ -30,16 +37,29 @@ public class BreakEventHundler {
 
 		Block block = event.block;
 		int dim = event.world.provider.dimensionId;
-		if (block == null) return;
+		int playerY = (int)event.getPlayer().posY;
 
-		// オーバーワールドのY座標=6～40の、石ブロックが破壊された時のみ処理を実行
-		if ((dim == 0) && (block == Blocks.stone) && (event.y <= 45) && (event.y >= 6)) {
-			MiningPenalty(event.world, event.getPlayer());
+		// 「オーバーワールドのY座標45以下」の「石ブロック」が「Y座標6以上にいるプレイヤー」に破壊された時のみ処理を実行
+		if ((dim == 0) && (block == Blocks.stone) && (event.y <= 45) && (playerY >= 6)) {
+			// デバッグ用
+			if (debugCountRandomEncounter0) countRandomEncounter = 0;
+
+			// ランダムエンカウント
+			if (countRandomEncounter <= 0) {
+				// 強制戦闘
+				MiningPenalty(event.world, event.getPlayer());
+
+				// 次の強制戦闘までのカウントを決定
+				Random rand = new Random();
+				countRandomEncounter = 10 + rand.nextInt(16);
+			} else {
+				countRandomEncounter--;
+			}
 		}
 	}
 
 	/*
-	 * Y=6～40の石ブロックが破壊された時に呼び出される処理
+	 * 安全な採掘を防ぐために強制的に戦闘を起こす処理
 	 */
 	public static void MiningPenalty(World world, EntityPlayer player) {
 		// System.out.println("MiningPenalty OK");
@@ -47,6 +67,8 @@ public class BreakEventHundler {
 		// 戦闘部屋の決定
 		Random rand = new Random();
 		int r = rand.nextInt(numOfRooms);
+
+		// デバッグ用
 		if (debugRoom >= 0) r = debugRoom;
 
 		// 戦闘部屋の生成
@@ -63,6 +85,9 @@ public class BreakEventHundler {
 				break;
 			case 3:
 				Room14IcePlains.setRoomIcePlains(world, player, getDirectionStone(player, 0));
+				break;
+			case 101:
+				Room41Rare1.setRoomRoomRare1(world, player, getDirectionStone(player, 0));
 				break;
 			}
 		}
