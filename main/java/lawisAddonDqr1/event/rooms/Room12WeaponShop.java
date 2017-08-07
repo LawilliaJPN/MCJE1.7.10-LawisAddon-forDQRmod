@@ -18,13 +18,13 @@ public class Room12WeaponShop {
 		int playerZ = (int)player.posZ;		// プレイヤーのZ座標
 
 		int roomX = playerX;					// 部屋の起点となるX座標
-		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（何故か-1しないとズレる）
+		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（-1）
 		int roomWidthX = 9;					// 部屋のX座標方向の幅
 		int roomWidthZ = 9;					// 部屋のZ座標方向の幅
 		int roomHeight = 4;					// 部屋の高さ
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
-		switch(direction) {
+		switch (direction) {
 		case 0:
 			roomX -= 4;
 			roomZ -= 4;

@@ -2,7 +2,6 @@ package lawisAddonDqr1.event.rooms;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class Room13DesertWell {
@@ -10,19 +9,19 @@ public class Room13DesertWell {
 	 * バニラの砂漠の井戸をモチーフとした戦闘部屋（村の井戸ではない）
 	 */
 	public static void setRoomDesertWell(World world, EntityPlayer player, int direction) {
-		player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
+		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
 
 		int playerX = (int)player.posX;		// プレイヤーのX座標
 		int playerY = (int)player.posY;		// プレイヤーのY座標
 		int playerZ = (int)player.posZ;		// プレイヤーのZ座標
 
 		int roomX = playerX;					// 部屋の起点となるX座標
-		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（何故か-1しないとズレる）
+		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（-1）
 		int roomHeight = 6;					// 部屋の高さ
-		int roomWidth = 10;					// 部屋の幅
+		int roomWidth = 10;					// 部屋の幅（-1）
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
-		switch(direction) {
+		switch (direction) {
 		case 0:
 			roomX -= 1;
 			roomZ -= 5;
@@ -130,7 +129,7 @@ o,0,1,2,3,4,5,4,3,2,1,0,x
 2,_,_,_,_,_,_,_,_,_,_,_,
 3,_,_,_,b,b,h,b,b,_,_,_,
 4,_,_,_,b,b,w,b,b,_,_,_,
-5,_,2,_,h,w,w,w,h,_,0,_,
+5,_,0,_,h,w,w,w,h,_,2,_,
 4,_,_,_,b,b,w,b,b,_,_,_,
 3,_,_,_,b,b,h,b,b,_,_,_,
 2,_,_,_,_,_,_,_,_,_,_,_,

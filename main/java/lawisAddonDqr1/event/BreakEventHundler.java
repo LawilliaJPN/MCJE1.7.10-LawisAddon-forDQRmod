@@ -6,6 +6,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import lawisAddonDqr1.event.rooms.Room11GrassWell;
 import lawisAddonDqr1.event.rooms.Room12WeaponShop;
 import lawisAddonDqr1.event.rooms.Room13DesertWell;
+import lawisAddonDqr1.event.rooms.Room14IcePlains;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,9 +16,9 @@ import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class BreakEventHundler {
 	// 戦闘部屋の種類数
-	final public static int numOfRooms = 3;
+	final public static int numOfRooms = 4;
 	// デバッグ時、戦闘部屋固定用
-	final public static int debugRoom = 2;
+	private static int debugRoom = -1;
 
 	/*
 	 * ブロックが破壊された時に呼び出される処理
@@ -46,11 +47,11 @@ public class BreakEventHundler {
 		// 戦闘部屋の決定
 		Random rand = new Random();
 		int r = rand.nextInt(numOfRooms);
-		if (r >= 0) r = debugRoom;
+		if (debugRoom >= 0) r = debugRoom;
 
 		// 戦闘部屋の生成
 		if (!world.isRemote) {
-			switch(r) {
+			switch (r) {
 			case 0:
 				Room11GrassWell.setRoomGrassWell(world, player, getDirectionStone(player, 1));
 				break;
@@ -59,6 +60,9 @@ public class BreakEventHundler {
 				break;
 			case 2:
 				Room13DesertWell.setRoomDesertWell(world, player, getDirectionStone(player, 0));
+				break;
+			case 3:
+				Room14IcePlains.setRoomIcePlains(world, player, getDirectionStone(player, 0));
 				break;
 			}
 		}
@@ -76,7 +80,7 @@ public class BreakEventHundler {
 		  Z
 		*/
 
-		switch(i) {
+		switch (i) {
 		case 0:
 			return MathHelper.floor_double((double)((player.rotationYaw +180.0F) *4.0F /360.0F) -0.5D) & 3;
 		case 1:
