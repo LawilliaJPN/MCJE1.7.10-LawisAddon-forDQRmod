@@ -3,18 +3,43 @@ package lawisAddonDqr1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Metadata;
+import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import lawisAddonDqr1.addons.Addons;
+import lawisAddonDqr1.config.LadConfigCore;
+import lawisAddonDqr1.config.LadConfigEventHundler;
+import lawisAddonDqr1.config.LadInfoCore;
 
-@Mod(modid = LawisAddonDQR01.MODID, name = LawisAddonDQR01.MODNAME, version = LawisAddonDQR01.VERSION)
+@Mod(modid = LawisAddonDQR01.MOD_ID, name = LawisAddonDQR01.MOD_NAME, version = LawisAddonDQR01.MOD_VERSION, guiFactory = "lawisAddonDqr1.config.LadGuiFactory")
 
 public class LawisAddonDQR01 {
-	public static final String MODID = "lawisadoondqr01";
-	public static final String MODNAME = "Lawi's Addon for DQR 01";
-	public static final String VERSION = "1.0";
+	public static final String MOD_ID = "lawisadoondqr01";
+	public static final String MOD_NAME = "Lawi's Addon for DQR 01";
+	public static final String MOD_VERSION = "1.0";
 	public static Logger logger = LogManager.getLogger("lawisadoondqr01");
+
+	@Metadata(MOD_ID)
+	private static ModMetadata meta;
+
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event){
+		// MODの情報の登録
+		LadInfoCore.registerInfo(meta);
+		// コンフィグの読み込み
+		LadConfigCore.loadConfig(event);
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent event){
+		// ゲーム内コンフィグ変更の反映
+		FMLCommonHandler.instance().bus().register(new LadConfigEventHundler());
+	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
@@ -23,20 +48,9 @@ public class LawisAddonDQR01 {
 	}
 }
 
-
 /* 未使用
 	@SidedProxy(
 			clientSide = "lawisAddonDqr1.proxy.ClientProxy",
 			serverSide = "lawisAddonDqr1.proxy.ServerProxy")
 	public static CommonProxy proxy;
-
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
-
-	}
-
-	@EventHandler
-	public void init(FMLInitializationEvent event){
-
-	}
 */
