@@ -19,24 +19,25 @@ public class Room14IcePlains {
 		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（-1）
 		int roomHeight = 5;					// 部屋の高さ
 		int roomWidth = 12;					// 部屋の幅（-1）
+		int roomCenter = roomWidth/2;			// 部屋の中心
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch (direction) {
-		case 0: // ×
+		case 0:
 			roomX -= 2;
-			roomZ -= 6;
+			roomZ -= roomCenter;
 			break;
-		case 1: // ×
-			roomX -= 6;
+		case 1:
+			roomX -= roomCenter;
 			roomZ -= 2;
 			break;
-		case 2: // ×
-			roomX -= 10;
-			roomZ -= 6;
+		case 2:
+			roomX -= roomWidth -2;
+			roomZ -= roomCenter;
 			break;
 		case 3:
-			roomX -= 6;
-			roomZ -= 10;
+			roomX -= roomCenter;
+			roomZ -= roomWidth -2;
 			break;
 		}
 
@@ -182,12 +183,12 @@ public class Room14IcePlains {
 				world.setBlock(roomX +x, playerY +4, roomZ +z, Blocks.packed_ice);
 			}
 		}
-		world.setBlock(roomX +6, playerY +3, roomZ +6, Blocks.packed_ice);
-		world.setBlock(roomX +6, playerY +5, roomZ +6, Blocks.packed_ice);
+		world.setBlock(roomX +roomCenter, playerY +3, roomZ +roomCenter, Blocks.packed_ice);
+		world.setBlock(roomX +roomCenter, playerY +5, roomZ +roomCenter, Blocks.packed_ice);
 
 		/* 光源 */
 		// 明るさ確保のための「松明」の設置
-		world.setBlock(roomX +6, playerY +4, roomZ +6, Blocks.torch, 5, 3);
+		world.setBlock(roomX +roomCenter, playerY +4, roomZ +roomCenter, Blocks.torch, 5, 3);
 		switch (direction) {
 		case 0:
 		case 2:

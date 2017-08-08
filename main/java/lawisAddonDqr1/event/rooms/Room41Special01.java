@@ -7,11 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class Room41Rare1 {
+public class Room41Special01 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋
 	 */
-	public static void setRoomRoomRare1(World world, EntityPlayer player, int direction) {
+	public static void setRoomRoomSpecial01(World world, EntityPlayer player, int direction) {
 		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標

@@ -8,7 +8,9 @@ import lawisAddonDqr1.event.rooms.Room11GrassWell;
 import lawisAddonDqr1.event.rooms.Room12WeaponShop;
 import lawisAddonDqr1.event.rooms.Room13DesertWell;
 import lawisAddonDqr1.event.rooms.Room14IcePlains;
-import lawisAddonDqr1.event.rooms.Room41Rare1;
+import lawisAddonDqr1.event.rooms.Room15Forest;
+import lawisAddonDqr1.event.rooms.Room16Beach;
+import lawisAddonDqr1.event.rooms.Room41Special01;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -18,7 +20,7 @@ import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class BreakEventHundler {
 	// 戦闘部屋の種類の数
-	final public static int numOfRooms = 5;
+	final public static int numOfRooms = 7;
 	// 戦闘が起こるかどうかのカウント
 	public static int countRandomEncounter = 0;
 
@@ -42,7 +44,7 @@ public class BreakEventHundler {
 			// ランダムエンカウント
 			if (countRandomEncounter <= 0) {
 				// 強制戦闘
-				MiningPenalty(event.world, event.getPlayer());
+				MiningPenalty(event.world, event.y, event.getPlayer());
 
 				// 次の強制戦闘までのカウントを決定
 				Random rand = new Random();
@@ -56,7 +58,7 @@ public class BreakEventHundler {
 	/*
 	 * 安全な採掘を防ぐために強制的に戦闘を起こす処理
 	 */
-	public static void MiningPenalty(World world, EntityPlayer player) {
+	public static void MiningPenalty(World world, int y, EntityPlayer player) {
 		// System.out.println("MiningPenalty OK");
 
 		// 戦闘部屋の決定
@@ -67,23 +69,51 @@ public class BreakEventHundler {
 		if (LadDebug.getDebugRoom() >= 0) r = LadDebug.getDebugRoom();
 
 		// 戦闘部屋の生成
-		if (!world.isRemote) {
-			switch (r) {
-			case 0:
-				Room11GrassWell.setRoomGrassWell(world, player, getDirectionStone(player, 1));
-				break;
-			case 1:
-				Room12WeaponShop.setRoomWeaponShop(world, player, getDirectionStone(player, 0));
-				break;
-			case 2:
-				Room13DesertWell.setRoomDesertWell(world, player, getDirectionStone(player, 0));
-				break;
-			case 3:
-				Room14IcePlains.setRoomIcePlains(world, player, getDirectionStone(player, 0));
-				break;
-			case 4:
-				Room41Rare1.setRoomRoomRare1(world, player, getDirectionStone(player, 0));
-				break;
+		if (y >= 41) {
+			if (!world.isRemote) {
+				switch (rand.nextInt(5)) {
+				case 0:
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionStone(player, 1));
+					break;
+				case 1:
+					Room15Forest.setRoomRoomForest(world, player, getDirectionStone(player, 0));
+					break;
+				case 2:
+					Room13DesertWell.setRoomDesertWell(world, player, getDirectionStone(player, 0));
+					break;
+				case 3:
+					Room16Beach.setRoomRoomBeach(world, player, getDirectionStone(player, 0));
+					break;
+				case 4:
+					Room41Special01.setRoomRoomSpecial01(world, player, getDirectionStone(player, 0));
+					break;
+				}
+			}
+		} else {
+			if (!world.isRemote) {
+				switch (r) {
+				case 0:
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionStone(player, 1));
+					break;
+				case 1:
+					Room12WeaponShop.setRoomWeaponShop(world, player, getDirectionStone(player, 0));
+					break;
+				case 2:
+					Room13DesertWell.setRoomDesertWell(world, player, getDirectionStone(player, 0));
+					break;
+				case 3:
+					Room14IcePlains.setRoomIcePlains(world, player, getDirectionStone(player, 0));
+					break;
+				case 4:
+					Room15Forest.setRoomRoomForest(world, player, getDirectionStone(player, 0));
+					break;
+				case 5:
+					Room16Beach.setRoomRoomBeach(world, player, getDirectionStone(player, 0));
+					break;
+				case 6:
+					Room41Special01.setRoomRoomSpecial01(world, player, getDirectionStone(player, 0));
+					break;
+				}
 			}
 		}
 	}
