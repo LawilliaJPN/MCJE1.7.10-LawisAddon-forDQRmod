@@ -11,23 +11,23 @@ public class Room41Special01 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋
 	 */
-	public static void setRoomRoomSpecial01(World world, EntityPlayer player, int direction) {
-		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
-
+	public static void setRoomSpecial01(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
-		int roomY = (int)player.posY;			// 部屋の起点となるY座標
+		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
 
 		int roomHeight = 9;					// 部屋の高さ
 		int roomWidth = 20;					// 部屋の幅（-1）
 
-		int roomFloor1Y = 0;					// 部屋の高さはroomHeight - roomFloor1Y
+		int roomFloor1Y = 0;					// 1階の高さ (部屋の高さはroomHeight - roomFloor1Y)
 		int roomFloor2Y = 5;					// 2階の高さ
 
-		// 調整
+		// プレイヤーの位置から部屋の起点となる座標を決める (※2階の中央にプレイヤーとなるように生成される部屋なので向きは関係ない)
 		roomX -= 10;
 		roomZ -= 10;
-		roomY -= roomFloor2Y +1;
+		roomY -= roomFloor2Y;
+
+		// コンフィグ：負荷軽減オンの時は、2階のみ生成 → 1階の高さを2階の高さにする
 		if (LadConfigCore.isRoomReduction) roomFloor1Y = roomFloor2Y;
 
 
@@ -59,7 +59,7 @@ public class Room41Special01 {
 
 
 		/* 床 */
-		// コンフィグ：負荷軽減設定あり →1階建て
+		// コンフィグ：負荷軽減オンの時は、2階のみ生成
 		if (LadConfigCore.isRoomReduction) {
 			// 地面に「ラピスの装飾石」を設置
 			for (int x = 0; x <= roomWidth; x++) {
@@ -68,7 +68,7 @@ public class Room41Special01 {
 				}
 			}
 
-		// コンフィグ：負荷軽減設定なし →2階建て
+		// コンフィグ：負荷軽減オフの時は、1階～2階を生成
 		} else {
 			// 地面に「ラピスの装飾石」を設置
 			for (int x = 0; x <= roomWidth; x++) {
@@ -167,7 +167,7 @@ public class Room41Special01 {
 			}
 
 			/* 光源 */
-			// 明るさ確保のための「松明」の設置（仮）
+			// 明るさ確保のための「松明」の設置
 			world.setBlock(roomX, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
 			world.setBlock(roomX +roomWidth, roomY, roomZ, Blocks.torch, 5, 3);
 		}
@@ -189,7 +189,6 @@ public class Room41Special01 {
 				world.setBlock(roomX +roomWidth -3, roomY +y, roomZ +z, DQBlocks.DqmBlockKowareru8);
 				world.setBlock(roomX +roomWidth -3, roomY +y, roomZ +roomWidth -z, DQBlocks.DqmBlockKowareru8);
 			}
-
 		}
 		// 柱となる「レッドストーンの装飾石」を設置
 		for (int x = 8; x <= roomWidth -8; x += 4) {

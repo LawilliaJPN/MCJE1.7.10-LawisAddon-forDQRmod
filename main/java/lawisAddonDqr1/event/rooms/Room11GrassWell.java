@@ -1,136 +1,138 @@
 package lawisAddonDqr1.event.rooms;
 
+import lawisAddonDqr1.config.LadDebug;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class Room11GrassWell {
 	/*
 	 * バニラの村の井戸をモチーフとした戦闘部屋
 	 */
-	public static void setRoomGrassWell(World world, EntityPlayer player, int direction){
-		// player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
-
-		int playerX = (int)player.posX;		// プレイヤーのX座標
-		int playerY = (int)player.posY;		// プレイヤーのY座標
-		int playerZ = (int)player.posZ;		// プレイヤーのZ座標
-
-		int roomX = playerX;					// 部屋の起点となるX座標
-		int roomZ = playerZ -1;				// 部屋の起点となるZ座標（-1）
+	public static void setRoomGrassWell(World world, EntityPlayer player, int direction, boolean isCursed){
+		int roomX = (int)player.posX;			// 部屋の起点となるX座標
+		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
+		int roomY = (int)player.posY;			// 部屋の起点となるY座標
 		int roomHeight = 6;					// 部屋の高さ
-		int roomWidth = 12;					// 部屋の幅
+		int roomWidth = 11;					// 部屋の幅（-1）
+
+		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
+		if (LadDebug.getDebugRoom() >=0) {
+			player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
+		}
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch (direction) {
 		case 0:
 			roomX -= 1;
-			roomZ -= 10;
+			roomZ -= roomWidth -1;
 			break;
 		case 1:
 			roomX -= 1;
 			roomZ -= 1;
 			break;
 		case 2:
-			roomX -= 10;
+			roomX -= roomWidth -1;
 			roomZ -= 1;
 			break;
 		case 3:
-			roomX -= 10;
-			roomZ -= 10;
+			roomX -= roomWidth -1;
+			roomZ -= roomWidth -1;
 			break;
 		}
 
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く（地面となる「砂利ブロック」の落下防止のため）
-		for (int x = 0; x < roomWidth; x++) {
-			for (int z = 0; z < roomWidth; z++) {
-				world.setBlock(roomX +x, playerY -2, roomZ +z, Blocks.dirt);
+		for (int x = 0; x <= roomWidth; x++) {
+			for (int z = 0; z <= roomWidth; z++) {
+				world.setBlock(roomX +x, roomY -2, roomZ +z, Blocks.dirt);
 			}
 		}
 
 		// 地面に「草ブロック」を敷く
-		for (int x = 0; x < roomWidth; x++) {
-			for (int z = 0; z < roomWidth; z++) {
-				world.setBlock(roomX +x, playerY -1, roomZ +z, Blocks.grass);
+		for (int x = 0; x <= roomWidth; x++) {
+			for (int z = 0; z <= roomWidth; z++) {
+				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.grass);
 			}
 		}
 
 		// 地面に「砂利ブロック」を敷く
-		for (int x = 0; x < roomWidth; x++) {
-			for (int z = 5; z <= 6; z++) {
-				world.setBlock(roomX +x, playerY -1, roomZ +z, Blocks.gravel);
+		for (int x = 0; x <= roomWidth; x++) {
+			for (int z = 5; z <= roomWidth -5; z++) {
+				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.gravel);
 			}
 		}
-		for (int z = 0; z < roomWidth; z++) {
-			for (int x = 5; x <= 6; x++) {
-				world.setBlock(roomX +x, playerY -1, roomZ +z, Blocks.gravel);
+		for (int z = 0; z <= roomWidth; z++) {
+			for (int x = 5; x <= roomWidth -5; x++) {
+				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.gravel);
 			}
 		}
 
 		/* 空間 */
 		// 「空気」の設置
-		for (int x = 0; x < roomWidth; x++) {
-			for (int z = 0; z < roomWidth; z++) {
-				for (int y = 0; y < roomHeight; y++) {
-					world.setBlockToAir(roomX +x, playerY +y, roomZ +z);
+		for (int x = 0; x <= roomWidth; x++) {
+			for (int z = 0; z <= roomWidth; z++) {
+				for (int y = 0; y <= roomHeight; y++) {
+					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 				}
 			}
 		}
 
 		/* 井戸 */
 		// 井戸の周りの「砂利ブロック」の設置
-		for (int x = 3; x <= 8; x++) {
-			for (int z = 3; z <= 8; z++) {
-				world.setBlock(roomX +x, playerY, roomZ +z, Blocks.gravel);
+		for (int x = 3; x <= roomWidth -3; x++) {
+			for (int z = 3; z <= roomWidth -3; z++) {
+				world.setBlock(roomX +x, roomY, roomZ +z, Blocks.gravel);
 			}
 		}
 
 		// 井戸の周りの「丸石」の設置
-		for (int x = 4; x <= 7; x++) {
+		for (int x = 4; x <= roomWidth -4; x++) {
 			for (int y = 0; y <= 1; y++) {
-				for (int z = 4; z <= 7; z++) {
-					world.setBlock(roomX +x, playerY +y, roomZ +z, Blocks.cobblestone);
+				for (int z = 4; z <= roomWidth -4; z++) {
+					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.cobblestone);
 				}
 			}
 		}
 
 		// 井戸の中の「水」の設置
-		for (int x = 5; x <= 6; x++) {
-			for (int z = 5; z <= 6; z++) {
-				world.setBlock(roomX +x, playerY, roomZ +z, Blocks.water);
+		for (int x = 5; x <= roomWidth -5; x++) {
+			for (int z = 5; z <= roomWidth -5; z++) {
+				world.setBlock(roomX +x, roomY, roomZ +z, Blocks.water);
 			}
 		}
 
 		// 井戸の中の「空気」の設置
-		for (int x = 5; x <= 6; x++) {
-			for (int z = 5; z <= 6; z++) {
-				world.setBlockToAir(roomX +x, playerY +1, roomZ +z);
+		for (int x = 5; x <= roomWidth -5; x++) {
+			for (int z = 5; z <= roomWidth -5; z++) {
+				world.setBlockToAir(roomX +x, roomY +1, roomZ +z);
 			}
 		}
 
 		// 「フェンス」の設置
-		world.setBlock(roomX +4, playerY +2, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +4, playerY +3, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +4, playerY +2, roomZ +7, Blocks.fence);
-		world.setBlock(roomX +4, playerY +3, roomZ +7, Blocks.fence);
-		world.setBlock(roomX +7, playerY +2, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +7, playerY +3, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +7, playerY +2, roomZ +7, Blocks.fence);
-		world.setBlock(roomX +7, playerY +3, roomZ +7, Blocks.fence);
+		world.setBlock(roomX +4, roomY +2, roomZ +4, Blocks.fence);
+		world.setBlock(roomX +4, roomY +3, roomZ +4, Blocks.fence);
+		world.setBlock(roomX +4, roomY +2, roomZ +roomWidth -4, Blocks.fence);
+		world.setBlock(roomX +4, roomY +3, roomZ +roomWidth -4, Blocks.fence);
+		world.setBlock(roomX +roomWidth -4, roomY +2, roomZ +4, Blocks.fence);
+		world.setBlock(roomX +roomWidth -4, roomY +3, roomZ +4, Blocks.fence);
+		world.setBlock(roomX +roomWidth -4, roomY +2, roomZ +roomWidth -4, Blocks.fence);
+		world.setBlock(roomX +roomWidth -4, roomY +3, roomZ +roomWidth -4, Blocks.fence);
 
 		// 屋根の「丸石」の設置
-		for (int x = 4; x <= 7; x++) {
-			for (int z = 4; z <= 7; z++) {
-				world.setBlock(roomX +x, playerY +4, roomZ +z, Blocks.cobblestone);
+		for (int x = 4; x <= roomWidth -4; x++) {
+			for (int z = 4; z <= roomWidth -4; z++) {
+				world.setBlock(roomX +x, roomY +4, roomZ +z, Blocks.cobblestone);
 			}
 		}
 
 		/* 光源 */
 		// 明るさ確保のための「松明」の設置
-		world.setBlock(roomX +2, playerY, roomZ +2, Blocks.torch, 5, 3);
-		world.setBlock(roomX +9, playerY, roomZ +2, Blocks.torch, 5, 3);
-		world.setBlock(roomX +2, playerY, roomZ +9, Blocks.torch, 5, 3);
-		world.setBlock(roomX +9, playerY, roomZ +9, Blocks.torch, 5, 3);
+		world.setBlock(roomX +2, roomY, roomZ +2, Blocks.torch, 5, 3);
+		world.setBlock(roomX +roomWidth -2, roomY, roomZ +2, Blocks.torch, 5, 3);
+		world.setBlock(roomX +2, roomY, roomZ +roomWidth -2, Blocks.torch, 5, 3);
+		world.setBlock(roomX +roomWidth -2, roomY, roomZ +roomWidth -2, Blocks.torch, 5, 3);
 
 	}
 }
