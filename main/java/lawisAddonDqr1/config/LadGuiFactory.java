@@ -36,7 +36,7 @@ public class LadGuiFactory implements IModGuiFactory {
 
 	public static class LadConfigGui extends GuiConfig {
 		public LadConfigGui(GuiScreen parent) {
-			super(parent, (new ConfigElement<Object>(LadConfigCore.cfg.getCategory(LadConfigCore.ROOM))).getChildElements(), LawisAddonDQR01.MOD_ID, false, false, LawisAddonDQR01.MOD_NAME);
+			super(parent, (new ConfigElement<Object>(LadConfigCore.cfg.getCategory(LadConfigCore.GENERAL))).getChildElements(), LawisAddonDQR01.MOD_ID, false, false, LawisAddonDQR01.MOD_NAME);
 		}
 	}
 }

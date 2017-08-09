@@ -3,5 +3,6 @@
 tile.ladJumpBlock2.name=ジャンプブロック(LAD)
 
 // コンフィグ
-config.lad.category.room=戦闘部屋
+config.lad.category.general=全般
+config.lad.category.encounter=戦闘頻度
 config.lad.category.reduction=負荷軽減

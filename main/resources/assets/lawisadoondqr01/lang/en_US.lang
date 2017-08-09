@@ -1,7 +1,8 @@
 
-// ブロック
+// Block
 tile.ladJumpBlock2.name=Jump Block(LAD)
 
-// コンフィグ
-config.lad.category.room=戦闘部屋
-config.lad.category.reduction=負荷軽減
+// Config
+config.lad.category.general=General
+config.lad.category.encounter=Frequency of Battle
+config.lad.category.reduction=Workload Reduction

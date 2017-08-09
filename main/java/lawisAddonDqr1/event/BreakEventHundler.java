@@ -3,6 +3,7 @@ package lawisAddonDqr1.event;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.Room11GrassWell;
 import lawisAddonDqr1.event.rooms.Room12WeaponShop;
@@ -51,7 +52,7 @@ public class BreakEventHundler {
 
 				// 次の強制戦闘までのカウントを決定
 				Random rand = new Random();
-				countRandomEncounter = 10 + rand.nextInt(16);
+				countRandomEncounter = LadConfigCore.frequencyOfBattle + rand.nextInt(LadConfigCore.frequencyOfBattle +1);
 			} else {
 				countRandomEncounter--;
 			}
