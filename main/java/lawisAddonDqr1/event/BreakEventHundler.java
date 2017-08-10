@@ -12,6 +12,7 @@ import lawisAddonDqr1.event.rooms.Room14IcePlains;
 import lawisAddonDqr1.event.rooms.Room15Forest;
 import lawisAddonDqr1.event.rooms.Room16Beach;
 import lawisAddonDqr1.event.rooms.Room41Special01;
+import lawisAddonDqr1.event.rooms.RoomID;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -24,8 +25,6 @@ public class BreakEventHundler {
 	final public static int numOfRooms = 7;
 	// 戦闘が起こるかどうかのカウント
 	private static int countRandomEncounter = 0;
-	// 戦闘部屋の難易度
-	private static int difOfRoom = 0;
 
 	/*
 	 * ブロックが破壊された時に呼び出される処理
@@ -41,13 +40,13 @@ public class BreakEventHundler {
 
 		// 「オーバーワールドのY座標45以下」の「石ブロック」が「Y座標6以上にいるプレイヤー」に破壊された時のみ処理を実行
 		if ((dim == 0) && (block == Blocks.stone) && (event.y <= 45) && (playerY >= 6)) {
-			// [Debug]countRandomEncounterを0に固定して、必ず強制戦闘が行われるようにする（デバッグ用）
+			// [Debug]変数countRandomEncounterを0に固定して、必ず強制戦闘が行われるようにする（デバッグ用）
 			if (LadDebug.isDebugCountRandomEncounter0()) countRandomEncounter = 0;
 
 			// ランダムエンカウント
 			if (countRandomEncounter <= 0) {
 				// 強制戦闘
-				updateDifOfRoom(event.y);
+				RoomID.updateDifOfRoom(event.y);
 				MiningPenalty(event.world, event.getPlayer());
 
 				// 次の強制戦闘までのカウントを決定
@@ -69,39 +68,39 @@ public class BreakEventHundler {
 		Random rand = new Random();
 
 		/* 戦闘部屋の生成 */
-		// [Debug]戦闘部屋を固定する処理（デバッグ用）
+		// [Debug]戦闘部屋の種類を固定する処理（デバッグ用）
 		if (LadDebug.getDebugRoom() >= 0) {
 			if (!world.isRemote) {
 				switch (LadDebug.getDebugRoom()) {
-				case 15:
+				case RoomID.roomForest:
 					Room15Forest.setRoomRoomForest(world, player, getDirectionRoom(player, 0));
 					break;
-				case 11:
+				case RoomID.roomGrassWell:
 					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 1), false);
 					break;
-				case 112:
-					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 1), true);
+				case RoomID.roomGrassWellIsCursed:
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 0), true);
 					break;
-				case 16:
+				case RoomID.roomBeach:
 					Room16Beach.setRoomRoomBeach(world, player, getDirectionRoom(player, 0));
 					break;
-				case 13:
+				case RoomID.roomDesertWell:
 					Room13DesertWell.setRoomDesertWell(world, player, getDirectionRoom(player, 0));
 					break;
-				case 14:
+				case RoomID.roomIcePlains:
 					Room14IcePlains.setRoomIcePlains(world, player, getDirectionRoom(player, 0));
 					break;
-				case 12:
+				case RoomID.roomWeaponShop:
 					Room12WeaponShop.setRoomWeaponShop(world, player, getDirectionRoom(player, 0));
 					break;
-				case 41:
+				case RoomID.roomSpecial01:
 					Room41Special01.setRoomSpecial01(world, player);
 					break;
 				}
 			}
 
 		// Y=41～45
-		} else if (difOfRoom == 1) {
+		} else if (RoomID.getDifOfRoom() == 1) {
 			if (!world.isRemote) {
 				switch (rand.nextInt(5)) {
 				case 0:
@@ -123,14 +122,14 @@ public class BreakEventHundler {
 			}
 
 		// Y=36～40
-		} else if (difOfRoom == 2) {
+		} else if (RoomID.getDifOfRoom() == 2) {
 			if (!world.isRemote) {
 				switch (rand.nextInt(6)) {
 				case 0:
 					Room15Forest.setRoomRoomForest(world, player, getDirectionRoom(player, 0));
 					break;
 				case 1:
-					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 1), true);
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 0), true);
 					break;
 				case 2:
 					Room16Beach.setRoomRoomBeach(world, player, getDirectionRoom(player, 0));
@@ -148,7 +147,7 @@ public class BreakEventHundler {
 			}
 
 		// Y=31～35
-		} else if (difOfRoom == 3) {
+		} else if (RoomID.getDifOfRoom() == 3) {
 			if (!world.isRemote) {
 				switch (rand.nextInt(8)) {
 				case 0:
@@ -158,7 +157,7 @@ public class BreakEventHundler {
 					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 1), false);
 					break;
 				case 2:
-					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 1), true);
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 0), true);
 					break;
 				case 3:
 					Room16Beach.setRoomRoomBeach(world, player, getDirectionRoom(player, 0));
@@ -204,34 +203,5 @@ public class BreakEventHundler {
 		}
 
 		return 0;
-	}
-
-	/*
-	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド
-	 *
-	 * [Unimplemented] 昼か夜かで変化する等の要素を後日実装予定。
-	 * デバッグのしやすさを考慮し、すべての部屋が揃うまでは、高度ごとにそのまま難易度が決まる状態に
-	 */
-	public static void updateDifOfRoom(int y) {
-		int d = 0;
-
-		if (y >= 46) d = 0;
-		else if (y >= 41) d = 1;
-		else if (y >= 36) d = 2;
-		else if (y >= 31) d = 3;
-		else if (y >= 26) d = 4;
-		else if (y >= 21) d = 5;
-		else if (y >= 16) d = 6;
-		else if (y >=  6) d = 7;
-		else d = 0;
-
-		difOfRoom = d;
-	}
-
-	/*
-	 * 変数 difOfRoom の getter
-	 */
-	public static int getDifOfRoom() {
-		return difOfRoom;
 	}
 }

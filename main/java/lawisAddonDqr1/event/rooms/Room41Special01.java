@@ -3,6 +3,7 @@ package lawisAddonDqr1.event.rooms;
 import dqr.api.Blocks.DQBlocks;
 import lawisAddonDqr1.blocks.LADBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
+import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -14,7 +15,7 @@ public class Room41Special01 {
 	public static void setRoomSpecial01(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
-		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
+		int roomY = (int)player.posY -2;		// 部屋の起点となるY座標（-2）
 
 		int roomHeight = 9;					// 部屋の高さ
 		int roomWidth = 20;					// 部屋の幅（-1）
@@ -30,6 +31,11 @@ public class Room41Special01 {
 		// コンフィグ：負荷軽減オンの時は、2階のみ生成 → 1階の高さを2階の高さにする
 		if (LadConfigCore.isRoomReduction) roomFloor1Y = roomFloor2Y;
 
+
+
+		/* - - - - - - - - - -
+		 * 以下、部屋の生成
+		 * - - - - - - - - - */
 
 		/* 空間 */
 		// 「レッドストーンの装飾石」を設置
@@ -197,6 +203,25 @@ public class Room41Special01 {
 					world.setBlock(roomX +x, roomY +y, roomZ +z, DQBlocks.DqmBlockKowareru8);
 				}
 			}
+		}
+
+
+		/* - - - - - - - - - -
+		 * 以下、敵のスポーン
+		 * - - - - - - - - - */
+
+		// 確定スポーン
+		SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+		SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+		SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+		SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+
+		// 負荷軽減オフの時に追加スポーン
+		if (!(LadConfigCore.isRoomReduction)) {
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +roomWidth -1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +roomWidth -1, RoomID.roomSpecial01 + RoomID.getDifOfRoom());
 		}
 
 	}

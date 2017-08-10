@@ -3,6 +3,7 @@ package lawisAddonDqr1.event.rooms;
 import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -13,15 +14,18 @@ public class Room15Forest {
 	 * 森林の戦闘部屋
 	 */
 	public static void setRoomRoomForest(World world, EntityPlayer player, int direction) {
+		Random rand = new Random();
+
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
-		int roomY = (int)player.posY;			// 部屋の起点となるY座標
+		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標
 
 		int roomHeight = 6;					// 部屋の高さ
 		int roomWidth = 12;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
 
-		Random rand = new Random();
+		int roomType = rand.nextInt(4);		// 部屋の種類
+		if (roomType >= 2) roomType +=2;		// シラカバのメタデータ値は2
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -47,6 +51,11 @@ public class Room15Forest {
 			roomZ -= roomWidth -1;
 			break;
 		}
+
+
+		/* - - - - - - - - - -
+		 * 以下、部屋の生成
+		 * - - - - - - - - - */
 
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く
@@ -75,30 +84,91 @@ public class Room15Forest {
 
 		/* 木 */
 		// 「オークの木」の生成
-		setWood(world, rand, roomX +2, roomY, roomZ +2);
-		setWood(world, rand, roomX +2, roomY, roomZ +roomWidth -2);
-		setWood(world, rand, roomX +roomWidth -2, roomY, roomZ +2);
-		setWood(world, rand, roomX +roomWidth -2, roomY, roomZ +roomWidth -2);
+		setWood(world, rand, roomX +2, roomY, roomZ +2, roomType/2);
+		setWood(world, rand, roomX +2, roomY, roomZ +roomWidth -2, roomType/2);
+		setWood(world, rand, roomX +roomWidth -2, roomY, roomZ +2, roomType/2);
+		setWood(world, rand, roomX +roomWidth -2, roomY, roomZ +roomWidth -2, roomType/2);
 
-		setWood(world, rand, roomX +3, roomY, roomZ +roomCenter);
-		setWood(world, rand, roomX +roomCenter, roomY, roomZ +3);
-		setWood(world, rand, roomX +roomWidth -3, roomY, roomZ +roomCenter);
-		setWood(world, rand, roomX +roomCenter, roomY, roomZ +roomWidth -3);
-		setWood(world, rand, roomX +roomCenter, roomY, roomZ +roomCenter);
+		// 木の多い森
+		if (roomType%2 == 0) {
+			setWood(world, rand, roomX +3, roomY, roomZ +roomCenter, roomType/2);
+			setWood(world, rand, roomX +roomCenter, roomY, roomZ +3, roomType/2);
+			setWood(world, rand, roomX +roomWidth -3, roomY, roomZ +roomCenter, roomType/2);
+			setWood(world, rand, roomX +roomCenter, roomY, roomZ +roomWidth -3, roomType/2);
+			setWood(world, rand, roomX +roomCenter, roomY, roomZ +roomCenter, roomType/2);
 
-		/* 光源 */
-		// 明るさ確保のための「松明」の設置
-		world.setBlock(roomX, roomY, roomZ, Blocks.torch, 5, 3);
-		world.setBlock(roomX, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomWidth, roomY, roomZ, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomWidth, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
+			/* 光源 */
+			// 明るさ確保のための「松明」の設置
+			world.setBlock(roomX, roomY, roomZ, Blocks.torch, 5, 3);
+			world.setBlock(roomX, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
+			world.setBlock(roomX +roomWidth, roomY, roomZ, Blocks.torch, 5, 3);
+			world.setBlock(roomX +roomWidth, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
+
+		// 村の街灯があり、木が少ない森
+		} else {
+			/* 光源 */
+			// 村の灯りのパーツ「フェンス」を設置
+			world.setBlock(roomX +roomCenter, roomY, roomZ +roomCenter, Blocks.fence);
+			world.setBlock(roomX +roomCenter, roomY +1, roomZ +roomCenter, Blocks.fence);
+			world.setBlock(roomX +roomCenter, roomY +2, roomZ +roomCenter, Blocks.fence);
+			// 村の灯りのパーツ「黒色の羊毛」を設置」
+			world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter, Blocks.wool, 15, 2);
+			// 明るさ確保のための「松明」の設置
+			world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter +1, Blocks.torch, 3, 3);
+			world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter -1, Blocks.torch, 4, 3);
+			world.setBlock(roomX +roomCenter +1, roomY +3, roomZ +roomCenter, Blocks.torch, 1, 3);
+			world.setBlock(roomX +roomCenter -1, roomY +3, roomZ +roomCenter, Blocks.torch, 2, 3);
+		}
+
+
+		/* - - - - - - - - - -
+		 * 以下、敵のスポーン
+		 * - - - - - - - - - */
+
+		// 確定スポーン
+		switch (direction) {
+		case 0:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, RoomID.roomForest + RoomID.getDifOfRoom());
+			break;
+		case 1:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, RoomID.roomForest + RoomID.getDifOfRoom());
+			break;
+		case 2:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, RoomID.roomForest + RoomID.getDifOfRoom());
+			break;
+		case 3:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, RoomID.roomForest + RoomID.getDifOfRoom());
+			break;
+		}
+
+		// 確率スポーン
+		if (RoomID.getDifOfRoom() >= rand.nextInt(4)) {
+			switch (direction) {
+			case 0:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +2, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +roomWidth -2, RoomID.roomForest + RoomID.getDifOfRoom());
+				break;
+			case 1:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +roomWidth -4, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +roomWidth -4, RoomID.roomForest + RoomID.getDifOfRoom());
+				break;
+			case 2:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +2, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +roomWidth -2, RoomID.roomForest + RoomID.getDifOfRoom());
+				break;
+			case 3:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +4, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, RoomID.roomForest + RoomID.getDifOfRoom());
+				break;
+			}
+		}
 	}
 
 
 	/*
 	 * 木を生成するメソッド
 	 */
-	public static void setWood(World world, Random rand, int x, int y, int z) {
+	public static void setWood(World world, Random rand, int x, int y, int z, int meta) {
 		int treeHeight = 2;
 
 		if (rand.nextInt(2) == 0)  x++;
@@ -112,16 +182,16 @@ public class Room15Forest {
 
 		/* 葉ブロック */
 		// 頂上 十字
-		world.setBlock(x, y +treeHeight +3, z, Blocks.leaves);
-		world.setBlock(x, y +treeHeight +3, z +1, Blocks.leaves);
-		world.setBlock(x, y +treeHeight +3, z -1, Blocks.leaves);
-		world.setBlock(x +1, y +treeHeight +3, z, Blocks.leaves);
-		world.setBlock(x -1, y +treeHeight +3, z, Blocks.leaves);
+		world.setBlock(x, y +treeHeight +3, z, Blocks.leaves, meta, 2);
+		world.setBlock(x, y +treeHeight +3, z +1, Blocks.leaves, meta, 2);
+		world.setBlock(x, y +treeHeight +3, z -1, Blocks.leaves, meta, 2);
+		world.setBlock(x +1, y +treeHeight +3, z, Blocks.leaves, meta, 2);
+		world.setBlock(x -1, y +treeHeight +3, z, Blocks.leaves, meta, 2);
 
 		// 上段
 		for (int x2 = -1; x2 <= 1; x2++) {
 			for (int z2 = -1; z2 <= 1; z2++) {
-				world.setBlock(x +x2, y +treeHeight +2, z +z2, Blocks.leaves);
+				world.setBlock(x +x2, y +treeHeight +2, z +z2, Blocks.leaves, meta, 2);
 			}
 		}
 
@@ -129,27 +199,14 @@ public class Room15Forest {
 		for (int x2 = -2; x2 <= 2; x2++) {
 			for (int z2 = -2; z2 <= 2; z2++) {
 				for (int y2 = 0; y2 <= 1; y2++) {
-					world.setBlock(x +x2, y +treeHeight +y2, z +z2, Blocks.leaves);
+					world.setBlock(x +x2, y +treeHeight +y2, z +z2, Blocks.leaves, meta, 2);
 				}
 			}
 		}
 
 		/* 原木 */
 		for (int i = 0; i <= treeHeight+2; i++) {
-			world.setBlock(x, y +i, z, Blocks.log);
+			world.setBlock(x, y +i, z, Blocks.log, meta, 2);
 		}
 	}
 }
-/* 未使用
-		// 村の灯りのパーツ「フェンス」を設置
-		world.setBlock(roomX +roomCenter, roomY, roomZ +roomCenter, Blocks.fence);
-		world.setBlock(roomX +roomCenter, roomY +1, roomZ +roomCenter, Blocks.fence);
-		world.setBlock(roomX +roomCenter, roomY +2, roomZ +roomCenter, Blocks.fence);
-		// 村の灯りのパーツ「黒色の羊毛」を設置」
-		world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter, Blocks.wool, 15, 2);
-		// 明るさ確保のための「松明」の設置
-		world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter +1, Blocks.torch, 3, 3);
-		world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter -1, Blocks.torch, 4, 3);
-		world.setBlock(roomX +roomCenter +1, roomY +3, roomZ +roomCenter, Blocks.torch, 1, 3);
-		world.setBlock(roomX +roomCenter -1, roomY +3, roomZ +roomCenter, Blocks.torch, 2, 3);
-*/
