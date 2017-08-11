@@ -1,6 +1,7 @@
 package lawisAddonDqr1.event.rooms;
 
 import lawisAddonDqr1.config.LadDebug;
+import net.minecraft.world.World;
 
 public class RoomID {
 	/* Room ID */
@@ -17,6 +18,26 @@ public class RoomID {
 	/* Difficulty of Room */
 	// 戦闘部屋の難易度
 	private static int difOfRoom = 0;
+
+	/*
+	 * 経過日数から、部屋の難易度を決定するメソッド
+	 * コンフィグ：ベッドペナルティがオンの時に、目覚めた時に生成する部屋の難易度
+	 */
+	public static void updateDifOfRoom(World world) {
+		int d = 0;
+		int time = (int) (world.getTotalWorldTime() /24000) +1;
+
+		if (time >= 7) {
+			d = 7;
+		} else {
+			d = time;
+		}
+
+		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
+		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
+
+		difOfRoom = d;
+	}
 
 	/*
 	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド
@@ -72,8 +93,6 @@ public class RoomID {
 		case 4100:
 			return "roomSpecial01";
 		}
-
 		return null;
-
 	}
 }

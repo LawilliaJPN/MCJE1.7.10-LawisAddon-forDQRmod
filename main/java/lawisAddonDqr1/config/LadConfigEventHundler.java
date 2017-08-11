@@ -12,7 +12,8 @@ import lawisAddonDqr1.LawisAddonDQR01;
 public class LadConfigEventHundler {
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (event.modID.equals(LawisAddonDQR01.MOD_ID))
+		if (event.modID.equals(LawisAddonDQR01.MOD_ID)) {
 			LadConfigCore.syncConfig();
+		}
 	}
 }

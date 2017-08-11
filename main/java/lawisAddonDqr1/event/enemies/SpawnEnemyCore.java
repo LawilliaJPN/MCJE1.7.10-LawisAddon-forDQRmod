@@ -52,6 +52,8 @@ public class SpawnEnemyCore {
 	 */
 	public static void spawnEnemy(World world, EntityPlayer player, int x, int y, int z, int enemyGroup) {
 		// System.out.println("spawnEnemy OK");
+
+		// [Debug]戦闘部屋を固定している時、敵のスポーン位置の下にダイヤモンドブロックを敷く（デバッグ用）
 		if (LadDebug.getDebugRoom() >= 0) {
 			world.setBlock(x, y-1, z, Blocks.diamond_block);
 		}

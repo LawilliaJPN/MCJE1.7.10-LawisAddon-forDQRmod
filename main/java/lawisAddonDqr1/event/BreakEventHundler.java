@@ -20,6 +20,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class BreakEventHundler {
@@ -47,6 +48,9 @@ public class BreakEventHundler {
 
 			// ランダムエンカウント
 			if (countRandomEncounter <= 0) {
+				// コンフィグの同期
+				LadConfigCore.syncConfig();
+
 				// 強制戦闘
 				RoomID.updateDifOfRoom(event.y);
 				MiningPenalty(event.world, event.getPlayer());
@@ -61,12 +65,44 @@ public class BreakEventHundler {
 	}
 
 	/*
+	 * プレイヤーが目を覚ましたときに呼び出される処理
+	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 */
+	@SubscribeEvent
+	public void UseBedEvent(PlayerWakeUpEvent event) {
+		// System.out.println("UseBedEvent OK");
+
+		// コンフィグの同期
+		LadConfigCore.syncConfig();
+
+		// コンフィグ：ベッドペナルティがオンの時は、目覚めたら戦闘
+		if (LadConfigCore.isBedPenalty) {
+			World world = event.entityPlayer.worldObj;
+			EntityPlayer player = event.entityPlayer;
+
+			// ベッドを使い捨てにするために周囲に空気ブロック設置
+			if (!world.isRemote) {
+				for (int x = -3; x <= 3; x++) {
+					for (int z = -3; z <= 3; z++) {
+						for (int y = -3; y <= 3; y++) {
+							world.setBlockToAir((int)player.posX +x, (int)player.posY +y, (int)player.posZ +z);
+						}
+					}
+				}
+			}
+
+			// 強制戦闘
+			RoomID.updateDifOfRoom(world);
+			MiningPenalty(world, player);
+		}
+	}
+
+	/*
 	 * 強制的に戦闘を起こす処理
 	 *
 	 * [Unimplemented] Y=30以下は未実装
 	 */
 	public static void MiningPenalty(World world, EntityPlayer player) {
-		// System.out.println("MiningPenalty OK");
 		Random rand = new Random();
 
 		// [ForgeEvent] 戦闘部屋生成前 介入用のイベント
