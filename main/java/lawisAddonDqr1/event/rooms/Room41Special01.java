@@ -1,7 +1,7 @@
 package lawisAddonDqr1.event.rooms;
 
 import dqr.api.Blocks.DQBlocks;
-import lawisAddonDqr1.blocks.LadBlocks;
+import lawisAddonDqr1.blocks.LadInitBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
 import net.minecraft.entity.player.EntityPlayer;
@@ -121,14 +121,14 @@ public class Room41Special01 {
 			// 中央
 			for (int x = 9; x <= roomWidth -9; x++) {
 				for (int z = 9; z <= roomWidth -9; z++) {
-					world.setBlock(roomX +x, roomY -1, roomZ +z, LadBlocks.ladJumpBlock2);
+					world.setBlock(roomX +x, roomY -1, roomZ +z, LadInitBlocks.ladJumpBlock2);
 				}
 			}
 			// 通路
 			for (int x = 0; x <= 2; x++) {
 				for (int z = 4; z <= 6; z++) {
-					world.setBlock(roomX +x, roomY -1, roomZ +z, LadBlocks.ladJumpBlock2);
-					world.setBlock(roomX +roomWidth -x, roomY -1, roomZ +roomWidth -z, LadBlocks.ladJumpBlock2);
+					world.setBlock(roomX +x, roomY -1, roomZ +z, LadInitBlocks.ladJumpBlock2);
+					world.setBlock(roomX +roomWidth -x, roomY -1, roomZ +roomWidth -z, LadInitBlocks.ladJumpBlock2);
 				}
 			}
 			/* 「強制移動床・改」 */

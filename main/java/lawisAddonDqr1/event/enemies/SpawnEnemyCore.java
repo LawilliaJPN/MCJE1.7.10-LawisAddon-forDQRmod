@@ -184,7 +184,7 @@ public class SpawnEnemyCore {
 		entity.renderYawOffset = entity.rotationYaw;
 		entity.onSpawnWithEgg((IEntityLivingData)null);
 
-		// イベントのフック
+		// [ForgeEvent] 敵スポーン直前に 介入用のイベント
 		LadEnemySpawnEvent event = new LadEnemySpawnEvent(world, player, entity, enemyGroup /10 *10);
 		MinecraftForge.EVENT_BUS.post(event);
 

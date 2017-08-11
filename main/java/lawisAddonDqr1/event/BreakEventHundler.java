@@ -3,6 +3,7 @@ package lawisAddonDqr1.event;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import lawisAddonDqr1.api.event.LadSetBattleRoom;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.Room11GrassWell;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class BreakEventHundler {
@@ -66,6 +68,10 @@ public class BreakEventHundler {
 	public static void MiningPenalty(World world, EntityPlayer player) {
 		// System.out.println("MiningPenalty OK");
 		Random rand = new Random();
+
+		// [ForgeEvent] 戦闘部屋生成前 介入用のイベント
+		LadSetBattleRoom.PreSetRoom preEvent = new LadSetBattleRoom.PreSetRoom(world, player);
+		MinecraftForge.EVENT_BUS.post(preEvent);
 
 		/* 戦闘部屋の生成 */
 		// [Debug]戦闘部屋の種類を固定する処理（デバッグ用）
@@ -181,6 +187,10 @@ public class BreakEventHundler {
 		} else {
 
 		}
+
+		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント
+		LadSetBattleRoom.PostSetRoom postEvent = new LadSetBattleRoom.PostSetRoom(world, player);
+		MinecraftForge.EVENT_BUS.post(postEvent);
 	}
 
 	/*

@@ -50,9 +50,8 @@ public class RoomID {
 		return difOfRoom;
 	}
 
-
 	/*
-	 * 変数 RoomID
+	 * int型 ⇒ RoomID 変数名
 	 */
 	public static String getNameRoom(int roomID) {
 		switch (roomID) {
