@@ -2,8 +2,9 @@ package lawisAddonDqr1.addons;
 
 import cpw.mods.fml.common.Loader;
 import lawisAddonDqr1.LawisAddonDQR01;
-import lawisAddonDqr1.blocks.LADBlocks;
+import lawisAddonDqr1.blocks.LadBlocks;
 import lawisAddonDqr1.event.BreakEventHundler;
+import lawisAddonDqr1.event.TestEventHundler;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Addons {
@@ -17,8 +18,9 @@ public class Addons {
 			try {
 				// System.out.println("DQRAddon OK");
 				DqrLoaded = true;
-				LADBlocks.initBlocks();
+				LadBlocks.initBlocks();
 				MinecraftForge.EVENT_BUS.register(new BreakEventHundler());
+				MinecraftForge.EVENT_BUS.register(new TestEventHundler());
 			} catch (Throwable t) {
 				LawisAddonDQR01.logger.warn("Failed to load DQR mod");
 			}

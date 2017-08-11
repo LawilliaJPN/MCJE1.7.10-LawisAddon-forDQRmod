@@ -4,7 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import dqr.DQR;
 import net.minecraft.block.Block;
 
-public class LADBlocks {
+public class LadBlocks {
 	public static Block ladJumpBlock2;
 
 	public static void initBlocks() {

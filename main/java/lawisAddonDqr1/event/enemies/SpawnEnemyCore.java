@@ -31,6 +31,7 @@ import dqr.entity.mobEntity.monsterDay.DqmEntityTogebouzu;
 import dqr.entity.mobEntity.monsterDay.DqmEntityZinmentyou;
 import dqr.entity.mobEntity.monsterDay.DqmEntityZukkinya;
 import dqr.entity.mobEntity.monsterEtc.DqmEntityGizumo;
+import lawisAddonDqr1.api.event.LadEnemySpawnEvent;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.RoomID;
 import net.minecraft.entity.EntityLiving;
@@ -41,6 +42,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 public class SpawnEnemyCore {
 	/*
@@ -181,6 +183,11 @@ public class SpawnEnemyCore {
 		entity.rotationYawHead = entity.rotationYaw;
 		entity.renderYawOffset = entity.rotationYaw;
 		entity.onSpawnWithEgg((IEntityLivingData)null);
+
+		// イベントのフック
+		LadEnemySpawnEvent event = new LadEnemySpawnEvent(world, player, entity, enemyGroup /10 *10);
+		MinecraftForge.EVENT_BUS.post(event);
+
         world.spawnEntityInWorld(entity);
         entity.playLivingSound();
 

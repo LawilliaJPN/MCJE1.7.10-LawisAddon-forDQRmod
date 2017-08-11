@@ -49,4 +49,32 @@ public class RoomID {
 	public static int getDifOfRoom() {
 		return difOfRoom;
 	}
+
+
+	/*
+	 * 変数 RoomID
+	 */
+	public static String getNameRoom(int roomID) {
+		switch (roomID) {
+		case 1100:
+			return "roomGrassWell";
+		case 1110:
+			return "roomGrassWellIsCursed";
+		case 1200:
+			return "roomWeaponShop";
+		case 1300:
+			return "roomDesertWell";
+		case 1400:
+			return "roomIcePlains";
+		case 1500:
+			return "roomForest";
+		case 1600:
+			return "roomBeach";
+		case 4100:
+			return "roomSpecial01";
+		}
+
+		return null;
+
+	}
 }
