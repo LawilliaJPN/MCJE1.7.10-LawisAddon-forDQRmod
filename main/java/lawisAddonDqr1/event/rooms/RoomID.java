@@ -5,6 +5,7 @@ import net.minecraft.world.World;
 
 public class RoomID {
 	/* Room ID */
+	// 部屋の基本ID
 	final public static int debugFalse = -1;
 	final public static int roomGrassWell = 1100;
 	final public static int roomGrassWellIsCursed = 1110;
@@ -14,6 +15,9 @@ public class RoomID {
 	final public static int roomForest = 1500;
 	final public static int roomBeach = 1600;
 	final public static int roomSpecial01 = 4100;
+	// スポーン用ID
+	final public static int roomGrassWellIsCursedOnWater = 1120;
+	final public static int roomWeaponShopCustomer = 1210;
 
 	/* Difficulty of Room */
 	// 戦闘部屋の難易度
@@ -72,15 +76,17 @@ public class RoomID {
 	}
 
 	/*
-	 * int型 ⇒ RoomID 変数名
+	 * int型 ⇒ RoomID 変数名（部屋の基本ID）
 	 */
 	public static String getNameRoom(int roomID) {
 		switch (roomID) {
 		case 1100:
 			return "roomGrassWell";
 		case 1110:
+		case 1120:
 			return "roomGrassWellIsCursed";
 		case 1200:
+		case 1210:
 			return "roomWeaponShop";
 		case 1300:
 			return "roomDesertWell";
