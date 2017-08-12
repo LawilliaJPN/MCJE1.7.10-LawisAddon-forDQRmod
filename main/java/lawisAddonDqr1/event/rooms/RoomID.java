@@ -76,6 +76,16 @@ public class RoomID {
 	}
 
 	/*
+	 * 変数 difOfRoom の setter
+	 */
+	public static void setDifOfRoom(int d) {
+		if (d <= 1) d = 1;
+		if (d >= 7) d = 7;
+
+		difOfRoom = d;
+	}
+
+	/*
 	 * int型 ⇒ RoomID 変数名（部屋の基本ID）
 	 */
 	public static String getNameRoom(int roomID) {

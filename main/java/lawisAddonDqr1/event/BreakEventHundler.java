@@ -213,9 +213,36 @@ public class BreakEventHundler {
 				}
 			}
 
-		// Y=30以下(未実装)
+		// Y=30以下 未実装につき、Y=31～35と同様のものに、仮設定
 		} else {
-
+			if (!world.isRemote) {
+				switch (rand.nextInt(8)) {
+				case 0:
+					Room15Forest.setRoomRoomForest(world, player, getDirectionRoom(player, 0));
+					break;
+				case 1:
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 1), false);
+					break;
+				case 2:
+					Room11GrassWell.setRoomGrassWell(world, player, getDirectionRoom(player, 0), true);
+					break;
+				case 3:
+					Room16Beach.setRoomRoomBeach(world, player, getDirectionRoom(player, 0));
+					break;
+				case 4:
+					Room13DesertWell.setRoomDesertWell(world, player, getDirectionRoom(player, 0));
+					break;
+				case 5:
+					Room14IcePlains.setRoomIcePlains(world, player, getDirectionRoom(player, 0));
+					break;
+				case 6:
+					Room12WeaponShop.setRoomWeaponShop(world, player, getDirectionRoom(player, 0));
+					break;
+				case 7:
+					Room41Special01.setRoomSpecial01(world, player);
+					break;
+				}
+			}
 		}
 
 		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント

@@ -242,6 +242,16 @@ public class Room11GrassWell {
 				}
 			}
 
+			if (RoomID.getDifOfRoom() >= 3) {
+				// 屋根の上に「ゾンビ」が大量発生(Y=35以下)
+				for (int x = 5; x <= roomWidth -5; x++) {
+					for (int z = 5; z <= roomWidth -5; z++) {
+						SpawnEnemyCore.spawnEnemy(world, player, roomX +x, roomY +6, roomZ +z, RoomID.roomGrassWellIsCursed);
+					}
+				}
+			}
+
+
 		// 「屋根上スタート」時のスポーン
 		} else if (roomType == 2) {
 			// 確定スポーン
