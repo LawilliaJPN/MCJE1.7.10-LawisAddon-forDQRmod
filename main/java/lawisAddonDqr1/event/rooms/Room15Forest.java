@@ -84,18 +84,18 @@ public class Room15Forest {
 
 		/* 木 */
 		// 「オークの木」の生成
-		setWood(world, rand, roomX +2, roomY, roomZ +2, roomType/2);
-		setWood(world, rand, roomX +2, roomY, roomZ +roomWidth -2, roomType/2);
-		setWood(world, rand, roomX +roomWidth -2, roomY, roomZ +2, roomType/2);
-		setWood(world, rand, roomX +roomWidth -2, roomY, roomZ +roomWidth -2, roomType/2);
+		setTree(world, rand, roomX +2, roomY, roomZ +2, roomType/2);
+		setTree(world, rand, roomX +2, roomY, roomZ +roomWidth -2, roomType/2);
+		setTree(world, rand, roomX +roomWidth -2, roomY, roomZ +2, roomType/2);
+		setTree(world, rand, roomX +roomWidth -2, roomY, roomZ +roomWidth -2, roomType/2);
 
 		// 木の多い森
 		if (roomType%2 == 0) {
-			setWood(world, rand, roomX +3, roomY, roomZ +roomCenter, roomType/2);
-			setWood(world, rand, roomX +roomCenter, roomY, roomZ +3, roomType/2);
-			setWood(world, rand, roomX +roomWidth -3, roomY, roomZ +roomCenter, roomType/2);
-			setWood(world, rand, roomX +roomCenter, roomY, roomZ +roomWidth -3, roomType/2);
-			setWood(world, rand, roomX +roomCenter, roomY, roomZ +roomCenter, roomType/2);
+			setTree(world, rand, roomX +3, roomY, roomZ +roomCenter, roomType/2);
+			setTree(world, rand, roomX +roomCenter, roomY, roomZ +3, roomType/2);
+			setTree(world, rand, roomX +roomWidth -3, roomY, roomZ +roomCenter, roomType/2);
+			setTree(world, rand, roomX +roomCenter, roomY, roomZ +roomWidth -3, roomType/2);
+			setTree(world, rand, roomX +roomCenter, roomY, roomZ +roomCenter, roomType/2);
 
 			/* 光源 */
 			// 明るさ確保のための「松明」の設置
@@ -168,7 +168,7 @@ public class Room15Forest {
 	/*
 	 * 木を生成するメソッド
 	 */
-	public static void setWood(World world, Random rand, int x, int y, int z, int meta) {
+	public static void setTree(World world, Random rand, int x, int y, int z, int meta) {
 		int treeHeight = 2;
 
 		if (rand.nextInt(2) == 0)  x++;

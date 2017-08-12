@@ -1,6 +1,9 @@
 package lawisAddonDqr1.event.rooms;
 
+import java.util.Random;
+
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -11,6 +14,8 @@ public class Room14IcePlains {
 	 * 氷原の戦闘部屋
 	 */
 	public static void setRoomIcePlains(World world, EntityPlayer player, int direction) {
+		Random rand = new Random();
+
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
 		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
@@ -18,10 +23,12 @@ public class Room14IcePlains {
 		int roomHeight = 5;					// 部屋の高さ
 		int roomWidth = 12;					// 部屋の幅（-1）
 		int roomCenter = roomWidth/2;			// 部屋の中心
+		int roomType = rand.nextInt(9);		// 部屋の種類
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
 		}
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
@@ -43,6 +50,10 @@ public class Room14IcePlains {
 			roomZ -= roomWidth -1;
 			break;
 		}
+
+		/* - - - - - - - - - -
+		 * 以下、部屋の生成
+		 * - - - - - - - - - */
 
 		/* 空間 */
 		// 「空気」の設置
@@ -159,56 +170,154 @@ public class Room14IcePlains {
 			break;
 		}
 
-		// 中央の床となる「氷塊」を設置する
-		for (int x = 5; x <= roomWidth -5; x++) {
-			for (int z = 5; z <= roomWidth -5; z++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.packed_ice);
+		if (roomType%3 == 0) {
+			switch (direction) {
+			case 0:
+			case 2:
+				setIceTree(world, roomX +2, roomY, roomZ +1, roomHeight);
+				setIceTree(world, roomX +2, roomY, roomZ +roomWidth -1, roomHeight);
+				setIceTree(world, roomX +roomWidth -2, roomY, roomZ +1, roomHeight);
+				setIceTree(world, roomX +roomWidth -2, roomY, roomZ +roomWidth -1, roomHeight);
+				break;
+			case 1:
+			case 3:
+				setIceTree(world, roomX +1, roomY, roomZ +2, roomHeight);
+				setIceTree(world, roomX +1, roomY, roomZ +roomWidth -2, roomHeight);
+				setIceTree(world, roomX +roomWidth -1, roomY, roomZ +2, roomHeight);
+				setIceTree(world, roomX +roomWidth -1, roomY, roomZ +roomWidth -2, roomHeight);
+				break;
+			}
+			setIceTree(world, roomX +roomCenter, roomY, roomZ +roomCenter, roomHeight);
+
+		} else if (roomType%3 ==1) {
+			switch (direction) {
+			case 0:
+			case 2:
+				setIceTree(world, roomX +roomCenter, roomY, roomZ +2, roomHeight);
+				setIceTree(world, roomX +roomCenter, roomY, roomZ +roomWidth -2, roomHeight);
+				setIceTree(world, roomX +4, roomY, roomZ +roomCenter, roomHeight);
+				setIceTree(world, roomX +roomWidth -4, roomY, roomZ +roomCenter, roomHeight);
+				break;
+			case 1:
+			case 3:
+				setIceTree(world, roomX +2, roomY, roomZ +roomCenter, roomHeight);
+				setIceTree(world, roomX +roomWidth -2, roomY, roomZ +roomCenter, roomHeight);
+				setIceTree(world, roomX +roomCenter, roomY, roomZ +4, roomHeight);
+				setIceTree(world, roomX +roomCenter, roomY, roomZ +roomWidth -4, roomHeight);
+				break;
+			}
+
+		} else if (roomType %3 == 2) {
+			setIceTree(world, roomX +4, roomY, roomZ +4, roomHeight);
+			setIceTree(world, roomX +4, roomY, roomZ +roomWidth -4, roomHeight);
+			setIceTree(world, roomX +roomWidth -4, roomY, roomZ +4, roomHeight);
+			setIceTree(world, roomX +roomWidth -4, roomY, roomZ +roomWidth -4, roomHeight);
+		}
+
+		// 両端が陸、中央が水
+		if (roomType <= 2) {
+			switch (direction) {
+			case 0:
+			case 2:
+				// 中央の両端の床の「氷塊」の設置
+				for (int x = 5; x <= roomWidth -5; x++) {
+					for (int z = 1; z <= 3; z++) {
+						world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.packed_ice);
+						world.setBlock(roomX +roomWidth -x, roomY -1, roomZ +z, Blocks.packed_ice);
+					}
+				}
+				break;
+			case 1:
+			case 3:
+				// 中央の両端の床の「氷塊」の設置
+				for (int x = 1; x <= 3; x++) {
+					for (int z = 5; z <= roomWidth -5; z++) {
+						world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.packed_ice);
+						world.setBlock(roomX +roomWidth -x, roomY -1, roomZ +z, Blocks.packed_ice);
+					}
+				}
+				break;
+			}
+
+		// 中央が陸、両端が水
+		} else if (roomType <=5){
+			// 中央の床となる「氷塊」を設置する
+			for (int x = 5; x <= roomWidth -5; x++) {
+				for (int z = 5; z <= roomWidth -5; z++) {
+					world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.packed_ice);
+				}
 			}
 		}
 
-		// 柱となる「氷塊」を設置する
-		for (int y = 0; y <= roomHeight; y++) {
-			world.setBlock(roomX +4, roomY +y, roomZ +4, Blocks.packed_ice);
-			world.setBlock(roomX +4, roomY +y, roomZ +roomWidth -4, Blocks.packed_ice);
-			world.setBlock(roomX +roomWidth -4, roomY +y, roomZ +4, Blocks.packed_ice);
-			world.setBlock(roomX +roomWidth -4, roomY +y, roomZ +roomWidth -4, Blocks.packed_ice);
-		}
-		for (int x = 4; x <= roomWidth -4; x += 4) {
-			for (int z = 4; z <= roomWidth -4; z += 4) {
-				world.setBlock(roomX +x, roomY +3, roomZ +z +1, Blocks.packed_ice);
-				world.setBlock(roomX +x, roomY +3, roomZ +z -1, Blocks.packed_ice);
-				world.setBlock(roomX +x +1, roomY +3, roomZ +z, Blocks.packed_ice);
-				world.setBlock(roomX +x -1, roomY +3, roomZ +z, Blocks.packed_ice);
-			}
-		}
-		for (int x = 3; x <= roomWidth -3; x += 2) {
-			for (int z = 3; z <= roomWidth -3; z += 2) {
-				world.setBlock(roomX +x, roomY +4, roomZ +z, Blocks.packed_ice);
-			}
-		}
-		world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter, Blocks.packed_ice);
-		world.setBlock(roomX +roomCenter, roomY +5, roomZ +roomCenter, Blocks.packed_ice);
+		/* - - - - - - - - - -
+		 * 以下、敵のスポーン
+		 * - - - - - - - - - */
 
-		/* 光源 */
-		// 明るさ確保のための「松明」の設置
-		world.setBlock(roomX +roomCenter, roomY +4, roomZ +roomCenter, Blocks.torch, 5, 3);
+		// 確定スポーン
 		switch (direction) {
 		case 0:
-		case 2:
-			world.setBlock(roomX +4, roomY +4, roomZ +3, Blocks.torch, 4, 3);
-			world.setBlock(roomX +4, roomY +4, roomZ +roomWidth -3, Blocks.torch, 3, 3);
-			world.setBlock(roomX +roomWidth -4, roomY +4, roomZ +3, Blocks.torch, 4, 3);
-			world.setBlock(roomX +roomWidth -4, roomY +4, roomZ +roomWidth -3, Blocks.torch, 3, 3);
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
 			break;
 		case 1:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+			break;
+		case 2:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+			break;
 		case 3:
-			world.setBlock(roomX +3, roomY +4, roomZ +4, Blocks.torch, 2, 3);
-			world.setBlock(roomX +3, roomY +4, roomZ +roomWidth -4, Blocks.torch, 2, 3);
-			world.setBlock(roomX +roomWidth -3, roomY +4, roomZ +4, Blocks.torch, 1, 3);
-			world.setBlock(roomX +roomWidth -3, roomY +4, roomZ +roomWidth -4, Blocks.torch, 1, 3);
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
 			break;
 		}
 
+		// 変動スポーン
+		if (RoomID.getDifOfRoom() >= rand.nextInt(4)) {
+			switch (direction) {
+			case 0:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				break;
+			case 1:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				break;
+			case 2:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				break;
+			case 3:
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				break;
+			}
+		}
+	}
+
+	/*
+	 * 氷の木を生成するメソッド
+	 */
+	public static void setIceTree(World world, int x, int y, int z, int roomHeight) {
+		// 柱となる「氷塊」を設置する
+		for (int y2 = -2; y2 <= roomHeight; y2++) {
+			world.setBlock(x, y +y2, z, Blocks.packed_ice);
+		}
+
+		// 3段目の「氷塊」を設置する
+		world.setBlock(x, y +3, z +1, Blocks.packed_ice);
+		world.setBlock(x, y +3, z -1, Blocks.packed_ice);
+		world.setBlock(x +1, y +3, z, Blocks.packed_ice);
+		world.setBlock(x -1, y +3, z, Blocks.packed_ice);
+
+		// 4段目の「氷塊」を設置する
+		world.setBlock(x +1, y +4, z +1, Blocks.packed_ice);
+		world.setBlock(x +1, y +4, z -1, Blocks.packed_ice);
+		world.setBlock(x -1, y +4, z +1, Blocks.packed_ice);
+		world.setBlock(x -1, y +4, z -1, Blocks.packed_ice);
+
+		// 明るさ確保のための「松明」の設置
+		world.setBlock(x, y +4, z +1, Blocks.torch, 3, 3);
+		world.setBlock(x, y +4, z -1, Blocks.torch, 4, 3);
+		world.setBlock(x +1, y +4, z, Blocks.torch, 1, 3);
+		world.setBlock(x -1, y +4, z, Blocks.torch, 2, 3);
 	}
 }
 /* 設計図
