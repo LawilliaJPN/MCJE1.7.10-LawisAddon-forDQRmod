@@ -1,7 +1,10 @@
 package lawisAddonDqr1.event.rooms;
 
+import java.util.Random;
+
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
@@ -13,6 +16,8 @@ public class Room12WeaponShop {
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
 	 */
 	public static void setRoomWeaponShop(World world, EntityPlayer player, int direction) {
+		Random rand = new Random();
+
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
 		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
@@ -20,6 +25,8 @@ public class Room12WeaponShop {
 		int roomWidthX = 9;					// 部屋のX座標方向の幅
 		int roomWidthZ = 9;					// 部屋のZ座標方向の幅
 		int roomHeight = 4;					// 部屋の高さ
+		int roomCenterX = 0;					// 部屋のX座標方向の中央
+		int roomCenterZ = 0;					// 部屋のX座標方向の中央
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -54,24 +61,32 @@ public class Room12WeaponShop {
 			break;
 		}
 
+		roomCenterX = roomWidthX /2;
+		roomCenterZ = roomWidthZ /2;
+
+		/* - - - - - - - - - -
+		 * 以下、部屋の生成
+		 * - - - - - - - - - */
+
+
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く
-		for (int x = 0; x <= roomWidthX; x++) {
-			for (int z = 0; z <= roomWidthZ; z++) {
+		for (int x = -2; x <= roomWidthX +2; x++) {
+			for (int z = -2; z <= roomWidthZ +2; z++) {
 				world.setBlock(roomX +x, roomY -2, roomZ +z, Blocks.dirt);
 			}
 		}
 
 		// 地面に「草ブロック」を敷く
-		for (int x = 0; x <= roomWidthX; x++) {
-			for (int z = 0; z <= roomWidthZ; z++) {
+		for (int x = -2; x <= roomWidthX +2; x++) {
+			for (int z = -2; z <= roomWidthZ +2; z++) {
 				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.grass);
 			}
 		}
 
 		// 空間の確保のために「空気」を設置する
-		for (int x = 0; x <= roomWidthX; x++) {
-			for (int z = 0; z <= roomWidthZ; z++) {
+		for (int x = -2; x <= roomWidthX +2; x++) {
+			for (int z = -2; z <= roomWidthZ +2; z++) {
 				for (int y = 0; y <= roomHeight+1; y++) {
 					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 				}
@@ -341,5 +356,53 @@ public class Room12WeaponShop {
 			}
 		}
 
+
+		/* - - - - - - - - - -
+		 * 以下、敵のスポーン
+		 * - - - - - - - - - */
+
+		// 確定スポーン 建物内
+		switch (direction) {
+		case 0:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			break;
+		case 1:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			break;
+		case 2:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			break;
+		case 3:
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			break;
+		}
+
+		// 確率スポーン 建物外
+		for (int i = 0; i < 4; i++) {
+			if (RoomID.getDifOfRoom() >= rand.nextInt(4)) {
+				int x = 0, z = 0;
+
+				switch (i) {
+				case 0:
+					x = roomX;
+					z = roomZ +roomCenterZ;
+					break;
+				case 1:
+					x = roomX +roomWidthX;
+					z = roomZ +roomCenterZ;
+					break;
+				case 2:
+					x = roomX +roomCenterX;
+					z = roomZ;
+					break;
+				case 3:
+					x = roomX +roomCenterX;
+					z = roomZ +roomWidthZ;
+					break;
+				}
+
+				SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, RoomID.roomWeaponShop + RoomID.getDifOfRoom());
+			}
+		}
 	}
 }

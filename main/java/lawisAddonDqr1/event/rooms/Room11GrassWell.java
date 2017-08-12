@@ -256,7 +256,7 @@ public class Room11GrassWell {
 			int x = 0, z = 0;
 
 			// 確定スポーン
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomCenter, RoomID.roomGrassWellIsCursed + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomCenter, RoomID.roomGrassWellIsCursedOnWater + RoomID.getDifOfRoom());
 
 			// 確率スポーン
 			for (int i = 0; i < 4; i++) {
@@ -281,7 +281,7 @@ public class Room11GrassWell {
 					}
 
 					if (!( (playerX == x) && (playerZ == z) )) {
-						SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, RoomID.roomGrassWell + RoomID.getDifOfRoom());
+						SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, RoomID.roomGrassWellIsCursed + RoomID.getDifOfRoom());
 					}
 				}
 			}

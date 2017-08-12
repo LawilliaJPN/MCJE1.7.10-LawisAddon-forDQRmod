@@ -48,9 +48,6 @@ public class BreakEventHundler {
 
 			// ランダムエンカウント
 			if (countRandomEncounter <= 0) {
-				// コンフィグの同期
-				LadConfigCore.syncConfig();
-
 				// 強制戦闘
 				RoomID.updateDifOfRoom(event.y);
 				MiningPenalty(event.world, event.getPlayer());
@@ -71,9 +68,6 @@ public class BreakEventHundler {
 	@SubscribeEvent
 	public void UseBedEvent(PlayerWakeUpEvent event) {
 		// System.out.println("UseBedEvent OK");
-
-		// コンフィグの同期
-		LadConfigCore.syncConfig();
 
 		// コンフィグ：ベッドペナルティがオンの時は、目覚めたら戦闘
 		if (LadConfigCore.isBedPenalty) {

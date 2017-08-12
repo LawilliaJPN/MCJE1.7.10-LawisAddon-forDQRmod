@@ -341,11 +341,11 @@ public class SpawnEnemyCore {
 		LadEnemySpawnEvent event = new LadEnemySpawnEvent(world, player, entity, enemyGroup /10 *10);
 		MinecraftForge.EVENT_BUS.post(event);
 
-        world.spawnEntityInWorld(entity);
-        entity.playLivingSound();
+		world.spawnEntityInWorld(entity);
+		entity.playLivingSound();
 
-        if (encounterLog) {
-        	player.addChatMessage(new ChatComponentTranslation(entity.getCommandSenderName() + "が あらわれた！"));
-        }
+		if (encounterLog) {
+			player.addChatMessage(new ChatComponentTranslation(entity.getCommandSenderName() + "が あらわれた！"));
+		}
 	}
 }
