@@ -3,7 +3,7 @@ package lawisAddonDqr1.event;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import lawisAddonDqr1.api.event.LadSetBattleRoom;
+import lawisAddonDqr1.api.event.LadSetBattleRoomEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.Room11GrassWell;
@@ -100,7 +100,7 @@ public class BreakEventHundler {
 		Random rand = new Random();
 
 		// [ForgeEvent] 戦闘部屋生成前 介入用のイベント
-		LadSetBattleRoom.PreSetRoom preEvent = new LadSetBattleRoom.PreSetRoom(world, player);
+		LadSetBattleRoomEvent.PreSetRoomEvent preEvent = new LadSetBattleRoomEvent.PreSetRoomEvent(world, player);
 		MinecraftForge.EVENT_BUS.post(preEvent);
 
 		/* 戦闘部屋の生成 */
@@ -246,7 +246,7 @@ public class BreakEventHundler {
 		}
 
 		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント
-		LadSetBattleRoom.PostSetRoom postEvent = new LadSetBattleRoom.PostSetRoom(world, player);
+		LadSetBattleRoomEvent.PostSetRoomEvent postEvent = new LadSetBattleRoomEvent.PostSetRoomEvent(world, player);
 		MinecraftForge.EVENT_BUS.post(postEvent);
 	}
 

@@ -223,7 +223,7 @@ public class Room14IcePlains {
 				for (int x = 5; x <= roomWidth -5; x++) {
 					for (int z = 1; z <= 3; z++) {
 						world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.packed_ice);
-						world.setBlock(roomX +roomWidth -x, roomY -1, roomZ +z, Blocks.packed_ice);
+						world.setBlock(roomX +x, roomY -1, roomZ +roomWidth -z, Blocks.packed_ice);
 					}
 				}
 				break;
