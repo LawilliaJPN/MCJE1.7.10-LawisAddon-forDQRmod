@@ -13,7 +13,7 @@ public class LadDebug {
 	// 戦闘部屋の難易度固定（任意の負の整数で、解除）
 	private static int debugDifOfRoom = -1;
 	// 戦闘確率100％（falseで解除）
-	private static boolean debugCountRandomEncounter0 = true;
+	private static boolean debugCountRandomEncounter0 = false;
 
 	/* getter */
 	public static int getDebugRoom() {
