@@ -5,14 +5,14 @@ import java.util.Random;
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.RoomID;
+import lawisAddonDqr1.event.rooms.LadRooms;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-public class Room12WeaponShop {
+public class RoomWeaponShop {
 	/*
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
 	 */
@@ -365,22 +365,22 @@ public class Room12WeaponShop {
 		// 確定スポーン 建物内
 		switch (direction) {
 		case 0:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
 			break;
 		case 1:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
 			break;
 		case 2:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
 			break;
 		case 3:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, RoomID.roomWeaponShopCustomer + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
 			break;
 		}
 
 		// 確率スポーン 建物外
 		for (int i = 0; i < 4; i++) {
-			if (RoomID.getDifOfRoom() >= rand.nextInt(4)) {
+			if (LadRooms.getDifOfRoom() >= rand.nextInt(4)) {
 				int x = 0, z = 0;
 
 				switch (i) {
@@ -402,7 +402,7 @@ public class Room12WeaponShop {
 					break;
 				}
 
-				SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, RoomID.roomWeaponShop + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRooms.WEAPON_SHOP + LadRooms.getDifOfRoom());
 			}
 		}
 	}

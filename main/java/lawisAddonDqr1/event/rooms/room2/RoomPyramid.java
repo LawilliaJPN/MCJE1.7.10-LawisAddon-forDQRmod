@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class Room21Pyramid {
+public class RoomPyramid {
 	/*
 	 * ピラミッドの戦闘部屋
 	 *

@@ -1,6 +1,6 @@
 package lawisAddonDqr1.config;
 
-import lawisAddonDqr1.event.rooms.RoomID;
+import lawisAddonDqr1.event.rooms.LadRooms;
 
 /*
  * デバッグ用に変数を固定したりするためのクラス。
@@ -9,22 +9,22 @@ import lawisAddonDqr1.event.rooms.RoomID;
 public class LadDebug {
 	/* 戦闘部屋デバッグ用 */
 	// 戦闘部屋の種類固定（任意の負の整数で、解除）
-	private static int debugRoom = RoomID.debugFalse;
+	public static final int DEBUG_ROOM = LadRooms.DEBUG_IS_FALSE;
 	// 戦闘部屋の難易度固定（任意の負の整数で、解除）
-	private static int debugDifOfRoom = -1;
+	public static final int DEBUG_DIF_OFROOM = -1;
 	// 戦闘確率100％（falseで解除）
-	private static boolean debugCountRandomEncounter0 = false;
+	public static final boolean DEBUG_COUNT_RANDOMEN_COUNTER_0 = false;
 
 	/* getter */
 	public static int getDebugRoom() {
-		return debugRoom;
+		return DEBUG_ROOM;
 	}
 
 	public static int getDebugDifOfRoom() {
-		return debugDifOfRoom;
+		return DEBUG_DIF_OFROOM;
 	}
 
 	public static boolean isDebugCountRandomEncounter0() {
-		return debugCountRandomEncounter0;
+		return DEBUG_COUNT_RANDOMEN_COUNTER_0;
 	}
 }

@@ -12,7 +12,7 @@ public class LadSetBattleRoomEvent extends Event {
 
 	/*
 	 * 戦闘部屋の生成関連のイベント。
-	 * lawisAddonDqr1.event.BreakEventHundler.javaのMiningPenaltyメソッド内。
+	 * lawisAddonDqr1.event.LadEventHundler.javaのMiningPenaltyメソッド内。
 	 *
 	 * [Unimplemented] 引数は最低限のみ実装、今後必要に応じて追加予定。
 	 */

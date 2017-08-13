@@ -14,7 +14,7 @@ public class LadEnemySpawnEvent extends Event {
 	public final int roomID;
 
 	/*
-	 * 生成された戦闘部屋に敵をスポーンさせる直前にフック。
+	 * このModにより敵がスポーンされる直前にフック。
 	 * lawisAddonDqr1.event.enemies.SpawnEnemyCore.javaのspawnEnemyメソッド内。
 	 */
 	public LadEnemySpawnEvent(World world, EntityPlayer player, EntityLiving enemy, int roomID) {

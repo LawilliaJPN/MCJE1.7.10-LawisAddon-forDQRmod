@@ -4,13 +4,13 @@ import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.RoomID;
+import lawisAddonDqr1.event.rooms.LadRooms;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-public class Room16Beach {
+public class RoomBeach {
 	/*
 	 * 砂浜の戦闘部屋
 	 */
@@ -323,16 +323,16 @@ public class Room16Beach {
 		// 確定スポーン
 		switch (direction) {
 		case 0:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRooms.BEACH + LadRooms.getDifOfRoom());
 			break;
 		case 1:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 			break;
 		case 2:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRooms.BEACH + LadRooms.getDifOfRoom());
 			break;
 		case 3:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 			break;
 		}
 
@@ -341,40 +341,40 @@ public class Room16Beach {
 		if (roomType%3 == 1) {
 			switch (direction) {
 			case 0:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			case 1:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			case 2:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			case 3:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			}
 		// 中央の両端が陸の時
 		} else if (roomType%2 == 0) {
 			switch (direction) {
 			case 0:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			case 1:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			case 2:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			case 3:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRooms.BEACH + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRooms.BEACH + LadRooms.getDifOfRoom());
 				break;
 			}
 		}

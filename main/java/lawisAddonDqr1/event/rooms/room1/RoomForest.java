@@ -4,13 +4,13 @@ import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.RoomID;
+import lawisAddonDqr1.event.rooms.LadRooms;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-public class Room15Forest {
+public class RoomForest {
 	/*
 	 * 森林の戦闘部屋
 	 */
@@ -129,37 +129,37 @@ public class Room15Forest {
 		// 確定スポーン
 		switch (direction) {
 		case 0:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, RoomID.roomForest + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, LadRooms.FOREST + LadRooms.getDifOfRoom());
 			break;
 		case 1:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, RoomID.roomForest + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, LadRooms.FOREST + LadRooms.getDifOfRoom());
 			break;
 		case 2:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, RoomID.roomForest + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, LadRooms.FOREST + LadRooms.getDifOfRoom());
 			break;
 		case 3:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, RoomID.roomForest + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, LadRooms.FOREST + LadRooms.getDifOfRoom());
 			break;
 		}
 
 		// 確率スポーン
-		if (RoomID.getDifOfRoom() >= rand.nextInt(4)) {
+		if (LadRooms.getDifOfRoom() >= rand.nextInt(4)) {
 			switch (direction) {
 			case 0:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +2, RoomID.roomForest + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +roomWidth -2, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +2, LadRooms.FOREST + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +roomWidth -2, LadRooms.FOREST + LadRooms.getDifOfRoom());
 				break;
 			case 1:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +roomWidth -4, RoomID.roomForest + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +roomWidth -4, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +roomWidth -4, LadRooms.FOREST + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +roomWidth -4, LadRooms.FOREST + LadRooms.getDifOfRoom());
 				break;
 			case 2:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +2, RoomID.roomForest + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +roomWidth -2, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +2, LadRooms.FOREST + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +roomWidth -2, LadRooms.FOREST + LadRooms.getDifOfRoom());
 				break;
 			case 3:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +4, RoomID.roomForest + RoomID.getDifOfRoom());
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +4, LadRooms.FOREST + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, LadRooms.FOREST + LadRooms.getDifOfRoom());
 				break;
 			}
 		}

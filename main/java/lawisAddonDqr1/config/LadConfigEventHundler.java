@@ -3,6 +3,7 @@ package lawisAddonDqr1.config;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import lawisAddonDqr1.LawisAddonDQR01;
+import lawisAddonDqr1.event.LadEventHundler;
 
 /*
  * コンフィグ変更を反映させるイベント。
@@ -14,6 +15,7 @@ public class LadConfigEventHundler {
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (event.modID.equals(LawisAddonDQR01.MOD_ID)) {
 			LadConfigCore.syncConfig();
+			LadEventHundler.updateCountRandomEncounter();
 		}
 	}
 }

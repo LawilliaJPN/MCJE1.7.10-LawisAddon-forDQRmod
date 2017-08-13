@@ -1,28 +1,52 @@
 package lawisAddonDqr1.event.rooms;
 
 import lawisAddonDqr1.config.LadDebug;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class RoomID {
+public class LadRooms {
 	/* Room ID */
 	// 部屋の基本ID
-	final public static int debugFalse = -1;
-	final public static int roomGrassWell = 1100;
-	final public static int roomGrassWellIsCursed = 1110;
-	final public static int roomWeaponShop = 1200;
-	final public static int roomDesertWell = 1300;
-	final public static int roomIcePlains = 1400;
-	final public static int roomForest = 1500;
-	final public static int roomBeach = 1600;
-	final public static int roomPyramid = 2100;
-	final public static int roomSpecial01 = 4100;
+	public static final int DEBUG_IS_FALSE = -1;
+	public static final int VILLAGE_WELL = 1100;
+	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
+	public static final int WEAPON_SHOP = 1200;
+	public static final int DESERT_WELL = 1300;
+	public static final int ICE_PLAINS = 1400;
+	public static final int FOREST = 1500;
+	public static final int BEACH = 1600;
+	public static final int PYRAMID = 2100;
+	public static final int SPECIAL_01 = 4100;
 	// スポーン用ID
-	final public static int roomGrassWellIsCursedOnWater = 1120;
-	final public static int roomWeaponShopCustomer = 1210;
+	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
+	public static final int WEAPON_SHOP_CUSTOMER = 1210;
 
 	/* Difficulty of Room */
 	// 戦闘部屋の難易度
 	private static int difOfRoom = 0;
+
+	/*
+	 * プレイヤーの水平方向の向きから、部屋の生成方向を決定するメソッド
+	 */
+	public static int getDirectionRoom(EntityPlayer player, int i) {
+		/* i == 0 -> 上下左右, i == 1 ->斜め
+		   ,-0+X
+		  -,130
+		  0,0P2
+		  +,213
+		  Z
+		*/
+
+		switch (i) {
+		case 0:
+			return MathHelper.floor_double((double)((player.rotationYaw +180.0F) *4.0F /360.0F) -0.5D) & 3;
+		case 1:
+			return MathHelper.floor_double((double)((player.rotationYaw +180.0F +45.0F) *4.0F /360.0F) -0.5D) & 3;
+		}
+
+		return 0;
+	}
 
 	/*
 	 * 経過日数から、部屋の難易度を決定するメソッド
@@ -115,25 +139,25 @@ public class RoomID {
 	public static String getNameRoomID(int roomID) {
 		switch (roomID) {
 		case 1100:
-			return "roomGrassWell";
+			return "VILLAGE_WELL";
 		case 1110:
 		case 1120:
-			return "roomGrassWellIsCursed";
+			return "VILLAGE_WELL_HAS_CURSED";
 		case 1200:
 		case 1210:
-			return "roomWeaponShop";
+			return "WEAPON_SHOP";
 		case 1300:
-			return "roomDesertWell";
+			return "DESERT_WELL";
 		case 1400:
-			return "roomIcePlains";
+			return "ICE_PLAINS";
 		case 1500:
-			return "roomForest";
+			return "FOREST";
 		case 1600:
-			return "roomBeach";
+			return "BEACH";
 		case 2100:
-			return "roomPyramid";
+			return "PYRAMID";
 		case 4100:
-			return "roomSpecial01";
+			return "SPECIAL_01";
 		}
 		return "";
 	}

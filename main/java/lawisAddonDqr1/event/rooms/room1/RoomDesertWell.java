@@ -6,13 +6,13 @@ import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.RoomID;
+import lawisAddonDqr1.event.rooms.LadRooms;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-public class Room13DesertWell {
+public class RoomDesertWell {
 	/*
 	 * バニラの砂漠の井戸をモチーフとした戦闘部屋（村の井戸ではない）
 	 */
@@ -268,41 +268,41 @@ public class Room13DesertWell {
 
 		// 屋根上スタート時・「旱魃」井戸中スタート時
 		if (roomType <= 2) {
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, RoomID.roomBeach + RoomID.getDifOfRoom());
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, RoomID.roomBeach + RoomID.getDifOfRoom());
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 
 		// 通常時・「旱魃」地下室
 		} else {
 			// 確定スポーン
 			switch (direction) {
 			case 0:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 				break;
 			case 1:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 				break;
 			case 2:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 				break;
 			case 3:
-				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, RoomID.roomForest + RoomID.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 				break;
 			}
 
 			// 確率スポーン
-			if (RoomID.getDifOfRoom() >= rand.nextInt(4)) {
+			if (LadRooms.getDifOfRoom() >= rand.nextInt(4)) {
 				switch (direction) {
 				case 0:
 				case 2:
-					SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, RoomID.roomBeach + RoomID.getDifOfRoom());
-					SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, RoomID.roomBeach + RoomID.getDifOfRoom());
+					SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
+					SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 					break;
 				case 1:
 				case 3:
-					SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
-					SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, RoomID.roomBeach + RoomID.getDifOfRoom());
+					SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
+					SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRooms.DESERT_WELL + LadRooms.getDifOfRoom());
 					break;
 				}
 			}
