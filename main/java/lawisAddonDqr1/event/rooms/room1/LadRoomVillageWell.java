@@ -38,9 +38,10 @@ public class LadRoomVillageWell {
 		int enemyZ = roomZ;					// 敵をスポーンさせるZ座標決定に使用
 
 		// 「呪われた井戸」かどうかの判定
-		if (LadDebug.getDebugRoom() == LadRoomCore.VILLAGE_WELL_HAS_CURSED) hasCursed = true;
-		else if (LadRoomCore.getDifOfRoom() == 2) hasCursed = true;
+		if (LadRoomCore.getDifOfRoom() == 2) hasCursed = true;
 		else if ((LadRoomCore.getDifOfRoom() == 3) && (rand.nextInt(2) == 0)) hasCursed = true;
+		if (LadDebug.getDebugRoom() == LadRoomCore.VILLAGE_WELL_HAS_CURSED) hasCursed = true;
+		else if (LadDebug.getDebugRoom() == LadRoomCore.VILLAGE_WELL) hasCursed = false;
 
 		// 井戸の生成方向を決定
 		if (hasCursed) LadRoomCore.getDirectionRoom(player, 0);

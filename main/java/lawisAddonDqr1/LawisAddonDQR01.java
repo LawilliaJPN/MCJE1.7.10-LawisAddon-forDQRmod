@@ -47,10 +47,3 @@ public class LawisAddonDQR01 {
 		Addons.loadDQR();
 	}
 }
-
-/* 未使用
-	@SidedProxy(
-			clientSide = "lawisAddonDqr1.proxy.ClientProxy",
-			serverSide = "lawisAddonDqr1.proxy.ServerProxy")
-	public static CommonProxy proxy;
-*/

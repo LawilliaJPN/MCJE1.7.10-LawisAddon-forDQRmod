@@ -24,7 +24,7 @@ public class LadEnemySpawnEvent extends Event {
 		this.player = player;
 		// スポーンされる予定の敵
 		this.enemy = enemy;
-		// 戦闘部屋のID、lawisAddonDqr1.event.rooms.RoomID.javaを参照
+		// 戦闘部屋のID、lawisAddonDqr1.event.rooms.LadRoomCore.javaを参照
 		this.roomID = roomID;
 	}
 }

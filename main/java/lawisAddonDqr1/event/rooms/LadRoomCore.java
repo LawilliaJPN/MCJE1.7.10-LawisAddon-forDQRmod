@@ -10,7 +10,6 @@ public class LadRoomCore {
 	// 部屋の基本ID
 	public static final int DEBUG_IS_FALSE = -1;
 	public static final int VILLAGE_WELL = 1100;
-	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int WEAPON_SHOP = 1200;
 	public static final int DESERT_WELL = 1300;
 	public static final int ICE_PLAINS = 1400;
@@ -18,7 +17,8 @@ public class LadRoomCore {
 	public static final int BEACH = 1600;
 	public static final int PYRAMID = 2100;
 	public static final int SPECIAL_01 = 4100;
-	// スポーン用ID
+	// 部屋の派生ID
+	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
 	public static final int WEAPON_SHOP_CUSTOMER = 1210;
 

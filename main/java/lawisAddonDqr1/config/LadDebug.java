@@ -11,7 +11,7 @@ public class LadDebug {
 	// 戦闘部屋の種類固定（任意の負の整数で、解除）
 	public static final int DEBUG_ROOM = LadRoomCore.DEBUG_IS_FALSE;
 	// 戦闘部屋の難易度固定（任意の負の整数で、解除）
-	public static final int DEBUG_DIF_OFROOM = -1;
+	public static final int DEBUG_DIF_OF_ROOM = -1;
 	// 戦闘確率100％（falseで解除）
 	public static final boolean DEBUG_COUNT_RANDOMEN_COUNTER_0 = false;
 
@@ -21,7 +21,7 @@ public class LadDebug {
 	}
 
 	public static int getDebugDifOfRoom() {
-		return DEBUG_DIF_OFROOM;
+		return DEBUG_DIF_OF_ROOM;
 	}
 
 	public static boolean isDebugCountRandomEncounter0() {

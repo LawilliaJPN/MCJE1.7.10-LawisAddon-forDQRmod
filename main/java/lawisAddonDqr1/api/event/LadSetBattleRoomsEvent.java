@@ -13,8 +13,6 @@ public class LadSetBattleRoomsEvent extends Event {
 	/*
 	 * 戦闘部屋の生成関連のイベント。
 	 * lawisAddonDqr1.event.LadEventHundler.javaのsetBattleRoomsメソッド内。
-	 *
-	 * [Unimplemented] 引数は最低限のみ実装、今後必要に応じて追加予定。
 	 */
 	public LadSetBattleRoomsEvent(World world, EntityPlayer player) {
 		super();
