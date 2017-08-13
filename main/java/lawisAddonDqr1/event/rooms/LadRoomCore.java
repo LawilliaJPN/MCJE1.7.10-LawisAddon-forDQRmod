@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 public class LadRoomCore {
 	/* Room ID */
 	// 部屋の基本ID
-	public static final int DEBUG_IS_FALSE = -1;
 	public static final int VILLAGE_WELL = 1100;
 	public static final int WEAPON_SHOP = 1200;
 	public static final int DESERT_WELL = 1300;
@@ -17,7 +16,8 @@ public class LadRoomCore {
 	public static final int BEACH = 1600;
 	public static final int PYRAMID = 2100;
 	public static final int SPECIAL_01 = 4100;
-	// 部屋の派生ID
+	// その他のID
+	public static final int DEBUG_IS_FALSE = -1;
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
 	public static final int WEAPON_SHOP_CUSTOMER = 1210;
@@ -49,20 +49,6 @@ public class LadRoomCore {
 	}
 
 	/*
-	 * 経過日数から、部屋の難易度を決定するメソッド
-	 * コンフィグ：ベッドペナルティがオンの時に、目覚めた時に生成する部屋の難易度
-	 */
-	public static void updateDifOfRoom(World world) {
-		int d = 0;
-		int time = (int) (world.getTotalWorldTime() /24000);
-
-		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
-		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
-
-		setDifOfRoom(d);
-	}
-
-	/*
 	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド
 	 *
 	 * [Unimplemented] 昼か夜かで変化する等の要素を後日実装予定。
@@ -88,6 +74,20 @@ public class LadRoomCore {
 	}
 
 	/*
+	 * 経過日数から、部屋の難易度を決定するメソッド
+	 * コンフィグ：ベッドペナルティがオンの時に、目覚めた時に生成する部屋の難易度
+	 */
+	public static void updateDifOfRoom(World world) {
+		int d = 0;
+		int time = (int) (world.getTotalWorldTime() /24000);
+
+		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
+		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
+
+		setDifOfRoom(d);
+	}
+
+	/*
 	 * 変数 difOfRoom の getter
 	 */
 	public static int getDifOfRoom() {
@@ -105,15 +105,16 @@ public class LadRoomCore {
 	}
 
 	/*
-	 * int型 ⇒ 戦闘部屋の日本語名
+	 * Room ID(int) ⇒ 戦闘部屋の日本語名
 	 */
 	public static String getNameRoom(int roomID) {
+		roomID = roomID /10 *10;
+
 		switch (roomID) {
 		case 1100:
-			return "村の井戸";
 		case 1110:
 		case 1120:
-			return "呪われた井戸";
+			return "村の井戸";
 		case 1200:
 		case 1210:
 			return "武器屋";
@@ -134,15 +135,16 @@ public class LadRoomCore {
 	}
 
 	/*
-	 * int型 ⇒ RoomID 変数名（部屋の基本ID）
+	 * Room ID(int) ⇒ 変数名（部屋の基本ID）
 	 */
 	public static String getNameRoomID(int roomID) {
+		roomID = roomID /10 *10;
+
 		switch (roomID) {
 		case 1100:
-			return "VILLAGE_WELL";
 		case 1110:
 		case 1120:
-			return "VILLAGE_WELL_HAS_CURSED";
+			return "VILLAGE_WELL";
 		case 1200:
 		case 1210:
 			return "WEAPON_SHOP";

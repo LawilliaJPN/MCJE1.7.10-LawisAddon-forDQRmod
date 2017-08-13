@@ -11,7 +11,7 @@ import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import lawisAddonDqr1.addons.Addons;
+import lawisAddonDqr1.addons.LadAddons;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadConfigEventHundler;
 import lawisAddonDqr1.config.LadInfoCore;
@@ -44,6 +44,6 @@ public class LawisAddonDQR01 {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		// DQRmodへのアドオン
-		Addons.loadDQR();
+		LadAddons.loadDQR();
 	}
 }

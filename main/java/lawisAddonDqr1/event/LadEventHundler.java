@@ -214,6 +214,8 @@ public class LadEventHundler {
 
 		// Y=30以下 未実装につき、Y=31～35と同様のものに、仮設定
 		} else {
+			LadRoomCore.setDifOfRoom(3);
+
 			if (!world.isRemote) {
 				switch (rand.nextInt(7)) {
 				case 0:

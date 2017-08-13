@@ -82,27 +82,23 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class SpawnEnemyCore {
+public class LadSpawnEnemyCore {
 	/*
 	 * 敵をスポーンさせる処理
 	 *
 	 * enemyGroup：1～2桁「戦闘部屋の分類」、3桁目「同分類部屋のパターン判別」、4桁目「戦闘部屋の難易度」
-	 * 1～3桁目の詳細は、lawisAddonDqr1.event.rooms.RoomID.javaの変数を参照。
+	 * 1～3桁目の詳細は、lawisAddonDqr1.event.rooms.LadRoomCore.javaの変数を参照。
 	 * 4桁目の詳細は、同クラスのupdateDifOfRoomメソッド（複数あり）を参照。
 	 */
 	public static void spawnEnemy(World world, EntityPlayer player, int x, int y, int z, int enemyGroup) {
 		// System.out.println("spawnEnemy OK");
-
-		// [Debug]戦闘部屋を固定している時、敵のスポーン位置の下にダイヤモンドブロックを敷く（デバッグ用）
-		if (LadDebug.getDebugRoom() >= 0) {
-			world.setBlock(x, y-1, z, Blocks.diamond_block);
-		}
 
 		Random rand = new Random();
 		EntityLiving entity = null;
 
 		// false にすると「～が あらわれた！」というログが表示されなくなる
 		Boolean encounterLog = true;
+
 
 		/*
 		 * 以下、どの敵をスポーンさせるか決める処理
@@ -504,6 +500,12 @@ public class SpawnEnemyCore {
 		/*
 		 * 以下、決めた敵をスポーンさせる処理
 		 */
+
+		// [Debug]戦闘部屋を固定している時、敵のスポーン位置の下にダイヤモンドブロックを敷く（デバッグ用）
+		if (LadDebug.getDebugRoom() >= 0) {
+			world.setBlock(x, y-1, z, Blocks.diamond_block);
+		}
+
 		if (entity == null) return;
 		entity.setLocationAndAngles(x +0.5D, y, z +0.5D, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
 		entity.rotationYawHead = entity.rotationYaw;
@@ -511,7 +513,7 @@ public class SpawnEnemyCore {
 		entity.onSpawnWithEgg((IEntityLivingData)null);
 
 		// [ForgeEvent] 敵スポーン直前に 介入用のイベント
-		LadEnemySpawnEvent event = new LadEnemySpawnEvent(world, player, entity, enemyGroup /10 *10);
+		LadEnemySpawnEvent event = new LadEnemySpawnEvent(world, player, entity, enemyGroup);
 		MinecraftForge.EVENT_BUS.post(event);
 
 		world.spawnEntityInWorld(entity);

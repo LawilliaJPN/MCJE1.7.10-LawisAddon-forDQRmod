@@ -4,7 +4,7 @@ import java.util.Random;
 
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
+import lawisAddonDqr1.event.enemies.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -366,16 +366,16 @@ public class LadRoomWeaponShop {
 		// 確定スポーン 建物内
 		switch (roomDirection) {
 		case 0:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		case 1:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		case 2:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		case 3:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		}
 
@@ -403,7 +403,7 @@ public class LadRoomWeaponShop {
 					break;
 				}
 
-				SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomCore.WEAPON_SHOP + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomCore.WEAPON_SHOP + LadRoomCore.getDifOfRoom());
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package lawisAddonDqr1.event.rooms.room4;
 import dqr.api.Blocks.DQBlocks;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
-import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
+import lawisAddonDqr1.event.enemies.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -30,7 +30,7 @@ public class LadRoomSpecial01 {
 		roomY -= roomFloor2Y;
 
 		// コンフィグ：負荷軽減オンの時は、2階のみ生成 → 1階の高さを2階の高さにする
-		if (LadConfigCore.isRoomReduction) roomFloor1Y = roomFloor2Y;
+		if (LadConfigCore.isRoomReduction) roomFloor1Y = roomFloor2Y +1;
 
 
 
@@ -206,23 +206,40 @@ public class LadRoomSpecial01 {
 			}
 		}
 
+		// 出入口部分に空気ブロックを設置（壁の「レッドストーンの装飾石」が硬いため）
+		for (int y = roomFloor1Y; y <= roomFloor1Y +2; y++) {
+			world.setBlockToAir(roomX -1, roomY +y, roomZ +1);
+			world.setBlockToAir(roomX -1, roomY +y, roomZ +2);
+			world.setBlockToAir(roomX +roomWidth +1, roomY +y, roomZ +roomWidth -1);
+			world.setBlockToAir(roomX +roomWidth +1, roomY +y, roomZ +roomWidth -2);
+		}
+
+		// コンフィグ：負荷軽減オンの時に、出入口部分を2方向から4方向に増やす
+		if (LadConfigCore.isRoomReduction) {
+			for (int y = roomFloor1Y; y <= roomFloor1Y +2; y++) {
+				world.setBlockToAir(roomX +1, roomY +y, roomZ +roomWidth +1);
+				world.setBlockToAir(roomX +2, roomY +y, roomZ +roomWidth +1);
+				world.setBlockToAir(roomX +roomWidth -1, roomY +y, roomZ -1);
+				world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ -1);
+			}
+		}
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
 
 		// 確定スポーン
-		SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-		SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-		SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-		SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
 
-		// 負荷軽減オフの時に追加スポーン
+		// コンフィグ：負荷軽減オフの時に追加スポーン
 		if (!(LadConfigCore.isRoomReduction)) {
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
 		}
 
 	}
