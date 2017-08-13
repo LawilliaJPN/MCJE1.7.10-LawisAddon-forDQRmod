@@ -1,4 +1,4 @@
-package lawisAddonDqr1.api;
+package lawisAddonDqr1.api.blocks;
 
 import net.minecraft.block.Block;
 

@@ -3,7 +3,7 @@ package lawisAddonDqr1.addons;
 import cpw.mods.fml.common.Loader;
 import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.blocks.LadInitBlocks;
-import lawisAddonDqr1.event.BreakEventHundler;
+import lawisAddonDqr1.event.LadEventHundler;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Addons {
@@ -22,7 +22,7 @@ public class Addons {
 				LadInitBlocks.initBlocks();
 
 				// ブロックを破壊した時のイベント処理
-				MinecraftForge.EVENT_BUS.register(new BreakEventHundler());
+				MinecraftForge.EVENT_BUS.register(new LadEventHundler());
 
 			} catch (Throwable t) {
 				LawisAddonDQR01.logger.warn("Failed to load DQR mod");

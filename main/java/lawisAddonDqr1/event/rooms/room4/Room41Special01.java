@@ -1,9 +1,10 @@
-package lawisAddonDqr1.event.rooms;
+package lawisAddonDqr1.event.rooms.room4;
 
 import dqr.api.Blocks.DQBlocks;
-import lawisAddonDqr1.api.LadBlocks;
+import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.RoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -12,7 +13,7 @@ public class Room41Special01 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋
 	 */
-	public static void setRoomSpecial01(World world, EntityPlayer player) {
+	public static void setRoom(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
 		int roomY = (int)player.posY -2;		// 部屋の起点となるY座標（-2）

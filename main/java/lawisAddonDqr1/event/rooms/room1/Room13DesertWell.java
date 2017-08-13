@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms;
+package lawisAddonDqr1.event.rooms.room1;
 
 import java.util.Random;
 
@@ -6,6 +6,7 @@ import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.RoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -15,7 +16,7 @@ public class Room13DesertWell {
 	/*
 	 * バニラの砂漠の井戸をモチーフとした戦闘部屋（村の井戸ではない）
 	 */
-	public static void setRoomDesertWell(World world, EntityPlayer player, int direction) {
+	public static void setRoom(World world, EntityPlayer player, int direction) {
 		Random rand = new Random();
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標

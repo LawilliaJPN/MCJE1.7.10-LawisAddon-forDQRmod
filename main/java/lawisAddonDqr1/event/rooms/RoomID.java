@@ -14,6 +14,7 @@ public class RoomID {
 	final public static int roomIcePlains = 1400;
 	final public static int roomForest = 1500;
 	final public static int roomBeach = 1600;
+	final public static int roomPyramid = 2100;
 	final public static int roomSpecial01 = 4100;
 	// スポーン用ID
 	final public static int roomGrassWellIsCursedOnWater = 1120;
@@ -29,18 +30,12 @@ public class RoomID {
 	 */
 	public static void updateDifOfRoom(World world) {
 		int d = 0;
-		int time = (int) (world.getTotalWorldTime() /24000) +1;
-
-		if (time >= 7) {
-			d = 7;
-		} else {
-			d = time;
-		}
+		int time = (int) (world.getTotalWorldTime() /24000);
 
 		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
 		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
 
-		difOfRoom = d;
+		setDifOfRoom(d);
 	}
 
 	/*
@@ -65,7 +60,7 @@ public class RoomID {
 		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
 		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
 
-		difOfRoom = d;
+		setDifOfRoom(d);
 	}
 
 	/*
@@ -86,9 +81,38 @@ public class RoomID {
 	}
 
 	/*
-	 * int型 ⇒ RoomID 変数名（部屋の基本ID）
+	 * int型 ⇒ 戦闘部屋の日本語名
 	 */
 	public static String getNameRoom(int roomID) {
+		switch (roomID) {
+		case 1100:
+			return "村の井戸";
+		case 1110:
+		case 1120:
+			return "呪われた井戸";
+		case 1200:
+		case 1210:
+			return "武器屋";
+		case 1300:
+			return "砂漠の井戸";
+		case 1400:
+			return "氷原";
+		case 1500:
+			return "森林";
+		case 1600:
+			return "砂浜";
+		case 2100:
+			return "ピラミッド";
+		case 4100:
+			return "特殊な部屋";
+		}
+		return "";
+	}
+
+	/*
+	 * int型 ⇒ RoomID 変数名（部屋の基本ID）
+	 */
+	public static String getNameRoomID(int roomID) {
 		switch (roomID) {
 		case 1100:
 			return "roomGrassWell";
@@ -106,9 +130,11 @@ public class RoomID {
 			return "roomForest";
 		case 1600:
 			return "roomBeach";
+		case 2100:
+			return "roomPyramid";
 		case 4100:
 			return "roomSpecial01";
 		}
-		return null;
+		return "";
 	}
 }

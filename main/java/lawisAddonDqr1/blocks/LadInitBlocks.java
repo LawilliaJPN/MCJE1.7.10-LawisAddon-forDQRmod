@@ -2,7 +2,7 @@ package lawisAddonDqr1.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import dqr.DQR;
-import lawisAddonDqr1.api.LadBlocks;
+import lawisAddonDqr1.api.blocks.LadBlocks;
 import net.minecraft.block.Block;
 
 public class LadInitBlocks {
