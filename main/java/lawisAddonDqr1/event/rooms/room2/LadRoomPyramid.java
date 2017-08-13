@@ -6,13 +6,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class RoomPyramid {
+public class LadRoomPyramid {
 	/*
 	 * ピラミッドの戦闘部屋
 	 *
 	 * [Unimplemented] 実装途中。
 	 */
-	public static void setRoom(World world, EntityPlayer player, int direction) {
+	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
@@ -23,7 +23,7 @@ public class RoomPyramid {
 		int roomWidth = 16;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
 
-		// プレイヤーが中心になるように生成
+		// プレイヤーが中心になるように生成(仮)
 		roomX -= roomCenter;
 		roomZ -= roomCenter;
 

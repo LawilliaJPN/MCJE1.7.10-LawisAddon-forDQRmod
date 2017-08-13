@@ -5,19 +5,20 @@ import java.util.Random;
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.enemies.SpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.LadRooms;
+import lawisAddonDqr1.event.rooms.LadRoomCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-public class RoomWeaponShop {
+public class LadRoomWeaponShop {
 	/*
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
 	 */
-	public static void setRoom(World world, EntityPlayer player, int direction) {
+	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
+		int roomDirection = LadRoomCore.getDirectionRoom(player, 0);
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
@@ -31,11 +32,11 @@ public class RoomWeaponShop {
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
-			player.addChatMessage(new ChatComponentTranslation("direction == " + direction));
+			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
 		}
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
-		switch (direction) {
+		switch (roomDirection) {
 		case 0:
 			roomX -= 4;
 			roomZ -= 4;
@@ -135,7 +136,7 @@ public class RoomWeaponShop {
 		}
 
 		// 窓ガラスの設置
-		switch (direction) {
+		switch (roomDirection) {
 		case 0:
 		case 2:
 			world.setBlock(roomX +3, roomY +1, roomZ +1, Blocks.glass_pane);
@@ -161,7 +162,7 @@ public class RoomWeaponShop {
 		}
 
 		/* 以下、方向ごとに座標を指定した方が楽なものの設置 */
-		if (direction == 0) {
+		if (roomDirection == 0) {
 			/*
 			o,0,1,2,3,4,5,6,7,8,9,10,x
 			0,_,_,_,_,_,_,_,_,_,_,_,
@@ -209,7 +210,7 @@ public class RoomWeaponShop {
 			}
 
 
-		} else if (direction == 1) {
+		} else if (roomDirection == 1) {
 			/*
 			o,0,1,2,3,4,5,6,7,8,x
 			0,_,_,_,_,_,_,_,_,_,
@@ -259,7 +260,7 @@ public class RoomWeaponShop {
 			}
 
 
-		} else if (direction == 2) {
+		} else if (roomDirection == 2) {
 			/*
 			o,0,1,2,3,4,5,6,7,8,9,10,x
 			0,_,_,_,_,_,_,_,_,_,_,_,
@@ -306,9 +307,9 @@ public class RoomWeaponShop {
 				world.setBlock(roomX +5, roomY, roomZ +z, Blocks.oak_stairs, 4, 2);
 			}
 
-		} else if (direction == 3) {
+		} else if (roomDirection == 3) {
 			/*
-			direction == 0
+			roomDirection == 0
 			o,0,1,2,3,4,5,6,7,8,x
 			0,_,_,s,_,_,_,s,_,_,
 			1,_,w,w,w,d,w,w,w,_,
@@ -363,24 +364,24 @@ public class RoomWeaponShop {
 		 * - - - - - - - - - */
 
 		// 確定スポーン 建物内
-		switch (direction) {
+		switch (roomDirection) {
 		case 0:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		case 1:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		case 2:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		case 3:
-			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRooms.WEAPON_SHOP_CUSTOMER + LadRooms.getDifOfRoom());
+			SpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
 			break;
 		}
 
 		// 確率スポーン 建物外
 		for (int i = 0; i < 4; i++) {
-			if (LadRooms.getDifOfRoom() >= rand.nextInt(4)) {
+			if (LadRoomCore.getDifOfRoom() >= rand.nextInt(4)) {
 				int x = 0, z = 0;
 
 				switch (i) {
@@ -402,7 +403,7 @@ public class RoomWeaponShop {
 					break;
 				}
 
-				SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRooms.WEAPON_SHOP + LadRooms.getDifOfRoom());
+				SpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomCore.WEAPON_SHOP + LadRoomCore.getDifOfRoom());
 			}
 		}
 	}

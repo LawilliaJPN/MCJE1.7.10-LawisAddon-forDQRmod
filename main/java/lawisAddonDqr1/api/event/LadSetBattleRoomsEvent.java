@@ -6,17 +6,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 @Cancelable
-public class LadSetBattleRoomEvent extends Event {
+public class LadSetBattleRoomsEvent extends Event {
 	public final World world;
 	public final EntityPlayer player;
 
 	/*
 	 * 戦闘部屋の生成関連のイベント。
-	 * lawisAddonDqr1.event.LadEventHundler.javaのMiningPenaltyメソッド内。
+	 * lawisAddonDqr1.event.LadEventHundler.javaのsetBattleRoomsメソッド内。
 	 *
 	 * [Unimplemented] 引数は最低限のみ実装、今後必要に応じて追加予定。
 	 */
-	public LadSetBattleRoomEvent(World world, EntityPlayer player) {
+	public LadSetBattleRoomsEvent(World world, EntityPlayer player) {
 		super();
 		this.world = world;
 		// 「石ブロック」を破壊したプレイヤー
@@ -24,18 +24,18 @@ public class LadSetBattleRoomEvent extends Event {
 	}
 
 	/*
-	 * 戦闘部屋の生成直前にフック。
+	 * 戦闘部屋の生成前にフック。
 	 */
-	public static class PreSetRoomEvent extends LadSetBattleRoomEvent {
+	public static class PreSetRoomEvent extends LadSetBattleRoomsEvent {
 		public PreSetRoomEvent(World world, EntityPlayer player) {
 			super(world, player);
 		}
 	}
 
 	/*
-	 * 戦闘部屋の生成直後にフック。
+	 * 戦闘部屋の生成後にフック。
 	 */
-	public static class PostSetRoomEvent extends LadSetBattleRoomEvent {
+	public static class PostSetRoomEvent extends LadSetBattleRoomsEvent {
 		public PostSetRoomEvent(World world, EntityPlayer player) {
 			super(world, player);
 		}

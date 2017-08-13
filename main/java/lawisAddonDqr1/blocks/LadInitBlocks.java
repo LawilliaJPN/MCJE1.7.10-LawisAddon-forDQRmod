@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 
 public class LadInitBlocks {
 	public static void initBlocks() {
+		/* ジャンプブロック(LAD) */
 		LadBlocks.ladJumpBlock2 = new LadJumpBlock2()
 			// 変更なし
 			.setBlockUnbreakable()

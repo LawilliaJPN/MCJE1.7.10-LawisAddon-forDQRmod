@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class LadRooms {
+public class LadRoomCore {
 	/* Room ID */
 	// 部屋の基本ID
 	public static final int DEBUG_IS_FALSE = -1;

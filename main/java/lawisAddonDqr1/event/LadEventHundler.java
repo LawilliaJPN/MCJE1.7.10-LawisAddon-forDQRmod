@@ -3,18 +3,18 @@ package lawisAddonDqr1.event;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import lawisAddonDqr1.api.event.LadSetBattleRoomEvent;
+import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.rooms.LadRooms;
-import lawisAddonDqr1.event.rooms.room1.RoomBeach;
-import lawisAddonDqr1.event.rooms.room1.RoomDesertWell;
-import lawisAddonDqr1.event.rooms.room1.RoomForest;
-import lawisAddonDqr1.event.rooms.room1.RoomIcePlains;
-import lawisAddonDqr1.event.rooms.room1.RoomVillageWell;
-import lawisAddonDqr1.event.rooms.room1.RoomWeaponShop;
-import lawisAddonDqr1.event.rooms.room2.RoomPyramid;
-import lawisAddonDqr1.event.rooms.room4.RoomSpecial01;
+import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.rooms.room1.LadRoomBeach;
+import lawisAddonDqr1.event.rooms.room1.LadRoomDesertWell;
+import lawisAddonDqr1.event.rooms.room1.LadRoomForest;
+import lawisAddonDqr1.event.rooms.room1.LadRoomIcePlains;
+import lawisAddonDqr1.event.rooms.room1.LadRoomVillageWell;
+import lawisAddonDqr1.event.rooms.room1.LadRoomWeaponShop;
+import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
+import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -47,10 +47,10 @@ public class LadEventHundler {
 			// ランダムエンカウント
 			if (countRandomEncounter <= 0) {
 				// 戦闘部屋の難易度を決定
-				LadRooms.updateDifOfRoom(event.y);
+				LadRoomCore.updateDifOfRoom(event.y);
 
 				// 戦闘部屋の生成
-				MiningPenalty(event.world, event.getPlayer());
+				setBattleRooms(event.world, event.getPlayer());
 
 				// 次の強制戦闘までのカウントを決定
 				updateCountRandomEncounter();
@@ -85,23 +85,23 @@ public class LadEventHundler {
 			}
 
 			// 戦闘部屋の難易度を決定
-			LadRooms.updateDifOfRoom(world);
+			LadRoomCore.updateDifOfRoom(world);
 
 			// 戦闘部屋の生成
-			MiningPenalty(world, player);
+			setBattleRooms(world, player);
 		}
 	}
 
 	/*
-	 * 強制的に戦闘を起こす処理
+	 * 戦闘部屋を生成する処理
 	 *
 	 * [Unimplemented] Y=30以下は未実装
 	 */
-	public static void MiningPenalty(World world, EntityPlayer player) {
+	public static void setBattleRooms(World world, EntityPlayer player) {
 		Random rand = new Random();
 
 		// [ForgeEvent] 戦闘部屋生成前 介入用のイベント
-		LadSetBattleRoomEvent.PreSetRoomEvent preEvent = new LadSetBattleRoomEvent.PreSetRoomEvent(world, player);
+		LadSetBattleRoomsEvent.PreSetRoomEvent preEvent = new LadSetBattleRoomsEvent.PreSetRoomEvent(world, player);
 		MinecraftForge.EVENT_BUS.post(preEvent);
 
 		/* 戦闘部屋の生成 */
@@ -109,110 +109,105 @@ public class LadEventHundler {
 		if (LadDebug.getDebugRoom() >= 0) {
 			if (!world.isRemote) {
 				switch (LadDebug.getDebugRoom()) {
-				case LadRooms.FOREST:
-					RoomForest.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+				case LadRoomCore.FOREST:
+					LadRoomForest.setRoom(world, player);
 					break;
-				case LadRooms.VILLAGE_WELL:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 1), false);
+				case LadRoomCore.VILLAGE_WELL:
+				case LadRoomCore.VILLAGE_WELL_HAS_CURSED:
+					LadRoomVillageWell.setRoom(world, player);
 					break;
-				case LadRooms.VILLAGE_WELL_HAS_CURSED:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0), true);
+				case LadRoomCore.BEACH:
+					LadRoomBeach.setRoom(world, player);
 					break;
-				case LadRooms.BEACH:
-					RoomBeach.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+				case LadRoomCore.DESERT_WELL:
+					LadRoomDesertWell.setRoom(world, player);
 					break;
-				case LadRooms.DESERT_WELL:
-					RoomDesertWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+				case LadRoomCore.ICE_PLAINS:
+					LadRoomIcePlains.setRoom(world, player);
 					break;
-				case LadRooms.ICE_PLAINS:
-					RoomIcePlains.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+				case LadRoomCore.WEAPON_SHOP:
+					LadRoomWeaponShop.setRoom(world, player);
 					break;
-				case LadRooms.WEAPON_SHOP:
-					RoomWeaponShop.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+				case LadRoomCore.PYRAMID:
+					LadRoomPyramid.setRoom(world, player);
 					break;
-				case LadRooms.PYRAMID:
-					RoomPyramid.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
-					break;
-				case LadRooms.SPECIAL_01:
-					RoomSpecial01.setRoom(world, player);
+				case LadRoomCore.SPECIAL_01:
+					LadRoomSpecial01.setRoom(world, player);
 					break;
 				}
 			}
 
 		// Y=41～45
-		} else if (LadRooms.getDifOfRoom() == 1) {
+		} else if (LadRoomCore.getDifOfRoom() == 1) {
 			if (!world.isRemote) {
 				switch (rand.nextInt(5)) {
 				case 0:
-					RoomForest.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomForest.setRoom(world, player);
 					break;
 				case 1:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 1), false);
+					LadRoomVillageWell.setRoom(world, player);
 					break;
 				case 2:
-					RoomBeach.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomBeach.setRoom(world, player);
 					break;
 				case 3:
-					RoomDesertWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomDesertWell.setRoom(world, player);
 					break;
 				case 4:
-					RoomSpecial01.setRoom(world, player);
+					LadRoomSpecial01.setRoom(world, player);
 					break;
 				}
 			}
 
 		// Y=36～40
-		} else if (LadRooms.getDifOfRoom() == 2) {
+		} else if (LadRoomCore.getDifOfRoom() == 2) {
 			if (!world.isRemote) {
 				switch (rand.nextInt(6)) {
 				case 0:
-					RoomForest.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomForest.setRoom(world, player);
 					break;
 				case 1:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0), true);
+					LadRoomVillageWell.setRoom(world, player);
 					break;
 				case 2:
-					RoomBeach.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomBeach.setRoom(world, player);
 					break;
 				case 3:
-					RoomIcePlains.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomIcePlains.setRoom(world, player);
 					break;
 				case 4:
-					RoomWeaponShop.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomWeaponShop.setRoom(world, player);
 					break;
 				case 5:
-					RoomSpecial01.setRoom(world, player);
+					LadRoomSpecial01.setRoom(world, player);
 					break;
 				}
 			}
 
 		// Y=31～35
-		} else if (LadRooms.getDifOfRoom() == 3) {
+		} else if (LadRoomCore.getDifOfRoom() == 3) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(8)) {
+				switch (rand.nextInt(7)) {
 				case 0:
-					RoomForest.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomForest.setRoom(world, player);
 					break;
 				case 1:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 1), false);
+					LadRoomVillageWell.setRoom(world, player);
 					break;
 				case 2:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0), true);
+					LadRoomBeach.setRoom(world, player);
 					break;
 				case 3:
-					RoomBeach.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomDesertWell.setRoom(world, player);
 					break;
 				case 4:
-					RoomDesertWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomIcePlains.setRoom(world, player);
 					break;
 				case 5:
-					RoomIcePlains.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomWeaponShop.setRoom(world, player);
 					break;
 				case 6:
-					RoomWeaponShop.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
-					break;
-				case 7:
-					RoomSpecial01.setRoom(world, player);
+					LadRoomSpecial01.setRoom(world, player);
 					break;
 				}
 			}
@@ -220,42 +215,39 @@ public class LadEventHundler {
 		// Y=30以下 未実装につき、Y=31～35と同様のものに、仮設定
 		} else {
 			if (!world.isRemote) {
-				switch (rand.nextInt(8)) {
+				switch (rand.nextInt(7)) {
 				case 0:
-					RoomForest.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomForest.setRoom(world, player);
 					break;
 				case 1:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 1), false);
+					LadRoomVillageWell.setRoom(world, player);
 					break;
 				case 2:
-					RoomVillageWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0), true);
+					LadRoomBeach.setRoom(world, player);
 					break;
 				case 3:
-					RoomBeach.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomDesertWell.setRoom(world, player);
 					break;
 				case 4:
-					RoomDesertWell.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomIcePlains.setRoom(world, player);
 					break;
 				case 5:
-					RoomIcePlains.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
+					LadRoomWeaponShop.setRoom(world, player);
 					break;
 				case 6:
-					RoomWeaponShop.setRoom(world, player, LadRooms.getDirectionRoom(player, 0));
-					break;
-				case 7:
-					RoomSpecial01.setRoom(world, player);
+					LadRoomSpecial01.setRoom(world, player);
 					break;
 				}
 			}
 		}
 
 		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント
-		LadSetBattleRoomEvent.PostSetRoomEvent postEvent = new LadSetBattleRoomEvent.PostSetRoomEvent(world, player);
+		LadSetBattleRoomsEvent.PostSetRoomEvent postEvent = new LadSetBattleRoomsEvent.PostSetRoomEvent(world, player);
 		MinecraftForge.EVENT_BUS.post(postEvent);
 	}
 
 	/*
-	 * 以下、getter,setter等
+	 * 以下、getterやsetter等
 	 */
 	public static int getCountRandomEncounter() {
 		return countRandomEncounter;
