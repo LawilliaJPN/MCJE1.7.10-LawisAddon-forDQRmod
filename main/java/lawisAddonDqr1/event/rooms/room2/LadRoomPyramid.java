@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 
 public class LadRoomPyramid {
 	/*
-	 * ピラミッドの戦闘部屋
+	 * バニラの「ピラミッド」をモチーフにした戦闘部屋
 	 *
-	 * [Unimplemented] 実装途中。
+	 * [Unimplemented] 大枠実装完了、細かい部分やスポーン設定は未実装。
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

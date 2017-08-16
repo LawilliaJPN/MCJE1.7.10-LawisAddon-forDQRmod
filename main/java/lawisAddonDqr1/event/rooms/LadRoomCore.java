@@ -15,6 +15,7 @@ public class LadRoomCore {
 	public static final int FOREST = 1500;
 	public static final int BEACH = 1600;
 	public static final int PYRAMID = 2100;
+	public static final int MEDAL_KING = 2200;
 	public static final int SPECIAL_01 = 4100;
 	// その他のID
 	public static final int DEBUG_IS_FALSE = -1;
