@@ -3,6 +3,7 @@ package lawisAddonDqr1.event;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dqr.api.Items.DQMagicTools;
 import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
@@ -24,8 +25,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
@@ -269,6 +272,31 @@ public class LadEventHundler {
 		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント
 		LadSetBattleRoomsEvent.PostSetRoomEvent postEvent = new LadSetBattleRoomsEvent.PostSetRoomEvent(world, player);
 		MinecraftForge.EVENT_BUS.post(postEvent);
+	}
+
+	/*
+	 * プレイヤーが何かしらをクリックした時に呼び出される処理
+	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 */
+	@SubscribeEvent
+	public void MGTCancelEvent(PlayerInteractEvent event) {
+		// ブロックを右クリックした時
+		if (event.action == event.action.RIGHT_CLICK_BLOCK) {
+			// コンフィグ：採掘速度低下がオンの時
+			if (LadConfigCore.isMiningFatigue) {
+				// 採掘速度低下ポーションが付与されている時
+				if (event.entityPlayer.isPotionActive(Potion.digSlowdown)) {
+					// 破壊マジックツールを使用した時に、効果をキャンセルする
+					if (event.entityPlayer.getHeldItem().getItem() == DQMagicTools.itemMagicToolBreak1) {
+						event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」の効果中のため、「マジックツール(指定ブロック破壊)」を使用できない。"));
+						event.setCanceled(true);
+					} else if (event.entityPlayer.getHeldItem().getItem() == DQMagicTools.itemMagicToolBreak2) {
+						event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」の効果中のため、「マジックツール(全ブロック破壊)」を使用できない。"));
+						event.setCanceled(true);
+					}
+				}
+			}
+		}
 	}
 
 	/*
