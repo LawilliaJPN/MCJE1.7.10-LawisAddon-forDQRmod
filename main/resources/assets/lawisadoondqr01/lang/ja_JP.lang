@@ -6,4 +6,5 @@ tile.ladJumpBlock2.name=ジャンプブロック(LAD)
 config.lad.category.general=全般
 config.lad.category.encounter=戦闘頻度
 config.lad.category.reduction=負荷軽減
+config.lad.category.miningfatigue=採掘速度低下
 config.lad.category.bedpenalty=ベッドペナルティ

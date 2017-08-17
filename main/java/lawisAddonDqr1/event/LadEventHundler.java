@@ -22,6 +22,8 @@ import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -257,6 +259,11 @@ public class LadEventHundler {
 					break;
 				}
 			}
+		}
+
+		// コンフィグ：採掘速度低下がオンの時、10秒間「採掘速度低下Ⅱ」のステータスを付与
+		if (LadConfigCore.isMiningFatigue) {
+			player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 10 * 20, 1));
 		}
 
 		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント

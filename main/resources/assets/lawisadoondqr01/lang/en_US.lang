@@ -6,4 +6,5 @@ tile.ladJumpBlock2.name=Jump Block(LAD)
 config.lad.category.general=General
 config.lad.category.encounter=Frequency of Battle
 config.lad.category.reduction=Workload Reduction
+config.lad.category.miningfatigue=Mining Fatigue
 config.lad.category.bedpenalty=Bed Penalty
