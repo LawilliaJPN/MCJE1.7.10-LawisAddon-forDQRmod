@@ -13,6 +13,7 @@ import lawisAddonDqr1.event.rooms.room1.LadRoomForest;
 import lawisAddonDqr1.event.rooms.room1.LadRoomIcePlains;
 import lawisAddonDqr1.event.rooms.room1.LadRoomVillageWell;
 import lawisAddonDqr1.event.rooms.room1.LadRoomWeaponShop;
+import lawisAddonDqr1.event.rooms.room2.LadRoomDama;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
@@ -138,6 +139,9 @@ public class LadEventHundler {
 					break;
 				case LadRoomCore.MINE_SHAFT:
 					LadRoomMineShaft.setRoom(world, player);
+					break;
+				case LadRoomCore.DAMA:
+					LadRoomDama.setRoom(world, player);
 					break;
 				case LadRoomCore.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);

@@ -60,7 +60,7 @@ public class LadRoomSpecial01 {
 		// 天井に「ダメージ床」を設置
 		for (int x = -1; x <= roomWidth +1; x++) {
 			for (int z = -1; z <= roomWidth +1; z++) {
-				world.setBlock(roomX +x, roomY +roomHeight +1, roomZ +z, DQBlocks.DqmBlockToramanaYuka);
+				world.setBlock(roomX +x, roomY +roomHeight +1, roomZ +z, DQBlocks.DqmBlockToramanaYuka2);
 			}
 		}
 
