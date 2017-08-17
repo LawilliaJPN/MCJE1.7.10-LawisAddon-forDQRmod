@@ -17,6 +17,7 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomDama;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
+import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -142,6 +143,9 @@ public class LadEventHundler {
 					break;
 				case LadRoomCore.DAMA:
 					LadRoomDama.setRoom(world, player);
+					break;
+				case LadRoomCore.STRONGHOLD:
+					LadRoomStronghold.setRoom(world, player);
 					break;
 				case LadRoomCore.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
