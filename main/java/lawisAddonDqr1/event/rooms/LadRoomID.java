@@ -21,10 +21,12 @@ public class LadRoomID {
 	public static final int STRONGHOLD = 2500;
 	public static final int SPECIAL_01 = 4100;
 	// その他のID
-	public static final int DEBUG_IS_FALSE = -1;
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
 	public static final int WEAPON_SHOP_CUSTOMER = 1210;
+	// デバッグ用ID
+	public static final int DEBUG_IS_FALSE = -1;
+	public static final int DEBUG_SUMMON_PET_SURA = 100;
 
 	/* Difficulty of Room */
 	// 戦闘部屋の難易度

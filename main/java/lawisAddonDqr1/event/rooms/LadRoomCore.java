@@ -5,6 +5,7 @@ import java.util.Random;
 import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPetSuffocation;
 import lawisAddonDqr1.event.rooms.room1.LadRoomBeach;
 import lawisAddonDqr1.event.rooms.room1.LadRoomDesertWell;
 import lawisAddonDqr1.event.rooms.room1.LadRoomForest;
@@ -35,6 +36,11 @@ public class LadRoomCore {
 		// [ForgeEvent] 戦闘部屋生成前 介入用のイベント
 		LadSetBattleRoomsEvent.PreSetRoomEvent preEvent = new LadSetBattleRoomsEvent.PreSetRoomEvent(world, player);
 		MinecraftForge.EVENT_BUS.post(preEvent);
+
+
+		/* 戦闘部屋の生成の前に */
+		// 周囲のペットの窒息対策
+		LadMeasuresAgainstPetSuffocation.pullPets(world, player);
 
 		/* 戦闘部屋の生成 */
 		// [Debug]戦闘部屋の種類を固定する処理（デバッグ用）
@@ -77,6 +83,9 @@ public class LadRoomCore {
 					break;
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
+					break;
+				case LadRoomID.DEBUG_SUMMON_PET_SURA:
+					LadDebug.setPetSura(world, player);
 					break;
 				}
 			}

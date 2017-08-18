@@ -1,6 +1,9 @@
 package lawisAddonDqr1.config;
 
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 /*
  * デバッグ用に変数を固定したりするためのクラス。
@@ -26,5 +29,10 @@ public class LadDebug {
 
 	public static boolean isDebugCountRandomEncounter0() {
 		return DEBUG_COUNT_RANDOMEN_COUNTER_0;
+	}
+
+	/* ペットのスライムを召喚する処理 */
+	public static void setPetSura(World world, EntityPlayer player) {
+		LadSpawnEnemyCore.spawnEnemy(world, player, (int)player.posX, (int)player.posY, (int)player.posZ, LadRoomID.DEBUG_SUMMON_PET_SURA);
 	}
 }
