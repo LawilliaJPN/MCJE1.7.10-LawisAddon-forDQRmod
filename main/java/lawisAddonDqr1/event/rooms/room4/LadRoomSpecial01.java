@@ -3,8 +3,8 @@ package lawisAddonDqr1.event.rooms.room4;
 import dqr.api.Blocks.DQBlocks;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
-import lawisAddonDqr1.event.enemies.LadSpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -229,17 +229,17 @@ public class LadRoomSpecial01 {
 		 * - - - - - - - - - */
 
 		// 確定スポーン
-		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor2Y +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
 
 		// コンフィグ：負荷軽減オフの時に追加スポーン
 		if (!(LadConfigCore.isRoomReduction)) {
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +roomWidth -1, LadRoomCore.SPECIAL_01 + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
 		}
 
 	}

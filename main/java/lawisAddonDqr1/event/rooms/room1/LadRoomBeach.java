@@ -3,8 +3,8 @@ package lawisAddonDqr1.event.rooms.room1;
 import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.enemies.LadSpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,7 +16,7 @@ public class LadRoomBeach {
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
-		int roomDirection = LadRoomCore.getDirectionRoom(player, 0);
+		int roomDirection = LadRoomID.getDirectionRoom(player, 0);
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
@@ -324,16 +324,16 @@ public class LadRoomBeach {
 		// 確定スポーン
 		switch (roomDirection) {
 		case 0:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 			break;
 		case 1:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 			break;
 		case 2:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 			break;
 		case 3:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 			break;
 		}
 
@@ -342,40 +342,40 @@ public class LadRoomBeach {
 		if (roomType%3 == 1) {
 			switch (roomDirection) {
 			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			}
 		// 中央の両端が陸の時
 		} else if (roomType%2 == 0) {
 			switch (roomDirection) {
 			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			}
 		}

@@ -3,8 +3,8 @@ package lawisAddonDqr1.event.rooms.room1;
 import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.enemies.LadSpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -38,14 +38,14 @@ public class LadRoomVillageWell {
 		int enemyZ = roomZ;					// 敵をスポーンさせるZ座標決定に使用
 
 		// 「呪われた井戸」かどうかの判定
-		if (LadRoomCore.getDifOfRoom() == 2) hasCursed = true;
-		else if ((LadRoomCore.getDifOfRoom() == 3) && (rand.nextInt(2) == 0)) hasCursed = true;
-		if (LadDebug.getDebugRoom() == LadRoomCore.VILLAGE_WELL_HAS_CURSED) hasCursed = true;
-		else if (LadDebug.getDebugRoom() == LadRoomCore.VILLAGE_WELL) hasCursed = false;
+		if (LadRoomID.getDifOfRoom() == 2) hasCursed = true;
+		else if ((LadRoomID.getDifOfRoom() == 3) && (rand.nextInt(2) == 0)) hasCursed = true;
+		if (LadDebug.getDebugRoom() == LadRoomID.VILLAGE_WELL_HAS_CURSED) hasCursed = true;
+		else if (LadDebug.getDebugRoom() == LadRoomID.VILLAGE_WELL) hasCursed = false;
 
 		// 井戸の生成方向を決定
-		if (hasCursed) LadRoomCore.getDirectionRoom(player, 0);
-		else LadRoomCore.getDirectionRoom(player, 1);
+		if (hasCursed) LadRoomID.getDirectionRoom(player, 0);
+		else LadRoomID.getDirectionRoom(player, 1);
 
 		// 「呪われた井戸」では、井戸が大きくなる
 		if (hasCursed) {
@@ -257,15 +257,15 @@ public class LadRoomVillageWell {
 			// 井戸の中に「ゾンビ」が大量発生(全難易度共通)
 			for (int x = 5; x <= roomWidth -5; x++) {
 				for (int z = 5; z <= roomWidth -5; z++) {
-					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +x, roomY, roomZ +z, LadRoomCore.VILLAGE_WELL_HAS_CURSED);
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +x, roomY, roomZ +z, LadRoomID.VILLAGE_WELL_HAS_CURSED);
 				}
 			}
 
-			if (LadRoomCore.getDifOfRoom() >= 3) {
+			if (LadRoomID.getDifOfRoom() >= 3) {
 				// 屋根の上に「ゾンビ」が大量発生(Y=35以下)
 				for (int x = 5; x <= roomWidth -5; x++) {
 					for (int z = 5; z <= roomWidth -5; z++) {
-						LadSpawnEnemyCore.spawnEnemy(world, player, roomX +x, roomY +6, roomZ +z, LadRoomCore.VILLAGE_WELL_HAS_CURSED);
+						LadSpawnEnemyCore.spawnEnemy(world, player, roomX +x, roomY +6, roomZ +z, LadRoomID.VILLAGE_WELL_HAS_CURSED);
 					}
 				}
 			}
@@ -274,10 +274,10 @@ public class LadRoomVillageWell {
 		// 「屋根上スタート」時のスポーン
 		} else if (roomType == 2) {
 			// 確定スポーン
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +1, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomWidth -1, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +1, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomWidth -1, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
 
 
 		// 「呪われた井戸」の通常スポーン
@@ -285,11 +285,11 @@ public class LadRoomVillageWell {
 			int x = 0, z = 0;
 
 			// 確定スポーン
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomCenter, LadRoomCore.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomID.getDifOfRoom());
 
 			// 確率スポーン
 			for (int i = 0; i < 4; i++) {
-				if (LadRoomCore.getDifOfRoom() >= rand.nextInt(4)) {
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
 					switch (i) {
 					case 0:
 						x = roomX +1;
@@ -310,7 +310,7 @@ public class LadRoomVillageWell {
 					}
 
 					if (!( (playerX == x) && (playerZ == z) )) {
-						LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
+						LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
 					}
 				}
 			}
@@ -321,11 +321,11 @@ public class LadRoomVillageWell {
 			int x = 0, z = 0;
 
 			// 確定スポーン
-			LadSpawnEnemyCore.spawnEnemy(world, player, enemyX, roomY, enemyZ, LadRoomCore.VILLAGE_WELL + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, enemyX, roomY, enemyZ, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
 
 			// 確率スポーン
 			for (int i = 0; i < 4; i++) {
-				if (LadRoomCore.getDifOfRoom() >= rand.nextInt(4)) {
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
 					switch (i) {
 					case 0:
 						x = roomX +1;
@@ -346,7 +346,7 @@ public class LadRoomVillageWell {
 					}
 
 					if (!((playerX == x) && (playerZ == z)) && !((enemyX == x) && (enemyZ == z))) {
-						LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomCore.VILLAGE_WELL + LadRoomCore.getDifOfRoom());
+						LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
 					}
 				}
 			}

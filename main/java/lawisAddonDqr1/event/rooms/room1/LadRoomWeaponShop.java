@@ -4,8 +4,8 @@ import java.util.Random;
 
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.enemies.LadSpawnEnemyCore;
-import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
@@ -18,7 +18,7 @@ public class LadRoomWeaponShop {
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
-		int roomDirection = LadRoomCore.getDirectionRoom(player, 0);
+		int roomDirection = LadRoomID.getDirectionRoom(player, 0);
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
@@ -366,22 +366,22 @@ public class LadRoomWeaponShop {
 		// 確定スポーン 建物内
 		switch (roomDirection) {
 		case 0:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
 			break;
 		case 1:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
 			break;
 		case 2:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
 			break;
 		case 3:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomCore.WEAPON_SHOP_CUSTOMER + LadRoomCore.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
 			break;
 		}
 
 		// 確率スポーン 建物外
 		for (int i = 0; i < 4; i++) {
-			if (LadRoomCore.getDifOfRoom() >= rand.nextInt(4)) {
+			if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
 				int x = 0, z = 0;
 
 				switch (i) {
@@ -403,7 +403,7 @@ public class LadRoomWeaponShop {
 					break;
 				}
 
-				LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomCore.WEAPON_SHOP + LadRoomCore.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomID.WEAPON_SHOP + LadRoomID.getDifOfRoom());
 			}
 		}
 	}

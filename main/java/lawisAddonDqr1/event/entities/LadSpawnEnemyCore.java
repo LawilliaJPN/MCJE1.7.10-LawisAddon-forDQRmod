@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.enemies;
+package lawisAddonDqr1.event.entities;
 
 import java.util.Random;
 
@@ -71,7 +71,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntitySyado;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTutiwarasi;
 import lawisAddonDqr1.api.event.LadEnemySpawnEvent;
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityZombie;
@@ -106,7 +106,7 @@ public class LadSpawnEnemyCore {
 
 		/* 森林 */
 		// 森林 Y=41～45
-		if (enemyGroup == LadRoomCore.FOREST +1) {
+		if (enemyGroup == LadRoomID.FOREST +1) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntitySura(world);
@@ -123,7 +123,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityKirikabuobake(world);
 
 		// 森林 Y=36～40
-		} else if (enemyGroup == LadRoomCore.FOREST +2) {
+		} else if (enemyGroup == LadRoomID.FOREST +2) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityRippusu(world);
@@ -140,7 +140,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityEbiruapple(world);
 
 		// 森林 Y=31～35
-		} else if (enemyGroup == LadRoomCore.FOREST +3) {
+		} else if (enemyGroup == LadRoomID.FOREST +3) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityDragosuraimu(world);
@@ -159,7 +159,7 @@ public class LadSpawnEnemyCore {
 
 		/* 村の井戸 */
 		// 井戸（通常） Y=41～45
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL +1) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL +1) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityOonamekuji(world);
@@ -176,7 +176,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityOomedama(world);
 
 		// 井戸（通常） Y=31～35
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL +3) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL +3) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityOomedama(world);
@@ -193,7 +193,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityRaimusuraimu(world);
 
 		// 「呪われた井戸」 Y=36～40 確定スポーン
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL_HAS_CURSED_ON_WATER +2) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER +2) {
 			int r = rand.nextInt(4);
 
 			if (r == 0) entity = new DqmEntityAyasiikage(world);
@@ -202,7 +202,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 3) entity = new DqmEntityTutiwarasi(world);
 
 		// 「呪われた井戸」 Y=36～40 変動スポーン
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL_HAS_CURSED +2) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED +2) {
 			int r = rand.nextInt(8);
 
 			if (r == 0) entity = new DqmEntityOnikozou(world);
@@ -215,7 +215,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 7) entity = new DqmEntityMadohando(world);
 
 		// 「呪われた井戸」 Y=31～35 確定スポーン
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL_HAS_CURSED_ON_WATER +3) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER +3) {
 			int r = rand.nextInt(4);
 
 			if (r == 0) entity = new DqmEntityMeragosuto(world);
@@ -224,7 +224,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 3) entity = new DqmEntityMetoroghost(world);
 
 		// 「呪われた井戸」 Y=36～40 変動スポーン
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL_HAS_CURSED +3) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED +3) {
 			int r = rand.nextInt(8);
 
 			if (r == 0) entity = new DqmEntityTukaima(world);
@@ -237,14 +237,14 @@ public class LadSpawnEnemyCore {
 			else if (r == 7) entity = new DqmEntityGaikotu(world);
 
 		// 「呪われた井戸」イレギュラーパターン →バニラのゾンビ
-		} else if (enemyGroup == LadRoomCore.VILLAGE_WELL_HAS_CURSED) {
+		} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED) {
 			entity = new EntityZombie(world);
 			encounterLog = false;
 
 
 		/* 砂浜 */
 		// 砂浜 Y=41～45
-		} else if (enemyGroup == LadRoomCore.BEACH +1) {
+		} else if (enemyGroup == LadRoomID.BEACH +1) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntitySura(world);
@@ -261,7 +261,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityOokiduti(world);
 
 		// 砂浜 Y=36～40
-		} else if (enemyGroup == LadRoomCore.BEACH +2) {
+		} else if (enemyGroup == LadRoomID.BEACH +2) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntitySimasimacat(world);
@@ -278,7 +278,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityUzusioking(world);
 
 		// 砂浜 Y=31～35
-		} else if (enemyGroup == LadRoomCore.BEACH +3) {
+		} else if (enemyGroup == LadRoomID.BEACH +3) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityOokiduti(world);
@@ -296,7 +296,7 @@ public class LadSpawnEnemyCore {
 
 		/* 砂漠の井戸 */
 		// 砂漠の井戸 Y=41～45
-		} else if (enemyGroup == LadRoomCore.DESERT_WELL +1) {
+		} else if (enemyGroup == LadRoomID.DESERT_WELL +1) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntitySuraimubesu(world);
@@ -313,7 +313,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntitySabotenboru(world);
 
 		// 砂漠の井戸 Y=31～35
-		} else if (enemyGroup == LadRoomCore.DESERT_WELL +3) {
+		} else if (enemyGroup == LadRoomID.DESERT_WELL +3) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityObakeumiusi(world);
@@ -331,7 +331,7 @@ public class LadSpawnEnemyCore {
 
 		/* 氷原 */
 		// 氷原 Y=36～40
-		} else if (enemyGroup == LadRoomCore.ICE_PLAINS +2) {
+		} else if (enemyGroup == LadRoomID.ICE_PLAINS +2) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityDoraki(world);
@@ -348,7 +348,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityPurizunyan(world);
 
 		// 氷原 Y=31～35
-		} else if (enemyGroup == LadRoomCore.ICE_PLAINS +3) {
+		} else if (enemyGroup == LadRoomID.ICE_PLAINS +3) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityGhost(world);
@@ -366,7 +366,7 @@ public class LadSpawnEnemyCore {
 
 		/* 武器屋 */
 		// 武器屋 Y=36～40 確定スポーン
-		} else if (enemyGroup == LadRoomCore.WEAPON_SHOP_CUSTOMER +2) {
+		} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER +2) {
 			int r = rand.nextInt(6);
 
 			if (r == 0) entity = new DqmEntityItamogu(world);
@@ -377,7 +377,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 5) entity = new DqmEntityGaikotu(world);
 
 		// 武器屋 Y=36～40 変動スポーン
-		} else if (enemyGroup == LadRoomCore.WEAPON_SHOP +2) {
+		} else if (enemyGroup == LadRoomID.WEAPON_SHOP +2) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityItamogu(world);
@@ -394,7 +394,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 11) entity = new DqmEntityWaraibukuro(world);
 
 		// 武器屋 Y=31～35 確定スポーン
-		} else if (enemyGroup == LadRoomCore.WEAPON_SHOP_CUSTOMER +3) {
+		} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER +3) {
 			int r = rand.nextInt(6);
 
 			if (r == 0) entity = new DqmEntityOokiduti(world);
@@ -405,7 +405,7 @@ public class LadSpawnEnemyCore {
 			else if (r == 5) entity = new DqmEntitySuraimunaito(world);
 
 		// 武器屋 Y=31～35 変動スポーン
-		} else if (enemyGroup == LadRoomCore.WEAPON_SHOP +3) {
+		} else if (enemyGroup == LadRoomID.WEAPON_SHOP +3) {
 			int r = rand.nextInt(12);
 
 			if (r == 0) entity = new DqmEntityTukaima(world);
@@ -423,73 +423,73 @@ public class LadSpawnEnemyCore {
 
 		/* 特殊部屋1 */
 		// 特殊部屋1 Y=41～45
-		} else if (enemyGroup == LadRoomCore.SPECIAL_01 +1) {
+		} else if (enemyGroup == LadRoomID.SPECIAL_01 +1) {
 			switch (rand.nextInt(4)) {
 			case 0:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.FOREST + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
 				break;
 			case 1:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.VILLAGE_WELL + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
 				break;
 			case 2:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 3:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.DESERT_WELL + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
 				break;
 			}
 			return;
 
 		// 特殊部屋1 Y=36～40
-		} else if (enemyGroup == LadRoomCore.SPECIAL_01 +2) {
+		} else if (enemyGroup == LadRoomID.SPECIAL_01 +2) {
 			switch (rand.nextInt(6)) {
 			case 0:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.FOREST + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
 				break;
 			case 1:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
 				break;
 			case 2:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomID.getDifOfRoom());
 				break;
 			case 3:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 4:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.ICE_PLAINS + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.ICE_PLAINS + LadRoomID.getDifOfRoom());
 				break;
 			case 5:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.WEAPON_SHOP + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.WEAPON_SHOP + LadRoomID.getDifOfRoom());
 				break;
 			}
 			return;
 
 		// 特殊部屋1 Y=31～35
-		} else if (enemyGroup == LadRoomCore.SPECIAL_01 +3) {
+		} else if (enemyGroup == LadRoomID.SPECIAL_01 +3) {
 			switch (rand.nextInt(8)) {
 			case 0:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.FOREST + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
 				break;
 			case 1:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.VILLAGE_WELL + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
 				break;
 			case 2:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.VILLAGE_WELL_HAS_CURSED + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
 				break;
 			case 3:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomID.getDifOfRoom());
 				break;
 			case 4:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.BEACH + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.BEACH + LadRoomID.getDifOfRoom());
 				break;
 			case 5:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.DESERT_WELL + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
 				break;
 			case 6:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.ICE_PLAINS + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.ICE_PLAINS + LadRoomID.getDifOfRoom());
 				break;
 			case 7:
-				spawnEnemy(world, player, x, y, z, LadRoomCore.WEAPON_SHOP + LadRoomCore.getDifOfRoom());
+				spawnEnemy(world, player, x, y, z, LadRoomID.WEAPON_SHOP + LadRoomID.getDifOfRoom());
 				break;
 			}
 			return;

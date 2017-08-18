@@ -3,7 +3,7 @@ package lawisAddonDqr1.event.rooms.room2;
 import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
-import lawisAddonDqr1.event.rooms.LadRoomCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -17,7 +17,7 @@ public class LadRoomMineShaft {
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
-		int roomDirection = LadRoomCore.getDirectionRoom(player, 0);
+		int roomDirection = LadRoomID.getDirectionRoom(player, 0);
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）

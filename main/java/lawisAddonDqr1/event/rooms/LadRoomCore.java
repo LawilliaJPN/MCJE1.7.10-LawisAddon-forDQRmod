@@ -1,170 +1,199 @@
 package lawisAddonDqr1.event.rooms;
 
+import java.util.Random;
+
+import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
+import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.rooms.room1.LadRoomBeach;
+import lawisAddonDqr1.event.rooms.room1.LadRoomDesertWell;
+import lawisAddonDqr1.event.rooms.room1.LadRoomForest;
+import lawisAddonDqr1.event.rooms.room1.LadRoomIcePlains;
+import lawisAddonDqr1.event.rooms.room1.LadRoomVillageWell;
+import lawisAddonDqr1.event.rooms.room1.LadRoomWeaponShop;
+import lawisAddonDqr1.event.rooms.room2.LadRoomDama;
+import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
+import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
+import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
+import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
+import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 public class LadRoomCore {
-	/* Room ID */
-	// 部屋の基本ID
-	public static final int VILLAGE_WELL = 1100;
-	public static final int WEAPON_SHOP = 1200;
-	public static final int DESERT_WELL = 1300;
-	public static final int ICE_PLAINS = 1400;
-	public static final int FOREST = 1500;
-	public static final int BEACH = 1600;
-	public static final int PYRAMID = 2100;
-	public static final int MEDAL_KING = 2200;
-	public static final int MINE_SHAFT = 2300;
-	public static final int DAMA = 2400;
-	public static final int STRONGHOLD = 2500;
-	public static final int SPECIAL_01 = 4100;
-	// その他のID
-	public static final int DEBUG_IS_FALSE = -1;
-	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
-	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
-	public static final int WEAPON_SHOP_CUSTOMER = 1210;
-
-	/* Difficulty of Room */
-	// 戦闘部屋の難易度
-	private static int difOfRoom = 0;
-
 	/*
-	 * プレイヤーの水平方向の向きから、部屋の生成方向を決定するメソッド
-	 */
-	public static int getDirectionRoom(EntityPlayer player, int i) {
-		/* i == 0 -> 上下左右, i == 1 ->斜め
-		   ,-0+X
-		  -,130
-		  0,0P2
-		  +,213
-		  Z
-		*/
-
-		switch (i) {
-		case 0:
-			return MathHelper.floor_double((double)((player.rotationYaw +180.0F) *4.0F /360.0F) -0.5D) & 3;
-		case 1:
-			return MathHelper.floor_double((double)((player.rotationYaw +180.0F +45.0F) *4.0F /360.0F) -0.5D) & 3;
-		}
-
-		return 0;
-	}
-
-	/*
-	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド
+	 * 戦闘部屋を生成する処理
 	 *
-	 * [Unimplemented] 昼か夜かで変化する等の要素を後日実装予定。
-	 * デバッグのしやすさを考慮し、すべての部屋が揃うまでは、高度ごとにそのまま難易度が決まる状態に
+	 * [Unimplemented] Y=30以下は未実装
 	 */
-	public static void updateDifOfRoom(int y) {
-		int d = 0;
+	public static void setBattleRooms(World world, EntityPlayer player) {
+		Random rand = new Random();
 
-		if (y >= 46) d = 0;
-		else if (y >= 41) d = 1;
-		else if (y >= 36) d = 2;
-		else if (y >= 31) d = 3;
-		else if (y >= 26) d = 4;
-		else if (y >= 21) d = 5;
-		else if (y >= 16) d = 6;
-		else if (y >=  6) d = 7;
-		else d = 0;
+		// [ForgeEvent] 戦闘部屋生成前 介入用のイベント
+		LadSetBattleRoomsEvent.PreSetRoomEvent preEvent = new LadSetBattleRoomsEvent.PreSetRoomEvent(world, player);
+		MinecraftForge.EVENT_BUS.post(preEvent);
 
-		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
-		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
+		/* 戦闘部屋の生成 */
+		// [Debug]戦闘部屋の種類を固定する処理（デバッグ用）
+		if (LadDebug.getDebugRoom() >= 0) {
+			if (!world.isRemote) {
+				switch (LadDebug.getDebugRoom()) {
+				case LadRoomID.FOREST:
+					LadRoomForest.setRoom(world, player);
+					break;
+				case LadRoomID.VILLAGE_WELL:
+				case LadRoomID.VILLAGE_WELL_HAS_CURSED:
+					LadRoomVillageWell.setRoom(world, player);
+					break;
+				case LadRoomID.BEACH:
+					LadRoomBeach.setRoom(world, player);
+					break;
+				case LadRoomID.DESERT_WELL:
+					LadRoomDesertWell.setRoom(world, player);
+					break;
+				case LadRoomID.ICE_PLAINS:
+					LadRoomIcePlains.setRoom(world, player);
+					break;
+				case LadRoomID.WEAPON_SHOP:
+					LadRoomWeaponShop.setRoom(world, player);
+					break;
+				case LadRoomID.PYRAMID:
+					LadRoomPyramid.setRoom(world, player);
+					break;
+				case LadRoomID.MEDAL_KING:
+					LadRoomMedalKing.setRoom(world, player);
+					break;
+				case LadRoomID.MINE_SHAFT:
+					LadRoomMineShaft.setRoom(world, player);
+					break;
+				case LadRoomID.DAMA:
+					LadRoomDama.setRoom(world, player);
+					break;
+				case LadRoomID.STRONGHOLD:
+					LadRoomStronghold.setRoom(world, player);
+					break;
+				case LadRoomID.SPECIAL_01:
+					LadRoomSpecial01.setRoom(world, player);
+					break;
+				}
+			}
 
-		setDifOfRoom(d);
-	}
+		// Y=41～45
+		} else if (LadRoomID.getDifOfRoom() == 1) {
+			if (!world.isRemote) {
+				switch (rand.nextInt(5)) {
+				case 0:
+					LadRoomForest.setRoom(world, player);
+					break;
+				case 1:
+					LadRoomVillageWell.setRoom(world, player);
+					break;
+				case 2:
+					LadRoomBeach.setRoom(world, player);
+					break;
+				case 3:
+					LadRoomDesertWell.setRoom(world, player);
+					break;
+				case 4:
+					LadRoomSpecial01.setRoom(world, player);
+					break;
+				}
+			}
 
-	/*
-	 * 経過日数から、部屋の難易度を決定するメソッド
-	 * コンフィグ：ベッドペナルティがオンの時に、目覚めた時に生成する部屋の難易度
-	 */
-	public static void updateDifOfRoom(World world) {
-		int d = 0;
-		int time = (int) (world.getTotalWorldTime() /24000);
+		// Y=36～40
+		} else if (LadRoomID.getDifOfRoom() == 2) {
+			if (!world.isRemote) {
+				switch (rand.nextInt(6)) {
+				case 0:
+					LadRoomForest.setRoom(world, player);
+					break;
+				case 1:
+					LadRoomVillageWell.setRoom(world, player);
+					break;
+				case 2:
+					LadRoomBeach.setRoom(world, player);
+					break;
+				case 3:
+					LadRoomIcePlains.setRoom(world, player);
+					break;
+				case 4:
+					LadRoomWeaponShop.setRoom(world, player);
+					break;
+				case 5:
+					LadRoomSpecial01.setRoom(world, player);
+					break;
+				}
+			}
 
-		// [Debug]戦闘部屋の難易度を固定する処理（デバッグ用）
-		if (LadDebug.getDebugDifOfRoom() >= 0) d = LadDebug.getDebugDifOfRoom();
+		// Y=31～35
+		} else if (LadRoomID.getDifOfRoom() == 3) {
+			if (!world.isRemote) {
+				switch (rand.nextInt(7)) {
+				case 0:
+					LadRoomForest.setRoom(world, player);
+					break;
+				case 1:
+					LadRoomVillageWell.setRoom(world, player);
+					break;
+				case 2:
+					LadRoomBeach.setRoom(world, player);
+					break;
+				case 3:
+					LadRoomDesertWell.setRoom(world, player);
+					break;
+				case 4:
+					LadRoomIcePlains.setRoom(world, player);
+					break;
+				case 5:
+					LadRoomWeaponShop.setRoom(world, player);
+					break;
+				case 6:
+					LadRoomSpecial01.setRoom(world, player);
+					break;
+				}
+			}
 
-		setDifOfRoom(d);
-	}
+		// Y=30以下 未実装につき、Y=31～35と同様のものに、仮設定
+		} else {
+			LadRoomID.setDifOfRoom(3);
 
-	/*
-	 * 変数 difOfRoom の getter
-	 */
-	public static int getDifOfRoom() {
-		return difOfRoom;
-	}
-
-	/*
-	 * 変数 difOfRoom の setter
-	 */
-	public static void setDifOfRoom(int d) {
-		if (d <= 1) d = 1;
-		if (d >= 7) d = 7;
-
-		difOfRoom = d;
-	}
-
-	/*
-	 * Room ID(int) ⇒ 戦闘部屋の日本語名
-	 */
-	public static String getNameRoom(int roomID) {
-		roomID = roomID /10 *10;
-
-		switch (roomID) {
-		case 1100:
-		case 1110:
-		case 1120:
-			return "村の井戸";
-		case 1200:
-		case 1210:
-			return "武器屋";
-		case 1300:
-			return "砂漠の井戸";
-		case 1400:
-			return "氷原";
-		case 1500:
-			return "森林";
-		case 1600:
-			return "砂浜";
-		case 2100:
-			return "ピラミッド";
-		case 4100:
-			return "特殊な部屋";
+			if (!world.isRemote) {
+				switch (rand.nextInt(7)) {
+				case 0:
+					LadRoomForest.setRoom(world, player);
+					break;
+				case 1:
+					LadRoomVillageWell.setRoom(world, player);
+					break;
+				case 2:
+					LadRoomBeach.setRoom(world, player);
+					break;
+				case 3:
+					LadRoomDesertWell.setRoom(world, player);
+					break;
+				case 4:
+					LadRoomIcePlains.setRoom(world, player);
+					break;
+				case 5:
+					LadRoomWeaponShop.setRoom(world, player);
+					break;
+				case 6:
+					LadRoomSpecial01.setRoom(world, player);
+					break;
+				}
+			}
 		}
-		return "";
-	}
 
-	/*
-	 * Room ID(int) ⇒ 変数名（部屋の基本ID）
-	 */
-	public static String getNameRoomID(int roomID) {
-		roomID = roomID /10 *10;
-
-		switch (roomID) {
-		case 1100:
-		case 1110:
-		case 1120:
-			return "VILLAGE_WELL";
-		case 1200:
-		case 1210:
-			return "WEAPON_SHOP";
-		case 1300:
-			return "DESERT_WELL";
-		case 1400:
-			return "ICE_PLAINS";
-		case 1500:
-			return "FOREST";
-		case 1600:
-			return "BEACH";
-		case 2100:
-			return "PYRAMID";
-		case 4100:
-			return "SPECIAL_01";
+		// コンフィグ：採掘速度低下がオンの時、10秒間「採掘速度低下Ⅱ」のステータスを付与
+		if (LadConfigCore.isMiningFatigue) {
+			player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 10 * 20, 1));
 		}
-		return "";
+
+		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント
+		LadSetBattleRoomsEvent.PostSetRoomEvent postEvent = new LadSetBattleRoomsEvent.PostSetRoomEvent(world, player);
+		MinecraftForge.EVENT_BUS.post(postEvent);
 	}
 }
