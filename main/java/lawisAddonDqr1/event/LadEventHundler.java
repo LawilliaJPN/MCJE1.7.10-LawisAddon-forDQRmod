@@ -2,10 +2,8 @@ package lawisAddonDqr1.event;
 
 import java.util.Random;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dqr.api.Items.DQMagicTools;
-import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.LadRoomCore;
@@ -15,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -31,6 +30,11 @@ public class LadEventHundler {
 	@SubscribeEvent
 	public void BreakBlockEvent(BreakEvent event) {
 		// System.out.println("BreakBlockEvent OK");
+
+		// ピースフルの時は、このイベントは動作しない
+		if (event.world.difficultySetting == EnumDifficulty.PEACEFUL) {
+			return;
+		}
 
 		Block block = event.block;
 		int dim = event.world.provider.dimensionId;
@@ -63,12 +67,18 @@ public class LadEventHundler {
 	 */
 	@SubscribeEvent
 	public void WakeUpEvent(PlayerWakeUpEvent event) {
-		// System.out.println("UseBedEvent OK");
+		System.out.println("UseBedEvent OK");
 
 		// コンフィグ：ベッドペナルティがオンの時は、目覚めたら戦闘
 		if (LadConfigCore.isBedPenalty) {
+			System.out.println("BedPenalty OK");
 			World world = event.entityPlayer.worldObj;
 			EntityPlayer player = event.entityPlayer;
+
+			// ピースフルの時は、このイベントは動作しない
+			if (world.difficultySetting == EnumDifficulty.PEACEFUL) {
+				return;
+			}
 
 			// ベッドを使い捨てにするために、周囲に空気ブロックを設置
 			if (!world.isRemote) {
@@ -95,6 +105,11 @@ public class LadEventHundler {
 	 */
 	@SubscribeEvent
 	public void MGTCancelEvent(PlayerInteractEvent event) {
+		// ピースフルの時は、このイベントは動作しない
+		if (event.world.difficultySetting == EnumDifficulty.PEACEFUL) {
+			return;
+		}
+
 		// ブロックを右クリックした時
 		if (event.action == event.action.RIGHT_CLICK_BLOCK) {
 			// コンフィグ：採掘速度低下がオンの時
@@ -111,18 +126,6 @@ public class LadEventHundler {
 					}
 				}
 			}
-		}
-	}
-
-	/*
-	 * コンフィグ変更を反映させるイベント。
-	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
-	 */
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (event.modID.equals(LawisAddonDQR01.MOD_ID)) {
-			LadConfigCore.syncConfig();
-			LadEventHundler.updateCountRandomEncounter();
 		}
 	}
 

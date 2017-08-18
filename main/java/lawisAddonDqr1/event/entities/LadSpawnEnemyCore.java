@@ -69,7 +69,6 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityObakekyandoru;
 import dqr.entity.mobEntity.monsterNight.DqmEntityRaimusuraimu;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySyado;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTutiwarasi;
-import dqr.entity.petEntity.petDay.DqmPetEntitySura;
 import lawisAddonDqr1.api.event.LadEnemySpawnEvent;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.LadRoomID;
@@ -495,8 +494,6 @@ public class LadSpawnEnemyCore {
 			}
 			return;
 
-		} else if (enemyGroup == LadRoomID.DEBUG_SUMMON_PET_SURA) {
-			entity = new DqmPetEntitySura(world);
 		}
 
 

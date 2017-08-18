@@ -84,9 +84,6 @@ public class LadRoomCore {
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
 					break;
-				case LadRoomID.DEBUG_SUMMON_PET_SURA:
-					LadDebug.setPetSura(world, player);
-					break;
 				}
 			}
 
