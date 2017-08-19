@@ -8,3 +8,19 @@ config.lad.category.encounter=戦闘頻度
 config.lad.category.reduction=負荷軽減
 config.lad.category.miningfatigue=採掘速度低下
 config.lad.category.bedpenalty=ベッドペナルティ
+
+// 実績
+achievement.roomBeach=砂浜
+achievement.roomDesertWell=砂漠の井戸
+achievement.roomForest=森林
+achievement.roomIcePlains=氷原
+achievement.roomVillageWell=村の井戸
+achievement.roomWeaponShop=武器屋
+
+// 実績説明
+achievement.roomBeach.desc=上層の「砂浜」で戦う
+achievement.roomDesertWell.desc=上層の「砂漠の井戸」で戦う
+achievement.roomForest.desc=上層の「森林」で戦う
+achievement.roomIcePlains.desc=上層の「氷原」で戦う
+achievement.roomVillageWell.desc=上層の「村の井戸」で戦う
+achievement.roomWeaponShop.desc=上層の「武器屋」で戦う

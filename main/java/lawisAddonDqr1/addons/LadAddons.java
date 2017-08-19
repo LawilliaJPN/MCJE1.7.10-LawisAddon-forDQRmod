@@ -2,6 +2,7 @@ package lawisAddonDqr1.addons;
 
 import cpw.mods.fml.common.Loader;
 import lawisAddonDqr1.LawisAddonDQR01;
+import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.blocks.LadInitBlocks;
 import lawisAddonDqr1.event.LadEventHundler;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,6 +21,9 @@ public class LadAddons {
 
 				// 仕様変更したブロックの追加
 				LadInitBlocks.initBlocks();
+
+				// 実績の追加
+				LadAchievementCore.initLadAchievements();
 
 				// ブロックを破壊した時のイベント処理
 				MinecraftForge.EVENT_BUS.register(new LadEventHundler());

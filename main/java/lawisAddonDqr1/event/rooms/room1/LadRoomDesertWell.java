@@ -3,6 +3,7 @@ package lawisAddonDqr1.event.rooms.room1;
 import java.util.Random;
 
 import dqr.api.Blocks.DQDecorates;
+import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
@@ -34,6 +35,9 @@ public class LadRoomDesertWell {
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
 		}
+
+		// 実績の取得
+		player.triggerAchievement(LadAchievementCore.roomDesertWell);
 
 		if (roomType == 3) {
 			// 「旱魃」中央スタート（コンフィグ：負荷軽減オンの時）

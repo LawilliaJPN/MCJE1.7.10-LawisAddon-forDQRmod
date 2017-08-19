@@ -8,3 +8,19 @@ config.lad.category.encounter=Frequency of Battle
 config.lad.category.reduction=Workload Reduction
 config.lad.category.miningfatigue=Mining Fatigue
 config.lad.category.bedpenalty=Bed Penalty
+
+// Achievement
+achievement.roomBeach=Beach
+achievement.roomDesertWell=Desert Well
+achievement.roomForest=Forest
+achievement.roomIcePlains=Ice Plains
+achievement.roomVillageWell=Village Well
+achievement.roomWeaponShop=Weapon Shop
+
+// Achievement Description
+achievement.roomBeach.desc=One of the battle room of upper-layer
+achievement.roomDesertWell.desc=One of the rooms of upper-layer
+achievement.roomForest.desc=One of the battle room of upper-layer
+achievement.roomIcePlains.desc=One of the battle room of upper-layer
+achievement.roomVillageWell.desc=One of the battle room of upper-layer
+achievement.roomWeaponShop.desc=One of the battle room of upper-layer
