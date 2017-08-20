@@ -1,6 +1,7 @@
 
 // Block
 tile.ladJumpBlock2.name=Jump Block(LAD)
+tile.ladPackedIce.name=Packed Ice(LAD)
 
 // Config
 config.lad.category.general=General

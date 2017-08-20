@@ -13,6 +13,7 @@ import lawisAddonDqr1.event.rooms.room1.LadRoomIcePlains;
 import lawisAddonDqr1.event.rooms.room1.LadRoomVillageWell;
 import lawisAddonDqr1.event.rooms.room1.LadRoomWeaponShop;
 import lawisAddonDqr1.event.rooms.room2.LadRoomDama;
+import lawisAddonDqr1.event.rooms.room2.LadRoomIceCave;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
@@ -80,6 +81,9 @@ public class LadRoomCore {
 					break;
 				case LadRoomID.STRONGHOLD:
 					LadRoomStronghold.setRoom(world, player);
+					break;
+				case LadRoomID.ICE_CAVE:
+					LadRoomIceCave.setRoom(world, player);
 					break;
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
