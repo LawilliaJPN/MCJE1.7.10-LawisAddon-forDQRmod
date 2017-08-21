@@ -60,8 +60,9 @@ import dqr.entity.mobEntity.monsterDay.DqmEntityUzusioking;
 import dqr.entity.mobEntity.monsterDay.DqmEntityWaraibukuro;
 import dqr.entity.mobEntity.monsterDay.DqmEntityZinmentyou;
 import dqr.entity.mobEntity.monsterDay.DqmEntityZukkinya;
-import dqr.entity.mobEntity.monsterEtc.DqmEntityFurosutogizumo;
-import dqr.entity.mobEntity.monsterEtc.DqmEntityHiitogizumo;
+import dqr.entity.mobEntity.monsterMetaru.DqmEntityHagumeta;
+import dqr.entity.mobEntity.monsterMetaru.DqmEntityMetaruburazazu;
+import dqr.entity.mobEntity.monsterMetaru.DqmEntityMetasura;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAkumanosyo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAnimaruzonbi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityArumiraji;
@@ -76,9 +77,11 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityDesufuratta;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDokuyazukin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDoraki;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDorakima;
+import dqr.entity.mobEntity.monsterNight.DqmEntityFgizumo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGaikotukensi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGhost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHerughost;
+import dqr.entity.mobEntity.monsterNight.DqmEntityHgizumo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHitokuiga;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHoroghost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHyouganmajin;
@@ -111,6 +114,7 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -577,6 +581,11 @@ public class LadSpawnEnemyCore {
 				else if (r == 10) entity = new DqmEntityButtizukinya(world);
 				else if (r == 11) entity = new DqmEntitySupekutetto(world);
 
+			// 「廃坑」イレギュラーパターン →バニラの洞窟グモ
+			} else if (enemyGroup == LadRoomID.MINE_SHAFT) {
+				entity = new EntityCaveSpider(world);
+				encounterLog = false;
+
 
 			/* ピラミッド */
 			// 「ピラミッド」Y=26～30
@@ -590,7 +599,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 4) entity = new DqmEntityWaraibukuro(world);
 				else if (r == 5) entity = new DqmEntityTutiwarasi(world);
 				else if (r == 6) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 7) entity = new DqmEntityHiitogizumo(world);
+				else if (r == 7) entity = new DqmEntityHgizumo(world);
 				else if (r == 8) entity = new DqmEntitySibiredanbira(world);
 				else if (r == 9) entity = new DqmEntityBakudanbebi(world);
 				else if (r == 10) entity = new DqmEntityBerobero(world);
@@ -602,7 +611,7 @@ public class LadSpawnEnemyCore {
 
 				if (r == 0) entity = new DqmEntityTutiwarasi(world);
 				else if (r == 1) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 2) entity = new DqmEntityHiitogizumo(world);
+				else if (r == 2) entity = new DqmEntityHgizumo(world);
 				else if (r == 3) entity = new DqmEntitySibiredanbira(world);
 				else if (r == 4) entity = new DqmEntityBakudanbebi(world);
 				else if (r == 5) entity = new DqmEntityBerobero(world);
@@ -624,7 +633,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 3) entity = new DqmEntityMetoroghost(world);
 				else if (r == 4) entity = new DqmEntityTahodoraki(world);
 				else if (r == 5) entity = new DqmEntityHoroghost(world);
-				else if (r == 6) entity = new DqmEntityFurosutogizumo(world);
+				else if (r == 6) entity = new DqmEntityFgizumo(world);
 				else if (r == 7) entity = new DqmEntityHerughost(world);
 				else if (r == 8) entity = new DqmEntityHyouganmajin(world);
 				else if (r == 9) entity = new DqmEntityTomosibikozou(world);
@@ -640,7 +649,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 2) entity = new DqmEntityMetoroghost(world);
 				else if (r == 3) entity = new DqmEntityTahodoraki(world);
 				else if (r == 4) entity = new DqmEntityHoroghost(world);
-				else if (r == 5) entity = new DqmEntityFurosutogizumo(world);
+				else if (r == 5) entity = new DqmEntityFgizumo(world);
 				else if (r == 6) entity = new DqmEntityHerughost(world);
 				else if (r == 7) entity = new DqmEntityHyouganmajin(world);
 				else if (r == 8) entity = new DqmEntityTomosibikozou(world);
@@ -718,6 +727,15 @@ public class LadSpawnEnemyCore {
 				else if (r == 10) entity = new DqmEntityOdoruhouseki(world);
 				else if (r == 11) entity = new DqmEntitySuraimuburesu(world);
 
+			// 「メダル王の部屋」メタル系発生
+			} else if (enemyGroup == LadRoomID.MEDAL_KING) {
+				int r = rand.nextInt(100);
+
+				if (r == 0) entity = new DqmEntityHagumeta(world);
+				else if (r <=10) entity = new DqmEntityMetaruburazazu(world);
+				else entity = new DqmEntityMetasura(world);
+
+
 			/* ダーマ神殿 */
 			// 「ダーマ神殿」Y=26～30
 			} else if (enemyGroup == LadRoomID.DAMA +4) {
@@ -755,8 +773,8 @@ public class LadSpawnEnemyCore {
 
 
 			// 特殊部屋2 Y=21～30
-			} else if ((enemyGroup == LadRoomID.SPECIAL_01 +4) || (enemyGroup == LadRoomID.SPECIAL_01 +5)) {
-				switch (rand.nextInt(8)) {
+			} else if ((enemyGroup == LadRoomID.SPECIAL_02 +4) || (enemyGroup == LadRoomID.SPECIAL_02 +5)) {
+				switch (rand.nextInt(6)) {
 				case 0:
 					spawnEnemy(world, player, x, y, z, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
 					break;
