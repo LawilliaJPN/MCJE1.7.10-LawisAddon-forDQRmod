@@ -5,6 +5,7 @@ import java.util.Random;
 import dqr.api.Blocks.DQBlocks;
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -31,10 +32,12 @@ public class LadRoomDama {
 		int roomWidthZ = 12;					// 部屋のZ方向の幅（-1）
 		int roomCenterX = roomWidthX /2;		// 部屋のX方向の中心
 		int roomCenterZ = roomWidthZ /2;		// 部屋のX方向の中心
+		int roomType = rand.nextInt(4);		// 部屋の種類
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
 		}
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
@@ -93,22 +96,42 @@ public class LadRoomDama {
 		case 0:
 		case 2:
 			/* 床 */
-			// 「ダメージ床」の設置
-			for (int x = roomCenterX -1; x <= roomCenterX +1; x++) {
-				for (int z = 1; z <= roomWidthZ -1; z++) {
-					world.setBlock(roomX +x, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockToramanaYuka2);
+			if (roomType /2 == 0) {
+				// 「ダメージ床」の設置
+				for (int x = roomCenterX -1; x <= roomCenterX +1; x++) {
+					for (int z = 1; z <= roomWidthZ -1; z++) {
+						world.setBlock(roomX +x, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockToramanaYuka2);
+					}
+				}
+			} else {
+				// 「ラピスの装飾石」の設置
+				for (int x = roomCenterX -1; x <= roomCenterX +1; x++) {
+					for (int z = 1; z <= roomWidthZ -1; z++) {
+						world.setBlock(roomX +x, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockKowareru5);
+					}
 				}
 			}
+
 			// 「金の装飾石」の設置
 			for (int z = 1; z <= roomWidthZ -1; z++) {
 				world.setBlock(roomX +roomCenterX +2, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockKowareru6);
 				world.setBlock(roomX +roomCenterX -2, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockKowareru6);
 			}
-			// 「溶岩」の設置
-			for (int z = 1; z <= roomWidthZ -1; z++) {
-				world.setBlock(roomX +1, roomY +roomFloorY, roomZ +z, Blocks.lava);
-				world.setBlock(roomX +roomWidthX -1, roomY +roomFloorY, roomZ +z, Blocks.lava);
+
+			if (roomType %2 == 0) {
+				// 「溶岩」の設置
+				for (int z = 1; z <= roomWidthZ -1; z++) {
+					world.setBlock(roomX +1, roomY +roomFloorY, roomZ +z, Blocks.lava);
+					world.setBlock(roomX +roomWidthX -1, roomY +roomFloorY, roomZ +z, Blocks.lava);
+				}
+			} else {
+				// 「水」の設置
+				for (int z = 1; z <= roomWidthZ -1; z++) {
+					world.setBlock(roomX +1, roomY +roomFloorY, roomZ +z, Blocks.water);
+					world.setBlock(roomX +roomWidthX -1, roomY +roomFloorY, roomZ +z, Blocks.water);
+				}
 			}
+
 
 			/* 他 */
 			// 「大聖杯」と「炎」の設置
@@ -133,21 +156,41 @@ public class LadRoomDama {
 		case 1:
 		case 3:
 			/* 床 */
-			// 「ダメージ床」の設置
-			for (int x = 1; x <= roomWidthX -1; x++) {
-				for (int z = roomCenterZ -1; z <= roomCenterZ +1; z++) {
-					world.setBlock(roomX +x, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockToramanaYuka2);
+			if (roomType /2 == 0) {
+				// 「ダメージ床」の設置
+				for (int x = 1; x <= roomWidthX -1; x++) {
+					for (int z = roomCenterZ -1; z <= roomCenterZ +1; z++) {
+						world.setBlock(roomX +x, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockToramanaYuka2);
+					}
+				}
+			} else {
+				// 「ラピスの装飾石」の設置
+				for (int x = 1; x <= roomWidthX -1; x++) {
+					for (int z = roomCenterZ -1; z <= roomCenterZ +1; z++) {
+						world.setBlock(roomX +x, roomY +roomFloorY, roomZ +z, DQBlocks.DqmBlockKowareru5);
+					}
 				}
 			}
+
+
 			// 「金の装飾石」の設置
 			for (int x = 1; x <= roomWidthX -1; x++) {
 				world.setBlock(roomX +x, roomY +roomFloorY, roomZ +roomCenterZ -2, DQBlocks.DqmBlockKowareru6);
 				world.setBlock(roomX +x, roomY +roomFloorY, roomZ +roomCenterZ +2, DQBlocks.DqmBlockKowareru6);
 			}
-			// 「溶岩」の設置
-			for (int x = 1; x <= roomWidthX -1; x++) {
-				world.setBlock(roomX +x, roomY +roomFloorY, roomZ +1, Blocks.lava);
-				world.setBlock(roomX +x, roomY +roomFloorY, roomZ +roomWidthZ -1, Blocks.lava);
+
+			if (roomType %2 == 0) {
+				// 「溶岩」の設置
+				for (int x = 1; x <= roomWidthX -1; x++) {
+					world.setBlock(roomX +x, roomY +roomFloorY, roomZ +1, Blocks.lava);
+					world.setBlock(roomX +x, roomY +roomFloorY, roomZ +roomWidthZ -1, Blocks.lava);
+				}
+			} else {
+				// 「水」の設置
+				for (int x = 1; x <= roomWidthX -1; x++) {
+					world.setBlock(roomX +x, roomY +roomFloorY, roomZ +1, Blocks.water);
+					world.setBlock(roomX +x, roomY +roomFloorY, roomZ +roomWidthZ -1, Blocks.water);
+				}
 			}
 
 			/* 他 */
@@ -171,9 +214,67 @@ public class LadRoomDama {
 			break;
 		}
 
+		// 出口の「空気」の設置
+		switch (roomDirection) {
+		case 0:
+			for (int y = 0; y <= 2; y++) {
+				for (int x = 3; x <= 4; x++) {
+					world.setBlockToAir(roomX +roomWidthX -x, roomY +y, roomZ);
+					world.setBlockToAir(roomX +roomWidthX -x, roomY +y, roomZ +roomWidthZ);
+				}
+			}
+			break;
+		case 1:
+			for (int y = 0; y <= 2; y++) {
+				for (int z = 3; z <= 4; z++) {
+					world.setBlockToAir(roomX, roomY +y, roomZ +roomWidthZ -z);
+					world.setBlockToAir(roomX +roomWidthX, roomY +y, roomZ +roomWidthZ -z);
+				}
+			}
+			break;
+		case 2:
+			for (int y = 0; y <= 2; y++) {
+				for (int x = 3; x <= 4; x++) {
+					world.setBlockToAir(roomX +x, roomY +y, roomZ);
+					world.setBlockToAir(roomX +x, roomY +y, roomZ +roomWidthZ);
+				}
+			}
+			break;
+		case 3:
+			for (int y = 0; y <= 2; y++) {
+				for (int z = 3; z <= 4; z++) {
+					world.setBlockToAir(roomX, roomY +y, roomZ +z);
+					world.setBlockToAir(roomX +roomWidthX, roomY +y, roomZ +z);
+				}
+			}
+			break;
+		}
+
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+		switch (roomDirection) {
+		case 0:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			break;
+		case 1:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +roomWidthZ -6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +roomWidthZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +roomWidthZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			break;
+		case 2:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			break;
+		case 3:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			break;
+		}
 	}
 
 

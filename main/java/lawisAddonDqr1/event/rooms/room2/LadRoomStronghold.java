@@ -3,6 +3,7 @@ package lawisAddonDqr1.event.rooms.room2;
 import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -269,6 +270,35 @@ public class LadRoomStronghold {
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+		if (roomType == 3) {
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +1, roomY +1, roomZ +roomCenter +1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +1, roomY +1, roomZ +roomCenter -1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -1, roomY +1, roomZ +roomCenter +1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -1, roomY +1, roomZ +roomCenter -1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+		} else {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter +3, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter -3, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +3, roomY +1, roomZ +roomWidth -1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -3, roomY +1, roomZ +roomWidth -1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter +3, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter -3, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +3, roomY +1, roomZ +1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -3, roomY +1, roomZ +1, LadRoomID.STRONGHOLD + LadRoomID.getDifOfRoom());
+				break;
+			}
+		}
 	}
 
 	public static void setStoneBrick(World world, int x, int y, int z) {
