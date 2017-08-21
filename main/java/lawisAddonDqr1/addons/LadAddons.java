@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Loader;
 import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.blocks.LadInitBlocks;
+import lawisAddonDqr1.blocks.LadRecipes;
 import lawisAddonDqr1.event.LadEventHundler;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -21,6 +22,9 @@ public class LadAddons {
 
 				// 仕様変更したブロックの追加
 				LadInitBlocks.initBlocks();
+
+				// 追加したブロックに関連するレシピの追加
+				LadRecipes.initLadRecipes();
 
 				// 実績の追加
 				LadAchievementCore.initLadAchievements();
