@@ -174,33 +174,34 @@ public class LadRoomCore {
 				}
 			}
 
-		// Y=30以下 未実装につき、Y=31～35と同様のものに、仮設定
+		// Y=30以下
 		} else {
-			LadRoomID.setDifOfRoom(3);
+			// Y=20以下は未実装につき、Y=21～25と同様のものに、仮設定
+			if (LadRoomID.getDifOfRoom() >= 6) LadRoomID.setDifOfRoom(5);
 
 			if (!world.isRemote) {
 				switch (rand.nextInt(7)) {
-				case 0:
-					LadRoomForest.setRoom(world, player);
-					break;
-				case 1:
-					LadRoomVillageWell.setRoom(world, player);
-					break;
-				case 2:
-					LadRoomBeach.setRoom(world, player);
-					break;
-				case 3:
-					LadRoomDesertWell.setRoom(world, player);
-					break;
-				case 4:
-					LadRoomIcePlains.setRoom(world, player);
-					break;
-				case 5:
-					LadRoomWeaponShop.setRoom(world, player);
-					break;
-				case 6:
-					LadRoomSpecial01.setRoom(world, player);
-					break;
+					case 0:
+						LadRoomPyramid.setRoom(world, player);
+						break;
+					case 1:
+						LadRoomMedalKing.setRoom(world, player);
+						break;
+					case 2:
+						LadRoomMineShaft.setRoom(world, player);
+						break;
+					case 3:
+						LadRoomDama.setRoom(world, player);
+						break;
+					case 4:
+						LadRoomStronghold.setRoom(world, player);
+						break;
+					case 5:
+						LadRoomIceCave.setRoom(world, player);
+						break;
+					case 6:
+						LadRoomSpecial02.setRoom(world, player);
+						break;
 				}
 			}
 		}
