@@ -19,6 +19,8 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
 import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
+import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial02;
+import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial03;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -87,6 +89,12 @@ public class LadRoomCore {
 					break;
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
+					break;
+				case LadRoomID.SPECIAL_02:
+					LadRoomSpecial02.setRoom(world, player);
+					break;
+				case LadRoomID.SPECIAL_03:
+					LadRoomSpecial03.setRoom(world, player);
 					break;
 				}
 			}

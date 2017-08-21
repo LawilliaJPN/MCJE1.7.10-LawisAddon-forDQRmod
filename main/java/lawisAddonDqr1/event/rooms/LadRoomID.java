@@ -21,6 +21,8 @@ public class LadRoomID {
 	public static final int STRONGHOLD = 2500;
 	public static final int ICE_CAVE = 2600;
 	public static final int SPECIAL_01 = 4100;
+	public static final int SPECIAL_02 = 4200;
+	public static final int SPECIAL_03 = 4300;
 	// その他のID
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
