@@ -1,9 +1,10 @@
-package lawisAddonDqr1.blocks;
+package lawisAddonDqr1.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import dqr.DQR;
 import lawisAddonDqr1.api.blocks.LadBlocks;
-import lawisAddonDqr1.api.blocks.LadPackedIce;
+import lawisAddonDqr1.block.blocks.LadJumpBlock2;
+import lawisAddonDqr1.block.blocks.LadPackedIce;
 import net.minecraft.block.Block;
 
 public class LadInitBlocks {

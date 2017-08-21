@@ -1,4 +1,4 @@
-package lawisAddonDqr1.blocks;
+package lawisAddonDqr1.block.blocks;
 
 import dqr.api.potion.DQPotionPlus;
 import dqr.blocks.standard.DqmJumpBlock2;

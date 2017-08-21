@@ -1,4 +1,4 @@
-package lawisAddonDqr1.api.blocks;
+package lawisAddonDqr1.block.blocks;
 
 import net.minecraft.block.BlockPackedIce;
 

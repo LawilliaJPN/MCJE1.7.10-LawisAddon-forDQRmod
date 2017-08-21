@@ -1,10 +1,10 @@
-package lawisAddonDqr1.addons;
+package lawisAddonDqr1.addon;
 
 import cpw.mods.fml.common.Loader;
 import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.achievement.LadAchievementCore;
-import lawisAddonDqr1.blocks.LadInitBlocks;
-import lawisAddonDqr1.blocks.LadRecipes;
+import lawisAddonDqr1.block.LadInitBlocks;
+import lawisAddonDqr1.block.LadRecipes;
 import lawisAddonDqr1.event.LadEventHundler;
 import net.minecraftforge.common.MinecraftForge;
 

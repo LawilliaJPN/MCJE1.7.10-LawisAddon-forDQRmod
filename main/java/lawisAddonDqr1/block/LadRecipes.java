@@ -1,4 +1,4 @@
-package lawisAddonDqr1.blocks;
+package lawisAddonDqr1.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import dqr.api.Blocks.DQBlocks;
