@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 public class LadRoomDama {
 	/*
 	 * DQRの「ダーマ神殿」をモチーフにした戦闘部屋
-	 *
-	 * [Unimplemented] 大枠実装完了、細かい部分やスポーン設定は未実装。
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

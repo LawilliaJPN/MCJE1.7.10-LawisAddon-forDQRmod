@@ -5,6 +5,7 @@ import java.util.Random;
 import dqr.api.Blocks.DQBlocks;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,8 +15,6 @@ import net.minecraft.world.World;
 public class LadRoomSpecial02 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋(中層)
-	 *
-	 * [Unimplemented] 大枠実装完了、細かい部分やスポーン設定は未実装。
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -189,6 +188,36 @@ public class LadRoomSpecial02 {
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+
+		// 1階四隅
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor1Y +2, roomZ +1, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloor1Y +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor1Y +2, roomZ +1, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloor1Y +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+
+		// 2階プレイヤーのいない方向
+		switch (roomDirection) {
+		case 0:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			break;
+		case 1:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			break;
+		case 2:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			break;
+		case 3:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			break;
+		}
 	}
 
 	/*

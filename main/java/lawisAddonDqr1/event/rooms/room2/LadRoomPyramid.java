@@ -2,6 +2,8 @@ package lawisAddonDqr1.event.rooms.room2;
 
 import java.util.Random;
 
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
+import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -10,7 +12,7 @@ public class LadRoomPyramid {
 	/*
 	 * バニラの「ピラミッド」をモチーフにした戦闘部屋
 	 *
-	 * [Unimplemented] 大枠実装完了、細かい部分やスポーン設定は未実装。
+	 * [Unimplemented] roomType後日実装、地下があるパターン等
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -206,5 +208,27 @@ public class LadRoomPyramid {
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+
+		// 1階中
+		switch (rand.nextInt(4)) {
+		case 0:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +7, roomY +roomFloor1Y +1, roomZ +roomCenter +7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+			break;
+		case 1:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +7, roomY +roomFloor1Y +1, roomZ +roomCenter -7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+			break;
+		case 2:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -7, roomY +roomFloor1Y +1, roomZ +roomCenter +7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+			break;
+		case 3:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -7, roomY +roomFloor1Y +1, roomZ +roomCenter -7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+			break;
+		}
+
+		// 2階外
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomCenter +7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomCenter -7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +7, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -7, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
 	}
 }
