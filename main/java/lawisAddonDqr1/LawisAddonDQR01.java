@@ -20,7 +20,7 @@ import lawisAddonDqr1.config.LadInfoCore;
 
 public class LawisAddonDQR01 {
 	public static final String MOD_ID = "lawisadoondqr01";
-	public static final String MOD_NAME = "Lawi's Addon for DQR 01";
+	public static final String MOD_NAME = "Mining Random Encounter for DQRmod";
 	public static final String MOD_VERSION = "1.0";
 	public static Logger logger = LogManager.getLogger("lawisadoondqr01");
 

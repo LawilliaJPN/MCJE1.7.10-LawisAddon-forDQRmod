@@ -1,7 +1,6 @@
 package lawisAddonDqr1.achievement;
 
 import dqr.api.Blocks.DQDecorates;
-import lawisAddonDqr1.LawisAddonDQR01;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.stats.Achievement;
@@ -32,6 +31,6 @@ public class LadAchievementCore {
 		roomWeaponShop = new Achievement("roomWeaponShop", "roomWeaponShop", 6, 0, DQDecorates.DqmBlockBukiya, null).registerStat();
 
 		/* 実績ページの追加 */
-		AchievementPage.registerAchievementPage(new AchievementPage(LawisAddonDQR01.MOD_NAME, new Achievement[]{roomBeach, roomDesertWell, roomForest, roomIcePlains, roomVillageWell, roomWeaponShop}));
+		AchievementPage.registerAchievementPage(new AchievementPage("MR-Encounter for DQRmod", new Achievement[]{roomBeach, roomDesertWell, roomForest, roomIcePlains, roomVillageWell, roomWeaponShop}));
 	}
 }

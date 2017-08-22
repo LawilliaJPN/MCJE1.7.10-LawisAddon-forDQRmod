@@ -16,8 +16,6 @@ import net.minecraft.world.World;
 public class LadRoomPyramid {
 	/*
 	 * バニラの「ピラミッド」をモチーフにした戦闘部屋
-	 *
-	 * [Unimplemented] roomType後日実装、地下があるパターン等
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

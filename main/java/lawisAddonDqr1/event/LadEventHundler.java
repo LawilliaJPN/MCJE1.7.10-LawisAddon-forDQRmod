@@ -67,11 +67,10 @@ public class LadEventHundler {
 	 */
 	@SubscribeEvent
 	public void WakeUpEvent(PlayerWakeUpEvent event) {
-		System.out.println("UseBedEvent OK");
+		// System.out.println("UseBedEvent OK");
 
 		// コンフィグ：ベッドペナルティがオンの時は、目覚めたら戦闘
 		if (LadConfigCore.isBedPenalty) {
-			System.out.println("BedPenalty OK");
 			World world = event.entityPlayer.worldObj;
 			EntityPlayer player = event.entityPlayer;
 
@@ -80,22 +79,28 @@ public class LadEventHundler {
 				return;
 			}
 
-			// ベッドを使い捨てにするために、周囲に空気ブロックを設置
-			if (!world.isRemote) {
-				for (int x = -3; x <= 3; x++) {
-					for (int z = -3; z <= 3; z++) {
-						for (int y = -3; y <= 3; y++) {
-							world.setBlockToAir((int)player.posX +x, (int)player.posY +y, (int)player.posZ +z);
+			// プレイヤーの位置確認（Y=21～200以外では発生しない）
+			int dim = world.provider.dimensionId;
+			int playerY = (int)player.posY;
+			if ((dim == 0) && (playerY >= 21) && (playerY <= 200)) {
+
+				// ベッドを使い捨てにするために、周囲に空気ブロックを設置
+				if (!world.isRemote) {
+					for (int x = -3; x <= 3; x++) {
+						for (int z = -3; z <= 3; z++) {
+							for (int y = -3; y <= 3; y++) {
+								world.setBlockToAir((int)player.posX +x, (int)player.posY +y, (int)player.posZ +z);
+							}
 						}
 					}
 				}
+
+				// 戦闘部屋の難易度を決定
+				LadRoomID.updateDifOfRoom(world);
+
+				// 戦闘部屋の生成
+				LadRoomCore.setBattleRooms(world, player);
 			}
-
-			// 戦闘部屋の難易度を決定
-			LadRoomID.updateDifOfRoom(world);
-
-			// 戦闘部屋の生成
-			LadRoomCore.setBattleRooms(world, player);
 		}
 	}
 
