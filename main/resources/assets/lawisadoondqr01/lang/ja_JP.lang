@@ -11,6 +11,7 @@ config.lad.category.miningfatigue=採掘速度低下
 config.lad.category.bedpenalty=ベッドペナルティ
 
 // 実績
+achievement.roomSpecial01=上層特殊部屋
 achievement.roomBeach=砂浜
 achievement.roomDesertWell=砂漠の井戸
 achievement.roomForest=森林
@@ -18,10 +19,28 @@ achievement.roomIcePlains=氷原
 achievement.roomVillageWell=村の井戸
 achievement.roomWeaponShop=武器屋
 
+achievement.roomSpecial02=中層特殊部屋
+achievement.roomDama=ダーマ神殿
+achievement.roomIceCave=氷洞
+achievement.roomMedalKing=メダル王の部屋
+achievement.roomMineShaft=廃坑
+achievement.roomPyramid=ピラミッド
+achievement.roomStronghold=要塞
+
 // 実績説明
+achievement.roomSpecial01.desc=上層の特殊な部屋で戦う
 achievement.roomBeach.desc=上層の「砂浜」で戦う
 achievement.roomDesertWell.desc=上層の「砂漠の井戸」で戦う
 achievement.roomForest.desc=上層の「森林」で戦う
 achievement.roomIcePlains.desc=上層の「氷原」で戦う
 achievement.roomVillageWell.desc=上層の「村の井戸」で戦う
 achievement.roomWeaponShop.desc=上層の「武器屋」で戦う
+
+achievement.roomSpecial02.desc=中層の特殊な部屋で戦う
+achievement.roomDama.desc=中層の「ダーマ神殿」で戦う
+achievement.roomIceCave.desc=中層の「氷洞」で戦う
+achievement.roomMedalKing.desc=中層の「メダル王の部屋」で戦う
+achievement.roomMineShaft.desc=中層の「廃坑」で戦う
+achievement.roomPyramid.desc=中層の「ピラミッド」で戦う
+achievement.roomStronghold.desc=中層の「要塞」で戦う
+

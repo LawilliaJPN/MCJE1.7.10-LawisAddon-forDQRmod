@@ -11,6 +11,7 @@ config.lad.category.miningfatigue=Mining Fatigue
 config.lad.category.bedpenalty=Bed Penalty
 
 // Achievement
+achievement.roomSpecial01=Special Room No.1
 achievement.roomBeach=Beach
 achievement.roomDesertWell=Desert Well
 achievement.roomForest=Forest
@@ -18,10 +19,27 @@ achievement.roomIcePlains=Ice Plains
 achievement.roomVillageWell=Village Well
 achievement.roomWeaponShop=Weapon Shop
 
+achievement.roomSpecial02=Special Room No.2
+achievement.roomDama=Dama
+achievement.roomIceCave=Ice Cave
+achievement.roomMedalKing=Medal King
+achievement.roomMineShaft=Mine Shaft
+achievement.roomPyramid=Pyramid
+achievement.roomStronghold=Stronghold
+
 // Achievement Description
-achievement.roomBeach.desc=One of the battle room of upper-layer
-achievement.roomDesertWell.desc=One of the rooms of upper-layer
-achievement.roomForest.desc=One of the battle room of upper-layer
-achievement.roomIcePlains.desc=One of the battle room of upper-layer
-achievement.roomVillageWell.desc=One of the battle room of upper-layer
-achievement.roomWeaponShop.desc=One of the battle room of upper-layer
+achievement.roomSpecial01.desc=the battle room of upper-layer
+achievement.roomBeach.desc=the battle room of upper-layer
+achievement.roomDesertWell.desc=the rooms of upper-layer
+achievement.roomForest.desc=the battle room of upper-layer
+achievement.roomIcePlains.desc=the battle room of upper-layer
+achievement.roomVillageWell.desc=the battle room of upper-layer
+achievement.roomWeaponShop.desc=the battle room of upper-layer
+
+achievement.roomSpecial02.desc=the battle room of middle-layer
+achievement.roomDama.desc=the battle room of middle-layer
+achievement.roomIceCave.desc=the battle room of middle-layer
+achievement.roomMedalKing.desc=the battle room of middle-layer
+achievement.roomMineShaft.desc=the battle room of middle-layer
+achievement.roomPyramid.desc=the battle room of middle-layer
+achievement.roomStronghold.desc=the battle room of middle-layer

@@ -2,6 +2,7 @@ package lawisAddonDqr1.event.rooms.room2;
 
 import java.util.Random;
 
+import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
@@ -34,6 +35,9 @@ public class LadRoomStronghold {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
 			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
 		}
+
+		// 実績の取得
+		player.triggerAchievement(LadAchievementCore.roomStronghold);
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch (roomDirection) {

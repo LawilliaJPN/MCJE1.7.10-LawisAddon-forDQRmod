@@ -1,6 +1,7 @@
 package lawisAddonDqr1.event.rooms.room4;
 
 import dqr.api.Blocks.DQBlocks;
+import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
@@ -23,6 +24,9 @@ public class LadRoomSpecial01 {
 
 		int roomFloor1Y = 0;					// 1階の高さ (部屋の高さはroomHeight - roomFloor1Y)
 		int roomFloor2Y = 5;					// 2階の高さ
+
+		// 実績の取得
+		player.triggerAchievement(LadAchievementCore.roomSpecial01);
 
 		// プレイヤーの位置から部屋の起点となる座標を決める (※2階の中央にプレイヤーとなるように生成される部屋なので向きは関係ない)
 		roomX -= 10;
