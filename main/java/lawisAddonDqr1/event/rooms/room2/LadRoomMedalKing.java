@@ -6,6 +6,7 @@ import dqr.api.Blocks.DQBlocks;
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,8 +16,6 @@ import net.minecraft.world.World;
 public class LadRoomMedalKing {
 	/*
 	 * DQRの「メダル王の部屋」をモチーフにした戦闘部屋
-	 *
-	 * [Unimplemented] 大枠実装完了、細かい部分やスポーン設定は未実装。
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -29,10 +28,12 @@ public class LadRoomMedalKing {
 		int roomHeight = 5;					// 部屋の高さ
 		int roomWidth = 12;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
+		int roomType = rand.nextInt(8);		// 部屋の種類
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
 		}
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
@@ -124,20 +125,6 @@ public class LadRoomMedalKing {
 			world.setBlock(roomX +1, roomY, roomZ +roomCenter -1, DQDecorates.DqmBlockTaimatu2);
 			// 「グロウストーン」の設置
 			world.setBlock(roomX +1, roomY -1, roomZ +roomCenter, Blocks.glowstone);
-
-			// プレイヤー初期位置に「空気ブロック」設置
-			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
-				for (int y = 0; y <= 3; y++) {
-					world.setBlockToAir(roomX +roomWidth -1, roomY +y, roomZ +z);
-				}
-			}
-			world.setBlockToAir(roomX +roomWidth -1, roomY +roomHeight, roomZ +roomCenter);
-			world.setBlockToAir(roomX +roomWidth -1, roomY +roomHeight -1, roomZ +roomCenter);
-			// 「キャンドルスタンド」の設置
-			world.setBlock(roomX +roomWidth -1, roomY, roomZ +roomCenter +1, DQDecorates.DqmBlockTaimatu2);
-			world.setBlock(roomX +roomWidth -1, roomY, roomZ +roomCenter -1, DQDecorates.DqmBlockTaimatu2);
-			// 「ジャンプブロック(LAD)」の設置
-			world.setBlock(roomX +roomWidth -1, roomY -1, roomZ +roomCenter, LadBlocks.ladJumpBlock2);
 			break;
 
 		case 1:
@@ -148,24 +135,10 @@ public class LadRoomMedalKing {
 				}
 			}
 			// 「キャンドルスタンド」の設置
-			world.setBlockToAir(roomX +roomCenter +1, roomY, roomZ +1);
-			world.setBlockToAir(roomX +roomCenter -1, roomY, roomZ +1);
+			world.setBlock(roomX +roomCenter +1, roomY, roomZ +1, DQDecorates.DqmBlockTaimatu2);
+			world.setBlock(roomX +roomCenter -1, roomY, roomZ +1, DQDecorates.DqmBlockTaimatu2);
 			// 「グロウストーン」の設置
 			world.setBlock(roomX +roomCenter, roomY -1, roomZ +1, Blocks.glowstone);
-
-			// プレイヤー初期位置に「空気ブロック」設置
-			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
-				for (int y = 0; y <= 3; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +roomWidth -1);
-				}
-			}
-			world.setBlockToAir(roomX +roomCenter, roomY +roomHeight, roomZ +roomWidth -1);
-			world.setBlockToAir(roomX +roomCenter, roomY +roomHeight -1, roomZ +roomWidth -1);
-			// 「キャンドルスタンド」の設置
-			world.setBlock(roomX +roomCenter +1, roomY, roomZ +roomWidth -1, DQDecorates.DqmBlockTaimatu2);
-			world.setBlock(roomX +roomCenter -1, roomY, roomZ +roomWidth -1, DQDecorates.DqmBlockTaimatu2);
-			// 「ジャンプブロック(LAD)」の設置
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomWidth -1, LadBlocks.ladJumpBlock2);
 			break;
 
 		case 2:
@@ -180,20 +153,6 @@ public class LadRoomMedalKing {
 			world.setBlock(roomX +roomWidth -1, roomY, roomZ +roomCenter -1, DQDecorates.DqmBlockTaimatu2);
 			// 「グロウストーン」の設置
 			world.setBlock(roomX +roomWidth -1, roomY -1, roomZ +roomCenter, Blocks.glowstone);
-
-			// 出口位置に「空気ブロック」設置
-			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
-				for (int y = 0; y <= 3; y++) {
-					world.setBlockToAir(roomX +1, roomY +y, roomZ +z);
-				}
-			}
-			world.setBlockToAir(roomX +1, roomY +roomHeight, roomZ +roomCenter);
-			world.setBlockToAir(roomX +1, roomY +roomHeight -1, roomZ +roomCenter);
-			// 「キャンドルスタンド」の設置
-			world.setBlock(roomX +1, roomY, roomZ +roomCenter +1, DQDecorates.DqmBlockTaimatu2);
-			world.setBlock(roomX +1, roomY, roomZ +roomCenter -1, DQDecorates.DqmBlockTaimatu2);
-			// 「ジャンプブロック(LAD)」の設置
-			world.setBlock(roomX +1, roomY -1, roomZ +roomCenter, LadBlocks.ladJumpBlock2);
 			break;
 
 		case 3:
@@ -204,29 +163,183 @@ public class LadRoomMedalKing {
 				}
 			}
 			// 「キャンドルスタンド」の設置
-			world.setBlockToAir(roomX +roomCenter +1, roomY, roomZ +roomWidth -1);
-			world.setBlockToAir(roomX +roomCenter -1, roomY, roomZ +roomWidth -1);
+			world.setBlock(roomX +roomCenter +1, roomY, roomZ +roomWidth -1, DQDecorates.DqmBlockTaimatu2);
+			world.setBlock(roomX +roomCenter -1, roomY, roomZ +roomWidth -1, DQDecorates.DqmBlockTaimatu2);
 			// 「グロウストーン」の設置
 			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomWidth -1, Blocks.glowstone);
-
-			// プレイヤー初期位置に「空気ブロック」設置
-			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
-				for (int y = 0; y <= 3; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +1);
-				}
-			}
-			world.setBlockToAir(roomX +roomCenter, roomY +roomHeight, roomZ +1);
-			world.setBlockToAir(roomX +roomCenter, roomY +roomHeight -1, roomZ +1);
-			// 「キャンドルスタンド」の設置
-			world.setBlock(roomX +roomCenter +1, roomY, roomZ +1, DQDecorates.DqmBlockTaimatu2);
-			world.setBlock(roomX +roomCenter -1, roomY, roomZ +1, DQDecorates.DqmBlockTaimatu2);
-			// 「ジャンプブロック(LAD)」の設置
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +1, LadBlocks.ladJumpBlock2);
 			break;
 		}
+
+		// 出口が奥の「ジャンプブロック(LAD)」のパターン
+		if (roomType%2 == 0) {
+			switch (roomDirection) {
+			case 0:
+				// 出口位置に「空気ブロック」設置
+				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+					for (int y = 0; y <= 3; y++) {
+						world.setBlockToAir(roomX +roomWidth -1, roomY +y, roomZ +z);
+					}
+				}
+				world.setBlockToAir(roomX +roomWidth -1, roomY +roomHeight, roomZ +roomCenter);
+				world.setBlockToAir(roomX +roomWidth -1, roomY +roomHeight -1, roomZ +roomCenter);
+				// 「キャンドルスタンド」の設置
+				world.setBlock(roomX +roomWidth -1, roomY, roomZ +roomCenter +1, DQDecorates.DqmBlockTaimatu2);
+				world.setBlock(roomX +roomWidth -1, roomY, roomZ +roomCenter -1, DQDecorates.DqmBlockTaimatu2);
+				// 「ジャンプブロック(LAD)」の設置
+				world.setBlock(roomX +roomWidth -1, roomY -1, roomZ +roomCenter, LadBlocks.ladJumpBlock2);
+				break;
+
+			case 1:
+				// 出口位置に「空気ブロック」設置
+				for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+					for (int y = 0; y <= 3; y++) {
+						world.setBlockToAir(roomX +x, roomY +y, roomZ +roomWidth -1);
+					}
+				}
+				world.setBlockToAir(roomX +roomCenter, roomY +roomHeight, roomZ +roomWidth -1);
+				world.setBlockToAir(roomX +roomCenter, roomY +roomHeight -1, roomZ +roomWidth -1);
+				// 「キャンドルスタンド」の設置
+				world.setBlock(roomX +roomCenter +1, roomY, roomZ +roomWidth -1, DQDecorates.DqmBlockTaimatu2);
+				world.setBlock(roomX +roomCenter -1, roomY, roomZ +roomWidth -1, DQDecorates.DqmBlockTaimatu2);
+				// 「ジャンプブロック(LAD)」の設置
+				world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomWidth -1, LadBlocks.ladJumpBlock2);
+				break;
+
+			case 2:
+				// 出口位置に「空気ブロック」設置
+				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+					for (int y = 0; y <= 3; y++) {
+						world.setBlockToAir(roomX +1, roomY +y, roomZ +z);
+					}
+				}
+				world.setBlockToAir(roomX +1, roomY +roomHeight, roomZ +roomCenter);
+				world.setBlockToAir(roomX +1, roomY +roomHeight -1, roomZ +roomCenter);
+				// 「キャンドルスタンド」の設置
+				world.setBlock(roomX +1, roomY, roomZ +roomCenter +1, DQDecorates.DqmBlockTaimatu2);
+				world.setBlock(roomX +1, roomY, roomZ +roomCenter -1, DQDecorates.DqmBlockTaimatu2);
+				// 「ジャンプブロック(LAD)」の設置
+				world.setBlock(roomX +1, roomY -1, roomZ +roomCenter, LadBlocks.ladJumpBlock2);
+				break;
+
+			case 3:
+				// 出口位置に「空気ブロック」設置
+				for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+					for (int y = 0; y <= 3; y++) {
+						world.setBlockToAir(roomX +x, roomY +y, roomZ +1);
+					}
+				}
+				world.setBlockToAir(roomX +roomCenter, roomY +roomHeight, roomZ +1);
+				world.setBlockToAir(roomX +roomCenter, roomY +roomHeight -1, roomZ +1);
+				// 「キャンドルスタンド」の設置
+				world.setBlock(roomX +roomCenter +1, roomY, roomZ +1, DQDecorates.DqmBlockTaimatu2);
+				world.setBlock(roomX +roomCenter -1, roomY, roomZ +1, DQDecorates.DqmBlockTaimatu2);
+				// 「ジャンプブロック(LAD)」の設置
+				world.setBlock(roomX +roomCenter, roomY -1, roomZ +1, LadBlocks.ladJumpBlock2);
+				break;
+			}
+
+		// 出口が水を登るパターン
+		} else {
+			// 「水ブロック」の設置
+			world.setBlock(roomX +roomCenter, roomY +roomHeight, roomZ +roomCenter, Blocks.flowing_water);
+			// 「井戸」の設置
+			world.setBlock(roomX +roomCenter -1, roomY +roomHeight +1, roomZ +roomCenter, DQDecorates.DqmBlockIdo);
+		}
+
+		// 屋根の上に「松明」の設置
+		world.setBlock(roomX +roomCenter +4, roomY +roomHeight +1, roomZ +roomCenter +4, Blocks.torch, 5, 3);
+		world.setBlock(roomX +roomCenter +4, roomY +roomHeight +1, roomZ +roomCenter -4, Blocks.torch, 5, 3);
+		world.setBlock(roomX +roomCenter -4, roomY +roomHeight +1, roomZ +roomCenter +4, Blocks.torch, 5, 3);
+		world.setBlock(roomX +roomCenter -4, roomY +roomHeight +1, roomZ +roomCenter -4, Blocks.torch, 5, 3);
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+
+		// 正面に2体
+		if (roomType%2 == 0) {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			}
+		// 正面に3体
+		} else if (roomType%2 == 1) {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			}
+		// 正面に1体、部屋の上に2体
+		} else if (roomType%2 == 2) {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomHeight +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomHeight +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomHeight +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomHeight +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomHeight +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomHeight +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomHeight +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomHeight +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				break;
+			}
+		// メタル系が1体
+		} else {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.Metal_Slime_With_Log);
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.Metal_Slime_With_Log);
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.Metal_Slime_With_Log);
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.Metal_Slime_With_Log);
+				break;
+			}
+		}
 	}
 }
