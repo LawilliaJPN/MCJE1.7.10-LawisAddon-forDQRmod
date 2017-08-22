@@ -2,10 +2,15 @@ package lawisAddonDqr1.event.rooms.room2;
 
 import java.util.Random;
 
+import dqr.DQR;
+import lawisAddonDqr1.api.blocks.LadBlocks;
+import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class LadRoomPyramid {
@@ -24,9 +29,16 @@ public class LadRoomPyramid {
 		int roomHeight = 8;					// 部屋の高さ
 		int roomWidth = 18;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
+		int roomType = rand.nextInt(6);		// 部屋の種類
 
+		int roomFloorB1Y = -6;
 		int roomFloor1Y = -1;
 		int roomFloor2Y = 3;
+
+		// [Debug] 部屋の種類がチャット表示される（デバッグ用）
+		if (LadDebug.getDebugRoom() >=0) {
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
+		}
 
 		// プレイヤーが中心になるように生成(仮)
 		roomX -= roomCenter;
@@ -185,13 +197,9 @@ public class LadRoomPyramid {
 
 		/* 光源 */
 		// 明るさ確保のための「松明」の設置
-		// 橙色の羊毛の上
-		/*
-		world.setBlock(roomX +roomCenter, roomY +roomFloor1Y +1, roomZ +roomCenter +3, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomCenter, roomY +roomFloor1Y +1, roomZ +roomCenter -3, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomCenter +3, roomY +roomFloor1Y +1, roomZ +roomCenter, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomCenter -3, roomY +roomFloor1Y +1, roomZ +roomCenter, Blocks.torch, 5, 3);
-		*/
+		if (roomType == 5) {
+
+		}
 
 		// 1階の四隅
 		world.setBlock(roomX +roomCenter +6, roomY +roomFloor1Y +1, roomZ +roomCenter +6, Blocks.torch, 5, 3);
@@ -204,6 +212,94 @@ public class LadRoomPyramid {
 		world.setBlock(roomX +roomCenter +4, roomY +roomFloor2Y +1, roomZ +roomCenter -4, Blocks.torch, 5, 3);
 		world.setBlock(roomX +roomCenter -4, roomY +roomFloor2Y +1, roomZ +roomCenter +4, Blocks.torch, 5, 3);
 		world.setBlock(roomX +roomCenter -4, roomY +roomFloor2Y +1, roomZ +roomCenter -4, Blocks.torch, 5, 3);
+
+		/* 部屋の種類ごとの設置 */
+		// 地下室
+		if (roomType/4 == 0) {
+			// 「砂岩」を設置
+			for (int x = roomCenter -3; x <= roomCenter +3; x++) {
+				for (int z = roomCenter -3; z <= roomCenter +3; z++) {
+					for (int y = roomFloorB1Y -2; y <= roomFloorB1Y; y++) {
+						world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.sandstone);
+					}
+				}
+			}
+
+			// 壁の「模様入りの砂岩」「滑らかな砂岩」を設置
+			for (int y = roomFloorB1Y; y <= roomFloor1Y -1 ; y++) {
+				int meta = 2;
+				if (y == roomFloorB1Y +3) meta = 1;
+
+				for (int x = roomCenter -3; x <= roomCenter +3; x++) {
+					for (int z = roomCenter -3; z <= roomCenter +3; z++) {
+						world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.sandstone, meta, 2);
+					}
+				}
+			}
+
+			// 空間の「空気」を設置
+			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+					for (int y = roomFloorB1Y +1; y <= roomFloor1Y -1; y++) {
+						world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
+					}
+				}
+			}
+
+			// 壁に「空気」を設置
+			for (int y = roomFloorB1Y +2; y <= roomFloorB1Y +3 ; y++) {
+				world.setBlockToAir(roomX +roomCenter, roomY +y, roomZ +roomCenter +2);
+				world.setBlockToAir(roomX +roomCenter, roomY +y, roomZ +roomCenter -2);
+				world.setBlockToAir(roomX +roomCenter +2, roomY +y, roomZ +roomCenter);
+				world.setBlockToAir(roomX +roomCenter -2, roomY +y, roomZ +roomCenter);
+			}
+
+			// 「チェスト」を設置
+			setChest(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter +2);
+			setChest(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter -2);
+			setChest(world, roomX +roomCenter +2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
+			setChest(world, roomX +roomCenter -2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
+
+
+			if (roomType == 0) {
+				// 「TNT」の設置
+				for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+					for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+						world.setBlock(roomX +x, roomY +roomFloorB1Y -1, roomZ +z, Blocks.tnt);
+					}
+				}
+
+				// 「石の感圧板」の設置
+				world.setBlock(roomX +roomCenter, roomY +roomFloorB1Y +1, roomZ +roomCenter, Blocks.stone_pressure_plate);
+			} else if (roomType <= 2) {
+				// 「ジャンプブロック(LAD)」の設置
+				for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+					for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+						world.setBlock(roomX +x, roomY +roomFloorB1Y, roomZ +z, LadBlocks.ladJumpBlock2);
+					}
+				}
+			}
+		// 地下室なし
+		} else if (roomType == 4) {
+			// 橙色の羊毛の上に「松明」
+			world.setBlock(roomX +roomCenter, roomY +roomFloor1Y +1, roomZ +roomCenter +3, Blocks.torch, 5, 3);
+			world.setBlock(roomX +roomCenter, roomY +roomFloor1Y +1, roomZ +roomCenter -3, Blocks.torch, 5, 3);
+			world.setBlock(roomX +roomCenter +3, roomY +roomFloor1Y +1, roomZ +roomCenter, Blocks.torch, 5, 3);
+			world.setBlock(roomX +roomCenter -3, roomY +roomFloor1Y +1, roomZ +roomCenter, Blocks.torch, 5, 3);
+		} else if (roomType == 5) {
+			// 「ジャンプブロック(LAD)」の設置
+			world.setBlock(roomX +roomCenter, roomY +roomFloor1Y, roomZ +roomCenter, LadBlocks.ladJumpBlock2);
+
+			// 天井の高さ変更
+			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+					world.setBlockToAir(roomX +x, roomY +roomHeight, roomZ +z);
+					world.setBlock(roomX +x, roomY +roomHeight -1, roomZ +z, Blocks.sandstone);
+				}
+			}
+			world.setBlockToAir(roomX +roomCenter, roomY +roomHeight -1, roomZ +roomCenter);
+		}
+
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
@@ -230,5 +326,42 @@ public class LadRoomPyramid {
 		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomCenter -7, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
 		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +7, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
 		LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -7, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.PYRAMID + LadRoomID.getDifOfRoom());
+
+		// 地下
+		switch (roomType) {
+		case 1:
+		case 3:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter, LadRoomID.PYRAMID);
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +1, roomY +roomFloorB1Y +2, roomZ +roomCenter +1, LadRoomID.PYRAMID);
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +1, roomY +roomFloorB1Y +2, roomZ +roomCenter -1, LadRoomID.PYRAMID);
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -1, roomY +roomFloorB1Y +2, roomZ +roomCenter +1, LadRoomID.PYRAMID);
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -1, roomY +roomFloorB1Y +2, roomZ +roomCenter -1, LadRoomID.PYRAMID);
+			break;
+		case 2:
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter, LadRoomID.Metal_Slime_Without_Log);
+			break;
+		}
+	}
+
+	/*
+	 * チェストを設置するためのメソッド
+	 *
+	 * DQRのコードをスポブロ部屋生成処理を参考にさせてもらいました。
+	 */
+	public static void setChest(World world, int x, int y, int z) {
+		Random rand = new Random();
+		world.setBlock(x, y, z, Blocks.chest);
+
+    	if(world.getTileEntity(x, y, z) instanceof TileEntityChest) {
+            TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(x, y, z);
+
+            if (tileentitychest != null) {
+            	if (rand.nextInt(4) == 0) {
+            		DQR.randomItem.generateChestContentsRank2(rand, tileentitychest);
+            	} else {
+            		DQR.randomItem.generateChestContentsRank1(rand, tileentitychest);
+            	}
+            }
+    	}
 	}
 }

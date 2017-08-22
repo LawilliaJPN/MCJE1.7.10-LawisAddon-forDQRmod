@@ -68,6 +68,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityAnimaruzonbi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityArumiraji;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBaburin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBakudanbebi;
+import dqr.entity.mobEntity.monsterNight.DqmEntityBakudaniwa;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBebisatan;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBehoimisuraimu;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBerobero;
@@ -98,6 +99,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityRaimusuraimu;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySamayoutamasii;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySibireageha;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySibiredanbira;
+import dqr.entity.mobEntity.monsterNight.DqmEntitySumairurokku;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySumoruguru;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySupekutetto;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySura2;
@@ -622,6 +624,27 @@ public class LadSpawnEnemyCore {
 				else if (r == 10) entity = new DqmEntitySamayoutamasii(world);
 				else if (r == 11) entity = new DqmEntitySumoruguru(world);
 
+			// 「ピラミッド」自爆敵
+			} else if (enemyGroup == LadRoomID.PYRAMID) {
+				int r = rand.nextInt(5);
+				if (r == 0) entity = new DqmEntityBakudanbebi(world);
+				else if (r == 1) entity = new DqmEntityBakudaniwa(world);
+				else if (r == 2) entity = new DqmEntitySamayoutamasii(world);
+				else if (r == 3) entity = new DqmEntitySumairurokku(world);
+				else if (r == 4) entity = new DqmEntitySupini(world);
+
+				encounterLog = false;
+
+			// 「ピラミッド」メタル系発生
+			} else if (enemyGroup == LadRoomID.Metal_Slime_Without_Log) {
+				int r = rand.nextInt(100);
+
+				if (r == 0) entity = new DqmEntityHagumeta(world);
+				else if (r <=10) entity = new DqmEntityMetaruburazazu(world);
+				else entity = new DqmEntityMetasura(world);
+
+				encounterLog = false;
+
 			/* 氷洞 */
 			// 「氷洞」Y=26～30
 			} else if (enemyGroup == LadRoomID.ICE_CAVE +4) {
@@ -728,7 +751,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 11) entity = new DqmEntitySuraimuburesu(world);
 
 			// 「メダル王の部屋」メタル系発生
-			} else if (enemyGroup == LadRoomID.MEDAL_KING) {
+			} else if (enemyGroup == LadRoomID.Metal_Slime_With_Log) {
 				int r = rand.nextInt(100);
 
 				if (r == 0) entity = new DqmEntityHagumeta(world);

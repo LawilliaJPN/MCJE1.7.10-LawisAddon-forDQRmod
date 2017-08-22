@@ -27,6 +27,8 @@ public class LadRoomID {
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
 	public static final int WEAPON_SHOP_CUSTOMER = 1210;
+	public static final int Metal_Slime_Without_Log = 2110;
+	public static final int Metal_Slime_With_Log = 2210;
 	// デバッグ用ID
 	public static final int DEBUG_IS_FALSE = -1;
 
