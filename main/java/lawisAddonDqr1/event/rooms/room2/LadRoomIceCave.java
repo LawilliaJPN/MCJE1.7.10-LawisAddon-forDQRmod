@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,8 +15,6 @@ import net.minecraft.world.World;
 public class LadRoomIceCave {
 	/*
 	 * 氷の洞窟の戦闘部屋
-	 *
-	 *
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -64,7 +63,7 @@ public class LadRoomIceCave {
 		for (int x = -1; x <= roomWidth +1; x++) {
 			for (int z = -1; z <= roomWidth +1; z++) {
 				for (int y = -2; y <= roomHeight +1; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.packed_ice);
+					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.glass);
 				}
 			}
 		}
@@ -78,6 +77,7 @@ public class LadRoomIceCave {
 			}
 		}
 
+		/* 装飾 */
 		// 柱となる「氷塊」の設置
 		setIcePillar(world, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloorY, roomHeight, false);
 		setIcePillar(world, roomX +roomCenter +6, roomZ +roomCenter +6, roomY +roomFloorY, roomHeight, true);
@@ -85,10 +85,106 @@ public class LadRoomIceCave {
 		setIcePillar(world, roomX +roomCenter -6, roomZ +roomCenter +6, roomY +roomFloorY, roomHeight, true);
 		setIcePillar(world, roomX +roomCenter -6, roomZ +roomCenter -6, roomY +roomFloorY, roomHeight, true);
 
+		if (rand.nextInt(2) == 0) {
+			// 斜め方向の逆三角柱の設置
+			setIceTriangularPrism(world, roomX +roomCenter +4, roomZ +roomCenter +4, roomY +roomFloorY, true);
+			setIceTriangularPrism(world, roomX +roomCenter +4, roomZ +roomCenter -4, roomY +roomFloorY, true);
+			setIceTriangularPrism(world, roomX +roomCenter -4, roomZ +roomCenter +4, roomY +roomFloorY, true);
+			setIceTriangularPrism(world, roomX +roomCenter -4, roomZ +roomCenter -4, roomY +roomFloorY, true);
+		}
+
+		if (rand.nextInt(2) == 0) {
+			// 水の設置
+			setWater(world, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloorY, roomHeight);
+		}
+
+		if (rand.nextInt(2) == 0) {
+			// 四隅の三角柱の設置
+			setIceTriangularPrism(world, roomX +1, roomZ +1, roomY +roomFloorY, false);
+			setIceTriangularPrism(world, roomX +1, roomZ +roomWidth -1, roomY +roomFloorY, false);
+			setIceTriangularPrism(world, roomX +roomWidth -1, roomZ +1, roomY +roomFloorY, false);
+			setIceTriangularPrism(world, roomX +roomWidth -1, roomZ +roomWidth -1, roomY +roomFloorY, false);
+		}
+
+		if (rand.nextInt(2) == 0) {
+			boolean hasInverted = true;
+			if (rand.nextInt(2) == 0) hasInverted = false;
+
+			// 左右の逆三角柱の設置
+			switch (roomDirection) {
+			case 0:
+			case 2:
+				setIceTriangularPrism(world, roomX +roomCenter, roomZ +2, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomCenter, roomZ +roomWidth -2, roomY +roomFloorY, hasInverted);
+				break;
+			case 1:
+			case 3:
+				setIceTriangularPrism(world, roomX +2, roomZ +roomCenter, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomWidth -2, roomZ +roomCenter, roomY +roomFloorY, hasInverted);
+				break;
+			}
+		}
+
+		if (rand.nextInt(2) == 0) {
+			boolean hasInverted = true;
+			if (rand.nextInt(2) == 0) hasInverted = false;
+
+			// 左右の三角柱の設置
+			switch (roomDirection) {
+			case 0:
+			case 2:
+				setIceTriangularPrism(world, roomX +roomCenter +2, roomZ +4, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomCenter -2, roomZ +4, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomCenter +2, roomZ +roomWidth -4, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomCenter -2, roomZ +roomWidth -4, roomY +roomFloorY, hasInverted);
+				break;
+			case 1:
+			case 3:
+				setIceTriangularPrism(world, roomX +4, roomZ +roomCenter +2, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +4, roomZ +roomCenter -2, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomWidth -4, roomZ +roomCenter +2, roomY +roomFloorY, hasInverted);
+				setIceTriangularPrism(world, roomX +roomWidth -4, roomZ +roomCenter -2, roomY +roomFloorY, hasInverted);
+				break;
+			}
+		}
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+		switch (roomDirection) {
+		case 0:
+			// 逆三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +4, roomY +roomFloorY +4, roomZ +roomCenter +4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +4, roomY +roomFloorY +4, roomZ +roomCenter -4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			// 四隅の三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloorY +4, roomZ +1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloorY +4, roomZ +roomWidth -1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			break;
+		case 1:
+			// 逆三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -4, roomY +roomFloorY +4, roomZ +roomCenter +4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +4, roomY +roomFloorY +4, roomZ +roomCenter +4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			// 四隅の三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloorY +4, roomZ +roomWidth -1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloorY +4, roomZ +roomWidth -1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			break;
+		case 2:
+			// 逆三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -4, roomY +roomFloorY +4, roomZ +roomCenter -4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -4, roomY +roomFloorY +4, roomZ +roomCenter +4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			// 四隅の三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloorY +4, roomZ +1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloorY +4, roomZ +roomWidth -1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			break;
+		case 3:
+			// 逆三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter -4, roomY +roomFloorY +4, roomZ +roomCenter -4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter +4, roomY +roomFloorY +4, roomZ +roomCenter -4, LadRoomID.ICE_CAVE + LadRoomID.getDifOfRoom());
+			// 四隅の三角柱の上にスポーン
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +roomFloorY +4, roomZ +1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +roomFloorY +4, roomZ +1, LadRoomID.ICE_CAVE +LadRoomID.getDifOfRoom());
+			break;
+		}
 	}
 
 	/*
@@ -115,6 +211,41 @@ public class LadRoomIceCave {
 		}
 	}
 
+	/*
+	 * 三角柱の氷を設置するメソッド
+	 *
+	 * hasInvertedがtrueの時は、天井に近いほど大きい
+	 * falseの時は、床に近いほど大きい
+	 */
+	public static void setIceTriangularPrism(World world, int x, int z, int floorY, boolean hasInverted) {
+		if (hasInverted) {
+			setBlockCross(world, Blocks.packed_ice, x, floorY +1, z, 0, false);
+			setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1, false);
+			setBlockCross(world, Blocks.packed_ice, x, floorY +3, z, 2, true);
+		} else {
+			setBlockCross(world, Blocks.packed_ice, x, floorY +3, z, 0, false);
+			setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1, false);
+			setBlockCross(world, Blocks.packed_ice, x, floorY +1, z, 2, true);
+		}
+	}
+
+	/*
+	 * 中央の柱を噴水のようにするメソッド
+	 */
+	public static void setWater(World world, int x, int z, int floorY, int height) {
+		world.setBlock(x, floorY +height +1, z, Blocks.flowing_water);
+
+		for (int i = 0; i <= 2; i++) {
+			world.setBlock(x +i, floorY +1, z +5 -i, LadBlocks.ladPackedIce);
+			world.setBlock(x -i, floorY +1, z +5 -i, LadBlocks.ladPackedIce);
+			world.setBlock(x +i, floorY +1, z -5 +i, LadBlocks.ladPackedIce);
+			world.setBlock(x -i, floorY +1, z -5 +i, LadBlocks.ladPackedIce);
+			world.setBlock(x +5 -i, floorY +1, z +i, LadBlocks.ladPackedIce);
+			world.setBlock(x +5 -i, floorY +1, z -i, LadBlocks.ladPackedIce);
+			world.setBlock(x -5 +i, floorY +1, z +i, LadBlocks.ladPackedIce);
+			world.setBlock(x -5 +i, floorY +1, z -i, LadBlocks.ladPackedIce);
+		}
+	}
 
 	/*
 	 * 十字型(isDiamondがtrueの時は菱形)にブロックを設置するメソッド

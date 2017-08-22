@@ -3,6 +3,7 @@ package lawisAddonDqr1.event.rooms.room2;
 import java.util.Random;
 
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -29,10 +30,12 @@ public class LadRoomMineShaft {
 
 		int roomFloor1Y = -1;					// 1階の床の高さ
 		int roomFloor2Y = 3;					// 2階の床の高さ
+		int roomType = rand.nextInt(8);		// 部屋の種類
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
 		}
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
@@ -74,7 +77,10 @@ public class LadRoomMineShaft {
 		for (int x = 4; x <= roomWidth -4; x++) {
 			for (int z = 1; z <= 3; z++) {
 				for (int y = 0; y <= roomHeight; y++) {
-					if (y != roomFloor2Y) {
+					if ((roomType%2 == 0) && (y < roomFloor2Y)) {
+						setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +z, roomType);
+						setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +roomWidth -z, roomType);
+					} else if (y != roomFloor2Y) {
 						world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 						world.setBlockToAir(roomX +x, roomY +y, roomZ +roomWidth -z);
 					}
@@ -86,7 +92,10 @@ public class LadRoomMineShaft {
 		for (int x = 1; x <= 3; x++) {
 			for (int z = 4; z <= roomWidth -4; z++) {
 				for (int y = 0; y <= roomHeight; y++) {
-					if (y != roomFloor2Y) {
+					if ((roomType%2 == 0) && (y < roomFloor2Y)) {
+						setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +z, roomType);
+						setBlockToAirOrWeb(world, rand, roomX +roomWidth -x, roomY +y, roomZ +z, roomType);
+					} else if (y != roomFloor2Y) {
 						world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 						world.setBlockToAir(roomX +roomWidth -x, roomY +y, roomZ +z);
 					}
@@ -242,15 +251,102 @@ public class LadRoomMineShaft {
 		world.setBlock(roomX +roomCenter +3, roomY +roomFloor2Y +3, roomZ +roomCenter, Blocks.torch, 1, 3);
 		world.setBlock(roomX +roomCenter -3, roomY +roomFloor2Y +3, roomZ +roomCenter, Blocks.torch, 2, 3);
 
-		/*
-		world.setBlock(x, y +4, z +1, Blocks.torch, 3, 3);
-		world.setBlock(x, y +4, z -1, Blocks.torch, 4, 3);
-		world.setBlock(x +1, y +4, z, Blocks.torch, 1, 3);
-		world.setBlock(x -1, y +4, z, Blocks.torch, 2, 3);
-		*/
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+
+		// 「洞窟グモ大量発生」時のスポーン
+		if (roomType == 0) {
+			// 中央の土ブロック上
+			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +x, roomY +roomFloor1Y +2, roomZ +z, LadRoomID.MINE_SHAFT);
+				}
+			}
+			// 四隅(Y=25以下)
+			if (LadRoomID.getDifOfRoom() >= 5) {
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT);
+			}
+		} else {
+			// 1階中央(共通50%)
+			if (rand.nextInt(2) == 0) {
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor1Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+			}
+
+			if (roomType/2 == 1) {
+				// 四隅
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+			} else if(roomType/2 == 2) {
+				// 2階プレイヤーのいない方向
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					break;
+				}
+			} else {
+				//プレイヤーのいない方向（1階2体＋2階1体）
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +roomWidth -3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +3, LadRoomID.MINE_SHAFT + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT +LadRoomID.getDifOfRoom());
+					break;
+				}
+			}
+		}
+	}
+
+	/*
+	 * 空気か蜘蛛の巣を設置する。
+	 */
+	public static void setBlockToAirOrWeb(World world, Random rand, int x, int y, int z, int roomType) {
+		int r = 8;
+		if (roomType == 0) r = 4;
+
+		if (rand.nextInt(r) == 0) {
+			world.setBlock(x, y, z, Blocks.web);
+		} else {
+			world.setBlockToAir(x, y, z);
+		}
+
 	}
 }
