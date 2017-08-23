@@ -2,6 +2,7 @@ package lawisAddonDqr1.event.rooms;
 
 import java.util.Random;
 
+import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
@@ -24,6 +25,7 @@ import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial03;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -174,11 +176,8 @@ public class LadRoomCore {
 				}
 			}
 
-		// Y=30以下
-		} else {
-			// Y=20以下は未実装につき、Y=21～25と同様のものに、仮設定
-			if (LadRoomID.getDifOfRoom() >= 6) LadRoomID.setDifOfRoom(5);
-
+		// Y=21～30（中層）
+		} else if (LadRoomID.getDifOfRoom() <= 5) {
 			if (!world.isRemote) {
 				switch (rand.nextInt(7)) {
 					case 0:
@@ -204,6 +203,12 @@ public class LadRoomCore {
 						break;
 				}
 			}
+
+		// Y=06～20（下層）
+		} else if (LadRoomID.getDifOfRoom() <= 7) {
+			player.addChatMessage(new ChatComponentTranslation("「" + LawisAddonDQR01.MOD_NAME + " ver." +LawisAddonDQR01.MOD_VERSION + "」は、"));
+			player.addChatMessage(new ChatComponentTranslation("開発途中のものです。"));
+			player.addChatMessage(new ChatComponentTranslation("Y=06～20の戦闘部屋は実装されていません。"));
 		}
 
 		// コンフィグ：採掘速度低下がオンの時、10秒間「採掘速度低下Ⅱ」のステータスを付与

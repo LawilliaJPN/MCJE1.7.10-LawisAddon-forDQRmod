@@ -10,7 +10,7 @@ public class LadInfoCore {
 	public static void registerInfo(ModMetadata meta) {
 		meta.modId = LawisAddonDQR01.MOD_ID;
 		meta.name = LawisAddonDQR01.MOD_NAME;
-		meta.description = "";
+		meta.description = "Lawi's Addon for DQR #01";
 		meta.version = LawisAddonDQR01.MOD_VERSION;
 		meta.url = "http://lawiss.com/minecraft-modding/archives/";
 		meta.authorList.add("Lawillia");
