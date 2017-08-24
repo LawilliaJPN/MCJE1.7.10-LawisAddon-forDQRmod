@@ -16,11 +16,12 @@ public class LadRoomSpecial01 {
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
-		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
+		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -2;		// 部屋の起点となるY座標（-2）
 
 		int roomHeight = 9;					// 部屋の高さ
 		int roomWidth = 20;					// 部屋の幅（-1）
+		int roomCenter = roomWidth /2;		// 部屋の中心
 
 		int roomFloor1Y = 0;					// 1階の高さ (部屋の高さはroomHeight - roomFloor1Y)
 		int roomFloor2Y = 5;					// 2階の高さ
@@ -28,9 +29,9 @@ public class LadRoomSpecial01 {
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomSpecial01);
 
-		// プレイヤーの位置から部屋の起点となる座標を決める (※2階の中央にプレイヤーとなるように生成される部屋なので向きは関係ない)
-		roomX -= 10;
-		roomZ -= 10;
+		// プレイヤーの位置から部屋の起点となる座標を決める
+		roomX -= roomCenter;
+		roomZ -= roomCenter;
 		roomY -= roomFloor2Y;
 
 		// コンフィグ：負荷軽減オンの時は、2階のみ生成 → 1階の高さを2階の高さにする

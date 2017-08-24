@@ -22,7 +22,7 @@ public class LadRoomIceCave {
 		int roomDirection = LadRoomID.getDirectionRoom(player, 0);
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
-		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
+		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -2;		// 部屋の起点となるY座標（-2）
 
 		int roomHeight = 9;					// 部屋の高さ

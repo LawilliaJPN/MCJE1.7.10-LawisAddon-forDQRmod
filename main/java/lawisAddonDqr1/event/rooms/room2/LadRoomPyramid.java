@@ -22,7 +22,7 @@ public class LadRoomPyramid {
 		Random rand = new Random();
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
-		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
+		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
 
 		int roomHeight = 8;					// 部屋の高さ

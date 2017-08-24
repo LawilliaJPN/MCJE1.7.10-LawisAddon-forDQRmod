@@ -20,23 +20,17 @@ public class LadRoomVillageWell {
 	public static void setRoom(World world, EntityPlayer player){
 		Random rand = new Random();
 
-		int playerX = (int)player.posX;		// プレイヤーのX座標
-		int playerZ = (int)player.posZ -1;	// プレイヤーのZ座標
-
-		int roomX = playerX;					// 部屋の起点となるX座標
-		int roomZ = playerZ;					// 部屋の起点となるZ座標（-1）
+		int roomX = (int)player.posX;			// 部屋の起点となるX座標
+		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
 
-		int roomHeight = 6;					// 部屋の高さ
+		int roomHeight = 7;					// 部屋の高さ
 		int roomWidth = 11;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中央
 
 		int roomType = 0;						// 部屋の種類
 		int roomDirection = 0;				// 部屋の生成方向
 		boolean hasCursed = false;			// 「呪われた井戸」かどうか
-
-		int enemyX = roomX;					// 敵をスポーンさせるX座標決定に使用
-		int enemyZ = roomZ;					// 敵をスポーンさせるZ座標決定に使用
 
 		// 「呪われた井戸」かどうかの判定
 		if (LadRoomID.getDifOfRoom() == 2) hasCursed = true;
@@ -45,8 +39,8 @@ public class LadRoomVillageWell {
 		else if (LadDebug.getDebugRoom() == LadRoomID.VILLAGE_WELL) hasCursed = false;
 
 		// 井戸の生成方向を決定
-		if (hasCursed) LadRoomID.getDirectionRoom(player, 0);
-		else LadRoomID.getDirectionRoom(player, 1);
+		if (hasCursed) roomDirection = LadRoomID.getDirectionRoom(player, 0);
+		else roomDirection = LadRoomID.getDirectionRoom(player, 1);
 
 		// 「呪われた井戸」では、井戸が大きくなる
 		if (hasCursed) {
@@ -108,26 +102,18 @@ public class LadRoomVillageWell {
 			case 0:
 				roomX -= 1;
 				roomZ -= roomWidth -1;
-				enemyX += roomWidth -1;
-				enemyZ += 1;
 				break;
 			case 1:
 				roomX -= 1;
 				roomZ -= 1;
-				enemyX += roomWidth -1;
-				enemyZ += roomWidth -1;
 				break;
 			case 2:
 				roomX -= roomWidth -1;
 				roomZ -= 1;
-				enemyX += 1;
-				enemyZ += roomWidth -1;
 				break;
 			case 3:
 				roomX -= roomWidth -1;
 				roomZ -= roomWidth -1;
-				enemyX += 1;
-				enemyZ += 1;
 				break;
 			}
 		}
@@ -286,73 +272,97 @@ public class LadRoomVillageWell {
 
 		// 「呪われた井戸」の通常スポーン
 		} else if (hasCursed) {
-			int x = 0, z = 0;
-
 			// 確定スポーン
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER + LadRoomID.getDifOfRoom());
 
 			// 確率スポーン
-			for (int i = 0; i < 4; i++) {
+			switch (roomDirection) {
+			case 0:
 				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
-					switch (i) {
-					case 0:
-						x = roomX +1;
-						z = roomZ +roomCenter;
-						break;
-					case 1:
-						x = roomX +roomWidth -1;
-						z = roomZ +roomCenter;
-						break;
-					case 2:
-						x = roomX +roomCenter;
-						z = roomZ +1;
-						break;
-					case 3:
-						x = roomX +roomCenter;
-						z = roomZ +roomWidth -1;
-						break;
-					}
-
-					if (!( (playerX == x) && (playerZ == z) )) {
-						LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
-					}
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
 				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				break;
+			case 1:
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				break;
+			case 2:
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				break;
+			case 3:
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRoomID.VILLAGE_WELL_HAS_CURSED + LadRoomID.getDifOfRoom());
+				}
+				break;
 			}
 
 
 		// 井戸（通常）の通常スポーン
 		} else {
-			int x = 0, z = 0;
-
-			// 確定スポーン
-			LadSpawnEnemyCore.spawnEnemy(world, player, enemyX, roomY, enemyZ, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
-
-			// 確率スポーン
-			for (int i = 0; i < 4; i++) {
+			switch (roomDirection) {
+			case 0:
+				// 確定スポーン
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				// 確率スポーン
 				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
-					switch (i) {
-					case 0:
-						x = roomX +1;
-						z = roomZ +1;
-						break;
-					case 1:
-						x = roomX +1;
-						z = roomZ +roomWidth -1;
-						break;
-					case 2:
-						x = roomX +roomWidth -1;
-						z = roomZ +1;
-						break;
-					case 3:
-						x = roomX +roomWidth -1;
-						z = roomZ +roomWidth -1;
-						break;
-					}
-
-					if (!((playerX == x) && (playerZ == z)) && !((enemyX == x) && (enemyZ == z))) {
-						LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
-					}
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
 				}
+				break;
+			case 1:
+				// 確定スポーン
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				// 確率スポーン
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				}
+				break;
+			case 2:
+				// 確定スポーン
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				// 確率スポーン
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				}
+				break;
+			case 3:
+				// 確定スポーン
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				// 確率スポーン
+				if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomWidth -1, LadRoomID.VILLAGE_WELL + LadRoomID.getDifOfRoom());
+				}
+				break;
 			}
 		}
 
