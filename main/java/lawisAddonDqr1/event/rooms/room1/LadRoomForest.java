@@ -188,16 +188,16 @@ public class LadRoomForest {
 
 		/* 葉ブロック */
 		// 頂上 十字
-		world.setBlock(x, y +treeHeight +3, z, Blocks.leaves, meta, 2);
-		world.setBlock(x, y +treeHeight +3, z +1, Blocks.leaves, meta, 2);
-		world.setBlock(x, y +treeHeight +3, z -1, Blocks.leaves, meta, 2);
-		world.setBlock(x +1, y +treeHeight +3, z, Blocks.leaves, meta, 2);
-		world.setBlock(x -1, y +treeHeight +3, z, Blocks.leaves, meta, 2);
+		setLeaves(world, x, y +treeHeight +3, z, meta);
+		setLeaves(world, x, y +treeHeight +3, z +1, meta);
+		setLeaves(world, x, y +treeHeight +3, z -1, meta);
+		setLeaves(world, x +1, y +treeHeight +3, z, meta);
+		setLeaves(world, x -1, y +treeHeight +3, z, meta);
 
 		// 上段
 		for (int x2 = -1; x2 <= 1; x2++) {
 			for (int z2 = -1; z2 <= 1; z2++) {
-				world.setBlock(x +x2, y +treeHeight +2, z +z2, Blocks.leaves, meta, 2);
+				setLeaves(world, x +x2, y +treeHeight +2, z +z2, meta);
 			}
 		}
 
@@ -205,7 +205,7 @@ public class LadRoomForest {
 		for (int x2 = -2; x2 <= 2; x2++) {
 			for (int z2 = -2; z2 <= 2; z2++) {
 				for (int y2 = 0; y2 <= 1; y2++) {
-					world.setBlock(x +x2, y +treeHeight +y2, z +z2, Blocks.leaves, meta, 2);
+					setLeaves(world, x +x2, y +treeHeight +y2, z +z2, meta);
 				}
 			}
 		}
@@ -213,6 +213,14 @@ public class LadRoomForest {
 		/* 原木 */
 		for (int i = 0; i <= treeHeight+2; i++) {
 			world.setBlock(x, y +i, z, Blocks.log, meta, 2);
+		}
+	}
+	/*
+	 * 葉を設置メソッド
+	 */
+	public static void setLeaves(World world, int x, int y, int z, int meta) {
+		if (world.getBlock(x, y, z).isAir(world, x, y, z)) {
+			world.setBlock(x, y, z, Blocks.leaves, meta, 2);
 		}
 	}
 }
