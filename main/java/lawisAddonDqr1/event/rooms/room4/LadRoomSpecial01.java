@@ -122,7 +122,7 @@ public class LadRoomSpecial01 {
 				world.setBlockToAir(roomX, roomY +roomFloor2Y, roomZ +roomWidth -z);
 			}
 
-			/* 「ジャンプブロック(LAD)」※プレイヤー以外のEntityもジャンプする等の仕様変更したブロック */
+			/* 「ジャンプブロック」※プレイヤー以外のEntityもジャンプする等の仕様変更したブロック */
 			// 中央
 			for (int x = 9; x <= roomWidth -9; x++) {
 				for (int z = 9; z <= roomWidth -9; z++) {

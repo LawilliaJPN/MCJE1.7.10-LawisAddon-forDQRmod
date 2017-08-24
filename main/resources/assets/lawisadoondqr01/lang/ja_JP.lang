@@ -1,7 +1,7 @@
 
 // ブロック
-tile.ladJumpBlock2.name=ジャンプブロック(LAD)
-tile.ladPackedIce.name=氷塊(LAD)
+tile.ladJumpBlock2.name=ジャンプブロック(MRE)
+tile.ladPackedIce.name=氷塊(MRE)
 
 // コンフィグ
 config.lad.category.general=全般

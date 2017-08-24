@@ -9,7 +9,7 @@ import net.minecraft.block.Block;
 
 public class LadInitBlocks {
 	public static void initBlocks() {
-		/* ジャンプブロック(LAD) */
+		/* ジャンプブロック */
 		LadBlocks.ladJumpBlock2 = new LadJumpBlock2()
 			// 変更なし
 			.setBlockUnbreakable()
@@ -25,7 +25,7 @@ public class LadInitBlocks {
 		GameRegistry.registerBlock(LadBlocks.ladJumpBlock2, "ladJumpBlock2");
 
 
-		/* 氷塊(LAD) */
+		/* 氷塊 */
 		LadBlocks.ladPackedIce = new LadPackedIce()
 			// 変更なし
 			.setHardness(0.5F)

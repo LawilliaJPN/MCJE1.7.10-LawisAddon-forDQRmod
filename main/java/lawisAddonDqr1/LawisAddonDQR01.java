@@ -19,10 +19,10 @@ import lawisAddonDqr1.config.LadInfoCore;
 @Mod(modid = LawisAddonDQR01.MOD_ID, name = LawisAddonDQR01.MOD_NAME, version = LawisAddonDQR01.MOD_VERSION, guiFactory = "lawisAddonDqr1.config.LadGuiFactory")
 
 public class LawisAddonDQR01 {
-	public static final String MOD_ID = "lawisadoondqr01";
+	public static final String MOD_ID = "MREncounterForDQR";
 	public static final String MOD_NAME = "Mining Random Encounter for DQRmod";
 	public static final String MOD_VERSION = "0.1.0";
-	public static Logger logger = LogManager.getLogger("lawisadoondqr01");
+	public static Logger logger = LogManager.getLogger("MREncounterForDQR");
 
 	@Metadata(MOD_ID)
 	private static ModMetadata meta;

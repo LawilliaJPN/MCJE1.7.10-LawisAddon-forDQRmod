@@ -115,15 +115,15 @@ public class LadRoomSpecial02 {
 			}
 		}
 
-		/* ジャンプブロック(LAD) */
-		// 1階中央の「ジャンプブロック(LAD)」を設置
+		/* ジャンプブロック */
+		// 1階中央の「ジャンプブロック」を設置
 		for (int x = roomCenter -1; x <= roomCenter +1; x++) {
 			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
 				setFloor(world, LadBlocks.ladJumpBlock2, roomX +x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y);
 			}
 		}
 
-		// 1階四隅から2階への「ジャンプブロック(LAD)」の設置
+		// 1階四隅から2階への「ジャンプブロック」の設置
 		for (int i = 3; i <= 4; i++) {
 			setFloor(world, LadBlocks.ladJumpBlock2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -4, roomHeight -roomFloor1Y);
 			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter -4, roomHeight -roomFloor1Y);
