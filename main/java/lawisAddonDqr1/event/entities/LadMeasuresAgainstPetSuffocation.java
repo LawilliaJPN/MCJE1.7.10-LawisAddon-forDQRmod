@@ -18,7 +18,7 @@ public class LadMeasuresAgainstPetSuffocation {
 	public static void pullPets(World world, EntityPlayer player) {
 		// プレイヤーの周囲のEntityをListに入れる
 		List list = player.worldObj.getEntitiesWithinAABBExcludingEntity(player,
-        		player.boundingBox.addCoord(player.motionX, player.motionY, player.motionZ).expand(10.0D, 5.0D, 10.0D));
+        		player.boundingBox.addCoord(player.motionX, player.motionY, player.motionZ).expand(20.0D, 10.0D, 20.0D));
 
 		// Listが空の場合とnullの場合を除く
         if (list != null && !list.isEmpty()) {
@@ -38,7 +38,7 @@ public class LadMeasuresAgainstPetSuffocation {
             				if(player.getUniqueID().toString().equalsIgnoreCase(tameUuid)) {
 
             					// 自分のペットは自分の位置へワープさせる
-            					petMob.setPositionAndUpdate(player.posX, player.posY + 0.5D, player.posZ);
+            					petMob.setPositionAndUpdate(player.posX, player.posY, player.posZ);
             				}
         				}
 					}

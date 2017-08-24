@@ -22,7 +22,7 @@ public class LadRoomDesertWell {
 		int roomDirection = LadRoomID.getDirectionRoom(player, 0);
 
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
-		int roomZ = (int)player.posZ -1;		// 部屋の起点となるZ座標（-1）
+		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標（-1）
 
 		int roomHeight = 6;					// 部屋の高さ
@@ -34,6 +34,7 @@ public class LadRoomDesertWell {
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
 		}
 
 		// 実績の取得

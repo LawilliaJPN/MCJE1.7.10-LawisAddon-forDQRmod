@@ -7,6 +7,7 @@ import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPetSuffocation;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.rooms.room1.LadRoomBeach;
 import lawisAddonDqr1.event.rooms.room1.LadRoomDesertWell;
 import lawisAddonDqr1.event.rooms.room1.LadRoomForest;
@@ -44,6 +45,8 @@ public class LadRoomCore {
 
 
 		/* 戦闘部屋の生成の前に */
+		// プレイヤーの窒息対策
+		LadMeasuresAgainstPlayerSuffocation.adjustPlayerPos(world, player);
 		// 周囲のペットの窒息対策
 		LadMeasuresAgainstPetSuffocation.pullPets(world, player);
 
