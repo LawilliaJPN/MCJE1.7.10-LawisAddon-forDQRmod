@@ -27,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -107,7 +108,7 @@ public class LadRoomCore {
 		// Y=41～45
 		} else if (LadRoomID.getDifOfRoom() == 1) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(5)) {
+				switch (rand.nextInt(4)) {
 				case 0:
 					LadRoomForest.setRoom(world, player);
 					break;
@@ -119,9 +120,6 @@ public class LadRoomCore {
 					break;
 				case 3:
 					LadRoomDesertWell.setRoom(world, player);
-					break;
-				case 4:
-					LadRoomSpecial01.setRoom(world, player);
 					break;
 				}
 			}
@@ -214,9 +212,19 @@ public class LadRoomCore {
 			player.addChatMessage(new ChatComponentTranslation("Y=06～20の戦闘部屋は実装されていません。"));
 		}
 
-		// コンフィグ：採掘速度低下がオンの時、10秒間「採掘速度低下Ⅱ」のステータスを付与
+		// コンフィグ：採掘速度低下がオンの時、「採掘速度低下Ⅱ」のステータスを付与
 		if (LadConfigCore.isMiningFatigue) {
-			player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 10 * 20, 1));
+			if (world.difficultySetting == EnumDifficulty.EASY){
+				// 難易度イージーなら、10秒間
+				player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 10 * 20, 1));
+            } else if (world.difficultySetting == EnumDifficulty.NORMAL){
+            	// 難易度ノーマルなら、15秒間
+            	player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 15 * 20, 1));
+            } else if (world.difficultySetting == EnumDifficulty.HARD){
+            	// 難易度ハードなら、20秒間
+            	player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 20 * 20, 1));
+            }
+
 		}
 
 		// [ForgeEvent] 戦闘部屋生成後 介入用のイベント

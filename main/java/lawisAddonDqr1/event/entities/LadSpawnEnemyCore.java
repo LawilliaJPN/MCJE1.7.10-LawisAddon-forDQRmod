@@ -353,12 +353,12 @@ public class LadSpawnEnemyCore {
 				else if (r == 3) entity = new DqmEntityButisuraimu(world);
 				else if (r == 4) entity = new DqmEntityTogebouzu(world);
 				else if (r == 5) entity = new DqmEntityItamogu(world);
-				else if (r == 6) entity = new DqmEntityOnikozou(world);
-				else if (r == 7) entity = new DqmEntityGizumoAZ(world);
-				else if (r == 8) entity = new DqmEntityOokiduti(world);
-				else if (r == 9) entity = new DqmEntityDokuroarai(world);
-				else if (r == 10) entity = new DqmEntityMadohando(world);
-				else if (r == 11) entity = new DqmEntitySabotenboru(world);
+				else if (r == 6) entity = new DqmEntitySimasimacat(world);
+				else if (r == 7) entity = new DqmEntityOnikozou(world);
+				else if (r == 8) entity = new DqmEntityDoraki(world);
+				else if (r == 9) entity = new DqmEntityGizumoAZ(world);
+				else if (r == 10) entity = new DqmEntityGhost(world);
+				else if (r == 11) entity = new DqmEntityOokiduti(world);
 
 			// 砂漠の井戸 Y=31～35
 			} else if (enemyGroup == LadRoomID.DESERT_WELL +3) {
