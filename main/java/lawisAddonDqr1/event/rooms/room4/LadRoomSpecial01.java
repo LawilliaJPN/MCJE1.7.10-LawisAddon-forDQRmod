@@ -29,6 +29,10 @@ public class LadRoomSpecial01 {
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomSpecial01);
 
+		// マイナス座標の時に、部屋の位置がズレることの修正
+		if (roomX < 0) roomX -=1;
+		if (roomZ < 0) roomZ -=1;
+
 		// プレイヤーの位置から部屋の起点となる座標を決める
 		roomX -= roomCenter;
 		roomZ -= roomCenter;

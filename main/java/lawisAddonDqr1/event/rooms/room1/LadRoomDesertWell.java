@@ -40,6 +40,10 @@ public class LadRoomDesertWell {
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomDesertWell);
 
+		// マイナス座標の時に、部屋の位置がズレることの修正
+		if (roomX < 0) roomX -=1;
+		if (roomZ < 0) roomZ -=1;
+
 		if (roomType == 3) {
 			// 「旱魃」中央スタート（コンフィグ：負荷軽減オンの時）
 			if (LadConfigCore.isRoomReduction) roomType = 2;

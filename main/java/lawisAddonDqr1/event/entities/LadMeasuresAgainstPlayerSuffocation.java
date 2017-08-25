@@ -1,19 +1,31 @@
 package lawisAddonDqr1.event.entities;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class LadMeasuresAgainstPlayerSuffocation {
 	/*
 	 * 戦闘部屋生成時のプレイヤーの窒息対策処理。
-	 * プレイヤーの周囲にいるペットをプレイヤーの位置に飛ばす。
-	 *
-	 * DQRの「ルーラの杖」のコードを参考にさせていただきました。
+	 * プレイヤーをブロックの中央に移動させる。
 	 */
 	public static void adjustPlayerPos(World world, EntityPlayer player) {
 		int x = (int)player.posX;
 		int y = (int)player.posY;
 		int z = (int)player.posZ;
-		player.setPositionAndUpdate(x +0.5D, y, z +0.5D);
+
+		double x2 = x;
+		double z2 = z;
+
+		if (player.posX < 0) x2 -= 0.5D;
+		else x2 += 0.5D;
+		if (player.posZ < 0) z2 -= 0.5D;
+		else z2 += 0.5D;
+
+		player.addChatMessage(new ChatComponentTranslation("posX,posZ == " + player.posX + ","+ player.posZ));
+		player.addChatMessage(new ChatComponentTranslation("x,z == " + x + ","+ z));
+		player.addChatMessage(new ChatComponentTranslation("x2,z2 == " + x2 + ","+ z2));
+
+		player.setPositionAndUpdate(x2, y, z2);
 	}
 }

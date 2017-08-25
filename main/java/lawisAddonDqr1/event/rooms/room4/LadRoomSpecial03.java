@@ -19,6 +19,10 @@ public class LadRoomSpecial03 {
 		int roomWidth = 20;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
 
+		// マイナス座標の時に、部屋の位置がズレることの修正
+		if (roomX < 0) roomX -=1;
+		if (roomZ < 0) roomZ -=1;
+
 		// プレイヤーが中心になるように生成(仮)
 		roomX -= roomCenter;
 		roomZ -= roomCenter;

@@ -56,6 +56,10 @@ public class LadRoomVillageWell {
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomVillageWell);
 
+		// マイナス座標の時に、部屋の位置がズレることの修正
+		if (roomX < 0) roomX -=1;
+		if (roomZ < 0) roomZ -=1;
+
 
 		/* 部屋の種類 */
 		// 「呪われた井戸」の部屋の種類
