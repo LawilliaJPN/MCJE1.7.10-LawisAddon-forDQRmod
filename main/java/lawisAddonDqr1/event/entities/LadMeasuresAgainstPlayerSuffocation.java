@@ -1,7 +1,6 @@
 package lawisAddonDqr1.event.entities;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class LadMeasuresAgainstPlayerSuffocation {
@@ -21,10 +20,6 @@ public class LadMeasuresAgainstPlayerSuffocation {
 		else x2 += 0.5D;
 		if (player.posZ < 0) z2 -= 0.5D;
 		else z2 += 0.5D;
-
-		player.addChatMessage(new ChatComponentTranslation("posX,posZ == " + player.posX + ","+ player.posZ));
-		player.addChatMessage(new ChatComponentTranslation("x,z == " + x + ","+ z));
-		player.addChatMessage(new ChatComponentTranslation("x2,z2 == " + x2 + ","+ z2));
 
 		player.setPositionAndUpdate(x2, y, z2);
 	}
