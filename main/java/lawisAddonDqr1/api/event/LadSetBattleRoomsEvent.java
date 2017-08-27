@@ -5,6 +5,9 @@ import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+/*
+ * 他のmodがこのmodに介入しやすくするために用意したイベントのうちの1つ。
+ */
 @Cancelable
 public class LadSetBattleRoomsEvent extends Event {
 	public final World world;

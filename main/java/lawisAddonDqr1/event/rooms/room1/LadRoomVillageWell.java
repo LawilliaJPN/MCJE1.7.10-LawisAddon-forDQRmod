@@ -15,7 +15,8 @@ public class LadRoomVillageWell {
 	/*
 	 * バニラの村の井戸をモチーフとした戦闘部屋
 	 *
-	 * [Unimplemented] 負荷軽減オフ時に「呪われた井戸」の丸石の一部を苔石や空気に
+	 * TODO リファクタリング
+	 * TODO 負荷軽減オフ時に「呪われた井戸」の丸石の一部を苔石や空気に
 	 */
 	public static void setRoom(World world, EntityPlayer player){
 		Random rand = new Random();
@@ -57,8 +58,8 @@ public class LadRoomVillageWell {
 		player.triggerAchievement(LadAchievementCore.roomVillageWell);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 
 		/* 部屋の種類 */

@@ -16,6 +16,12 @@ public class LadMeasuresAgainstPlayerSuffocation {
 		double x2 = x;
 		double z2 = z;
 
+		/* 
+		 * それぞれ正か負かによって±0.5Dをする。
+		 * 
+		 * 座標がマイナスの時に＋0.5Dをすると1マスずれてしまうので、-0.5Dとする必要性がある。
+		 * （例：座標-5.6をintでキャストすると-5になり、そこに＋0.5Dすると座標-4.5となるため、1マスずれることとなる。）
+		 */
 		if (player.posX < 0) x2 -= 0.5D;
 		else x2 += 0.5D;
 		if (player.posZ < 0) z2 -= 0.5D;

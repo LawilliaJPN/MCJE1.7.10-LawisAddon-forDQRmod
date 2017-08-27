@@ -34,8 +34,6 @@ import net.minecraftforge.common.MinecraftForge;
 public class LadRoomCore {
 	/*
 	 * 戦闘部屋を生成する処理
-	 *
-	 * [Unimplemented] Y=30以下は未実装
 	 */
 	public static void setBattleRooms(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -205,7 +203,7 @@ public class LadRoomCore {
 				}
 			}
 
-		// Y=06～20（下層）
+		// Y=06～20（下層） TODO Y=06～20の戦闘部屋の実装
 		} else if (LadRoomID.getDifOfRoom() <= 7) {
 			player.addChatMessage(new ChatComponentTranslation("「" + LawisAddonDQR01.MOD_NAME + " ver." +LawisAddonDQR01.MOD_VERSION + "」は、"));
 			player.addChatMessage(new ChatComponentTranslation("開発途中のものです。"));

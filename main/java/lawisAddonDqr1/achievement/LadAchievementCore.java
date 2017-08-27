@@ -8,6 +8,11 @@ import net.minecraft.init.Items;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
+/*
+ * 実績の追加を行うクラス
+ *
+ * TODO 下層の実績の実装
+ */
 public class LadAchievementCore {
 	// 上層
     public static Achievement roomBeach;

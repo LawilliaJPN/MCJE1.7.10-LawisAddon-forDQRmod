@@ -8,6 +8,10 @@ import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationFloor;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationTorch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -41,8 +45,8 @@ public class LadRoomDesertWell {
 		player.triggerAchievement(LadAchievementCore.roomDesertWell);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		if (roomType == 3) {
 			// 「旱魃」中央スタート（コンフィグ：負荷軽減オンの時）
@@ -115,65 +119,14 @@ public class LadRoomDesertWell {
 			}
 		}
 
-		/* 井戸の底 */
-		// 井戸の底に「砂岩ブロック」を敷く
-		for (int x = roomCenter -2; x <= roomCenter +2; x++) {
-			for (int z = roomCenter -2; z <= roomCenter +2; z++) {
-				for (int y = -1; y <= 0; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.sandstone);
-				}
-			}
-		}
+		// 井戸を生成する
+		setDesertWell(world, roomX +roomCenter, roomZ +roomCenter, roomY);
 
-		if (roomType == 2) {
+		// 干ばつパターン
+		if ((roomType == 2) || (roomType == 3)) {
 			// 井戸の中に「砂」を敷く
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomCenter, Blocks.sand);
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomCenter -1, Blocks.sand);
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomCenter +1, Blocks.sand);
-			world.setBlock(roomX +roomCenter -1, roomY -1, roomZ +roomCenter, Blocks.sand);
-			world.setBlock(roomX +roomCenter +1, roomY -1, roomZ +roomCenter, Blocks.sand);
-		} else if (roomType != 3) {
-			// 井戸の中に「水」を敷く
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomCenter, Blocks.water);
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomCenter -1, Blocks.water);
-			world.setBlock(roomX +roomCenter, roomY -1, roomZ +roomCenter +1, Blocks.water);
-			world.setBlock(roomX +roomCenter -1, roomY -1, roomZ +roomCenter, Blocks.water);
-			world.setBlock(roomX +roomCenter +1, roomY -1, roomZ +roomCenter, Blocks.water);
+			LadDecorationFloor.setBlockAndAirCross(world, Blocks.sand, roomX +roomCenter, roomY -1, roomZ +roomCenter);
 		}
-
-		// 井戸の中に「空気」を設置
-		world.setBlockToAir(roomX +roomCenter, roomY, roomZ +roomCenter);
-		world.setBlockToAir(roomX +roomCenter, roomY, roomZ +roomCenter -1);
-		world.setBlockToAir(roomX +roomCenter, roomY, roomZ +roomCenter +1);
-		world.setBlockToAir(roomX +roomCenter -1, roomY, roomZ +roomCenter);
-		world.setBlockToAir(roomX +roomCenter +1, roomY, roomZ +roomCenter);
-
-		// 井戸の周りに「砂岩ハーフブロック」を敷く
-		world.setBlock(roomX +roomCenter, roomY, roomZ +roomCenter -2, Blocks.stone_slab, 1, 2);
-		world.setBlock(roomX +roomCenter, roomY, roomZ +roomCenter +2, Blocks.stone_slab, 1, 2);
-		world.setBlock(roomX +roomCenter -2, roomY, roomZ +roomCenter, Blocks.stone_slab, 1, 2);
-		world.setBlock(roomX +roomCenter +2, roomY, roomZ +roomCenter, Blocks.stone_slab, 1, 2);
-
-
-		/* 井戸の屋根 */
-		// 柱となる「砂岩」を設置
-		for (int y = 1; y <= 2; y++) {
-			world.setBlock(roomX +roomCenter -1, roomY +y, roomZ +roomCenter -1, Blocks.sandstone);
-			world.setBlock(roomX +roomCenter -1, roomY +y, roomZ +roomCenter +1, Blocks.sandstone);
-			world.setBlock(roomX +roomCenter +1, roomY +y, roomZ +roomCenter -1, Blocks.sandstone);
-			world.setBlock(roomX +roomCenter +1, roomY +y, roomZ +roomCenter +1, Blocks.sandstone);
-		}
-
-		// 屋根となる「砂岩ハーフブロック」を設置
-		for (int x = roomCenter -1; x <= roomCenter +1; x++) {
-			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
-				world.setBlock(roomX +x, roomY +3, roomZ +z, Blocks.stone_slab, 1, 2);
-			}
-		}
-
-		// 頂点の「砂岩」を設置
-		world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter, Blocks.sandstone);
-
 
 		/* 装飾 */
 		// 枯れ木・サボテン
@@ -212,17 +165,12 @@ public class LadRoomDesertWell {
 
 		/* 光源 */
 		// 明るさ確保のための「松明」の設置
-		world.setBlock(roomX +roomCenter -2, roomY +1, roomZ +roomCenter -2, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomCenter -2, roomY +1, roomZ +roomCenter +2, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomCenter +2, roomY +1, roomZ +roomCenter -2, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomCenter +2, roomY +1, roomZ +roomCenter +2, Blocks.torch, 5, 3);
-
+		LadDecorationTorch.setTorchCenterSlanting(world, roomX +roomCenter, roomZ +roomCenter, roomY +1, 2);
 
 		/* 地下室 */
 		if (roomType == 3) {
 			// 井戸の底の中央のブロックをなくす
-			world.setBlockToAir(roomX +roomCenter, roomY -2, roomZ +roomCenter);
-			world.setBlockToAir(roomX +roomCenter, roomY -1, roomZ +roomCenter);
+			LadDecorationPillar.setPillar(world, roomX +roomCenter, roomY -2, roomZ +roomCenter, 2);
 
 			// 「砂岩ブロック」で埋め尽くす
 			for (int x = 0; x <= roomWidth; x++) {
@@ -259,11 +207,6 @@ public class LadRoomDesertWell {
 			// 明るさ確保のための「松明」の設置
 			world.setBlock(roomX +roomCenter +1, roomY +roomDepth +2, roomZ +roomWidth -1, Blocks.torch, 4, 3);
 			world.setBlock(roomX +roomCenter -1, roomY +roomDepth +2, roomZ +roomWidth -1, Blocks.torch, 4, 3);
-			/*
-			world.setBlock(roomX +roomCenter, roomY +roomDepth +2, roomZ +1, Blocks.torch, 3, 3);
-			world.setBlock(roomX +roomWidth -1, roomY +roomDepth +2, roomZ +roomCenter, Blocks.torch, 2, 3);
-			world.setBlock(roomX +1, roomY +roomDepth +2, roomZ +roomCenter, Blocks.torch, 1, 3);
-			*/
 
 			// 装飾
 			world.setBlock(roomX +roomCenter, roomY +roomDepth +1, roomZ +roomWidth -1, Blocks.sand);
@@ -288,16 +231,16 @@ public class LadRoomDesertWell {
 			// 確定スポーン
 			switch (roomDirection) {
 			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +1, roomZ +roomCenter, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
 				break;
 			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -1, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
 				break;
 			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY +1, roomZ +roomCenter, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
 				break;
 			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +1, LadRoomID.DESERT_WELL + LadRoomID.getDifOfRoom());
 				break;
 			}
 
@@ -317,7 +260,39 @@ public class LadRoomDesertWell {
 				}
 			}
 		}
+	}
 
+	/*
+	 * 砂漠の井戸を生成するメソッド
+	 */
+	public static void setDesertWell(World world, int centerX, int centerZ, int floorY){
+		// 井戸の底に「砂岩ブロック」を敷く
+		for (int x = centerX -2; x <= centerX +2; x++) {
+			for (int z = centerZ -2; z <= centerZ +2; z++) {
+				for (int y = -1; y <= 0; y++) {
+					world.setBlock(x, floorY +y, z, Blocks.sandstone);
+				}
+			}
+		}
+
+		// 井戸の中に「水」を敷く
+		LadDecorationFloor.setBlockAndAirCross(world, Blocks.water, centerX, floorY -1, centerZ);
+
+		// 井戸の周りに「砂岩ハーフブロック」を敷く
+		LadDecorationCross.setFourBlockCross(world, Blocks.stone_slab, 1, centerX, centerZ, floorY, 2);
+
+		// 柱となる「砂岩」を設置
+		LadDecorationPillar.setPillarSlanting(world, Blocks.sandstone, centerX, centerZ, floorY +1, 2, 1);
+
+		// 屋根となる「砂岩ハーフブロック」を設置
+		for (int x = centerX -1; x <= centerX +1; x++) {
+			for (int z = centerZ -1; z <= centerZ +1; z++) {
+				world.setBlock(x, floorY +3, z, Blocks.stone_slab, 1, 2);
+			}
+		}
+
+		// 頂点の「砂岩」を設置
+		world.setBlock(centerX, floorY +3, centerZ, Blocks.sandstone);
 	}
 }
 /* 設計図

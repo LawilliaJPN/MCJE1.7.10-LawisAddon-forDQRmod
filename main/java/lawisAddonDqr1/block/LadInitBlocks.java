@@ -7,7 +7,13 @@ import lawisAddonDqr1.block.blocks.LadJumpBlock2;
 import lawisAddonDqr1.block.blocks.LadPackedIce;
 import net.minecraft.block.Block;
 
+/*
+ * ブロックを追加するクラス。
+ */
 public class LadInitBlocks {
+	/*
+	 * ブロックを追加・登録するメソッド。
+	 */
 	public static void initBlocks() {
 		/* ジャンプブロック */
 		LadBlocks.ladJumpBlock2 = new LadJumpBlock2()

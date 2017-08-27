@@ -6,6 +6,9 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+/*
+ * 他のmodがこのmodに介入しやすくするために用意したイベントのうちの1つ。
+ */
 @Cancelable
 public class LadEnemySpawnEvent extends Event {
 	public final World world;

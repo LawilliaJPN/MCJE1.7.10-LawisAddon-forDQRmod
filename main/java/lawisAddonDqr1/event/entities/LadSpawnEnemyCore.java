@@ -143,9 +143,9 @@ public class LadSpawnEnemyCore {
 		Boolean encounterLog = true;
 
 
-		/*
+		/* - - - - - - - - - - - - - - - - - - - -
 		 * 以下、どの敵をスポーンさせるか決める処理
-		 */
+		 * - - - - - - - - - - - - - - - - - - - */
 
 
 		/*
@@ -820,31 +820,49 @@ public class LadSpawnEnemyCore {
 				return;
 
 			}
+
+		/*
+		 * 下層 Y= 06～20
+		 *
+		 * TODO Y=16～20のスポーン設定
+		 * TODO Y=06～15のスポーン設定
+		 */
+		} else {
+
 		}
 
 
-		/*
+		/* - - - - - - - - - - - - - - - - - - - -
 		 * 以下、決めた敵をスポーンさせる処理
-		 */
+		 * - - - - - - - - - - - - - - - - - - - */
 
 		// [Debug]戦闘部屋を固定している時、敵のスポーン位置の下にダイヤモンドブロックを敷く（デバッグ用）
 		if (LadDebug.getDebugRoom() >= 0) {
 			world.setBlock(x, y-1, z, Blocks.diamond_block);
 		}
 
+		// スポーンする敵が設定されていない時は中断
 		if (entity == null) return;
+
+		// 敵の位置や向きを設定
 		entity.setLocationAndAngles(x +0.5D, y, z +0.5D, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
 		entity.rotationYawHead = entity.rotationYaw;
 		entity.renderYawOffset = entity.rotationYaw;
+
+		// 敵の情報をスポーンエッグでスポーンする時の様にリセットする
 		entity.onSpawnWithEgg((IEntityLivingData)null);
 
 		// [ForgeEvent] 敵スポーン直前に 介入用のイベント
 		LadEnemySpawnEvent event = new LadEnemySpawnEvent(world, player, entity, enemyGroup);
 		MinecraftForge.EVENT_BUS.post(event);
 
+		// 敵をスポーンさせる
 		world.spawnEntityInWorld(entity);
+
+		// 効果音を鳴らす
 		entity.playLivingSound();
 
+		// ログに敵がスポーンしたことを表示する
 		if (encounterLog) {
 			player.addChatMessage(new ChatComponentTranslation(entity.getCommandSenderName() + "が あらわれた！"));
 		}

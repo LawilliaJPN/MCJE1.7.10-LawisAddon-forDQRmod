@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class LadRoomID {
 	/* Room ID */
-	// 部屋の基本ID
+	// 部屋の基本ID（部屋の生成や敵のスポーンに利用）
 	public static final int VILLAGE_WELL = 1100;
 	public static final int WEAPON_SHOP = 1200;
 	public static final int DESERT_WELL = 1300;
@@ -23,7 +23,7 @@ public class LadRoomID {
 	public static final int SPECIAL_01 = 4100;
 	public static final int SPECIAL_02 = 4200;
 	public static final int SPECIAL_03 = 4300;
-	// その他のID
+	// その他のID（敵のスポーンに利用）
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
 	public static final int WEAPON_SHOP_CUSTOMER = 1210;
@@ -38,16 +38,16 @@ public class LadRoomID {
 
 	/*
 	 * プレイヤーの水平方向の向きから、部屋の生成方向を決定するメソッド
+	 *
+	 * i == 0 -> 上下左右, i == 1 ->斜め
 	 */
 	public static int getDirectionRoom(EntityPlayer player, int i) {
-		/* i == 0 -> 上下左右, i == 1 ->斜め
-		   ,-0+X
+		/* ,-0+X
 		  -,130
 		  0,0P2
 		  +,213
 		  Z
 		*/
-
 		switch (i) {
 		case 0:
 			return MathHelper.floor_double((double)((player.rotationYaw +180.0F) *4.0F /360.0F) -0.5D) & 3;
@@ -59,10 +59,11 @@ public class LadRoomID {
 	}
 
 	/*
-	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド
+	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド。
+	 * （ランダムエンカウント形式で戦闘が起こる時は、こちらを利用）
 	 *
-	 * [Unimplemented] 昼か夜かで変化する等の要素を後日実装予定。
-	 * デバッグのしやすさを考慮し、すべての部屋が揃うまでは、高度ごとにそのまま難易度が決まる状態に
+	 * TODO 難易度設定方法の見直し（昼か夜かで変化する等の要素）
+	 * （デバッグのしやすさを考慮し、すべての部屋が揃うまでは、高度ごとにそのまま難易度が決まる状態に）
 	 */
 	public static void updateDifOfRoom(int y) {
 		int d = 0;
@@ -86,6 +87,8 @@ public class LadRoomID {
 	/*
 	 * 経過日数から、部屋の難易度を決定するメソッド
 	 * コンフィグ：ベッドペナルティがオンの時に、目覚めた時に生成する部屋の難易度
+	 *
+	 * TODO 難易度設定方法の見直し（難易度調整が必要）
 	 */
 	public static void updateDifOfRoom(World world) {
 		int d = 0;

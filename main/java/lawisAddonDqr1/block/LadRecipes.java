@@ -7,7 +7,13 @@ import lawisAddonDqr1.api.blocks.LadBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
+/*
+ * レシピを追加するクラス。
+ */
 public class LadRecipes {
+	/*
+	 * このmodで追加したブロックに関連するレシピを追加するメソッド。
+	 */
 	public static void initLadRecipes() {
 		// ジャンプブロック
 		GameRegistry.addShapelessRecipe(new ItemStack(LadBlocks.ladJumpBlock2), DQBlocks.DqmBlockJampBlock2, DQIngots.itemHikarinoisi);

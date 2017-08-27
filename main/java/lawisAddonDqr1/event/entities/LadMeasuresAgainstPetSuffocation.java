@@ -14,6 +14,8 @@ public class LadMeasuresAgainstPetSuffocation {
 	 * プレイヤーの周囲にいるペットをプレイヤーの位置に飛ばす。
 	 *
 	 * DQRの「ルーラの杖」のコードを参考にさせていただきました。
+	 *
+	 * TODO ペットの検索範囲の調整
 	 */
 	public static void pullPets(World world, EntityPlayer player) {
 		// プレイヤーの周囲のEntityをListに入れる

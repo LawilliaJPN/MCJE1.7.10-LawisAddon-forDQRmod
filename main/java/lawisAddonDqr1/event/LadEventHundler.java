@@ -26,6 +26,8 @@ public class LadEventHundler {
 	/*
 	 * ブロックが破壊された時に呼び出される処理
 	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 *
+	 * プレイヤーが特定位置にある石ブロックを破壊した時にランダムエンカウントを起こす処理
 	 */
 	@SubscribeEvent
 	public void BreakBlockEvent(BreakEvent event) {
@@ -64,6 +66,9 @@ public class LadEventHundler {
 	/*
 	 * プレイヤーが目を覚ましたときに呼び出される処理
 	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 *
+	 * プレイヤーがベッドを使用した後に戦闘を起こす処理。
+	 * ベッドを使い捨てにする。
 	 */
 	@SubscribeEvent
 	public void WakeUpEvent(PlayerWakeUpEvent event) {
@@ -107,6 +112,8 @@ public class LadEventHundler {
 	/*
 	 * プレイヤーが何かしらをクリックした時に呼び出される処理
 	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 *
+	 * 「採掘速度低下」のポーションが付与されているプレイヤーが、DQRの破壊マジックツールの使用をできなくするための処理。
 	 */
 	@SubscribeEvent
 	public void MGTCancelEvent(PlayerInteractEvent event) {

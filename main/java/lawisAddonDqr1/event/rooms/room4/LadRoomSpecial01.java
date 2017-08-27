@@ -12,7 +12,9 @@ import net.minecraft.world.World;
 
 public class LadRoomSpecial01 {
 	/*
-	 * DQRのブロックを利用した特殊な戦闘部屋
+	 * DQRのブロックを利用した特殊な戦闘部屋(上層)
+	 *
+	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
@@ -30,8 +32,8 @@ public class LadRoomSpecial01 {
 		player.triggerAchievement(LadAchievementCore.roomSpecial01);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		// プレイヤーの位置から部屋の起点となる座標を決める
 		roomX -= roomCenter;

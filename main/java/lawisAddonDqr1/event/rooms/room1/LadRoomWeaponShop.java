@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 public class LadRoomWeaponShop {
 	/*
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
+	 *
+	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -40,8 +42,8 @@ public class LadRoomWeaponShop {
 		player.triggerAchievement(LadAchievementCore.roomWeaponShop);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch (roomDirection) {

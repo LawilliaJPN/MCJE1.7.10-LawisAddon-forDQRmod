@@ -6,6 +6,7 @@ import net.minecraftforge.common.config.Configuration;
 
 /*
  * コンフィグ設定の中心となるクラス。
+ *
  * 「TNT MODDERS」様の「MOD製作チュートリアル」を参考にさせていただきました。
  * https://www63.atwiki.jp/akasatanahama/pages/131.html
  */
@@ -14,22 +15,26 @@ public class LadConfigCore {
 
 	/* GENERAL Mod全般の設定 */
 	public static final String GENERAL = "General";
+
 	// ENCOUNTER 戦闘の頻度
 	private static final String ENCOUNTER = GENERAL + ".Encounter";
 	public static int frequencyOfBattle = 10;
+
 	// REDUCTION 負荷軽減
 	private static final String REDUCTION = GENERAL + ".Reduction";
 	public static boolean isRoomReduction = false;
+
 	// MINING_FATIGUE 採掘速度低下
 	private static final String MINING_FATIGUE = GENERAL + ".MiningFatigue";
 	public static boolean isMiningFatigue = true;
+
 	// BED_PENALTY ベッドペナルティ
 	private static final String BED_PENALTY = GENERAL + ".BedPenalty";
 	public static boolean isBedPenalty = false;
 
-
 	/*
-	 * preInit コンフィグの読み込み
+	 * preInitにて呼び出すメソッド。
+	 * コンフィグの読み込み
 	 */
 	public static void loadConfig(FMLPreInitializationEvent event) {
 		// Configurationのインスタンス化

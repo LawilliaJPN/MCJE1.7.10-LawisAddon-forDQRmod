@@ -7,7 +7,7 @@ import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
-import net.minecraft.block.Block;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 public class LadRoomIceCave {
 	/*
 	 * 氷の洞窟の戦闘部屋
+	 *
+	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -39,8 +41,8 @@ public class LadRoomIceCave {
 		player.triggerAchievement(LadAchievementCore.roomIceCave);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch (roomDirection) {
@@ -71,7 +73,7 @@ public class LadRoomIceCave {
 		for (int x = -1; x <= roomWidth +1; x++) {
 			for (int z = -1; z <= roomWidth +1; z++) {
 				for (int y = -2; y <= roomHeight +1; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.glass);
+					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.packed_ice);
 				}
 			}
 		}
@@ -215,7 +217,7 @@ public class LadRoomIceCave {
 				else if (y <= 5) i = 1;
 			}
 
-			setBlockCross(world, LadBlocks.ladPackedIce, x, floorY +y +1, z, i, true);
+			LadDecorationCross.setBlockDiamond(world, LadBlocks.ladPackedIce, x, floorY +y +1, z, i);
 		}
 	}
 
@@ -227,13 +229,13 @@ public class LadRoomIceCave {
 	 */
 	public static void setIceTriangularPrism(World world, int x, int z, int floorY, boolean hasInverted) {
 		if (hasInverted) {
-			setBlockCross(world, Blocks.packed_ice, x, floorY +1, z, 0, false);
-			setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1, false);
-			setBlockCross(world, Blocks.packed_ice, x, floorY +3, z, 2, true);
+			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +1, z, 0);
+			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1);
+			LadDecorationCross.setBlockDiamond(world, Blocks.packed_ice, x, floorY +3, z, 2);
 		} else {
-			setBlockCross(world, Blocks.packed_ice, x, floorY +3, z, 0, false);
-			setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1, false);
-			setBlockCross(world, Blocks.packed_ice, x, floorY +1, z, 2, true);
+			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +3, z, 0);
+			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1);
+			LadDecorationCross.setBlockDiamond(world, Blocks.packed_ice, x, floorY +1, z, 2);
 		}
 	}
 
@@ -252,52 +254,6 @@ public class LadRoomIceCave {
 			world.setBlock(x +5 -i, floorY +1, z -i, LadBlocks.ladPackedIce);
 			world.setBlock(x -5 +i, floorY +1, z +i, LadBlocks.ladPackedIce);
 			world.setBlock(x -5 +i, floorY +1, z -i, LadBlocks.ladPackedIce);
-		}
-	}
-
-	/*
-	 * 十字型(isDiamondがtrueの時は菱形)にブロックを設置するメソッド
-	 * sizeは0～3に対応
-	 */
-	public static void setBlockCross(World world, Block block, int x, int y, int z, int size, boolean isDiamond) {
-		switch(size) {
-		case 3:
-			world.setBlock(x, y, z +3, block);
-			world.setBlock(x, y, z -3, block);
-			world.setBlock(x +3, y, z, block);
-			world.setBlock(x -3, y, z, block);
-		case 2:
-			world.setBlock(x, y, z +2, block);
-			world.setBlock(x, y, z -2, block);
-			world.setBlock(x +2, y, z, block);
-			world.setBlock(x -2, y, z, block);
-		case 1:
-			world.setBlock(x, y, z +1, block);
-			world.setBlock(x, y, z -1, block);
-			world.setBlock(x +1, y, z, block);
-			world.setBlock(x -1, y, z, block);
-		default:
-			world.setBlock(x, y, z, block);
-		}
-
-		if (isDiamond) {
-			switch(size) {
-			case 3:
-				world.setBlock(x +1, y, z +2, block);
-				world.setBlock(x +1, y, z -2, block);
-				world.setBlock(x -1, y, z +2, block);
-				world.setBlock(x -1, y, z -2, block);
-
-				world.setBlock(x +2, y, z +1, block);
-				world.setBlock(x +2, y, z -1, block);
-				world.setBlock(x -2, y, z +1, block);
-				world.setBlock(x -2, y, z -1, block);
-			case 2:
-				world.setBlock(x +1, y, z +1, block);
-				world.setBlock(x +1, y, z -1, block);
-				world.setBlock(x -1, y, z +1, block);
-				world.setBlock(x -1, y, z -1, block);
-			}
 		}
 	}
 }

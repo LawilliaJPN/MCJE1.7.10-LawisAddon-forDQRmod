@@ -4,7 +4,10 @@ import cpw.mods.fml.common.ModMetadata;
 import lawisAddonDqr1.LawisAddonDQR01;
 
 /*
- * mc_mod.infoと同様の内容。
+ * mcmod.infoと同様の内容。
+ * modの情報を登録するためのクラス。
+ *
+ * preInitで最初に呼び出す。
  */
 public class LadInfoCore {
 	public static void registerInfo(ModMetadata meta) {

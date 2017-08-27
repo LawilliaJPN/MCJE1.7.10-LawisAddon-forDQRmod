@@ -5,10 +5,14 @@ import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.block.LadInitBlocks;
 import lawisAddonDqr1.block.LadRecipes;
-import lawisAddonDqr1.config.LadConfigCore;
+import lawisAddonDqr1.config.LadConfigEventHundler;
 import lawisAddonDqr1.event.LadEventHundler;
 import net.minecraftforge.common.MinecraftForge;
 
+/*
+ * メインからPostInitで呼び出されるクラス。
+ * DQRmodと併用されている時のみ有効な処理の呼び出し。
+ */
 public class LadAddons {
 	private static boolean DqrLoaded = false;
 
@@ -22,8 +26,7 @@ public class LadAddons {
 				DqrLoaded = true;
 
 				// コンフィグの反映
-				LadConfigCore.syncConfig();
-				LadEventHundler.updateCountRandomEncounter();
+				LadConfigEventHundler.syncConfigAndResetCount();
 
 				// 仕様変更したブロックの追加
 				LadInitBlocks.initBlocks();

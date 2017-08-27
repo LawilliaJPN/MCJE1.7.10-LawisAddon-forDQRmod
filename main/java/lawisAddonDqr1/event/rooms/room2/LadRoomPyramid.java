@@ -43,8 +43,8 @@ public class LadRoomPyramid {
 		player.triggerAchievement(LadAchievementCore.roomPyramid);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		// プレイヤーが中心になるように生成(仮)
 		roomX -= roomCenter;

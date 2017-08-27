@@ -8,6 +8,7 @@ import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationFloor;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,6 +17,8 @@ import net.minecraft.world.World;
 public class LadRoomSpecial02 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋(中層)
+	 *
+	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -43,8 +46,8 @@ public class LadRoomSpecial02 {
 		player.triggerAchievement(LadAchievementCore.roomSpecial02);
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		// プレイヤーの向きから部屋の起点となる座標を決める
 		switch (roomDirection) {
@@ -86,36 +89,36 @@ public class LadRoomSpecial02 {
 		// 四隅の床の「金の装飾石」を設置
 		for (int x = 0; x < 5; x++) {
 			for (int z = 0; z < 5; z++) {
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +x, roomY + roomFloor1Y, roomZ +roomWidth -z, roomHeight -roomFloor1Y);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -x, roomY + roomFloor1Y, roomZ +roomWidth -z, roomHeight -roomFloor1Y);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y -1);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +x, roomY + roomFloor1Y, roomZ +roomWidth -z, roomHeight -roomFloor1Y -1);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y -1);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -x, roomY + roomFloor1Y, roomZ +roomWidth -z, roomHeight -roomFloor1Y -1);
 			}
 		}
 
 		// 2階の床の「金の装飾石」を設置
 		for (int iw = 3; iw <= 6; iw++) {
 			for (int ic = roomCenter -3; ic <= roomCenter +3; ic++) {
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +iw, roomY + roomFloor2Y, roomZ +ic, roomHeight -roomFloor2Y);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -iw, roomY + roomFloor2Y, roomZ +ic, roomHeight -roomFloor2Y);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor2Y, roomZ +iw, roomHeight -roomFloor2Y);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor2Y, roomZ +roomWidth -iw, roomHeight -roomFloor2Y);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +iw, roomY + roomFloor2Y, roomZ +ic, roomHeight -roomFloor2Y -1);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -iw, roomY + roomFloor2Y, roomZ +ic, roomHeight -roomFloor2Y -1);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor2Y, roomZ +iw, roomHeight -roomFloor2Y -1);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor2Y, roomZ +roomWidth -iw, roomHeight -roomFloor2Y -1);
 			}
 		}
 		for (int i = roomCenter -1; i <= roomCenter +1; i++) {
-			setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +i, roomY + roomFloor2Y, roomZ +roomCenter -3, roomHeight -roomFloor2Y);
-			setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +i, roomY + roomFloor2Y, roomZ +roomCenter +3, roomHeight -roomFloor2Y);
-			setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomCenter -3, roomY + roomFloor2Y, roomZ +i, roomHeight -roomFloor2Y);
-			setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomCenter +3, roomY + roomFloor2Y, roomZ +i, roomHeight -roomFloor2Y);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +i, roomY + roomFloor2Y, roomZ +roomCenter -3, roomHeight -roomFloor2Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +i, roomY + roomFloor2Y, roomZ +roomCenter +3, roomHeight -roomFloor2Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomCenter -3, roomY + roomFloor2Y, roomZ +i, roomHeight -roomFloor2Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomCenter +3, roomY + roomFloor2Y, roomZ +i, roomHeight -roomFloor2Y -1);
 		}
 
 		// 1階の出口の「金の装飾石」を設置
 		for (int iw = -1; iw <= 2; iw++) {
 			for (int ic = roomCenter -1; ic <= roomCenter +1; ic++) {
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +iw, roomY + roomFloor1Y, roomZ +ic, 3);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -iw, roomY + roomFloor1Y, roomZ +ic, 3);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor1Y, roomZ +iw, 3);
-				setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor1Y, roomZ +roomWidth -iw, 3);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +iw, roomY + roomFloor1Y, roomZ +ic, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +roomWidth -iw, roomY + roomFloor1Y, roomZ +ic, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor1Y, roomZ +iw, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockKowareru6, roomX +ic, roomY + roomFloor1Y, roomZ +roomWidth -iw, 2);
 			}
 		}
 
@@ -123,72 +126,72 @@ public class LadRoomSpecial02 {
 		// 1階中央の「ジャンプブロック」を設置
 		for (int x = roomCenter -1; x <= roomCenter +1; x++) {
 			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
-				setFloor(world, LadBlocks.ladJumpBlock2, roomX +x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y);
+				LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +x, roomY + roomFloor1Y, roomZ +z, roomHeight -roomFloor1Y -1);
 			}
 		}
 
 		// 1階四隅から2階への「ジャンプブロック」の設置
 		for (int i = 3; i <= 4; i++) {
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -4, roomHeight -roomFloor1Y);
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter -4, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -4, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter -4, roomHeight -roomFloor1Y -1);
 
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter +4, roomHeight -roomFloor1Y);
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter +4, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter +4, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter +4, roomHeight -roomFloor1Y -1);
 
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter -4, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y);
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter -4, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter -4, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter -4, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y -1);
 
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter +4, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y);
-			setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter +4, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter +4, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, LadBlocks.ladJumpBlock2, roomX +roomCenter +4, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y -1);
 		}
 
 		/* 強制移動床・改 */
 		// 出口から四隅への「強制移動床・改」の設置
 		for (int i = 5; i <= 8; i++) {
 			for (int j = 0; j <= 1; j++) {
-				setFloor(world, DQBlocks.DqmBlockW2, roomX +i, roomY + roomFloor1Y, roomZ +j, 3);
-				setFloor(world, DQBlocks.DqmBlockW2, roomX +i, roomY + roomFloor1Y, roomZ +roomWidth -j, 3);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockW2, roomX +i, roomY + roomFloor1Y, roomZ +j, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockW2, roomX +i, roomY + roomFloor1Y, roomZ +roomWidth -j, 2);
 
-				setFloor(world, DQBlocks.DqmBlockE2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +j, 3);
-				setFloor(world, DQBlocks.DqmBlockE2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomWidth -j, 3);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockE2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +j, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockE2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomWidth -j, 2);
 
-				setFloor(world, DQBlocks.DqmBlockN2, roomX +j, roomY + roomFloor1Y, roomZ +i, 3);
-				setFloor(world, DQBlocks.DqmBlockN2, roomX +roomWidth -j, roomY + roomFloor1Y, roomZ +i, 3);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockN2, roomX +j, roomY + roomFloor1Y, roomZ +i, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockN2, roomX +roomWidth -j, roomY + roomFloor1Y, roomZ +i, 2);
 
-				setFloor(world, DQBlocks.DqmBlockS2, roomX +j, roomY + roomFloor1Y, roomZ +roomWidth -i, 3);
-				setFloor(world, DQBlocks.DqmBlockS2, roomX +roomWidth -j, roomY + roomFloor1Y, roomZ +roomWidth -i, 3);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockS2, roomX +j, roomY + roomFloor1Y, roomZ +roomWidth -i, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockS2, roomX +roomWidth -j, roomY + roomFloor1Y, roomZ +roomWidth -i, 2);
 			}
 		}
 
 		// 1階四隅から2階への「強制移動床・改」の設置
 		for (int i = 3; i <= 4; i++) {
-			setFloor(world, DQBlocks.DqmBlockW2, roomX +roomCenter +5, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockW2, roomX +roomCenter +5, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockW2, roomX +roomCenter +5, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockW2, roomX +roomCenter +5, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y -1);
 
-			setFloor(world, DQBlocks.DqmBlockE2, roomX +roomCenter -5, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockE2, roomX +roomCenter -5, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockE2, roomX +roomCenter -5, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockE2, roomX +roomCenter -5, roomY + roomFloor1Y, roomZ +roomWidth -i, roomHeight -roomFloor1Y -1);
 
-			setFloor(world, DQBlocks.DqmBlockN2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter +5, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockN2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter +5, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockN2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter +5, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockN2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter +5, roomHeight -roomFloor1Y -1);
 
-			setFloor(world, DQBlocks.DqmBlockS2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -5, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockS2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter -5, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockS2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -5, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockS2, roomX +roomWidth -i, roomY + roomFloor1Y, roomZ +roomCenter -5, roomHeight -roomFloor1Y -1);
 		}
 
 		// 中央から出口への「強制移動床・改」の設置
 		for (int iw = 3; iw <= roomCenter -3; iw++) {
 			for (int ic = roomCenter -1; ic <= roomCenter +1; ic++) {
-				setFloor(world, DQBlocks.DqmBlockW2, roomX +iw, roomY + roomFloor1Y, roomZ +ic, 3);
-				setFloor(world, DQBlocks.DqmBlockE2, roomX +roomWidth -iw, roomY + roomFloor1Y, roomZ +ic, 3);
-				setFloor(world, DQBlocks.DqmBlockN2, roomX +ic, roomY + roomFloor1Y, roomZ +iw, 3);
-				setFloor(world, DQBlocks.DqmBlockS2, roomX +ic, roomY + roomFloor1Y, roomZ +roomWidth -iw, 3);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockW2, roomX +iw, roomY + roomFloor1Y, roomZ +ic, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockE2, roomX +roomWidth -iw, roomY + roomFloor1Y, roomZ +ic, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockN2, roomX +ic, roomY + roomFloor1Y, roomZ +iw, 2);
+				LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockS2, roomX +ic, roomY + roomFloor1Y, roomZ +roomWidth -iw, 2);
 			}
 		}
 		for (int i = roomCenter -1; i <= roomCenter +1; i++) {
-			setFloor(world, DQBlocks.DqmBlockW2, roomX +roomCenter -2, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockE2, roomX +roomCenter +2, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockN2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -2, roomHeight -roomFloor1Y);
-			setFloor(world, DQBlocks.DqmBlockS2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter +2, roomHeight -roomFloor1Y);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockW2, roomX +roomCenter -2, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockE2, roomX +roomCenter +2, roomY + roomFloor1Y, roomZ +i, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockN2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter -2, roomHeight -roomFloor1Y -1);
+			LadDecorationFloor.setFloor(world, DQBlocks.DqmBlockS2, roomX +i, roomY + roomFloor1Y, roomZ +roomCenter +2, roomHeight -roomFloor1Y -1);
 
 		}
 

@@ -6,9 +6,11 @@ import net.minecraft.world.World;
 
 public class LadRoomSpecial03 {
 	/*
-	 * 動画の番外編で製作した特殊な戦闘部屋
+	 * 動画の番外編で製作した特殊な戦闘部屋(下層)
 	 *
-	 * [Unimplemented]下層の部屋にすることにしたため、実装途中で中断
+	 * TODO 部屋の生成
+	 * TODO 部屋のパターン作り
+	 * TODO スポーン設定
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
@@ -20,8 +22,8 @@ public class LadRoomSpecial03 {
 		int roomCenter = roomWidth /2;		// 部屋の中心
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (roomX < 0) roomX -=1;
-		if (roomZ < 0) roomZ -=1;
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
 
 		// プレイヤーが中心になるように生成(仮)
 		roomX -= roomCenter;
