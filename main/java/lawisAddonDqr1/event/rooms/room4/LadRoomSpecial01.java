@@ -4,10 +4,13 @@ import dqr.api.Blocks.DQBlocks;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadConfigCore;
+import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 public class LadRoomSpecial01 {
@@ -28,6 +31,11 @@ public class LadRoomSpecial01 {
 		int roomFloor1Y = 0;					// 1階の高さ (部屋の高さはroomHeight - roomFloor1Y)
 		int roomFloor2Y = 5;					// 2階の高さ
 
+		// [Debug] 戦闘部屋固定時に部屋の情報がチャット表示される（デバッグ用）
+		if (LadDebug.getDebugRoom() >=0) {
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
+
+		}
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomSpecial01);
 
@@ -253,5 +261,11 @@ public class LadRoomSpecial01 {
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY +2, roomZ +roomWidth -1, LadRoomID.SPECIAL_01 + LadRoomID.getDifOfRoom());
 		}
 
+		/* - - - - - - - - - -
+		 * 以下、報酬
+		 * - - - - - - - - - */
+
+		LadDecorationReward.setChest(world, roomX -1, roomY +1, roomZ +5);
+		LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY +1, roomZ +roomWidth -5);
 	}
 }

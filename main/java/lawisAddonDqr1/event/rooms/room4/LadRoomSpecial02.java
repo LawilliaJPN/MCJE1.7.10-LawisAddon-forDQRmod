@@ -9,6 +9,7 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationFloor;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
@@ -39,6 +40,7 @@ public class LadRoomSpecial02 {
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 
 		}
 
@@ -227,6 +229,28 @@ public class LadRoomSpecial02 {
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY +roomFloor2Y +2, roomZ +roomCenter, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloor2Y +2, roomZ +4, LadRoomID.SPECIAL_02 + LadRoomID.getDifOfRoom());
+			break;
+		}
+
+		/* - - - - - - - - - -
+		 * 以下、報酬
+		 * - - - - - - - - - */
+		switch (roomDirection) {
+		case 0:
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomWidth);
+			break;
+		case 1:
+			LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomWidth +1);
+			break;
+		case 2:
+			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ);
+			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomWidth);
+			break;
+		case 3:
+			LadDecorationReward.setChest(world, roomX, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ -1);
 			break;
 		}
 	}

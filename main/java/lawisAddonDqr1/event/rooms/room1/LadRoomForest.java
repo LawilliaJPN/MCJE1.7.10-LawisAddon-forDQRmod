@@ -6,6 +6,7 @@ import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,7 +17,7 @@ public class LadRoomForest {
 	 * 森林の戦闘部屋
 	 *
 	 * TODO リファクタリング
-	 * TODO 有効的mobスポーンのパターン追加
+	 * TODO 友好的mobスポーンのパターン追加
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -36,6 +37,7 @@ public class LadRoomForest {
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 		}
 
 		// 実績の取得
@@ -174,6 +176,25 @@ public class LadRoomForest {
 				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
 				break;
 			}
+		}
+
+		/* - - - - - - - - - -
+		 * 以下、報酬
+		 * - - - - - - - - - */
+
+		switch (roomDirection) {
+		case 0:
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+			break;
+		case 1:
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+			break;
+		case 2:
+			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+			break;
+		case 3:
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+			break;
 		}
 	}
 

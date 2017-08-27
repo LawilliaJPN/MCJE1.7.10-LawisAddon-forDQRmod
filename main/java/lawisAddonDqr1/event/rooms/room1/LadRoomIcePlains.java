@@ -6,6 +6,7 @@ import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -34,6 +35,7 @@ public class LadRoomIcePlains {
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
 			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 		}
 
 		// 実績の取得
@@ -301,6 +303,25 @@ public class LadRoomIcePlains {
 				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +2, LadRoomID.ICE_PLAINS + LadRoomID.getDifOfRoom());
 				break;
 			}
+		}
+
+		/* - - - - - - - - - -
+		 * 以下、報酬
+		 * - - - - - - - - - */
+
+		switch (roomDirection) {
+		case 0:
+			LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomCenter);
+			break;
+		case 1:
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth);
+			break;
+		case 2:
+			LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomCenter);
+			break;
+		case 3:
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ);
+			break;
 		}
 	}
 

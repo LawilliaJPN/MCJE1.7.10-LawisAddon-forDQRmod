@@ -8,6 +8,7 @@ import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -39,6 +40,7 @@ public class LadRoomDama {
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
 			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 		}
 
 		// 実績の取得
@@ -281,6 +283,25 @@ public class LadRoomDama {
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+			break;
+		}
+
+		/* - - - - - - - - - -
+		 * 以下、報酬
+		 * - - - - - - - - - */
+
+		switch (roomDirection) {
+		case 0:
+			LadDecorationReward.setChest(world, roomX +roomWidthX, roomY, roomZ +roomCenterZ);
+			break;
+		case 1:
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ +roomWidthZ);
+			break;
+		case 2:
+			LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomCenterZ);
+			break;
+		case 3:
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ);
 			break;
 		}
 	}

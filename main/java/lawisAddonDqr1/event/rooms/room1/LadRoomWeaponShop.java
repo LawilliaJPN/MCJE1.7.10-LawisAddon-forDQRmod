@@ -7,6 +7,7 @@ import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
@@ -36,6 +37,7 @@ public class LadRoomWeaponShop {
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 		}
 
 		// 実績の取得
@@ -415,6 +417,25 @@ public class LadRoomWeaponShop {
 
 				LadSpawnEnemyCore.spawnEnemy(world, player, x, roomY, z, LadRoomID.WEAPON_SHOP + LadRoomID.getDifOfRoom());
 			}
+		}
+
+		/* - - - - - - - - - -
+		 * 以下、報酬
+		 * - - - - - - - - - */
+
+		switch (roomDirection) {
+		case 0:
+			LadDecorationReward.setChest(world, roomX +roomWidthX +3, roomY, roomZ +roomCenterZ);
+			break;
+		case 1:
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ +roomWidthZ +3);
+			break;
+		case 2:
+			LadDecorationReward.setChest(world, roomX -3, roomY, roomZ +roomCenterZ);
+			break;
+		case 3:
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ -3);
+			break;
 		}
 	}
 }

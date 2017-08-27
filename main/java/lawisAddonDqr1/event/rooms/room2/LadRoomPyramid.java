@@ -2,15 +2,14 @@ package lawisAddonDqr1.event.rooms.room2;
 
 import java.util.Random;
 
-import dqr.DQR;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
@@ -37,6 +36,7 @@ public class LadRoomPyramid {
 		// [Debug] 部屋の種類がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
 			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 		}
 
 		// 実績の取得
@@ -261,10 +261,10 @@ public class LadRoomPyramid {
 			}
 
 			// 「チェスト」を設置
-			setChest(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter +2);
-			setChest(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter -2);
-			setChest(world, roomX +roomCenter +2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
-			setChest(world, roomX +roomCenter -2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
+			LadDecorationReward.setChestP(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter +2);
+			LadDecorationReward.setChestP(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter -2);
+			LadDecorationReward.setChestP(world, roomX +roomCenter +2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
+			LadDecorationReward.setChestP(world, roomX +roomCenter -2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
 
 
 			if (roomType == 0) {
@@ -347,27 +347,5 @@ public class LadRoomPyramid {
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter, LadRoomID.Metal_Slime_Without_Log);
 			break;
 		}
-	}
-
-	/*
-	 * チェストを設置するためのメソッド
-	 *
-	 * DQRのコードをスポブロ部屋生成処理を参考にさせてもらいました。
-	 */
-	public static void setChest(World world, int x, int y, int z) {
-		Random rand = new Random();
-		world.setBlock(x, y, z, Blocks.chest);
-
-    	if(world.getTileEntity(x, y, z) instanceof TileEntityChest) {
-            TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(x, y, z);
-
-            if (tileentitychest != null) {
-            	if (rand.nextInt(4) == 0) {
-            		DQR.randomItem.generateChestContentsRank2(rand, tileentitychest);
-            	} else {
-            		DQR.randomItem.generateChestContentsRank1(rand, tileentitychest);
-            	}
-            }
-    	}
 	}
 }
