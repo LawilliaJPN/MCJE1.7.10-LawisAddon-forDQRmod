@@ -5,6 +5,7 @@ import java.util.Random;
 import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -82,6 +83,8 @@ public class LadRoomWeaponShop {
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
 
+		// 落下物対策
+		LadMeasuresAgainstPlayerSuffocation.measuresAgainstFallingObject(world, roomX -3, roomZ -3, roomWidthX +6, roomWidthZ +6, roomY +roomHeight +3);
 
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く
@@ -101,7 +104,7 @@ public class LadRoomWeaponShop {
 		// 空間の確保のために「空気」を設置する
 		for (int x = -2; x <= roomWidthX +2; x++) {
 			for (int z = -2; z <= roomWidthZ +2; z++) {
-				for (int y = 0; y <= roomHeight+1; y++) {
+				for (int y = 0; y <= roomHeight +2; y++) {
 					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 				}
 			}

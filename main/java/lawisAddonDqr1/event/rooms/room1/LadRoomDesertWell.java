@@ -6,6 +6,7 @@ import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
@@ -95,6 +96,9 @@ public class LadRoomDesertWell {
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
+
+		// 落下物対策
+		LadMeasuresAgainstPlayerSuffocation.measuresAgainstFallingObject(world, roomX, roomZ, roomWidth, roomWidth, roomY +roomHeight +1);
 
 		/* 地面 */
 		// 地面の下に「砂岩ブロック」を敷く（地面となる「砂ブロック」の落下防止のため）

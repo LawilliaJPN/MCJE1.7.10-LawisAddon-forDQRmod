@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -26,7 +27,7 @@ public class LadRoomBeach {
 		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -1;		// 部屋の起点となるY座標
 
-		int roomHeight = 3;					// 部屋の高さ
+		int roomHeight = 4;					// 部屋の高さ
 		int roomDepth = -4;					// 部屋の深さ
 		int roomWidth = 12;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
@@ -70,6 +71,9 @@ public class LadRoomBeach {
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
+
+		// 落下物対策
+		LadMeasuresAgainstPlayerSuffocation.measuresAgainstFallingObject(world, roomX, roomZ, roomWidth, roomWidth, roomY +roomHeight +1);
 
 		/* 空間 */
 		// 「空気」の設置
