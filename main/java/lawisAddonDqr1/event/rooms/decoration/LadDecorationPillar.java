@@ -45,9 +45,38 @@ public class LadDecorationPillar {
 	 * - - - - - - - - - */
 
 	/*
+	 * 太い柱を設置
+	 */
+	public static void setThickPillar(World world, Block block, int x1, int z1, int width, int y, int height) {
+		for (int x = x1; x <= x1 +width; x++) {
+			for (int z = z1; z <= z1 +width; z++) {
+				setPillar(world, block, x, y, z, height);
+			}
+		}
+	}
+
+	public static void setThickPillar(World world, Block block, int x1, int x2, int z1, int z2, int y, int height) {
+		for (int x = x1; x <= x2; x++) {
+			for (int z = z1; z <= z2; z++) {
+				setPillar(world, block, x, y, z, height);
+			}
+		}
+	}
+
+	/*
+	 * 4つの柱を設置
+	 */
+	public static void setFourPillar(World world, Block block, int x1, int x2, int z1, int z2, int y, int height) {
+		setPillar(world, block, x1, y, z1, height);
+		setPillar(world, block, x1, y, z2, height);
+		setPillar(world, block, x2, y, z1, height);
+		setPillar(world, block, x2, y, z2, height);
+	}
+
+	/*
 	 * 四方向(東西南北)に柱を設置
 	 */
-	public static void setPillarCenter(World world, Block block, int centerX, int centerZ, int y, int height, int position) {
+	public static void setFourPillarCross(World world, Block block, int centerX, int centerZ, int y, int height, int position) {
 		setPillar(world, block, centerX, y, centerZ -position, height);
 		setPillar(world, block, centerX, y, centerZ +position, height);
 		setPillar(world, block, centerX +position, y, centerZ, height);
@@ -56,10 +85,71 @@ public class LadDecorationPillar {
 	/*
 	 * 斜め四方向に柱を設置
 	 */
-	public static void setPillarSlanting(World world, Block block, int centerX, int centerZ, int y, int height, int position) {
+	public static void setFourPillarSlanting(World world, Block block, int centerX, int centerZ, int y, int height, int position) {
 		setPillar(world, block, centerX -position, y, centerZ -position, height);
 		setPillar(world, block, centerX -position, y, centerZ +position, height);
 		setPillar(world, block, centerX +position, y, centerZ -position, height);
 		setPillar(world, block, centerX +position, y, centerZ +position, height);
+	}
+
+	/*
+	 * Z座標方向の壁を設置(x1, z)～(x2 ,z)
+	 * 条件：x1＜x2
+	 */
+	public static void setWallX(World world, Block block, int x1, int x2, int z, int y, int height) {
+		for (int x = x1; x <= x2; x++) {
+			setPillar(world, block, x, y, z, height);
+		}
+	}
+
+	/*
+	 * X座標方向の壁を設置(x, z1)～(x ,z2)
+	 * 条件：z1＜z2
+	 */
+	public static void setWallZ(World world, Block block, int x, int z1, int z2, int y, int height) {
+		for (int z = z1; z <= z2; z++) {
+			setPillar(world, block, x, y, z, height);
+		}
+	}
+
+	/*
+	 * 囲うように壁を設置(x1, z1)～(x2 ,z2)
+	 * 条件：x1＜x2かつz1＜z2
+	 */
+	public static void setWall(World world, Block block, int x1, int x2, int z1, int z2, int y, int height) {
+		setFourPillar(world, block, x1, x2, z1, z2, y, height);
+		setWallX(world, block, x1 +1, x2 -1, z1, y, height);
+		setWallX(world, block, x1 +1, x2 -1, z2, y, height);
+		setWallZ(world, block, x1, z1 +1, z2 -1, y, height);
+		setWallZ(world, block, x2, z1 +1, z2 -1, y, height);
+	}
+
+	public static void setWall(World world, Block block, int x1, int z1, int width, int y, int height) {
+		setFourPillar(world, block, x1, x1 +width, z1, z1 +width, y, height);
+		setWallX(world, block, x1 +1, x1 +width -1, z1, y, height);
+		setWallX(world, block, x1 +1, x1 +width -1, z1 +width, y, height);
+		setWallZ(world, block, x1, z1 +1, z1 +width -1, y, height);
+		setWallZ(world, block, x1 +width, z1 +1, z1 +width -1, y, height);
+	}
+
+	/*
+	 * 高さが1の場合
+	 * 囲うようにブロックを設置(x1, z1)～(x2 ,z2)
+	 * 条件：x1＜x2かつz1＜z2
+	 */
+	public static void setBlockEnclosure(World world, Block block, int x1, int x2, int z1, int z2, int y) {
+		LadDecorationCross.setFourBlock(world, block, x1, x2, z1, z2, y);
+		LadFillBlock.fillBlockX(world, block, x1 +1, x2 -1, z1, y);
+		LadFillBlock.fillBlockX(world, block, x1 +1, x2 -1, z2, y);
+		LadFillBlock.fillBlockZ(world, block, x1, z1 +1, z2 -1, y);
+		LadFillBlock.fillBlockZ(world, block, x2, z1 +1, z2 -1, y);
+	}
+
+	public static void setBlockEnclosure(World world, Block block, int x1, int z1, int width, int y) {
+		LadDecorationCross.setFourBlock(world, block, x1, x1 +width, z1, z1 +width, y);
+		LadFillBlock.fillBlockX(world, block, x1 +1, x1 +width -1, z1, y);
+		LadFillBlock.fillBlockX(world, block, x1 +1, x1 +width -1, z1 +width, y);
+		LadFillBlock.fillBlockZ(world, block, x1, z1 +1, z1 +width -1, y);
+		LadFillBlock.fillBlockZ(world, block, x1 +width, z1 +1, z1 +width -1, y);
 	}
 }

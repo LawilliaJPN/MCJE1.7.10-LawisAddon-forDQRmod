@@ -3,11 +3,17 @@ package lawisAddonDqr1.event.rooms.room1;
 import java.util.Random;
 
 import lawisAddonDqr1.achievement.LadAchievementCore;
+import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationDeteriorated;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationFloor;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationTorch;
+import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,9 +22,6 @@ import net.minecraft.world.World;
 public class LadRoomVillageWell {
 	/*
 	 * バニラの村の井戸をモチーフとした戦闘部屋
-	 *
-	 * TODO リファクタリング
-	 * TODO 負荷軽減オフ時に「呪われた井戸」の丸石の一部を苔石や空気に
 	 */
 	public static void setRoom(World world, EntityPlayer player){
 		Random rand = new Random();
@@ -35,6 +38,8 @@ public class LadRoomVillageWell {
 		int roomDirection = 0;				// 部屋の生成方向
 		boolean hasCursed = false;			// 「呪われた井戸」かどうか
 
+
+		/* 部屋の種類 */
 		// 「呪われた井戸」かどうかの判定
 		if (LadRoomID.getDifOfRoom() == 2) hasCursed = true;
 		else if ((LadRoomID.getDifOfRoom() == 3) && (rand.nextInt(2) == 0)) hasCursed = true;
@@ -51,31 +56,21 @@ public class LadRoomVillageWell {
 			roomCenter = roomWidth /2;
 		}
 
-		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
-		if (LadDebug.getDebugRoom() >=0) {
-			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
-			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
+		// 「呪われた井戸」の部屋の種類
+		if (hasCursed) {
+			int r = rand.nextInt(20);
+			// 5%の確率で、「ゾンビ大量発生」
+			if (r == 0) roomType = 1;
+			// 20%の確率で、「屋根上スタート」
+			else if (r <= 4) roomType = 2;
 		}
 
-		// 実績の取得
-		player.triggerAchievement(LadAchievementCore.roomVillageWell);
-
+		/* 部屋の生成の前に */
 		// マイナス座標の時に、部屋の位置がズレることの修正
 		if (player.posX < 0) roomX -=1;
 		if (player.posZ < 0) roomZ -=1;
 
-
-		/* 部屋の種類 */
-		// 「呪われた井戸」の部屋の種類
-		if (hasCursed) {
-			int r = rand.nextInt(10);
-			// 10%の確率で、「ゾンビ大量発生」
-			if (r == 0) roomType = 1;
-			// 30%の確率で、「屋根上スタート」
-			else if (r <= 3) roomType = 2;
-		}
-
-		/* 生成位置の調整 */
+		// 部屋の種類ごとの生成位置の調整
 		if (roomType == 2) {
 			// 「屋根上スタート」時の生成位置
 			roomX -= roomCenter;
@@ -126,6 +121,16 @@ public class LadRoomVillageWell {
 			}
 		}
 
+		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
+		if (LadDebug.getDebugRoom() >=0) {
+			player.addChatMessage(new ChatComponentTranslation("roomDirection == " + roomDirection));
+			player.addChatMessage(new ChatComponentTranslation("roomType == " + roomType));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
+		}
+
+		// 実績の取得
+		player.triggerAchievement(LadAchievementCore.roomVillageWell);
+
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
@@ -135,90 +140,64 @@ public class LadRoomVillageWell {
 
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く（地面となる「砂利ブロック」の落下防止のため）
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				world.setBlock(roomX +x, roomY -2, roomZ +z, Blocks.dirt);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.dirt, roomX, roomZ, roomWidth, roomY -2);
 
 		// 地面に「草ブロック」を敷く
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.grass);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.grass, roomX, roomZ, roomWidth, roomY -1);
 
 		// 地面に「砂利ブロック」を敷く
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 5; z <= roomWidth -5; z++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.gravel);
-			}
-		}
-		for (int z = 0; z <= roomWidth; z++) {
-			for (int x = 5; x <= roomWidth -5; x++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.gravel);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.gravel, roomX, roomX +roomWidth, roomZ +5, roomZ +roomWidth -5, roomY -1);
+		LadFillBlock.fillBlockXZ(world, Blocks.gravel, roomX +5, roomX +roomWidth -5, roomZ, roomZ +roomWidth, roomY -1);
 
 		/* 空間 */
 		// 「空気」の設置
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				for (int y = 0; y <= roomHeight; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
+		LadFillBlock.fillBlockToAir(world, roomX, roomX +roomWidth, roomZ, roomZ +roomWidth, roomY, roomY +roomHeight);
 
 		/* 井戸 */
 		// 井戸の周りの「砂利ブロック」の設置
-		for (int x = 3; x <= roomWidth -3; x++) {
-			for (int z = 3; z <= roomWidth -3; z++) {
-				world.setBlock(roomX +x, roomY, roomZ +z, Blocks.gravel);
+		LadDecorationPillar.setBlockEnclosure(world, Blocks.gravel, roomX +3, roomX +roomWidth -3, roomZ +3, roomZ +roomWidth -3, roomY);
+
+		// コンフィグ：負荷軽減オフの時、「呪われた井戸」の追加装飾
+		if (!LadConfigCore.isRoomReduction) {
+			if (hasCursed) {
+				// 「草ブロック」や「土ブロック」の一部を「荒い土」に変える
+				LadDecorationDeteriorated.setCoarseDirtRandomly(world, rand, roomX, roomX +roomWidth, roomZ, roomZ +roomWidth, roomY -2, roomY -1);
+				// 一部のブロックをなくす
+				LadDecorationDeteriorated.setBlockToAirRandomly(world, rand, roomX +1, roomX +roomWidth -1, roomZ +1, roomZ +roomWidth -1, roomY -1, roomY);
 			}
 		}
 
 		// 井戸の周りの「丸石」の設置
-		for (int x = 4; x <= roomWidth -4; x++) {
-			for (int y = 0; y <= 1; y++) {
-				for (int z = 4; z <= roomWidth -4; z++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.cobblestone);
-				}
-			}
-		}
+		LadDecorationPillar.setWall(world, Blocks.cobblestone, roomX +4, roomX +roomWidth -4, roomZ +4, roomZ +roomWidth -4, roomY, 2);
 
-		// 井戸の中の「水」の設置
-		for (int x = 5; x <= roomWidth -5; x++) {
-			for (int z = 5; z <= roomWidth -5; z++) {
-				world.setBlock(roomX +x, roomY, roomZ +z, Blocks.water);
-				world.setBlock(roomX +x, roomY +1, roomZ +z, Blocks.water);
-			}
-		}
-
-		// 「呪われた井戸」ではない時（「呪われた井戸」では水位が上がる）
-		if (!hasCursed) {
-			// 井戸の中の「空気」の設置
+		if (hasCursed) {
+			LadDecorationPillar.setThickPillar(world, Blocks.water, roomX +5, roomX +roomWidth -5, roomZ +5, roomZ +roomWidth -5, roomY, 2);
+		} else {
 			for (int x = 5; x <= roomWidth -5; x++) {
 				for (int z = 5; z <= roomWidth -5; z++) {
-					world.setBlockToAir(roomX +x, roomY +1, roomZ +z);
+					LadDecorationFloor.setBlockAndAir(world, Blocks.water, roomX +x, roomY, roomZ +z);
 				}
 			}
 		}
 
-		// 「フェンス」の設置
-		world.setBlock(roomX +4, roomY +2, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +4, roomY +3, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +4, roomY +2, roomZ +roomWidth -4, Blocks.fence);
-		world.setBlock(roomX +4, roomY +3, roomZ +roomWidth -4, Blocks.fence);
-		world.setBlock(roomX +roomWidth -4, roomY +2, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +roomWidth -4, roomY +3, roomZ +4, Blocks.fence);
-		world.setBlock(roomX +roomWidth -4, roomY +2, roomZ +roomWidth -4, Blocks.fence);
-		world.setBlock(roomX +roomWidth -4, roomY +3, roomZ +roomWidth -4, Blocks.fence);
+		if (hasCursed) {
+			// 「丸石の壁」の設置
+			LadDecorationPillar.setFourPillar(world, Blocks.cobblestone_wall, roomX +4, roomX +roomWidth -4, roomZ +4, roomZ +roomWidth -4, roomY +2, 2);
+		} else {
+			// 「フェンス」の設置
+			LadDecorationPillar.setFourPillar(world, Blocks.fence, roomX +4, roomX +roomWidth -4, roomZ +4, roomZ +roomWidth -4, roomY +2, 2);
+		}
 
 		// 屋根の「丸石」の設置
-		for (int x = 4; x <= roomWidth -4; x++) {
-			for (int z = 4; z <= roomWidth -4; z++) {
-				world.setBlock(roomX +x, roomY +4, roomZ +z, Blocks.cobblestone);
+		LadFillBlock.fillBlockXZ(world, Blocks.cobblestone, roomX +4, roomX +roomWidth -4, roomZ +4, roomZ +roomWidth -4, roomY +4);
+
+		// コンフィグ：負荷軽減オフの時、「呪われた井戸」の追加装飾
+		if (!LadConfigCore.isRoomReduction) {
+			if (hasCursed) {
+				// 「丸石」の一部を「苔石」に変える
+				LadDecorationDeteriorated.deteriorateCobbleStone(world, rand, roomX +4, roomX +roomWidth -4, roomZ +4, roomZ +roomWidth -4, roomY, roomY +5);
+				// 一部の「フェンス」をなくす
+				LadDecorationDeteriorated.setBlockToAirRandomly(world, rand, roomX +4, roomX +roomWidth -4, roomZ +4, roomZ +roomWidth -4, roomY +2, roomY +3);
 			}
 		}
 
@@ -226,28 +205,17 @@ public class LadRoomVillageWell {
 		// 明るさ確保のための「松明」の設置
 		switch (roomType) {
 		case 1:
-			// 「ゾンビ大量発生」では、井戸の水部分に「松明」
-			world.setBlock(roomX +roomCenter, roomY +2, roomZ +4, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomCenter, roomY +2, roomZ +roomWidth -4, Blocks.torch, 5, 3);
-			world.setBlock(roomX +4, roomY +2, roomZ +roomCenter, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth -4, roomY +2, roomZ +roomCenter, Blocks.torch, 5, 3);
+			// 「ゾンビ大量発生」では、井戸の縁の部分に「松明」
+			LadDecorationTorch.setFourTorchCenterCross(world, roomX +roomCenter, roomZ +roomCenter, roomY +2, 2);
 			break;
 		case 2:
 			// 「屋根上スタート」では、屋根の上に「松明」
-			world.setBlock(roomX +4, roomY +5, roomZ +4, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth -4, roomY +5, roomZ +4, Blocks.torch, 5, 3);
-			world.setBlock(roomX +4, roomY +5, roomZ +roomWidth -4, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth -4, roomY +5, roomZ +roomWidth -4, Blocks.torch, 5, 3);
+			LadDecorationTorch.setFourTorchCenterSlanting(world, roomX +roomCenter, roomZ +roomCenter, roomY +5, 2);
 			break;
 		default:
 			// 通常時は部屋の四隅に「松明」
-			world.setBlock(roomX +2, roomY, roomZ +2, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth -2, roomY, roomZ +2, Blocks.torch, 5, 3);
-			world.setBlock(roomX +2, roomY, roomZ +roomWidth -2, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth -2, roomY, roomZ +roomWidth -2, Blocks.torch, 5, 3);
+			LadDecorationTorch.setFourTorchSlanting(world, roomX, roomZ, roomY, roomWidth, 0);
 		}
-
-
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
@@ -412,8 +380,6 @@ public class LadRoomVillageWell {
 				break;
 			}
 		}
-
-
 	}
 	/* 設計図
 	o,0,1,2,3,4,5,6,7,8,9,0,1,x
