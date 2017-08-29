@@ -4,17 +4,23 @@ import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dqr.api.Items.DQMagicTools;
+import dqr.entity.mobEntity.DqmMobBase;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstEnemySuffocation;
 import lawisAddonDqr1.event.rooms.LadRoomCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
@@ -138,6 +144,83 @@ public class LadEventHundler {
 						event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」の効果中のため、「マジックツール(全ブロック破壊)」を使用できない。"));
 						event.setCanceled(true);
 					}
+				}
+			}
+		}
+	}
+
+	/*
+	 * プレイヤーがEntityに攻撃した時に呼び出される処理
+	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 *
+	 */
+	@SubscribeEvent
+	public void PlayerAttackEvent(AttackEntityEvent event) {
+		// System.out.println("PlayerAttackEvent OK");
+
+		// ピースフルの時は、このイベントは動作しない
+		if (event.entityPlayer.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
+			return;
+		}
+
+		// コンフィグ：追加行動がオフの時は動作しない
+		if (LadConfigCore.isAdditionalAction) return;
+
+		// DQRの敵を攻撃した時
+		if ((event.target instanceof DqmMobBase)) {
+			// 敵がオーバーワールドのY=45以下にいた場合
+			if ((event.target.worldObj.provider.dimensionId == 0) && (event.target.posY <= 45)) {
+				// 周囲のブロックを破壊する
+				LadMeasuresAgainstEnemySuffocation.enemyBreakBlock((EntityLivingBase) event.target, event.entityPlayer);
+			}
+		}
+	}
+
+	/*
+	 * Entityがダメージを受けた時に呼び出される処理
+	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
+	 *
+	 */
+	@SubscribeEvent
+	public void EnemyHurtEvent(LivingHurtEvent event) {
+		System.out.println("EnemyHurtEvent OK");
+
+		// ピースフルの時は、このイベントは動作しない
+		if (event.entityLiving.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
+			return;
+		}
+
+		// コンフィグ：追加行動がオフの時は動作しない
+		if (LadConfigCore.isAdditionalAction) return;
+
+		// DQRの敵がダメージを受けた時
+		if ((event.entityLiving instanceof DqmMobBase)) {
+			EntityLivingBase enemy = event.entityLiving;
+
+			// 敵がオーバーワールドのY=45以下にいた場合
+			if ((event.entityLiving.worldObj.provider.dimensionId == 0) && (event.entityLiving.posY <= 45)) {
+				Random rand = new Random();
+
+				// 炎系のダメージを受けた時
+				if ((event.source == DamageSource.inFire) || (event.source == DamageSource.lava)) {
+					if (event.ammount > 0) {
+						enemy.motionY = 0.6;
+						enemy.motionX += rand.nextDouble() *1 -0.5D;
+						enemy.motionZ += rand.nextDouble() *1 -0.5D;
+					}
+				}
+
+				// サボテンからダメージを受けた時
+				if (event.source == DamageSource.cactus) {
+					enemy.motionX += rand.nextDouble() *2 -1;
+					enemy.motionZ += rand.nextDouble() *2 -1;
+				}
+
+				// 壁の中で窒息した時
+				if (event.source == DamageSource.inWall) {
+					enemy.motionY = 0.6;
+					enemy.motionX += rand.nextDouble() *2 -1;
+					enemy.motionZ += rand.nextDouble() *2 -1;
 				}
 			}
 		}

@@ -9,6 +9,7 @@ config.lad.category.encounter=戦闘頻度
 config.lad.category.reduction=負荷軽減
 config.lad.category.miningfatigue=採掘速度低下
 config.lad.category.bedpenalty=ベッドペナルティ
+config.lad.category.additionalaction=追加行動
 
 // 実績
 achievement.roomSpecial01=上層特殊部屋

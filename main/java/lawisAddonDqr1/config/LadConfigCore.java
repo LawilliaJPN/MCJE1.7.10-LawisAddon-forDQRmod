@@ -32,6 +32,10 @@ public class LadConfigCore {
 	private static final String BED_PENALTY = GENERAL + ".BedPenalty";
 	public static boolean isBedPenalty = false;
 
+	// Additional_Action 追加行動
+	private static final String Additional_Action = GENERAL + ".AdditionalAction";
+	public static boolean isAdditionalAction = true;
+
 	/*
 	 * preInitにて呼び出すメソッド。
 	 * コンフィグの読み込み
@@ -68,6 +72,10 @@ public class LadConfigCore {
 		// BED_PENALTY ベッドペナルティ
 		cfg.addCustomCategoryComment(BED_PENALTY, "The setting of Bed-Penalty, ON or OFF.");
 		cfg.setCategoryLanguageKey(BED_PENALTY, "config.lad.category.bedpenalty");
+
+		// Additional_Action 追加行動
+		cfg.addCustomCategoryComment(Additional_Action, "The setting of Enemies'-Additional-Action, ON or OFF.");
+		cfg.setCategoryLanguageKey(Additional_Action, "config.lad.category.additionalaction");
 	}
 
 	/*
@@ -83,6 +91,8 @@ public class LadConfigCore {
 		isMiningFatigue = cfg.getBoolean("Mining Fatigue", MINING_FATIGUE, isMiningFatigue, "When the battle starts, you are given a state of mining fatigue if this setting true.", "config.lad.category.miningfatigue");
 		// BED_PENALTY ベッドペナルティ
 		isBedPenalty = cfg.getBoolean("Bed Penalty", BED_PENALTY, isBedPenalty, "Even when you wake up, you encounter enemies if this setting true.", "config.lad.category.bedpenalty");
+		// Additional_Action 追加行動
+		isAdditionalAction = cfg.getBoolean("Additional Action", Additional_Action, isAdditionalAction, "When this setting is true, new action is added to the DQR enemies.", "config.lad.category.bedpenalty");
 
 		/* コンフィグファイルの保存 */
 		cfg.save();
