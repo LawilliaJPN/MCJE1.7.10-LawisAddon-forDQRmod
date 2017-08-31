@@ -157,6 +157,9 @@ public class LadRoomForest {
 				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, LadRoomID.FOREST);
 				break;
 			}
+			// イベント実績
+			player.triggerAchievement(LadAchievementCore.eventAnimal);
+
 		} else {
 			// 確定スポーン
 			switch (roomDirection) {

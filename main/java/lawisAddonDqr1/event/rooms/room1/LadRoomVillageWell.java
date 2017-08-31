@@ -239,6 +239,9 @@ public class LadRoomVillageWell {
 				}
 			}
 
+			// イベント実績
+			player.triggerAchievement(LadAchievementCore.eventZombie);
+
 
 		// 「屋根上スタート」時のスポーン
 		} else if (roomType == 2) {

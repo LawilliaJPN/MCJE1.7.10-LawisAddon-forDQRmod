@@ -15,13 +15,17 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class LadAddons {
 	private static boolean DqrLoaded = false;
+	private static boolean Amt2Loaded = false;
 
 	/*
-	 *  連携先のDQRmodと併用されているかを確認するメソッド
+	 *  連携先のDQRmodが併用されているかを確認するメソッド
 	 */
 	public static void loadDQR() {
 		if (Loader.isModLoaded("DQMIIINext")) {
 			try {
+				// 他のmodの確認
+				loadAMT2();
+
 				// System.out.println("DQRAddon OK");
 				DqrLoaded = true;
 
@@ -41,16 +45,29 @@ public class LadAddons {
 				MinecraftForge.EVENT_BUS.register(new LadEventHundler());
 
 			} catch (Throwable t) {
-				LawisAddonDQR01.logger.warn("Failed to load DQR mod");
+				LawisAddonDQR01.logger.warn("Failed to load DQRmod");
 			}
 		}
 	}
 
 	/*
-	 *  変数 DqrLoaded の getter
+	 *  連携先のAMT2が併用されているかを確認するメソッド
+	 */
+	public static void loadAMT2() {
+		if (Loader.isModLoaded("DCsAppleMilk")) {
+			Amt2Loaded = true;
+		}
+	}
+
+	/*
+	 *  getter
 	 */
 	public static boolean isDqrLoaded(){
 		return DqrLoaded;
+	}
+
+	public static boolean isAmt2Loaded(){
+		return Amt2Loaded;
 	}
 }
 

@@ -239,7 +239,7 @@ public class LadRoomDesertWell {
 			/* 地下室 */
 			if (roomType == 3) {
 				// 井戸の底の中央のブロックをなくす
-				LadDecorationPillar.setPillar(world, roomX +roomCenter, roomY -2, roomZ +roomCenter, 2);
+				LadDecorationPillar.setPillarToAir(world, roomX +roomCenter, roomY -2, roomZ +roomCenter, 2);
 
 				// 「砂岩ブロック」の地面を設置
 				LadFillBlock.fillBlockXZ(world, Blocks.sandstone, roomX, roomZ, roomWidth, roomY +roomDepth);

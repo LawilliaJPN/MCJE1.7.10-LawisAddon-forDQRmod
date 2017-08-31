@@ -185,7 +185,7 @@ public class LadEventHundler {
 	 */
 	@SubscribeEvent
 	public void EnemyHurtEvent(LivingHurtEvent event) {
-		System.out.println("EnemyHurtEvent OK");
+		// System.out.println("EnemyHurtEvent OK");
 
 		// ピースフルの時は、このイベントは動作しない
 		if (event.entityLiving.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {

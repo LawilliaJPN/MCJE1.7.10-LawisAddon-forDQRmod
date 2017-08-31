@@ -34,7 +34,7 @@ public class LadDecorationPillar {
 	/*
 	 * 指定座標x,y,zから高さheight分の空気ブロックを設置する。
 	 */
-	public static void setPillar(World world, int x, int y, int z, int height) {
+	public static void setPillarToAir(World world, int x, int y, int z, int height) {
 		for (int i = 0; i < height; i++) {
 			world.setBlockToAir(x, y +i, z);
 		}
@@ -101,6 +101,11 @@ public class LadDecorationPillar {
 			setPillar(world, block, x, y, z, height);
 		}
 	}
+	public static void setWallXToAir(World world, int x1, int x2, int z, int y, int height) {
+		for (int x = x1; x <= x2; x++) {
+			setPillarToAir(world, x, y, z, height);
+		}
+	}
 
 	/*
 	 * X座標方向の壁を設置(x, z1)～(x ,z2)
@@ -109,6 +114,11 @@ public class LadDecorationPillar {
 	public static void setWallZ(World world, Block block, int x, int z1, int z2, int y, int height) {
 		for (int z = z1; z <= z2; z++) {
 			setPillar(world, block, x, y, z, height);
+		}
+	}
+	public static void setWallZToAir(World world, int x, int z1, int z2, int y, int height) {
+		for (int z = z1; z <= z2; z++) {
+			setPillarToAir(world, x, y, z, height);
 		}
 	}
 
