@@ -7,7 +7,11 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationTorch;
+import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,9 +20,6 @@ import net.minecraft.world.World;
 public class LadRoomForest {
 	/*
 	 * 森林の戦闘部屋
-	 *
-	 * TODO リファクタリング
-	 * TODO 友好的mobスポーンのパターン追加
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -34,6 +35,7 @@ public class LadRoomForest {
 
 		int roomType = rand.nextInt(4);		// 部屋の種類
 		if (roomType >= 2) roomType +=2;		// シラカバのメタデータ値は2
+		Boolean isSpawnAnimal = false;		// 友好mobスポーンパターン
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -78,28 +80,14 @@ public class LadRoomForest {
 
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				world.setBlock(roomX +x, roomY -2, roomZ +z, Blocks.dirt);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.dirt, roomX, roomZ, roomWidth, roomY -2);
 
 		// 地面に「草ブロック」を敷く
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.grass);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.grass, roomX, roomZ, roomWidth, roomY -1);
 
 		/* 空間 */
 		// 「空気」の設置
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				for (int y = 0; y <= roomHeight; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
+		LadFillBlock.fillBlockToAir(world, roomX, roomZ, roomWidth, roomY, roomHeight);
 
 		/* 木 */
 		// 「オークの木」の生成
@@ -116,27 +104,29 @@ public class LadRoomForest {
 			setTree(world, rand, roomX +roomCenter, roomY, roomZ +roomWidth -3, roomType/2);
 			setTree(world, rand, roomX +roomCenter, roomY, roomZ +roomCenter, roomType/2);
 
-			/* 光源 */
-			// 明るさ確保のための「松明」の設置
-			world.setBlock(roomX, roomY, roomZ, Blocks.torch, 5, 3);
-			world.setBlock(roomX, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth, roomY, roomZ, Blocks.torch, 5, 3);
-			world.setBlock(roomX +roomWidth, roomY, roomZ +roomWidth, Blocks.torch, 5, 3);
+			// 部屋の四隅に明るさ確保のための「松明」の設置
+			LadDecorationTorch.setFourTorchSlanting(world, roomX, roomZ, roomY, roomWidth, 0);
 
 		// 村の街灯があり、木が少ない森
 		} else {
 			/* 光源 */
-			// 村の灯りのパーツ「フェンス」を設置
-			world.setBlock(roomX +roomCenter, roomY, roomZ +roomCenter, Blocks.fence);
-			world.setBlock(roomX +roomCenter, roomY +1, roomZ +roomCenter, Blocks.fence);
-			world.setBlock(roomX +roomCenter, roomY +2, roomZ +roomCenter, Blocks.fence);
-			// 村の灯りのパーツ「黒色の羊毛」を設置」
-			world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter, Blocks.wool, 15, 2);
-			// 明るさ確保のための「松明」の設置
-			world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter +1, Blocks.torch, 3, 3);
-			world.setBlock(roomX +roomCenter, roomY +3, roomZ +roomCenter -1, Blocks.torch, 4, 3);
-			world.setBlock(roomX +roomCenter +1, roomY +3, roomZ +roomCenter, Blocks.torch, 1, 3);
-			world.setBlock(roomX +roomCenter -1, roomY +3, roomZ +roomCenter, Blocks.torch, 2, 3);
+			// 村の街灯を中央に設置
+			LadDecorationTorch.setVillageLight(world, roomX +roomCenter, roomZ +roomCenter, roomY);
+
+			// フェンスで周囲を囲うか囲わないか
+			if (rand.nextInt(2) == 0) {
+				// フェンスで戦闘部屋を囲う
+				LadDecorationPillar.setBlockEnclosure(world, Blocks.fence, roomX, roomZ, roomWidth, roomY);
+				// 部屋の四隅に明るさ確保のための「松明」の設置
+				LadDecorationTorch.setFourTorchSlanting(world, roomX, roomZ, roomY +1, roomWidth, 0);
+				// フェンスを一部フェンスゲートに変更
+				LadDecorationCross.setFourBlockCrossWith2Meta(world, Blocks.fence_gate, roomX +roomCenter, roomZ +roomCenter, roomY, roomCenter);
+
+				// 友好mobスポーンパターンの抽選
+				if (rand.nextInt(5) == 0) {
+					isSpawnAnimal = true;
+				}
+			}
 		}
 
 
@@ -144,43 +134,69 @@ public class LadRoomForest {
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
 
-		// 確定スポーン
-		switch (roomDirection) {
-		case 0:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-			break;
-		case 1:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-			break;
-		case 2:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-			break;
-		case 3:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-			break;
-		}
-
-		// 確率スポーン
-		if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+		if (isSpawnAnimal) {
 			switch (roomDirection) {
 			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +roomWidth -2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +2, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +roomWidth -2, LadRoomID.FOREST);
 				break;
 			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +roomWidth -4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +roomWidth -4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +roomWidth -4, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +roomWidth -4, LadRoomID.FOREST);
 				break;
 			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +roomWidth -2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +2, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +roomWidth -2, LadRoomID.FOREST);
 				break;
 			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +4, LadRoomID.FOREST);
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, LadRoomID.FOREST);
 				break;
 			}
+		} else {
+			// 確定スポーン
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -1, roomY, roomZ +roomCenter, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +roomWidth -1, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +1, roomY, roomZ +roomCenter, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY, roomZ +1, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+				break;
+			}
+
+			// 確率スポーン
+			if (LadRoomID.getDifOfRoom() >= rand.nextInt(4)) {
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -4, roomY, roomZ +roomWidth -2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +roomWidth -4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +roomWidth -4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY, roomZ +roomWidth -2, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY, roomZ +4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY, roomZ +4, LadRoomID.FOREST + LadRoomID.getDifOfRoom());
+					break;
+				}
+			}
 		}
+
 
 		/* - - - - - - - - - -
 		 * 以下、報酬

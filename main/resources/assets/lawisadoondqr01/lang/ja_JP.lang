@@ -20,6 +20,9 @@ achievement.roomIcePlains=氷原
 achievement.roomVillageWell=村の井戸
 achievement.roomWeaponShop=武器屋
 
+achievement.eventAnimal=平和な森林
+achievement.eventZombie=ゾンビ大量発生
+
 achievement.roomSpecial02=中層特殊部屋
 achievement.roomDama=ダーマ神殿
 achievement.roomIceCave=氷洞
@@ -36,6 +39,9 @@ achievement.roomForest.desc=上層の「森林」で戦う
 achievement.roomIcePlains.desc=上層の「氷原」で戦う
 achievement.roomVillageWell.desc=上層の「村の井戸」で戦う
 achievement.roomWeaponShop.desc=上層の「武器屋」で戦う
+
+achievement.eventAnimal.desc=「森林」のイベント
+achievement.eventZombie.desc=「村の井戸」のイベント
 
 achievement.roomSpecial02.desc=中層の特殊な部屋で戦う
 achievement.roomDama.desc=中層の「ダーマ神殿」で戦う

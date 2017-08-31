@@ -84,18 +84,25 @@ public class LadDecorationCross {
 	/*
 	 * 四方向(東西南北)に設置
 	 */
-	public static void setFourBlockCross(World world, Block block, int x, int z, int y, int interval) {
-		world.setBlock(x, y, z -interval, block);
-		world.setBlock(x, y, z +interval, block);
-		world.setBlock(x +interval, y, z, block);
-		world.setBlock(x -interval, y, z, block);
+	public static void setFourBlockCross(World world, Block block, int centerX, int centerZ, int y, int interval) {
+		world.setBlock(centerX, y, centerZ -interval, block);
+		world.setBlock(centerX, y, centerZ +interval, block);
+		world.setBlock(centerX +interval, y, centerZ, block);
+		world.setBlock(centerX -interval, y, centerZ, block);
 	}
 
-	public static void setFourBlockCross(World world, Block block, int meta, int x, int z, int y, int interval) {
-		world.setBlock(x, y, z -interval, block, meta, 2);
-		world.setBlock(x, y, z +interval, block, meta, 2);
-		world.setBlock(x +interval, y, z, block, meta, 2);
-		world.setBlock(x -interval, y, z, block, meta, 2);
+	public static void setFourBlockCross(World world, Block block, int meta, int centerX, int centerZ, int y, int interval) {
+		world.setBlock(centerX, y, centerZ -interval, block, meta, 2);
+		world.setBlock(centerX, y, centerZ +interval, block, meta, 2);
+		world.setBlock(centerX +interval, y, centerZ, block, meta, 2);
+		world.setBlock(centerX -interval, y, centerZ, block, meta, 2);
+	}
+
+	public static void setFourBlockCrossWith2Meta(World world, Block block, int centerX, int centerZ, int y, int interval) {
+		world.setBlock(centerX, y, centerZ -interval, block);
+		world.setBlock(centerX, y, centerZ +interval, block);
+		world.setBlock(centerX +interval, y, centerZ, block, 1, 2);
+		world.setBlock(centerX -interval, y, centerZ, block, 1, 2);
 	}
 
 	/*

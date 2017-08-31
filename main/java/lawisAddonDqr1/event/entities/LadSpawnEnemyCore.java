@@ -118,6 +118,14 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -204,6 +212,20 @@ public class LadSpawnEnemyCore {
 				else if (r == 10) entity = new DqmEntityWaraibukuro(world);
 				else if (r == 11) entity = new DqmEntityHitokuiga(world);
 
+			// 森林 「友好動物スポーンパターン」
+			} else if (enemyGroup == LadRoomID.FOREST) {
+				int r = rand.nextInt(8);
+
+				if (r == 0) entity = new EntityChicken(world);
+				else if (r == 1) entity = new EntityCow(world);
+				else if (r == 2) entity = new EntityHorse(world);
+				else if (r == 3) entity = new EntityMooshroom(world);
+				else if (r == 4) entity = new EntityOcelot(world);
+				else if (r == 5) entity = new EntityPig(world);
+				else if (r == 6) entity = new EntitySheep(world);
+				else if (r == 7) entity = new EntityWolf(world);
+
+				encounterLog = false;
 
 			/* 村の井戸 */
 			// 井戸（通常） Y=41～45

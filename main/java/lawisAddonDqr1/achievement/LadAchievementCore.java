@@ -22,6 +22,9 @@ public class LadAchievementCore {
     public static Achievement roomVillageWell;
     public static Achievement roomWeaponShop;
     public static Achievement roomSpecial01;
+    // 上層イベント
+    public static Achievement eventZombie;
+    public static Achievement eventAnimal;
 	// 中層
     public static Achievement roomDama;
     public static Achievement roomIceCave;
@@ -46,18 +49,22 @@ public class LadAchievementCore {
 		roomIcePlains = new Achievement("roomIcePlains", "roomIcePlains", 4, 0, Blocks.snow_layer, null).registerStat();
 		roomVillageWell = new Achievement("roomVillageWell", "roomVillageWell", 5, 0, Items.emerald, null).registerStat();
 		roomWeaponShop = new Achievement("roomWeaponShop", "roomWeaponShop", 6, 0, DQDecorates.DqmBlockBukiya, null).registerStat();
+		// 上層イベント
+		eventAnimal = new Achievement("eventAnimal", "eventAnimal", 3, 1, Items.egg, null).registerStat();
+		eventZombie = new Achievement("eventZombie", "eventZombie", 5, 1, Items.rotten_flesh, null).registerStat();
 		// 中層
-		roomSpecial02 = new Achievement("roomSpecial02", "roomSpecial02", 0, 2, DQBlocks.DqmBlockKowareru9, null).registerStat();
-		roomMedalKing = new Achievement("roomMedalKing", "roomMedalKing", 1, 2, DQMiscs.itemLittlemedal, null).registerStat();
-		roomPyramid = new Achievement("roomPyramid", "roomPyramid", 2, 2, Blocks.tnt, null).registerStat();
-		roomMineShaft = new Achievement("roomMineShaft", "roomMineShaft", 3, 2, Blocks.web, null).registerStat();
-		roomIceCave = new Achievement("roomIceCave", "roomIceCave", 4, 2, Blocks.packed_ice, null).registerStat();
-		roomStronghold = new Achievement("roomStronghold", "roomStronghold", 5, 2, Blocks.stonebrick, null).registerStat();
-		roomDama = new Achievement("roomDama", "roomDama", 6, 2, DQDecorates.DqmBlockSKirapan, null).registerStat();
+		roomSpecial02 = new Achievement("roomSpecial02", "roomSpecial02", 0, 3, DQBlocks.DqmBlockKowareru9, null).registerStat();
+		roomMedalKing = new Achievement("roomMedalKing", "roomMedalKing", 1, 3, DQMiscs.itemLittlemedal, null).registerStat();
+		roomPyramid = new Achievement("roomPyramid", "roomPyramid", 2, 3, Blocks.tnt, null).registerStat();
+		roomMineShaft = new Achievement("roomMineShaft", "roomMineShaft", 3, 3, Blocks.web, null).registerStat();
+		roomIceCave = new Achievement("roomIceCave", "roomIceCave", 4, 3, Blocks.packed_ice, null).registerStat();
+		roomStronghold = new Achievement("roomStronghold", "roomStronghold", 5, 3, Blocks.stonebrick, null).registerStat();
+		roomDama = new Achievement("roomDama", "roomDama", 6, 3, DQDecorates.DqmBlockSKirapan, null).registerStat();
 
 		/* 実績ページの追加 */
 		AchievementPage.registerAchievementPage(new AchievementPage("MR-Encounter for DQRmod", new Achievement[]{
 				roomBeach, roomDesertWell, roomForest, roomIcePlains, roomVillageWell, roomWeaponShop,
+				eventAnimal, eventZombie,
 				roomDama, roomIceCave, roomMedalKing, roomMineShaft, roomPyramid, roomStronghold,
 				roomSpecial01, roomSpecial02
 				}));

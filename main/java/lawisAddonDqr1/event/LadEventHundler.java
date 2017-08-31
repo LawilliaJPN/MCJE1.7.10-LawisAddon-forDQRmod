@@ -153,6 +153,7 @@ public class LadEventHundler {
 	 * プレイヤーがEntityに攻撃した時に呼び出される処理
 	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
 	 *
+	 * コンフィグ：追加行動がオンの時に、プレイヤーに攻撃された敵が周囲のブロックを破壊するようになる。
 	 */
 	@SubscribeEvent
 	public void PlayerAttackEvent(AttackEntityEvent event) {
@@ -180,6 +181,7 @@ public class LadEventHundler {
 	 * Entityがダメージを受けた時に呼び出される処理
 	 * MinecraftForge.EVENT_BUS.registerで呼び出されるので、staticを付けずに@SubscribeEventを付ける
 	 *
+	 * コンフィグ：追加行動がオンになるときに、DQRの敵が溶岩などからダメージを受け続けないように移動する。
 	 */
 	@SubscribeEvent
 	public void EnemyHurtEvent(LivingHurtEvent event) {
