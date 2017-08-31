@@ -2,8 +2,11 @@ package lawisAddonDqr1.event.rooms.room1;
 
 import java.util.Random;
 
+import biomesoplenty.api.content.BOPCBlocks;
 import dqr.api.Blocks.DQDecorates;
+import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.achievement.LadAchievementCore;
+import lawisAddonDqr1.addon.LadAddons;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
@@ -53,6 +56,8 @@ public class LadRoomDesertWell {
 			// 「井戸2つパターン」→通常
 			if (roomType == 4) roomType = 7;
 		}
+		roomType = 7; //TODO debug
+
 
 		// 屋根上スタート
 		if (roomType/2 == 0) {
@@ -221,16 +226,41 @@ public class LadRoomDesertWell {
 
 			// 干ばつパターン
 			if ((roomType == 2) || (roomType == 3)) {
-				// 井戸の中に「砂」を敷く
-				LadDecorationFloor.setBlockAndAirCross(world, Blocks.sand, roomX +roomCenter, roomY -1, roomZ +roomCenter);
+				if ((rand.nextInt(8) == 0) && (LadAddons.isBopLoaded())) {
+					try {
+						// 井戸の中に「流砂」を敷く
+						LadDecorationFloor.setBlockAndAirCross(world, BOPCBlocks.mud, roomX +roomCenter, roomY -1, roomZ +roomCenter);
+					} catch (Throwable t) {
+						LawisAddonDQR01.logger.warn("Failed to load BoP");
+					}
+
+				} else {
+					// 井戸の中に「砂」を敷く
+					LadDecorationFloor.setBlockAndAirCross(world, Blocks.sand, roomX +roomCenter, roomY -1, roomZ +roomCenter);
+				}
+
+
 			}
 
 			/* 装飾 */
+			// 流砂(BoPと併用している場合)
+			if ((rand.nextInt(8) == 0) && (LadAddons.isBopLoaded())) {
+				try {
+					LadFillBlock.fillBlock(world, BOPCBlocks.mud, 1, roomX, roomX +2, roomZ, roomZ +2, roomY -2, roomY -1);
+					LadFillBlock.fillBlock(world, BOPCBlocks.mud, 1, roomX, roomX +2, roomZ +roomWidth -2, roomZ +roomWidth, roomY -2, roomY -1);
+					LadFillBlock.fillBlock(world, BOPCBlocks.mud, 1, roomX +roomWidth -2, roomX +roomWidth, roomZ, roomZ +2, roomY -2, roomY -1);
+					LadFillBlock.fillBlock(world, BOPCBlocks.mud, 1, roomX +roomWidth -2, roomX +roomWidth, roomZ +roomWidth -2, roomZ +roomWidth, roomY -2, roomY -1);
+				} catch (Throwable t) {
+					LawisAddonDQR01.logger.warn("Failed to load BoP");
+				}
+
 			// 枯れ木・サボテン
-			setCactus(world, rand, roomX +1, roomZ +1, roomY);
-			setCactus(world, rand, roomX +1, roomZ +roomWidth -1, roomY);
-			setCactus(world, rand, roomX +roomWidth -1, roomZ +1, roomY);
-			setCactus(world, rand, roomX +roomWidth -1, roomZ +roomWidth -1, roomY);
+			} else {
+				setCactus(world, rand, roomX +1, roomZ +1, roomY);
+				setCactus(world, rand, roomX +1, roomZ +roomWidth -1, roomY);
+				setCactus(world, rand, roomX +roomWidth -1, roomZ +1, roomY);
+				setCactus(world, rand, roomX +roomWidth -1, roomZ +roomWidth -1, roomY);
+			}
 
 			/* 光源 */
 			// 明るさ確保のための「松明」の設置

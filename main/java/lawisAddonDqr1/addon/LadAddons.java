@@ -16,15 +16,18 @@ import net.minecraftforge.common.MinecraftForge;
 public class LadAddons {
 	private static boolean DqrLoaded = false;
 	private static boolean Amt2Loaded = false;
+	private static boolean BopLoaded = false;
 
 	/*
 	 *  連携先のDQRmodが併用されているかを確認するメソッド
+	 *  MOD ID：DQMIIINext
 	 */
 	public static void loadDQR() {
 		if (Loader.isModLoaded("DQMIIINext")) {
 			try {
 				// 他のmodの確認
 				loadAMT2();
+				loadBoP();
 
 				// System.out.println("DQRAddon OK");
 				DqrLoaded = true;
@@ -52,10 +55,21 @@ public class LadAddons {
 
 	/*
 	 *  連携先のAMT2が併用されているかを確認するメソッド
+	 *  MOD ID：DCsAppleMilk
 	 */
 	public static void loadAMT2() {
 		if (Loader.isModLoaded("DCsAppleMilk")) {
 			Amt2Loaded = true;
+		}
+	}
+
+	/*
+	 *  連携先のBoPが併用されているかを確認するメソッド
+	 *  MOD ID：DCsAppleMilk
+	 */
+	public static void loadBoP() {
+		if (Loader.isModLoaded("BiomesOPlenty")) {
+			BopLoaded = true;
 		}
 	}
 
@@ -68,6 +82,10 @@ public class LadAddons {
 
 	public static boolean isAmt2Loaded(){
 		return Amt2Loaded;
+	}
+
+	public static boolean isBopLoaded(){
+		return BopLoaded;
 	}
 }
 

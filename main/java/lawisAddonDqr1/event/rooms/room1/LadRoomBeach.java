@@ -38,6 +38,8 @@ public class LadRoomBeach {
 		int roomCenter = roomWidth /2;		// 部屋の中心
 
 		int roomType = rand.nextInt(6);		// 部屋の種類
+		boolean isGravelBeach = false;		// 「砂利の砂浜」であるかどうか
+		if (rand.nextInt(16) == 0) isGravelBeach = true;
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -89,30 +91,50 @@ public class LadRoomBeach {
 		LadFillBlock.fillBlockXZ(world, Blocks.dirt, roomX, roomZ, roomWidth, roomY +roomDepth -1);
 
 		// 地面に「砂ブロック」を敷く
-		LadFillBlock.fillBlock(world, Blocks.sand, roomX, roomZ, roomWidth, roomY +roomDepth, -roomDepth -1);
-		LadDecorationPillar.setBlockEnclosure(world, Blocks.sand, roomX, roomZ, roomWidth, roomY);
-		LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +1, roomX +roomWidth -1, roomZ +1, roomZ +roomWidth -1, roomY);
-
+		if (isGravelBeach) {
+			LadFillBlock.fillBlock(world, Blocks.gravel, roomX, roomZ, roomWidth, roomY +roomDepth, -roomDepth -1);
+			LadDecorationPillar.setBlockEnclosure(world, Blocks.gravel, roomX, roomZ, roomWidth, roomY);
+			LadDecorationCross.setFourBlock(world, Blocks.gravel, roomX +1, roomX +roomWidth -1, roomZ +1, roomZ +roomWidth -1, roomY);
+		} else {
+			LadFillBlock.fillBlock(world, Blocks.sand, roomX, roomZ, roomWidth, roomY +roomDepth, -roomDepth -1);
+			LadDecorationPillar.setBlockEnclosure(world, Blocks.sand, roomX, roomZ, roomWidth, roomY);
+			LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +1, roomX +roomWidth -1, roomZ +1, roomZ +roomWidth -1, roomY);
+		}
 
 		/* 手前と奥で差別化する必要がない部分を2方向に分けて生成 */
 		switch (roomDirection) {
 		case 0:
 		case 2:
 			// 「砂ブロック」を敷く
-			LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +1, roomX +roomWidth -1, roomZ +2, roomZ +roomWidth -2, roomY);
-			LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +1, roomX +roomWidth -1, roomZ +3, roomZ +roomWidth -3, roomY);
+			if (isGravelBeach) {
+				LadDecorationCross.setFourBlock(world, Blocks.gravel, roomX +1, roomX +roomWidth -1, roomZ +2, roomZ +roomWidth -2, roomY);
+				LadDecorationCross.setFourBlock(world, Blocks.gravel, roomX +1, roomX +roomWidth -1, roomZ +3, roomZ +roomWidth -3, roomY);
+			} else {
+				LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +1, roomX +roomWidth -1, roomZ +2, roomZ +roomWidth -2, roomY);
+				LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +1, roomX +roomWidth -1, roomZ +3, roomZ +roomWidth -3, roomY);
+			}
 
 			// 「水」を設置する
 			LadFillBlock.fillBlock(world, Blocks.water, roomX +2, roomX +roomWidth -2, roomZ +1, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
 
 			// 固定の足場となる「砂ブロック」を設置する
-			LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -1);
-			LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -1);
+			if (isGravelBeach) {
+				LadFillBlock.fillBlock(world, Blocks.gravel, roomX +2, roomX +4, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -1);
+				LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -1);
+			} else {
+				LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -1);
+				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -1);
+			}
 
 			// 変動の足場となる、中央の両端の「砂ブロック」の設置
 			if (roomType%2 == 0) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				if (isGravelBeach) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +5, roomX +roomWidth -5, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +5, roomX +roomWidth -5, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				} else {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
 			}
 
 			// 明るさ確保のための「松明」の設置
@@ -122,20 +144,35 @@ public class LadRoomBeach {
 		case 1:
 		case 3:
 			// 「砂ブロック」を敷く
-			LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +2, roomX +roomWidth -2, roomZ +1, roomZ +roomWidth -1, roomY);
-			LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +3, roomX +roomWidth -3, roomZ +1, roomZ +roomWidth -1, roomY);
+			if (isGravelBeach) {
+				LadDecorationCross.setFourBlock(world, Blocks.gravel, roomX +2, roomX +roomWidth -2, roomZ +1, roomZ +roomWidth -1, roomY);
+				LadDecorationCross.setFourBlock(world, Blocks.gravel, roomX +3, roomX +roomWidth -3, roomZ +1, roomZ +roomWidth -1, roomY);
+			} else {
+				LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +2, roomX +roomWidth -2, roomZ +1, roomZ +roomWidth -1, roomY);
+				LadDecorationCross.setFourBlock(world, Blocks.sand, roomX +3, roomX +roomWidth -3, roomZ +1, roomZ +roomWidth -1, roomY);
+			}
 
 			// 「水」を設置する
 			LadFillBlock.fillBlock(world, Blocks.water, roomX +1, roomX +roomWidth -1, roomZ +2, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
 
 			// 固定の足場となる「砂ブロック」を設置する
-			LadFillBlock.fillBlock(world, Blocks.sand, roomX +4, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
-			LadFillBlock.fillBlock(world, Blocks.sand, roomX +4, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+			if (isGravelBeach) {
+				LadFillBlock.fillBlock(world, Blocks.gravel, roomX +4, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+				LadFillBlock.fillBlock(world, Blocks.gravel, roomX +4, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+			} else {
+				LadFillBlock.fillBlock(world, Blocks.sand, roomX +4, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+				LadFillBlock.fillBlock(world, Blocks.sand, roomX +4, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+			}
 
 			// 変動の足場となる、中央の両端の「砂ブロック」の設置
 			if (roomType%2 == 0) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+				if (isGravelBeach) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +1, roomX +3, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+				} else {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+				}
 			}
 
 			// 明るさ確保のための「松明」の設置
@@ -147,135 +184,197 @@ public class LadRoomBeach {
 		/* 「手前」と「奥」を差別化しなければならない部分を、4方向に分けて生成 */
 		switch (roomDirection) {
 		case 0:
-			// 変動の足場となる、手前の両端の「砂ブロック」の設置
-			if (roomType%3 == 0) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
-			}
-			// 変動の足場となる、奥の両端の「砂ブロック」の設置
-			if (roomType%3 == 1) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
-			}
+			if (isGravelBeach) {
+				// 変動の足場となる、手前の両端の「砂利ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +2, roomX +4, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +2, roomX +4, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂利ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
 
-			// 手前の両端の「サトウキビ」の設置
-			if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-				setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
-				setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
-			}
-			// 奥の両端の「サトウキビ」の設置
-			if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-				setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
-				setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
+			} else {
+				// 変動の足場となる、手前の両端の「砂ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
+
+				// 手前の両端の「サトウキビ」の設置
+				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
+					setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
+					setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
+				}
+				// 奥の両端の「サトウキビ」の設置
+				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
+					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
+					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
+				}
 			}
 			break;
 
 		case 1:
-			// 変動の足場となる、手前の両端の「砂ブロック」の設置
-			if (roomType%3 == 0) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
-			}
-			// 変動の足場となる、奥の両端の「砂ブロック」の設置
-			if (roomType%3 == 1) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
-			}
+			if (isGravelBeach) {
+				// 変動の足場となる、手前の両端の「砂利ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +1, roomX +3, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂利ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +1, roomX +3, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+				}
 
-			// 手前の両端の「サトウキビ」の設置
-			if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-				setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
-				setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
-			}
-			// 奥の両端の「サトウキビ」の設置
-			if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-				setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
-				setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+			} else {
+				// 変動の足場となる、手前の両端の「砂ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+				}
+
+				// 手前の両端の「サトウキビ」の設置
+				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
+					setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
+					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
+				}
+				// 奥の両端の「サトウキビ」の設置
+				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
+					setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+				}
 			}
 			break;
 
 		case 2:
-			// 変動の足場となる、手前の両端の「砂ブロック」の設置
-			if (roomType%3 == 0) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
-			}
-			// 変動の足場となる、奥の両端の「砂ブロック」の設置
-			if (roomType%3 == 1) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
-			}
+			if (isGravelBeach) {
+				// 変動の足場となる、手前の両端の「砂利ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂利ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +2, roomX +4, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +2, roomX +4, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
 
-			// 手前の両端の「サトウキビ」の設置
-			if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-				setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
-				setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
-			}
-			// 奥の両端の「サトウキビ」の設置
-			if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-				setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
-				setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
+			} else {
+				// 変動の足場となる、手前の両端の「砂ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +1, roomZ +3, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +2, roomX +4, roomZ +roomWidth -3, roomZ +roomWidth -1, roomY +roomDepth, roomY -1);
+				}
+
+				// 手前の両端の「サトウキビ」の設置
+				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
+					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
+					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
+				}
+				// 奥の両端の「サトウキビ」の設置
+				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
+					setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
+					setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
+				}
 			}
 			break;
 
 		case 3:
-			// 変動の足場となる、手前の両端の「砂ブロック」の設置
-			if (roomType%3 == 0) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
-			}
-			// 変動の足場となる、奥の両端の「砂ブロック」の設置
-			if (roomType%3 == 1) {
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
-				LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
-			}
+			if (isGravelBeach) {
+				// 変動の足場となる、手前の両端の「砂利ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +1, roomX +3, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂利ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +1, roomX +3, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.gravel, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+				}
 
-			// 手前の両端の「サトウキビ」の設置
-			if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-				setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
-				setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
-			}
+			} else {
+				// 変動の足場となる、手前の両端の「砂ブロック」の設置
+				if (roomType%3 == 0) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY +roomDepth, roomY -1);
+				}
+				// 変動の足場となる、奥の両端の「砂ブロック」の設置
+				if (roomType%3 == 1) {
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +1, roomX +3, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+					LadFillBlock.fillBlock(world, Blocks.sand, roomX +roomWidth -3, roomX +roomWidth -1, roomZ +2, roomZ +4, roomY +roomDepth, roomY -1);
+				}
 
-			// 奥の両端の「サトウキビ」の設置
-			if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-				setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
-				setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
+				// 手前の両端の「サトウキビ」の設置
+				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
+					setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+				}
+
+				// 奥の両端の「サトウキビ」の設置
+				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
+					setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
+					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
+				}
 			}
 			break;
 		}
 
 		// 変動の足場となる、中央の「砂ブロック」の設置
 		if (roomType%2 == 1) {
-			LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+			if (isGravelBeach) {
+				LadFillBlock.fillBlock(world, Blocks.gravel, roomX +5, roomX +roomWidth -5, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+			} else {
+				LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -1);
+			}
 		}
 
-		// AMT2と併用している場合
-		if (LadAddons.isAmt2Loaded()) {
-			try {
-				// 中央に足場がない時に
-				if (roomType%2 == 0) {
-					// 8分の1の確率（合わせて16分の1、6.2%）
-					if (rand.nextInt(8) == 0) {
-						switch(roomDirection) {
-						case 0:
-						case 2:
-							// 中央に2段低い「砂ブロック」の設置
-							LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -3);
-							// 1段低い部分に「ハマグリ」の入った「砂ブロック」の設置
-							LadFillBlock.fillBlockXZ(world, DCsAppleMilk.clamSand, roomX +5, roomX +roomWidth -5, roomZ +4, roomZ +roomWidth -4, roomY -2);
-							break;
-						case 1:
-						case 3:
-							// 中央に2段低い「砂ブロック」の設置
-							LadFillBlock.fillBlock(world, Blocks.sand, roomX +4, roomX +roomWidth -4, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -3);
-							// 1段低い部分に「ハマグリ」の入った「砂ブロック」の設置
-							LadFillBlock.fillBlockXZ(world, DCsAppleMilk.clamSand, roomX +4, roomX +roomWidth -4, roomZ +5, roomZ +roomWidth -5, roomY -2);
-							break;
+		if (!isGravelBeach) {
+			// AMTと併用している場合
+			if (LadAddons.isAmt2Loaded()) {
+				try {
+					// 中央に足場がない時に
+					if (roomType%2 == 0) {
+						// 8分の1の確率（合わせて16分の1、6.2%）
+						if (rand.nextInt(8) == 0) {
+							switch(roomDirection) {
+							case 0:
+							case 2:
+								// 中央に2段低い「砂ブロック」の設置
+								LadFillBlock.fillBlock(world, Blocks.sand, roomX +5, roomX +roomWidth -5, roomZ +4, roomZ +roomWidth -4, roomY +roomDepth, roomY -3);
+								// 1段低い部分に「ハマグリ」の入った「砂ブロック」の設置
+								LadFillBlock.fillBlockXZ(world, DCsAppleMilk.clamSand, roomX +5, roomX +roomWidth -5, roomZ +4, roomZ +roomWidth -4, roomY -2);
+								break;
+							case 1:
+							case 3:
+								// 中央に2段低い「砂ブロック」の設置
+								LadFillBlock.fillBlock(world, Blocks.sand, roomX +4, roomX +roomWidth -4, roomZ +5, roomZ +roomWidth -5, roomY +roomDepth, roomY -3);
+								// 1段低い部分に「ハマグリ」の入った「砂ブロック」の設置
+								LadFillBlock.fillBlockXZ(world, DCsAppleMilk.clamSand, roomX +4, roomX +roomWidth -4, roomZ +5, roomZ +roomWidth -5, roomY -2);
+								break;
+							}
 						}
 					}
+				} catch (Throwable t) {
+					LawisAddonDQR01.logger.warn("Failed to load AMT2");
 				}
-			} catch (Throwable t) {
-				LawisAddonDQR01.logger.warn("Failed to load AMT2");
 			}
 		}
 
