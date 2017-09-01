@@ -56,8 +56,6 @@ public class LadRoomDesertWell {
 			// 「井戸2つパターン」→通常
 			if (roomType == 4) roomType = 7;
 		}
-		roomType = 7; //TODO debug
-
 
 		// 屋根上スタート
 		if (roomType/2 == 0) {

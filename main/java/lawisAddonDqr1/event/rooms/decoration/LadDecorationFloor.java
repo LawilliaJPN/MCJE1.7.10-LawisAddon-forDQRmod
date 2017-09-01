@@ -94,4 +94,27 @@ public class LadDecorationFloor {
 		setBlockAndAir(world, block, meta, x +1, y, z);
 		setBlockAndAir(world, block, meta, x -1, y, z);
 	}
+
+	/*
+	 * 床を敷き詰める
+	 */
+	public static void fillFloorXZ(World world, Block block, int x1, int x2, int z1, int z2, int y, int height) {
+		LadFillBlock.fillBlockXZ(world, block, x1, x2, z1, z2, y);
+		LadFillBlock.fillBlockToAir(world, x1, x2, z1, z2, y +1, y +height);
+	}
+
+	public static void fillFloorXZ(World world, Block block, int x1, int z1, int width, int y, int height) {
+		LadFillBlock.fillBlockXZ(world, block, x1, z1, width, y);
+		LadFillBlock.fillBlockToAir(world, x1, z1, width, y +1, height);
+	}
+
+	public static void fillBlockAndAirXZ(World world, Block block, int x1, int x2, int z1, int z2, int y) {
+		LadFillBlock.fillBlockXZ(world, block, x1, x2, z1, z2, y);
+		LadFillBlock.fillBlockXZToAir(world, x1, x2, z1, z2, y +1);
+	}
+
+	public static void fillBlockAndAirXZ(World world, Block block, int x1, int z1, int width, int y) {
+		LadFillBlock.fillBlockXZ(world, block, x1, z1, width, y);
+		LadFillBlock.fillBlockXZToAir(world, x1, z1, width, y +1);
+	}
 }
