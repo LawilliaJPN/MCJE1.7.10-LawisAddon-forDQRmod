@@ -92,7 +92,7 @@ public class LadConfigCore {
 		// BED_PENALTY ベッドペナルティ
 		isBedPenalty = cfg.getBoolean("Bed Penalty", BED_PENALTY, isBedPenalty, "Even when you wake up, you encounter enemies if this setting true.", "config.lad.category.bedpenalty");
 		// Additional_Action 追加行動
-		isAdditionalAction = cfg.getBoolean("Additional Action", Additional_Action, isAdditionalAction, "When this setting is true, new action is added to the DQR enemies.", "config.lad.category.bedpenalty");
+		isAdditionalAction = cfg.getBoolean("Additional Action", Additional_Action, isAdditionalAction, "When this setting is true, new action is added to the DQR enemies.", "config.lad.category.additionalaction");
 
 		/* コンフィグファイルの保存 */
 		cfg.save();

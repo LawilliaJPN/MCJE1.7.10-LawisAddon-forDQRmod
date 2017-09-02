@@ -21,6 +21,8 @@ import net.minecraft.world.World;
 public class LadRoomWeaponShop {
 	/*
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
+	 *
+	 * TODO 要素不足
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

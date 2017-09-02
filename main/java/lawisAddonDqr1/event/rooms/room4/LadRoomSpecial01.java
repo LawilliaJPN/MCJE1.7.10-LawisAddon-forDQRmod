@@ -1,5 +1,7 @@
 package lawisAddonDqr1.event.rooms.room4;
 
+import java.util.Random;
+
 import dqr.api.Blocks.DQBlocks;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.api.blocks.LadBlocks;
@@ -7,7 +9,9 @@ import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
+import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -17,9 +21,11 @@ public class LadRoomSpecial01 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋(上層)
 	 *
-	 * TODO リファクタリング
+	 * TODO 要素不足
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
+		Random rand = new Random();
+
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
 		int roomZ = (int)player.posZ;			// 部屋の起点となるZ座標
 		int roomY = (int)player.posY -2;		// 部屋の起点となるY座標（-2）
@@ -30,14 +36,8 @@ public class LadRoomSpecial01 {
 
 		int roomFloor1Y = 0;					// 1階の高さ (部屋の高さはroomHeight - roomFloor1Y)
 		int roomFloor2Y = 5;					// 2階の高さ
-
-		// [Debug] 戦闘部屋固定時に部屋の情報がチャット表示される（デバッグ用）
-		if (LadDebug.getDebugRoom() >=0) {
-			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
-
-		}
-		// 実績の取得
-		player.triggerAchievement(LadAchievementCore.roomSpecial01);
+		int gateType = rand.nextInt(2);		// 出入口の種類
+		int wallType = rand.nextInt(9);		// 壁の種類
 
 		// マイナス座標の時に、部屋の位置がズレることの修正
 		if (player.posX < 0) roomX -=1;
@@ -52,47 +52,36 @@ public class LadRoomSpecial01 {
 		if (LadConfigCore.isRoomReduction) roomFloor1Y = roomFloor2Y +1;
 
 
+		// [Debug] 戦闘部屋固定時に部屋の情報がチャット表示される（デバッグ用）
+		if (LadDebug.getDebugRoom() >=0) {
+			player.addChatMessage(new ChatComponentTranslation("gateType == " + gateType));
+			player.addChatMessage(new ChatComponentTranslation("wallType == " + wallType));
+			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
+		}
+		// 実績の取得
+		player.triggerAchievement(LadAchievementCore.roomSpecial01);
+
 
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
 
 		/* 空間 */
-		// 「レッドストーンの装飾石」を設置
-		for (int x = -1; x <= roomWidth +1; x++) {
-			for (int z = -1; z <= roomWidth +1; z++) {
-				for (int y = roomFloor1Y -2; y <= roomHeight; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, DQBlocks.DqmBlockKowareru8);
-				}
-			}
-		}
-
+		// 床下と壁に「レッドストーンの装飾石」を設置
+		LadFillBlock.fillBlockXZ(world, DQBlocks.DqmBlockKowareru8, roomX -1, roomX +roomWidth +1, roomZ -1, roomZ +roomWidth +1, roomY +roomFloor1Y -2);
+		LadDecorationPillar.setWall(world, DQBlocks.DqmBlockKowareru8, roomX -1, roomX +roomWidth +1, roomZ -1, roomZ +roomWidth +1, roomY +roomFloor1Y -1, roomHeight -roomFloor1Y +2);
 		// 「空気」を設置
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				for (int y = roomFloor1Y; y <= roomHeight; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
+		LadFillBlock.fillBlockToAir(world, roomX, roomZ, roomWidth, roomY +roomFloor1Y, roomHeight -roomFloor1Y);
 
 		// 天井に「ダメージ床」を設置
-		for (int x = -1; x <= roomWidth +1; x++) {
-			for (int z = -1; z <= roomWidth +1; z++) {
-				world.setBlock(roomX +x, roomY +roomHeight +1, roomZ +z, DQBlocks.DqmBlockToramanaYuka2);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, DQBlocks.DqmBlockToramanaYuka2, roomX -1, roomX +roomWidth +1, roomZ -1, roomZ +roomWidth +1, roomY +roomHeight +1);
 
 
 		/* 床 */
 		// コンフィグ：負荷軽減オンの時は、2階のみ生成
 		if (LadConfigCore.isRoomReduction) {
 			// 地面に「ラピスの装飾石」を設置
-			for (int x = 0; x <= roomWidth; x++) {
-				for (int z = 0; z <= roomWidth; z++) {
-					world.setBlock(roomX +x, roomY +roomFloor2Y, roomZ +z, DQBlocks.DqmBlockKowareru5);
-				}
-			}
+			LadFillBlock.fillBlockXZ(world, DQBlocks.DqmBlockKowareru5, roomX, roomX +roomWidth, roomZ, roomZ +roomWidth, roomY +roomFloor2Y);
 
 		// コンフィグ：負荷軽減オフの時は、1階～2階を生成
 		} else {
@@ -216,30 +205,63 @@ public class LadRoomSpecial01 {
 				world.setBlock(roomX +roomWidth -3, roomY +y, roomZ +roomWidth -z, DQBlocks.DqmBlockKowareru8);
 			}
 		}
+
 		// 柱となる「レッドストーンの装飾石」を設置
-		for (int x = 8; x <= roomWidth -8; x += 4) {
-			for (int z = 8; z <= roomWidth -8; z += 4) {
-				for (int y = roomFloor1Y; y <= roomHeight; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, DQBlocks.DqmBlockKowareru8);
-				}
+		LadDecorationPillar.setFourPillarSlanting(world, DQBlocks.DqmBlockKowareru8, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloor1Y, roomHeight -roomFloor1Y +1, 2);
+
+		// 出入口を作成（壁の「レッドストーンの装飾石」が硬いため）
+		if (LadConfigCore.isRoomReduction) {
+			// コンフィグ：負荷軽減オンの時
+			LadDecorationPillar.setWallZToAir(world, roomX -1, roomZ +1, roomZ +2, roomY +roomFloor1Y, 3);
+			LadDecorationPillar.setWallZToAir(world, roomX +roomWidth +1, roomZ +roomWidth -2, roomZ +roomWidth -1, roomY +roomFloor1Y, 3);
+			LadDecorationPillar.setWallXToAir(world, roomX +1, roomX +2, roomZ +roomWidth +1, roomY +roomFloor1Y, 3);
+			LadDecorationPillar.setWallXToAir(world, roomX +roomWidth -2, roomX +roomWidth -1, roomZ -1, roomY +roomFloor1Y, 3);
+		} else {
+			// コンフィグ：負荷軽減オフの時
+			if (gateType == 0) {
+				LadDecorationPillar.setWallZToAir(world, roomX -1, roomZ +1, roomZ +2, roomY +roomFloor1Y, 3);
+				LadDecorationPillar.setWallZToAir(world, roomX +roomWidth +1, roomZ +roomWidth -2, roomZ +roomWidth -1, roomY +roomFloor1Y, 3);
+			} else {
+				LadDecorationPillar.setWallZToAir(world, roomX -1, roomZ, roomZ +2, roomY +roomFloor1Y, 3);
+				LadDecorationPillar.setWallZToAir(world, roomX +roomWidth +1, roomZ +roomWidth -2, roomZ +roomWidth, roomY +roomFloor1Y, 3);
+				// 壁となる「箱」を設置
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX, roomX +2, roomZ +3, roomY +roomFloor1Y, roomFloor2Y -roomFloor1Y);
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -2, roomX +roomWidth, roomZ +roomWidth -3, roomY +roomFloor1Y, roomFloor2Y -roomFloor1Y);
 			}
 		}
 
-		// 出入口部分に空気ブロックを設置（壁の「レッドストーンの装飾石」が硬いため）
-		for (int y = roomFloor1Y; y <= roomFloor1Y +2; y++) {
-			world.setBlockToAir(roomX -1, roomY +y, roomZ +1);
-			world.setBlockToAir(roomX -1, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +roomWidth +1, roomY +y, roomZ +roomWidth -1);
-			world.setBlockToAir(roomX +roomWidth +1, roomY +y, roomZ +roomWidth -2);
-		}
-
-		// コンフィグ：負荷軽減オンの時に、出入口部分を2方向から4方向に増やす
-		if (LadConfigCore.isRoomReduction) {
-			for (int y = roomFloor1Y; y <= roomFloor1Y +2; y++) {
-				world.setBlockToAir(roomX +1, roomY +y, roomZ +roomWidth +1);
-				world.setBlockToAir(roomX +2, roomY +y, roomZ +roomWidth +1);
-				world.setBlockToAir(roomX +roomWidth -1, roomY +y, roomZ -1);
-				world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ -1);
+		// 壁となる「箱」を設置]
+		if (wallType/3 == 0) {
+			LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX, roomX +2, roomZ +3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -2, roomX +roomWidth, roomZ +roomWidth -3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			if (wallType%3 == 0) {
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -2, roomX +roomWidth, roomZ +3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX, roomX +2, roomZ +roomWidth -3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			} else if (wallType%3 == 1) {
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -3, roomZ, roomZ +2, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +3, roomZ +roomWidth -2, roomZ +roomWidth, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			}
+		} else if (wallType/3 == 1) {
+			LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX, roomX +2, roomZ +7, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -2, roomX +roomWidth, roomZ +roomWidth -7, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			if (wallType%3 == 0) {
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomCenter -2, roomX +roomCenter +2, roomZ +3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomCenter -2, roomX +roomCenter +2, roomZ +roomWidth -3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			} else if (wallType%3 == 1) {
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -7, roomZ, roomZ +2, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +7, roomZ +roomWidth -2, roomZ +roomWidth, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			}
+		} else {
+			if (wallType%3 == 0) {
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -2, roomX +roomWidth, roomZ +3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX, roomX +2, roomZ +roomWidth -3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomCenter -2, roomX +roomCenter +2, roomZ +3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallX(world, DQBlocks.DqmBlockHako2, roomX +roomCenter -2, roomX +roomCenter +2, roomZ +roomWidth -3, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+			} else if (wallType%3 == 1) {
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -7, roomZ, roomZ +2, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +7, roomZ +roomWidth -2, roomZ +roomWidth, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +roomWidth -3, roomZ +roomCenter -2, roomZ +roomCenter +2, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
+				LadDecorationPillar.setWallZ(world, DQBlocks.DqmBlockHako2, roomX +3, roomZ +roomCenter -2, roomZ +roomCenter +2, roomY +roomFloor2Y +1, roomHeight -roomFloor2Y);
 			}
 		}
 
@@ -265,7 +287,7 @@ public class LadRoomSpecial01 {
 		 * 以下、報酬
 		 * - - - - - - - - - */
 
-		LadDecorationReward.setChest(world, roomX -1, roomY +1, roomZ +5);
-		LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY +1, roomZ +roomWidth -5);
+		LadDecorationReward.setChest(world, roomX -1, roomY +roomFloor1Y +1, roomZ +5);
+		LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY +roomFloor1Y +1, roomZ +roomWidth -5);
 	}
 }
