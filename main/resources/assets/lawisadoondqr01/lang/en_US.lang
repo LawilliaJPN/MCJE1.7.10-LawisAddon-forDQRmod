@@ -22,6 +22,7 @@ achievement.roomWeaponShop=Weapon Shop
 
 achievement.eventAnimal=Peaceful Forest
 achievement.eventZombie=Outbreak of Zombie
+achievement.eventShop=Underground Shop
 
 achievement.roomSpecial02=Special Room No.2
 achievement.roomDama=Dama
@@ -42,6 +43,7 @@ achievement.roomWeaponShop.desc=the battle room of upper-layer
 
 achievement.eventAnimal.desc=the event of Forest
 achievement.eventZombie.desc=the event of Village Well
+achievement.eventShop.desc=the event of Weapon Shop
 
 achievement.roomSpecial02.desc=the battle room of middle-layer
 achievement.roomDama.desc=the battle room of middle-layer

@@ -25,6 +25,7 @@ public class LadAchievementCore {
     // 上層イベント
     public static Achievement eventZombie;
     public static Achievement eventAnimal;
+    public static Achievement eventShop;
 	// 中層
     public static Achievement roomDama;
     public static Achievement roomIceCave;
@@ -47,11 +48,12 @@ public class LadAchievementCore {
 		roomDesertWell = new Achievement("roomDesertWell", "roomDesertWell", 2, 0, Blocks.cactus, null).registerStat();
 		roomForest = new Achievement("roomForest", "roomForest", 3, 0, Blocks.leaves, null).registerStat();
 		roomIcePlains = new Achievement("roomIcePlains", "roomIcePlains", 4, 0, Blocks.snow_layer, null).registerStat();
-		roomVillageWell = new Achievement("roomVillageWell", "roomVillageWell", 5, 0, Items.emerald, null).registerStat();
+		roomVillageWell = new Achievement("roomVillageWell", "roomVillageWell", 5, 0, Blocks.cobblestone, null).registerStat();
 		roomWeaponShop = new Achievement("roomWeaponShop", "roomWeaponShop", 6, 0, DQDecorates.DqmBlockBukiya, null).registerStat();
 		// 上層イベント
 		eventAnimal = new Achievement("eventAnimal", "eventAnimal", 3, 1, Items.egg, null).registerStat();
 		eventZombie = new Achievement("eventZombie", "eventZombie", 5, 1, Items.rotten_flesh, null).registerStat();
+		eventShop = new Achievement("eventShop", "eventShop", 6, 1, DQMiscs.itemOkane, null).registerStat();
 		// 中層
 		roomSpecial02 = new Achievement("roomSpecial02", "roomSpecial02", 0, 3, DQBlocks.DqmBlockKowareru9, null).registerStat();
 		roomMedalKing = new Achievement("roomMedalKing", "roomMedalKing", 1, 3, DQMiscs.itemLittlemedal, null).registerStat();
@@ -64,7 +66,7 @@ public class LadAchievementCore {
 		/* 実績ページの追加 */
 		AchievementPage.registerAchievementPage(new AchievementPage("MR-Encounter for DQRmod", new Achievement[]{
 				roomBeach, roomDesertWell, roomForest, roomIcePlains, roomVillageWell, roomWeaponShop,
-				eventAnimal, eventZombie,
+				eventAnimal, eventZombie, eventShop,
 				roomDama, roomIceCave, roomMedalKing, roomMineShaft, roomPyramid, roomStronghold,
 				roomSpecial01, roomSpecial02
 				}));

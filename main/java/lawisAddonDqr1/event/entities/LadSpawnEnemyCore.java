@@ -111,6 +111,10 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityTomosibikozou;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTonburero;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTutiwarasi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityUmiusi;
+import dqr.entity.npcEntity.npc.DqmEntityNPCBank;
+import dqr.entity.npcEntity.npc.DqmEntityNPCBukiya;
+import dqr.entity.npcEntity.npc.DqmEntityNPCKaitoriya;
+import dqr.entity.npcEntity.npc.DqmEntityNPCSyuuri;
 import lawisAddonDqr1.api.event.LadEnemySpawnEvent;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.rooms.LadRoomID;
@@ -490,6 +494,17 @@ public class LadSpawnEnemyCore {
 				else if (r == 9) entity = new DqmEntityWaraibukuro(world);
 				else if (r == 10) entity = new DqmEntitySuraimunaito(world);
 				else if (r == 11) entity = new DqmEntityHitokuikibako(world);
+
+			// 武器屋 NPC
+			} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER) {
+				int r = rand.nextInt(4);
+
+				if (r == 0) entity = new DqmEntityNPCSyuuri(world);
+				else if (r == 1) entity = new DqmEntityNPCBukiya(world);
+				else if (r == 2) entity = new DqmEntityNPCKaitoriya(world);
+				else if (r == 3) entity = new DqmEntityNPCBank(world);
+
+				encounterLog = false;
 
 			/* 特殊部屋1 */
 			// 特殊部屋1 Y=41～45

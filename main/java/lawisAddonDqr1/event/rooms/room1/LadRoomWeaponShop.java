@@ -8,7 +8,10 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationTorch;
+import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
@@ -18,8 +21,6 @@ import net.minecraft.world.World;
 public class LadRoomWeaponShop {
 	/*
 	 * DQRmodの村の武器屋をモチーフとした戦闘部屋
-	 *
-	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -34,6 +35,52 @@ public class LadRoomWeaponShop {
 		int roomHeight = 4;					// 部屋の高さ
 		int roomCenterX = 0;					// 部屋のX座標方向の中央
 		int roomCenterZ = 0;					// 部屋のX座標方向の中央
+		int roomOutside = 2;					// 部屋の外の広さ
+
+		Boolean playerIsCustomer = false;	// NPCスポーンパターン
+		if ((rand.nextInt(20) == 0) || (LadDebug.getDebugRoom() == LadRoomID.WEAPON_SHOP_CUSTOMER)) {
+			playerIsCustomer = true;
+			roomDirection = (roomDirection +2)%4;
+		}
+
+		// マイナス座標の時に、部屋の位置がズレることの修正
+		if (player.posX < 0) roomX -=1;
+		if (player.posZ < 0) roomZ -=1;
+
+		// プレイヤーの向きから部屋の起点となる座標を決める
+		switch (roomDirection) {
+		case 0:
+			if (playerIsCustomer) roomX -= 6;
+			else roomX -= 4;
+			roomZ -= 4;
+			roomWidthX++;
+			roomWidthZ--;
+			break;
+		case 1:
+			roomX -= 4;
+			if (playerIsCustomer) roomZ -= 6;
+			else roomZ -= 4;
+			roomWidthX--;
+			roomWidthZ++;
+			break;
+		case 2:
+			if (playerIsCustomer) roomX -= 4;
+			else roomX -= 6;
+			roomZ -= 4;
+			roomWidthX++;
+			roomWidthZ--;
+			break;
+		case 3:
+			roomX -= 4;
+			if (playerIsCustomer) roomZ -= 4;
+			else roomZ -= 6;
+			roomWidthX--;
+			roomWidthZ++;
+			break;
+		}
+
+		roomCenterX = roomWidthX /2;
+		roomCenterZ = roomWidthZ /2;
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -44,41 +91,6 @@ public class LadRoomWeaponShop {
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomWeaponShop);
 
-		// マイナス座標の時に、部屋の位置がズレることの修正
-		if (player.posX < 0) roomX -=1;
-		if (player.posZ < 0) roomZ -=1;
-
-		// プレイヤーの向きから部屋の起点となる座標を決める
-		switch (roomDirection) {
-		case 0:
-			roomX -= 4;
-			roomZ -= 4;
-			roomWidthX++;
-			roomWidthZ--;
-			break;
-		case 1:
-			roomX -= 4;
-			roomZ -= 4;
-			roomWidthX--;
-			roomWidthZ++;
-			break;
-		case 2:
-			roomX -= 6;
-			roomZ -= 4;
-			roomWidthX++;
-			roomWidthZ--;
-			break;
-		case 3:
-			roomX -= 4;
-			roomZ -= 6;
-			roomWidthX--;
-			roomWidthZ++;
-			break;
-		}
-
-		roomCenterX = roomWidthX /2;
-		roomCenterZ = roomWidthZ /2;
-
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
@@ -88,67 +100,26 @@ public class LadRoomWeaponShop {
 
 		/* 地面 */
 		// 地面の下に「土ブロック」を敷く
-		for (int x = -2; x <= roomWidthX +2; x++) {
-			for (int z = -2; z <= roomWidthZ +2; z++) {
-				world.setBlock(roomX +x, roomY -2, roomZ +z, Blocks.dirt);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.dirt, roomX -roomOutside, roomX +roomWidthX +roomOutside, roomZ -roomOutside, roomZ +roomWidthZ +roomOutside, roomY -2);
 
 		// 地面に「草ブロック」を敷く
-		for (int x = -2; x <= roomWidthX +2; x++) {
-			for (int z = -2; z <= roomWidthZ +2; z++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.grass);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.grass, roomX -roomOutside, roomX +roomWidthX +roomOutside, roomZ -roomOutside, roomZ +roomWidthZ +roomOutside, roomY -1);
 
 		// 空間の確保のために「空気」を設置する
-		for (int x = -2; x <= roomWidthX +2; x++) {
-			for (int z = -2; z <= roomWidthZ +2; z++) {
-				for (int y = 0; y <= roomHeight +2; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
+		LadFillBlock.fillBlockToAir(world, roomX -roomOutside, roomX +roomWidthX +roomOutside, roomZ -roomOutside, roomZ +roomWidthZ +roomOutside, roomY, roomY +roomHeight +roomOutside);
 
 		// 明るさ確保のために「松明」を設置する
-		world.setBlock(roomX, roomY, roomZ, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomWidthX, roomY, roomZ, Blocks.torch, 5, 3);
-		world.setBlock(roomX, roomY, roomZ +roomWidthZ, Blocks.torch, 5, 3);
-		world.setBlock(roomX +roomWidthX, roomY, roomZ +roomWidthZ, Blocks.torch, 5, 3);
-
+		LadDecorationTorch.setFourTorch(world, roomX, roomX +roomWidthX, roomZ, roomZ +roomWidthZ, roomY);
 
 		/* 建物基本 */
 		// 床に「レンガブロック」を敷く
-		for (int x = 1; x <= roomWidthX -1; x++) {
-			for (int z = 1; z <= roomWidthZ -1; z++) {
-				world.setBlock(roomX +x, roomY -1, roomZ +z, Blocks.brick_block);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.brick_block, roomX +1, roomX +roomWidthX -1, roomZ +1, roomZ +roomWidthZ -1, roomY -1);
 
 		// 壁の「石レンガ」を設置する（壁の生成1）
-		for (int x = 1; x <= roomWidthX -1; x++) {
-			for (int z = 1; z <= roomWidthZ -1; z++) {
-				for (int y = 0; y <= roomHeight -1; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.stonebrick);
-				}
-			}
-		}
-
-		// 「空気」を設置する（壁の生成2）
-		for (int x = 2; x <= roomWidthX -2; x++) {
-			for (int z = 2; z <= roomWidthZ -2; z++) {
-				for (int y = 0; y <= roomHeight -1; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
+		LadDecorationPillar.setWall(world, Blocks.stonebrick, roomX +1, roomX +roomWidthX -1, roomZ +1, roomZ +roomWidthZ -1, roomY, roomHeight);
 
 		// 屋根の「石のハーフブロック」を設置する
-		for (int x = 1; x <= roomWidthX -1; x++) {
-			for (int z = 1; z <= roomWidthZ -1; z++) {
-				world.setBlock(roomX +x, roomY +roomHeight, roomZ +z, Blocks.stone_slab);
-			}
-		}
+		LadFillBlock.fillBlockXZ(world, Blocks.stone_slab, roomX +1, roomX +roomWidthX -1, roomZ +1, roomZ +roomWidthZ -1, roomY +roomHeight);
 
 		// 窓ガラスの設置
 		switch (roomDirection) {
@@ -379,20 +350,44 @@ public class LadRoomWeaponShop {
 		 * - - - - - - - - - */
 
 		// 確定スポーン 建物内
-		switch (roomDirection) {
-		case 0:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
-			break;
-		case 1:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
-			break;
-		case 2:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
-			break;
-		case 3:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
-			break;
+		if (playerIsCustomer) {
+			// 店員側にNPC、客側にプレイヤー
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -6, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER);
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -6, LadRoomID.WEAPON_SHOP_CUSTOMER);
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +6, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER);
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +6, LadRoomID.WEAPON_SHOP_CUSTOMER);
+				break;
+			}
+
+			// 実績の取得
+			player.triggerAchievement(LadAchievementCore.eventShop);
+
+		} else {
+			// 店員側にプレイヤー、客側に敵
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ  +roomWidthZ -4, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +4, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
+				break;
+			}
 		}
+
 
 		// 確率スポーン 建物外
 		for (int i = 0; i < 4; i++) {

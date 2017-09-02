@@ -71,6 +71,7 @@ public class LadRoomCore {
 					LadRoomIcePlains.setRoom(world, player);
 					break;
 				case LadRoomID.WEAPON_SHOP:
+				case LadRoomID.WEAPON_SHOP_CUSTOMER:
 					LadRoomWeaponShop.setRoom(world, player);
 					break;
 				case LadRoomID.PYRAMID:
@@ -100,6 +101,8 @@ public class LadRoomCore {
 				case LadRoomID.SPECIAL_03:
 					LadRoomSpecial03.setRoom(world, player);
 					break;
+				default:
+					System.out.println("デバッグ用の戦闘部屋ID指定が間違っています。");
 				}
 			}
 
