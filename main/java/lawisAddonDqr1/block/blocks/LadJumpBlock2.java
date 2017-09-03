@@ -26,8 +26,8 @@ public class LadJumpBlock2 extends DqmJumpBlock2 {
 			entity.motionY = 1.3;
 
 			// XZ方向への加速度を増加させる（追加した仕様）
-			entity.motionX *= 1.8;
-			entity.motionZ *= 1.8;
+			entity.motionX *= 1.5;
+			entity.motionZ *= 1.5;
 
 			// 落下ダメージをなくすための、ポーション付与（元のブロックから変更なし）
 			entity.addPotionEffect(new PotionEffect(DQPotionPlus.potionSubayasanotane.id, 20 * 5, 0));
