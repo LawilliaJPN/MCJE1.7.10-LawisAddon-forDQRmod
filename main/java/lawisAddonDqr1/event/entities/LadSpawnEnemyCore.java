@@ -194,10 +194,10 @@ public class LadSpawnEnemyCore {
 				else if (r == 5) entity = new DqmEntityPapetkozou(world);
 				else if (r == 6) entity = new DqmEntitySuraimutawa(world);
 				else if (r == 7) entity = new DqmEntityFaratto(world);
-				else if (r == 8) entity = new DqmEntityRiripat(world);
-				else if (r == 9) entity = new DqmEntityOokutibasi(world);
-				else if (r == 10) entity = new DqmEntityDorakima(world);
-				else if (r == 11) entity = new DqmEntityEbiruapple(world);
+				else if (r == 8) entity = new DqmEntityOokutibasi(world);
+				else if (r == 9) entity = new DqmEntityDorakima(world);
+				else if (r == 10) entity = new DqmEntityItamogu(world);
+				else if (r == 11) entity = new DqmEntityHitokuiga(world);
 
 			// 森林 Y=31～35
 			} else if (enemyGroup == LadRoomID.FOREST +3) {
@@ -284,7 +284,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 2) entity = new DqmEntityObakekinoko(world);
 				else if (r == 3) entity = new DqmEntityDoraki(world);
 				else if (r == 4) entity = new DqmEntityKirikabuobake(world);
-				else if (r == 5) entity = new DqmEntityObakeumiusi(world);
+				else if (r == 5) entity = new DqmEntityDoronuba(world);
 				else if (r == 6) entity = new DqmEntityDokuroarai(world);
 				else if (r == 7) entity = new DqmEntityMadohando(world);
 
@@ -349,7 +349,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 8) entity = new DqmEntityHoimisura(world);
 				else if (r == 9) entity = new DqmEntitySuraimutawa(world);
 				else if (r == 10) entity = new DqmEntityDoronuba(world);
-				else if (r == 11) entity = new DqmEntityUzusioking(world);
+				else if (r == 11) entity = new DqmEntityBurauni(world);
 
 			// 砂浜 Y=31～35
 			} else if (enemyGroup == LadRoomID.BEACH +3) {
@@ -441,14 +441,11 @@ public class LadSpawnEnemyCore {
 			/* 武器屋 */
 			// 武器屋 Y=36～40 確定スポーン
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER +2) {
-				int r = rand.nextInt(6);
+				int r = rand.nextInt(3);
 
 				if (r == 0) entity = new DqmEntityItamogu(world);
 				else if (r == 1) entity = new DqmEntityOokiduti(world);
 				else if (r == 2) entity = new DqmEntityHitokuisaberu(world);
-				else if (r == 3) entity = new DqmEntitySirudokozou(world);
-				else if (r == 4) entity = new DqmEntityBurauni(world);
-				else if (r == 5) entity = new DqmEntityGaikotu(world);
 
 			// 武器屋 Y=36～40 変動スポーン
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP +2) {
@@ -461,7 +458,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 4) entity = new DqmEntityHitokuisaberu(world);
 				else if (r == 5) entity = new DqmEntityPapetkozou(world);
 				else if (r == 6) entity = new DqmEntityRiripat(world);
-				else if (r == 7) entity = new DqmEntityDoruido(world);
+				else if (r == 7) entity = new DqmEntityMadohando(world);
 				else if (r == 8) entity = new DqmEntitySirudokozou(world);
 				else if (r == 9) entity = new DqmEntityBurauni(world);
 				else if (r == 10) entity = new DqmEntityGaikotu(world);
@@ -544,7 +541,7 @@ public class LadSpawnEnemyCore {
 					spawnEnemy(world, player, x, y, z, LadRoomID.ICE_PLAINS + LadRoomID.getDifOfRoom());
 					break;
 				case 5:
-					spawnEnemy(world, player, x, y, z, LadRoomID.WEAPON_SHOP + LadRoomID.getDifOfRoom());
+					spawnEnemy(world, player, x, y, z, LadRoomID.WEAPON_SHOP_CUSTOMER + LadRoomID.getDifOfRoom());
 					break;
 				}
 				return;
