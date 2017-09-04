@@ -2,6 +2,7 @@ package lawisAddonDqr1.event.entities;
 
 import java.util.Random;
 
+import dqr.api.Blocks.DQBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.EntityLivingBase;
@@ -36,8 +37,10 @@ public class LadMeasuresAgainstEnemySuffocation {
 		Block block = world.getBlock(x, y, z);
 
 		if (block.canEntityDestroy(world, x, y, z, player)) {
-			// 空気と液体は破壊しない
+			// 「空気」と「液体」は破壊しない
 			if ((block.isAir(world, x, y, z)) || (block instanceof BlockLiquid)) return;
+			// 「DQRのスポブロ」は破壊しない
+			if ((block == DQBlocks.DqmBlockMobSpawner)) return;
 
 			// ログのためのブロック名を破壊前に事前取得
 			String strBlock = world.getBlock(x, y, z).getLocalizedName();
