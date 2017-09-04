@@ -4,9 +4,11 @@ import cpw.mods.fml.common.Loader;
 import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.block.LadInitBlocks;
-import lawisAddonDqr1.block.LadRecipes;
+import lawisAddonDqr1.block.LadRecipesBlocks;
 import lawisAddonDqr1.config.LadConfigEventHundler;
 import lawisAddonDqr1.event.LadEventHundler;
+import lawisAddonDqr1.item.LadInitItems;
+import lawisAddonDqr1.item.LadRecipesItems;
 import net.minecraftforge.common.MinecraftForge;
 
 /*
@@ -35,11 +37,15 @@ public class LadAddons {
 				// コンフィグの反映
 				LadConfigEventHundler.syncConfigAndResetCount();
 
-				// 仕様変更したブロックの追加
+				// ブロックの追加
 				LadInitBlocks.initBlocks();
 
-				// 追加したブロックに関連するレシピの追加
-				LadRecipes.initLadRecipes();
+				// アイテムの追加
+				LadInitItems.initItems();
+
+				// レシピの追加
+				LadRecipesBlocks.initLadBlockRecipes();
+				LadRecipesItems.initLadItemRecipes();
 
 				// 実績の追加
 				LadAchievementCore.initLadAchievements();

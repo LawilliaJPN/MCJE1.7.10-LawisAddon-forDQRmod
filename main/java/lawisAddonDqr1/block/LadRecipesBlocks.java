@@ -10,11 +10,11 @@ import net.minecraft.item.ItemStack;
 /*
  * レシピを追加するクラス。
  */
-public class LadRecipes {
+public class LadRecipesBlocks {
 	/*
 	 * このmodで追加したブロックに関連するレシピを追加するメソッド。
 	 */
-	public static void initLadRecipes() {
+	public static void initLadBlockRecipes() {
 		// ジャンプブロック
 		GameRegistry.addShapelessRecipe(new ItemStack(LadBlocks.ladJumpBlock2), DQBlocks.DqmBlockJampBlock2, DQIngots.itemHikarinoisi);
 		GameRegistry.addShapelessRecipe(new ItemStack(DQBlocks.DqmBlockJampBlock2), LadBlocks.ladJumpBlock2);

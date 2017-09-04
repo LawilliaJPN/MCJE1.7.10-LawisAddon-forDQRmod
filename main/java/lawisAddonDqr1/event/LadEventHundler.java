@@ -139,12 +139,12 @@ public class LadEventHundler {
 					// 破壊マジックツールを使用した時に、効果をキャンセルする
 					if (event.entityPlayer.getHeldItem().getItem() == DQMagicTools.itemMagicToolBreak1) {
 						if(!event.world.isRemote) {
-							event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」の効果中のため、「マジックツール(指定ブロック破壊)」を使用できない。"));
+							event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」中のため、使用できない。"));
 						}
 						event.setCanceled(true);
 					} else if (event.entityPlayer.getHeldItem().getItem() == DQMagicTools.itemMagicToolBreak2) {
 						if(!event.world.isRemote) {
-							event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」の効果中のため、「マジックツール(全ブロック破壊)」を使用できない。"));
+							event.entityPlayer.addChatMessage(new ChatComponentTranslation("「採掘速度低下」中のため、使用できない。"));
 						}
 						event.setCanceled(true);
 					}

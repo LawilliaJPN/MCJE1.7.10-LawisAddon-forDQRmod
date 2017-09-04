@@ -1,4 +1,8 @@
 
+// アイテム
+item.pickaxeOrnamentU.name=装飾石のツルハシ(上層)
+item.pickaxeOrnamentM.name=装飾石のツルハシ(中層)
+
 // ブロック
 tile.ladJumpBlock2.name=ジャンプブロック(MRE)
 tile.ladPackedIce.name=氷塊(MRE)
