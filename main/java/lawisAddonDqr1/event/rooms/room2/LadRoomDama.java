@@ -9,6 +9,7 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
+import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -93,13 +94,7 @@ public class LadRoomDama {
 			}
 		}
 		// 「空気」の設置
-		for (int x = 1; x <= roomWidthX -1; x++) {
-			for (int z = 1; z <= roomWidthZ -1; z++) {
-				for (int y = 0; y <= roomHeight -1; y++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
+		LadFillBlock.fillBlockToAir(world, roomX +1, roomX +roomWidthX -1, roomZ +1, roomZ +roomWidthZ -1, roomY, roomY +roomHeight -1);
 
 		/* 装飾 */
 		switch (roomDirection) {

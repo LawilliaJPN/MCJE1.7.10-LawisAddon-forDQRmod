@@ -10,4 +10,5 @@ public class LadItems {
 	// 「装飾石のツルハシ」
 	public static Item pickaxeOrnamentU;
 	public static Item pickaxeOrnamentM;
+	public static Item pickaxeOrnamentL;
 }

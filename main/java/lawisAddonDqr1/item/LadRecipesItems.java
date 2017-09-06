@@ -72,5 +72,34 @@ public class LadRecipesItems {
 				new ItemStack(LadItems.pickaxeOrnamentM, 1, OreDictionary.WILDCARD_VALUE),
 				DQBlocks.DqmBlockKowareru9
 		);
+
+		/* 装飾石のツルハシ(下層) */
+		// 製作レシピ
+		GameRegistry.addRecipe(new ItemStack(LadItems.pickaxeOrnamentL, 1, 0),
+				"DDD",
+				" S ",
+				" S ",
+				'S', Items.stick,
+				'D', DQBlocks.DqmBlockKowareru7
+		);
+
+		GameRegistry.addRecipe(new ItemStack(LadItems.pickaxeOrnamentL, 1, 0),
+				"DDD",
+				" S ",
+				" S ",
+				'S', Items.stick,
+				'D', DQBlocks.DqmQuartzBlock
+		);
+
+		// 修理レシピ
+		GameRegistry.addShapelessRecipe(new ItemStack(LadItems.pickaxeOrnamentL, 1, 0),
+				new ItemStack(LadItems.pickaxeOrnamentL, 1, OreDictionary.WILDCARD_VALUE),
+				DQBlocks.DqmBlockKowareru7
+		);
+
+		GameRegistry.addShapelessRecipe(new ItemStack(LadItems.pickaxeOrnamentL, 1, 0),
+				new ItemStack(LadItems.pickaxeOrnamentL, 1, OreDictionary.WILDCARD_VALUE),
+				DQBlocks.DqmQuartzBlock
+		);
 	}
 }

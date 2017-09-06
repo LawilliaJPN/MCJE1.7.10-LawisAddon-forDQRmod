@@ -2,6 +2,7 @@ package lawisAddonDqr1.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import lawisAddonDqr1.api.items.LadItems;
+import lawisAddonDqr1.item.items.PickaxeOrnamentL;
 import lawisAddonDqr1.item.items.PickaxeOrnamentM;
 import lawisAddonDqr1.item.items.PickaxeOrnamentU;
 import net.minecraft.creativetab.CreativeTabs;
@@ -31,5 +32,12 @@ public class LadInitItems {
 				.setUnlocalizedName("pickaxeOrnamentM")
 				.setTextureName("lawisadoondqr01:pickaxe_ornament_m");
 		GameRegistry.registerItem(LadItems.pickaxeOrnamentM, "pickaxeOrnamentM");
+
+		// 装飾石のツルハシ(下層)
+		LadItems.pickaxeOrnamentL = new PickaxeOrnamentL(LadItems.ORNAMENT)
+				.setCreativeTab(CreativeTabs.tabTools)
+				.setUnlocalizedName("pickaxeOrnamentL")
+				.setTextureName("lawisadoondqr01:pickaxe_ornament_l");
+		GameRegistry.registerItem(LadItems.pickaxeOrnamentL, "pickaxeOrnamentL");
 	}
 }

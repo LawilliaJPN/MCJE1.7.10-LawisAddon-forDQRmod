@@ -2,6 +2,7 @@
 // Item
 item.pickaxeOrnamentU.name=Ornament Pickaxe(Upper-Layer)
 item.pickaxeOrnamentM.name=Ornament Pickaxe(Middle-Layer)
+item.pickaxeOrnamentL.name=Ornament Pickaxe(Lower-Layer)
 
 // Block
 tile.ladJumpBlock2.name=Jump Block(MRE)
