@@ -7,7 +7,9 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
+import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentTranslation;
@@ -16,6 +18,8 @@ import net.minecraft.world.World;
 public class LadRoomMineShaft {
 	/*
 	 * バニラの「廃坑」をモチーフにした戦闘部屋
+	 *
+	 * TODO パーツをいくつか作り、それらの配置でパターンを作成する
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -77,13 +81,7 @@ public class LadRoomMineShaft {
 
 		/* 空間 */
 		// 「オークの木材」の設置
-		for (int x = 0; x <= roomWidth; x++) {
-			for (int z = 0; z <= roomWidth; z++) {
-				for (int y = roomFloor1Y; y <= roomHeight; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, Blocks.planks);
-				}
-			}
-		}
+		LadFillBlock.fillBlock(world, Blocks.planks, roomX, roomX +roomWidth, roomZ, roomZ +roomWidth, roomY +roomFloor1Y, roomY +roomHeight);
 
 		// 「空気」を設置
 		for (int x = 4; x <= roomWidth -4; x++) {
@@ -116,47 +114,6 @@ public class LadRoomMineShaft {
 		}
 
 		// 「空気」を設置
-		for (int y = 0; y <= roomHeight; y++) {
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +2, roomY +y, roomZ);
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +1);
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +3);
-			world.setBlockToAir(roomX, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +1, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +3, roomY +y, roomZ +2);
-
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +roomWidth -2);
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +roomWidth);
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +roomWidth -1);
-			world.setBlockToAir(roomX +2, roomY +y, roomZ +roomWidth -3);
-			world.setBlockToAir(roomX, roomY +y, roomZ +roomWidth -2);
-			world.setBlockToAir(roomX +1, roomY +y, roomZ +roomWidth -2);
-			world.setBlockToAir(roomX +3, roomY +y, roomZ +roomWidth -2);
-
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ);
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +1);
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +3);
-			world.setBlockToAir(roomX +roomWidth, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +roomWidth -1, roomY +y, roomZ +2);
-			world.setBlockToAir(roomX +roomWidth -3, roomY +y, roomZ +2);
-
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +roomWidth -2);
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +roomWidth);
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +roomWidth -1);
-			world.setBlockToAir(roomX +roomWidth -2, roomY +y, roomZ +roomWidth -3);
-			world.setBlockToAir(roomX +roomWidth, roomY +y, roomZ +roomWidth -2);
-			world.setBlockToAir(roomX +roomWidth -1, roomY +y, roomZ +roomWidth -2);
-			world.setBlockToAir(roomX +roomWidth -3, roomY +y, roomZ +roomWidth -2);
-
-			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
-				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
-					world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
-				}
-			}
-		}
-
-		// 「空気」を設置
 		for (int y = 0; y <= roomHeight -1; y++) {
 			if (y != roomFloor2Y) {
 				world.setBlockToAir(roomX +roomCenter, roomY +y, roomZ +roomCenter +2);
@@ -166,11 +123,39 @@ public class LadRoomMineShaft {
 			}
 		}
 
+		// 「空気」を設置
+		LadDecorationPillar.setFourPillarCrossToAir(world, roomX +2, roomZ +2, roomY, roomHeight +1, 1);
+		LadDecorationPillar.setFourPillarCrossToAir(world, roomX +roomWidth -2, roomZ +2, roomY, roomHeight +1, 1);
+		LadDecorationPillar.setFourPillarCrossToAir(world, roomX +2, roomZ +roomWidth -2, roomY, roomHeight +1, 1);
+		LadDecorationPillar.setFourPillarCrossToAir(world, roomX +roomWidth -2, roomZ +roomWidth -2, roomY, roomHeight +1, 1);
+
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX, roomY, roomZ +2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ +2, roomHeight +1);
+
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth, roomY, roomZ +2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ +2, roomHeight +1);
+
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ +roomWidth, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX, roomY, roomZ +roomWidth -2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ +roomWidth -2, roomHeight +1);
+
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ +roomWidth, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth, roomY, roomZ +roomWidth -2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ +roomWidth -2, roomHeight +1);
+
+		LadFillBlock.fillBlockToAir(world, roomX +roomCenter -1, roomX +roomCenter +1, roomZ +roomCenter -1, roomZ +roomCenter +1, roomY, roomY +roomHeight);
+
+
 		/* 装飾 */
 		// 「土ブロック」の設置
-		for (int x = roomCenter -2; x <= roomCenter +2; x++) {
-			for (int z = roomCenter -2; z <= roomCenter +2; z++) {
-				world.setBlock(roomX +x, roomY +roomFloor1Y, roomZ +z, Blocks.dirt);
+		LadFillBlock.fillBlockXZ(world, Blocks.dirt, roomX +roomCenter -2, roomX +roomCenter +2, roomZ +roomCenter -2, roomZ +roomCenter +2, roomY +roomFloor1Y);
+
+		// 「キノコ」の設置
+		for (int x = roomCenter -1; x <= roomCenter +1; x++) {
+			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
+				setMushroom(world, rand, roomX +x, roomY +roomFloor1Y +1, roomZ +z);
 			}
 		}
 
@@ -381,6 +366,19 @@ public class LadRoomMineShaft {
 		} else {
 			world.setBlockToAir(x, y, z);
 		}
+	}
 
+	/*
+	 * キノコを設置するかもしれない。
+	 */
+	public static void setMushroom(World world, Random rand, int x, int y, int z) {
+		switch (rand.nextInt(4)) {
+		case 0:
+			world.setBlock(x, y, z, Blocks.brown_mushroom);
+			break;
+		case 1:
+			world.setBlock(x, y, z, Blocks.red_mushroom);
+			break;
+		}
 	}
 }

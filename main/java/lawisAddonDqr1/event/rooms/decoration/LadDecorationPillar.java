@@ -72,6 +72,12 @@ public class LadDecorationPillar {
 		setPillar(world, block, x2, y, z1, height);
 		setPillar(world, block, x2, y, z2, height);
 	}
+	public static void setFourPillarToAir(World world, int x1, int x2, int z1, int z2, int y, int height) {
+		setPillarToAir(world, x1, y, z1, height);
+		setPillarToAir(world, x1, y, z2, height);
+		setPillarToAir(world, x2, y, z1, height);
+		setPillarToAir(world, x2, y, z2, height);
+	}
 
 	/*
 	 * 四方向(東西南北)に柱を設置
@@ -82,6 +88,13 @@ public class LadDecorationPillar {
 		setPillar(world, block, centerX +position, y, centerZ, height);
 		setPillar(world, block, centerX -position, y, centerZ, height);
 	}
+	public static void setFourPillarCrossToAir(World world, int centerX, int centerZ, int y, int height, int position) {
+		setPillarToAir(world, centerX, y, centerZ -position, height);
+		setPillarToAir(world, centerX, y, centerZ +position, height);
+		setPillarToAir(world, centerX +position, y, centerZ, height);
+		setPillarToAir(world, centerX -position, y, centerZ, height);
+	}
+
 	/*
 	 * 斜め四方向に柱を設置
 	 */
