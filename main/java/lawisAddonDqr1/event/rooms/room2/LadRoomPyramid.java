@@ -5,6 +5,7 @@ import java.util.Random;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -53,6 +54,9 @@ public class LadRoomPyramid {
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
+
+		// 落下物対策
+		LadMeasuresAgainstPlayerSuffocation.measuresAgainstFallingObject(world, roomX, roomZ, roomWidth, roomWidth, roomY +roomHeight +3);
 
 		/* 空間 */
 		// 「空気」を設置

@@ -16,8 +16,6 @@ import net.minecraft.world.World;
 public class LadRoomStronghold {
 	/*
 	 * バニラの「要塞」をモチーフとした戦闘部屋
-	 *
-	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

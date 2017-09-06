@@ -8,6 +8,7 @@ import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,7 @@ public class LadRoomDama {
 	/*
 	 * DQRの「ダーマ神殿」をモチーフにした戦闘部屋
 	 *
-	 * TODO リファクタリング
+	 * TODO 【検討】他のダーマ神殿のパターンも追加
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -36,6 +37,9 @@ public class LadRoomDama {
 		int roomCenterX = roomWidthX /2;		// 部屋のX方向の中心
 		int roomCenterZ = roomWidthZ /2;		// 部屋のX方向の中心
 		int roomType = rand.nextInt(4);		// 部屋の種類
+
+		Boolean isNPC = false;					// NPCスポーンパターン
+		if (rand.nextInt(100) == 0) isNPC = true;
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -86,13 +90,9 @@ public class LadRoomDama {
 
 		/* 空間 */
 		// 「ネザー水晶の装飾石」の設置
-		for (int x = 0; x <= roomWidthX; x++) {
-			for (int z = 0; z <= roomWidthZ; z++) {
-				for (int y = -2; y <= roomHeight; y++) {
-					world.setBlock(roomX +x, roomY +y, roomZ +z, DQBlocks.DqmQuartzBlock);
-				}
-			}
-		}
+		LadFillBlock.fillBlock(world, DQBlocks.DqmQuartzBlock, roomX, roomX +roomWidthX, roomZ, roomZ +roomWidthZ, roomY -2, roomY -1);
+		LadFillBlock.fillBlockXZ(world, DQBlocks.DqmQuartzBlock, roomX, roomX +roomWidthX, roomZ, roomZ +roomWidthZ, roomY +roomHeight);
+		LadDecorationPillar.setWall(world, DQBlocks.DqmQuartzBlock, roomX, roomX +roomWidthX, roomZ, roomZ +roomWidthZ, roomY, roomHeight -1);
 		// 「空気」の設置
 		LadFillBlock.fillBlockToAir(world, roomX +1, roomX +roomWidthX -1, roomZ +1, roomZ +roomWidthZ -1, roomY, roomY +roomHeight -1);
 
@@ -258,27 +258,47 @@ public class LadRoomDama {
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
-		switch (roomDirection) {
-		case 0:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			break;
-		case 1:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +roomWidthZ -6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +roomWidthZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +roomWidthZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			break;
-		case 2:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			break;
-		case 3:
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
-			break;
+		if (isNPC) {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA);
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +roomWidthZ -6, LadRoomID.DAMA);
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA);
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +6, LadRoomID.DAMA);
+				break;
+			}
+			// 実績の取得
+			player.triggerAchievement(LadAchievementCore.eventPriest);
+
+		} else {
+			switch (roomDirection) {
+			case 0:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -4, roomY +1, roomZ +roomCenterZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				break;
+			case 1:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +roomWidthZ -6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +roomWidthZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +roomWidthZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				break;
+			case 2:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +6, roomY +1, roomZ +roomCenterZ, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +4, roomY +1, roomZ +roomCenterZ -4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				break;
+			case 3:
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX, roomY +1, roomZ +6, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX +4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenterX -4, roomY +1, roomZ +4, LadRoomID.DAMA + LadRoomID.getDifOfRoom());
+				break;
+			}
 		}
 
 		/* - - - - - - - - - -
@@ -301,7 +321,9 @@ public class LadRoomDama {
 		}
 	}
 
-
+	/*
+	 * 以下、パーツを設置するためのメソッド
+	 */
 	public static void setDqmBlockKagaribidai(World world, int x, int y, int z) {
 		world.setBlock(x, y, z, DQDecorates.DqmBlockKagaribidai);
 		world.setBlock(x, y +1, z, Blocks.fire);

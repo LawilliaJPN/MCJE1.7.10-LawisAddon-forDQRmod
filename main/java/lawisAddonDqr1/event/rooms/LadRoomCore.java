@@ -22,7 +22,7 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
 import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial02;
-import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial03;
+import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial04;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -98,8 +98,8 @@ public class LadRoomCore {
 				case LadRoomID.SPECIAL_02:
 					LadRoomSpecial02.setRoom(world, player);
 					break;
-				case LadRoomID.SPECIAL_03:
-					LadRoomSpecial03.setRoom(world, player);
+				case LadRoomID.SPECIAL_04:
+					LadRoomSpecial04.setRoom(world, player);
 					break;
 				default:
 					System.out.println("デバッグ用の戦闘部屋ID指定が間違っています。");

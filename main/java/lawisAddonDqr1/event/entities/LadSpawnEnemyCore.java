@@ -114,6 +114,8 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityUmiusi;
 import dqr.entity.npcEntity.npc.DqmEntityNPCBank;
 import dqr.entity.npcEntity.npc.DqmEntityNPCBukiya;
 import dqr.entity.npcEntity.npc.DqmEntityNPCKaitoriya;
+import dqr.entity.npcEntity.npc.DqmEntityNPCSinkan;
+import dqr.entity.npcEntity.npc.DqmEntityNPCSinkan3;
 import dqr.entity.npcEntity.npc.DqmEntityNPCSyuuri;
 import lawisAddonDqr1.api.event.LadEnemySpawnEvent;
 import lawisAddonDqr1.config.LadDebug;
@@ -784,6 +786,11 @@ public class LadSpawnEnemyCore {
 				else if (r == 10) entity = new DqmEntityOdoruhouseki(world);
 				else if (r == 11) entity = new DqmEntitySuraimuburesu(world);
 
+			// 「メダル王の部屋」メダル王スポーン
+			} else if (enemyGroup == LadRoomID.MEDAL_KING) {
+				entity = new DqmEntityPurizunyan(world);
+				encounterLog = false;
+
 			// 「メダル王の部屋」メタル系発生
 			} else if (enemyGroup == LadRoomID.Metal_Slime_With_Log) {
 				int r = rand.nextInt(100);
@@ -827,6 +834,17 @@ public class LadSpawnEnemyCore {
 				else if (r == 9) entity = new DqmEntityDokuyazukin(world);
 				else if (r == 10) entity = new DqmEntityGaikotukensi(world);
 				else if (r == 11) entity = new DqmEntityButtizukinya(world);
+
+			// 「ダーマ神殿」NPCスポーン
+			} else if (enemyGroup == LadRoomID.DAMA) {
+				int r = rand.nextInt(3);
+
+				// TODO NPCSinkan2はDQRmodで未実装のため、NPCSinkanに。
+				if (r == 0) entity = new DqmEntityNPCSinkan(world);
+				else if (r == 1) entity = new DqmEntityNPCSinkan(world);
+				else if (r == 2) entity = new DqmEntityNPCSinkan3(world);
+
+				encounterLog = false;
 
 
 			// 特殊部屋2 Y=21～30

@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class LadRoomSpecial03 {
+public class LadRoomSpecial04 {
 	/*
 	 * 動画の番外編で製作した特殊な戦闘部屋(下層)
 	 *

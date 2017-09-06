@@ -32,10 +32,14 @@ achievement.eventShop=Underground Shop
 achievement.roomSpecial02=Special Room No.2
 achievement.roomDama=Dama
 achievement.roomIceCave=Ice Cave
-achievement.roomMedalKing=Medal King
+achievement.roomMedalKing=Room of Medal King
 achievement.roomMineShaft=Mine Shaft
 achievement.roomPyramid=Pyramid
 achievement.roomStronghold=Stronghold
+
+achievement.eventMedalKing=Medal King
+achievement.eventSpider=Outbreak of Spider
+achievement.eventPriest=Dama Priest
 
 // Achievement Description
 achievement.roomSpecial01.desc=the battle room of upper-layer
@@ -57,3 +61,7 @@ achievement.roomMedalKing.desc=the battle room of middle-layer
 achievement.roomMineShaft.desc=the battle room of middle-layer
 achievement.roomPyramid.desc=the battle room of middle-layer
 achievement.roomStronghold.desc=the battle room of middle-layer
+
+achievement.eventMedalKing.desc=the event of Room of Medal King
+achievement.eventSpider.desc=the event of Mine Shaft
+achievement.eventPriest.desc=the event of Dama

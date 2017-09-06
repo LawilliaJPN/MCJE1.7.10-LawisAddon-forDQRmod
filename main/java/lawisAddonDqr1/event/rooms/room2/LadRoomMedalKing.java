@@ -7,6 +7,7 @@ import dqr.api.Blocks.DQDecorates;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -18,8 +19,6 @@ import net.minecraft.world.World;
 public class LadRoomMedalKing {
 	/*
 	 * DQRの「メダル王の部屋」をモチーフにした戦闘部屋
-	 *
-	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -33,6 +32,9 @@ public class LadRoomMedalKing {
 		int roomWidth = 12;					// 部屋の幅（-1）
 		int roomCenter = roomWidth /2;		// 部屋の中心
 		int roomType = rand.nextInt(8);		// 部屋の種類
+
+		Boolean isNPC = false;					// NPCスポーンパターン
+		if (rand.nextInt(20) == 0) isNPC = true;
 
 		// [Debug] 戦闘部屋固定時に生成方向がチャット表示される（デバッグ用）
 		if (LadDebug.getDebugRoom() >=0) {
@@ -71,6 +73,9 @@ public class LadRoomMedalKing {
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
+
+		// 落下物対策
+		LadMeasuresAgainstPlayerSuffocation.measuresAgainstFallingObject(world, roomX, roomZ, roomWidth, roomWidth, roomY +roomHeight +4);
 
 		// 空気ブロックの設置
 		for (int x = 0; x <= roomWidth; x++) {
@@ -268,89 +273,110 @@ public class LadRoomMedalKing {
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
 
-		// 正面に2体
-		if (roomType%2 == 0) {
+		if (isNPC) {
 			switch (roomDirection) {
 			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING);
 				break;
 			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING);
 				break;
 			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING);
 				break;
 			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING);
 				break;
 			}
-		// 正面に3体
-		} else if (roomType%2 == 1) {
-			switch (roomDirection) {
-			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			}
-		// 正面に1体、部屋の上に2体
-		} else if (roomType%2 == 2) {
-			switch (roomDirection) {
-			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomHeight +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomHeight +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomHeight +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomHeight +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomHeight +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomHeight +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomHeight +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomHeight +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
-				break;
-			}
-		// メタル系が1体
+			// 実績の取得
+			player.triggerAchievement(LadAchievementCore.eventMedalKing);
+
 		} else {
-			switch (roomDirection) {
-			case 0:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.Metal_Slime_With_Log);
-				break;
-			case 1:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.Metal_Slime_With_Log);
-				break;
-			case 2:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.Metal_Slime_With_Log);
-				break;
-			case 3:
-				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.Metal_Slime_With_Log);
-				break;
+
+			// 正面に2体
+			if (roomType%2 == 0) {
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				}
+			// 正面に3体
+			} else if (roomType%2 == 1) {
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				}
+			// 正面に1体、部屋の上に2体
+			} else if (roomType%2 == 2) {
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomHeight +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +roomHeight +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomHeight +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomHeight +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomHeight +1, roomZ +3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomHeight +1, roomZ +roomWidth -3, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +3, roomY +roomHeight +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -3, roomY +roomHeight +1, roomZ +roomWidth -2, LadRoomID.MEDAL_KING + LadRoomID.getDifOfRoom());
+					break;
+				}
+			// メタル系が1体
+			} else {
+				switch (roomDirection) {
+				case 0:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +1, roomZ +roomCenter, LadRoomID.Metal_Slime_With_Log);
+					break;
+				case 1:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +roomWidth -2, LadRoomID.Metal_Slime_With_Log);
+					break;
+				case 2:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +2, roomY +1, roomZ +roomCenter, LadRoomID.Metal_Slime_With_Log);
+					break;
+				case 3:
+					LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomCenter, roomY +1, roomZ +2, LadRoomID.Metal_Slime_With_Log);
+					break;
+				}
 			}
 		}
 

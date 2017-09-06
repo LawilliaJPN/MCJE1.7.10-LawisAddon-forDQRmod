@@ -22,7 +22,7 @@ public class LadRoomID {
 	public static final int ICE_CAVE = 2600;
 	public static final int SPECIAL_01 = 4100;
 	public static final int SPECIAL_02 = 4200;
-	public static final int SPECIAL_03 = 4300;
+	public static final int SPECIAL_04 = 4400;
 	// その他のID（敵のスポーンに利用）
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;

@@ -18,8 +18,6 @@ import net.minecraft.world.World;
 public class LadRoomSpecial02 {
 	/*
 	 * DQRのブロックを利用した特殊な戦闘部屋(中層)
-	 *
-	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

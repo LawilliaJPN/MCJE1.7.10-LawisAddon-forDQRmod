@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 public class LadRoomIceCave {
 	/*
 	 * 氷の洞窟の戦闘部屋
-	 *
-	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();

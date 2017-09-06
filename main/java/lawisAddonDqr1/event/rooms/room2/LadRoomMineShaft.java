@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
+import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -15,8 +16,6 @@ import net.minecraft.world.World;
 public class LadRoomMineShaft {
 	/*
 	 * バニラの「廃坑」をモチーフにした戦闘部屋
-	 *
-	 * TODO リファクタリング
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -72,6 +71,9 @@ public class LadRoomMineShaft {
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
+
+		// 落下物対策
+		LadMeasuresAgainstPlayerSuffocation.measuresAgainstFallingObject(world, roomX, roomZ, roomWidth, roomWidth, roomY +roomHeight +1);
 
 		/* 空間 */
 		// 「オークの木材」の設置
@@ -281,6 +283,9 @@ public class LadRoomMineShaft {
 				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +2, LadRoomID.MINE_SHAFT);
 				LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidth -2, roomY +roomFloor1Y +2, roomZ +roomWidth -2, LadRoomID.MINE_SHAFT);
 			}
+			// 実績の取得
+			player.triggerAchievement(LadAchievementCore.eventSpider);
+
 		} else {
 			// 1階中央(共通50%)
 			if (rand.nextInt(2) == 0) {
