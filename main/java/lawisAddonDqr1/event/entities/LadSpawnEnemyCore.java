@@ -161,7 +161,6 @@ public class LadSpawnEnemyCore {
 		 * 以下、どの敵をスポーンさせるか決める処理
 		 * - - - - - - - - - - - - - - - - - - - */
 
-
 		/*
 		 * 上層 Y= 31～45
 		 */
@@ -190,7 +189,7 @@ public class LadSpawnEnemyCore {
 
 				if (r == 0) entity = new DqmEntityRippusu(world);
 				else if (r == 1) entity = new DqmEntityObakekinoko(world);
-				else if (r == 2) entity = new DqmEntityDragosuraimu(world);
+				else if (r == 2) entity = new DqmEntityWaraibukuro(world);
 				else if (r == 3) entity = new DqmEntityOomedama(world);
 				else if (r == 4) entity = new DqmEntityKirikabuobake(world);
 				else if (r == 5) entity = new DqmEntityPapetkozou(world);
@@ -270,16 +269,15 @@ public class LadSpawnEnemyCore {
 
 			// 「呪われた井戸」 Y=36～40 確定スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER +2) {
-				int r = rand.nextInt(4);
+				int r = rand.nextInt(3);
 
 				if (r == 0) entity = new DqmEntityAyasiikage(world);
 				else if (r == 1) entity = new DqmEntityGhost(world);
-				else if (r == 2) entity = new DqmEntityMeragosuto(world);
-				else if (r == 3) entity = new DqmEntityTutiwarasi(world);
+				else if (r == 2) entity = new DqmEntityTutiwarasi(world);
 
 			// 「呪われた井戸」 Y=36～40 変動スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED +2) {
-				int r = rand.nextInt(8);
+				int r = rand.nextInt(9);
 
 				if (r == 0) entity = new DqmEntityOnikozou(world);
 				else if (r == 1) entity = new DqmEntitySukippaa(world);
@@ -289,6 +287,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 5) entity = new DqmEntityDoronuba(world);
 				else if (r == 6) entity = new DqmEntityDokuroarai(world);
 				else if (r == 7) entity = new DqmEntityMadohando(world);
+				else if (r == 8) entity = new DqmEntityGaikotu(world);
 
 			// 「呪われた井戸」 Y=31～35 確定スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER +3) {
@@ -299,7 +298,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 2) entity = new DqmEntitySyado(world);
 				else if (r == 3) entity = new DqmEntityMetoroghost(world);
 
-			// 「呪われた井戸」 Y=36～40 変動スポーン
+			// 「呪われた井戸」 Y=31～35 変動スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED +3) {
 				int r = rand.nextInt(8);
 
@@ -345,7 +344,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 2) entity = new DqmEntityIkkakuusagi(world);
 				else if (r == 3) entity = new DqmEntityGizumoAZ(world);
 				else if (r == 4) entity = new DqmEntityGuntaigani(world);
-				else if (r == 5) entity = new DqmEntitySuraimutumuri(world);
+				else if (r == 5) entity = new DqmEntityOokiduti(world);
 				else if (r == 6) entity = new DqmEntitySunomon(world);
 				else if (r == 7) entity = new DqmEntitySibirekurage(world);
 				else if (r == 8) entity = new DqmEntityHoimisura(world);
@@ -417,11 +416,11 @@ public class LadSpawnEnemyCore {
 				else if (r == 4) entity = new DqmEntityGuntaigani(world);
 				else if (r == 5) entity = new DqmEntityGhost(world);
 				else if (r == 6) entity = new DqmEntityOokiduti(world);
-				else if (r == 7) entity = new DqmEntitySuraimutumuri(world);
+				else if (r == 7) entity = new DqmEntityGaikotu(world);
 				else if (r == 8) entity = new DqmEntitySunomon(world);
 				else if (r == 9) entity = new DqmEntitySibirekurage(world);
 				else if (r == 10) entity = new DqmEntityFaratto(world);
-				else if (r == 11) entity = new DqmEntityPurizunyan(world);
+				else if (r == 11) entity = new DqmEntityDucksbill(world);
 
 			// 氷原 Y=31～35
 			} else if (enemyGroup == LadRoomID.ICE_PLAINS +3) {

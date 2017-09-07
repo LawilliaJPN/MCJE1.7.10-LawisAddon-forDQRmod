@@ -169,7 +169,7 @@ public class LadEventHundler {
 		}
 
 		// コンフィグ：追加行動がオフの時は動作しない
-		if (LadConfigCore.isAdditionalAction) return;
+		if (!LadConfigCore.isAdditionalAction) return;
 
 		// DQRの敵を攻撃した時
 		if ((event.target instanceof DqmMobBase)) {
@@ -197,7 +197,7 @@ public class LadEventHundler {
 		}
 
 		// コンフィグ：追加行動がオフの時は動作しない
-		if (LadConfigCore.isAdditionalAction) return;
+		if (!LadConfigCore.isAdditionalAction) return;
 
 		// DQRの敵がダメージを受けた時
 		if ((event.entityLiving instanceof DqmMobBase)) {
