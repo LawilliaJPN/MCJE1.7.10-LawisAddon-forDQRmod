@@ -9,7 +9,7 @@ Mining Random Encounter for DQRmod (Minecraft Java Edition ver.1.7.10)
   
 ### 進捗(Progress)  
 * 上層(Y=31～45)：ほぼ完成  
-* 中層(Y=21～30)：仮実装、未完成  
+* 中層(Y=21～30)：仮実装/未完成  
 * 下層(Y=06～15)：未実装  
   
 ### 動作環境(Requirements)  
@@ -25,9 +25,8 @@ Mining Random Encounter for DQRmod (Minecraft Java Edition ver.1.7.10)
 ver.0.2.0：<https://github.com/LawilliaJPN/MCJE1.7.10-LawisAddon-forDQRmod/releases/tag/ver.0.2.0>  
   
 ## 関連リンク(Websights)  
-* 製作過程メモ(Blog)  
-<http://lawiss.com/minecraft-modding/archives/>  
+* modの攻略情報や製作過程(Blog)  
+<http://lawiss.com/minecraft-modding/mod001/>  
   
 * mod紹介動画～上層編～(Demonstration)  
 <https://www.youtube.com/watch?v=Lm6AhiUuoyY>  
-  
