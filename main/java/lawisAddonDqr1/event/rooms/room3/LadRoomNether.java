@@ -2,6 +2,7 @@ package lawisAddonDqr1.event.rooms.room3;
 
 import java.util.Random;
 
+import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
@@ -84,6 +85,9 @@ public class LadRoomNether {
 			player.addChatMessage(new ChatComponentTranslation("pillarType == " + pillarType));
 			player.addChatMessage(new ChatComponentTranslation("difOfRoom == " + LadRoomID.getDifOfRoom()));
 		}
+
+		// 実績の取得
+		player.triggerAchievement(LadAchievementCore.roomNether);
 
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成

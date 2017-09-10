@@ -215,7 +215,14 @@ public class LadRoomCore {
 		// Y=06～20（下層）
 		} else if (LadRoomID.getDifOfRoom() <= 7) {
 			if (!world.isRemote) {
-				LadRoomNether.setRoom(world, player);
+				switch (rand.nextInt(2)) {
+				case 0:
+					LadRoomNether.setRoom(world, player);
+					break;
+				case 1:
+					LadRoomEndPortal.setRoom(world, player);
+					break;
+				}
 			}
 		}
 

@@ -62,6 +62,7 @@ import dqr.entity.mobEntity.monsterMetaru.DqmEntityHagumeta;
 import dqr.entity.mobEntity.monsterMetaru.DqmEntityMetaruburazazu;
 import dqr.entity.mobEntity.monsterMetaru.DqmEntityMetasura;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAkumanosyo;
+import dqr.entity.mobEntity.monsterNight.DqmEntityAkumanotubo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAnimaruzonbi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityArumiraji;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAxedoragon;
@@ -70,6 +71,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityBakudanbebi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBakudaniwa;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBebisatan;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBehoimisuraimu;
+import dqr.entity.mobEntity.monsterNight.DqmEntityBehoimusuraimu;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBerobero;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBeronyaago;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBesuking;
@@ -79,8 +81,11 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityDesufuratta;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDokuyazukin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDoraki;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDorakima;
+import dqr.entity.mobEntity.monsterNight.DqmEntityDoroningyou;
+import dqr.entity.mobEntity.monsterNight.DqmEntityEnzeruslime;
 import dqr.entity.mobEntity.monsterNight.DqmEntityFgizumo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGaikotukensi;
+import dqr.entity.mobEntity.monsterNight.DqmEntityGenjutusi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGhost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHerughost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHgizumo;
@@ -92,10 +97,15 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityKirasuko;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMapetman;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMarinsuraimu;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMatango;
+import dqr.entity.mobEntity.monsterNight.DqmEntityMeijidoraki;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMeijikimera;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMeragosuto;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMetaruhantaken;
+import dqr.entity.mobEntity.monsterNight.DqmEntityMetaruraida;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMetoroghost;
+import dqr.entity.mobEntity.monsterNight.DqmEntityMinidemon;
+import dqr.entity.mobEntity.monsterNight.DqmEntityMokomokojuu;
+import dqr.entity.mobEntity.monsterNight.DqmEntityMrippusu;
 import dqr.entity.mobEntity.monsterNight.DqmEntityNightwalker;
 import dqr.entity.mobEntity.monsterNight.DqmEntityObakekyandoru;
 import dqr.entity.mobEntity.monsterNight.DqmEntityOdoruhouseki;
@@ -923,6 +933,42 @@ public class LadSpawnEnemyCore {
 				else if (r == 9) entity = new DqmEntitySumairurokku(world);
 				else if (r == 10) entity = new DqmEntityMeijikimera(world);
 				else if (r == 11) entity = new DqmEntityAxedoragon(world);
+
+
+			/* エンドポータル */
+			// 「エンドポータル」Y=16～20
+			} else if (enemyGroup == LadRoomID.END_PORTAL +6) {
+				int r = rand.nextInt(12);
+
+				if (r == 0) entity = new DqmEntitySumoruguru(world);
+				else if (r == 1) entity = new DqmEntitySupekutetto(world);
+				else if (r == 2) entity = new DqmEntityEnzeruslime(world);
+				else if (r == 3) entity = new DqmEntityMokomokojuu(world);
+				else if (r == 4) entity = new DqmEntityBuchunpa(world);
+				else if (r == 5) entity = new DqmEntityBehoimusuraimu(world);
+				else if (r == 6) entity = new DqmEntityDokuyazukin(world);
+				else if (r == 7) entity = new DqmEntityGenjutusi(world);
+				else if (r == 8) entity = new DqmEntityAkumanosyo(world);
+				else if (r == 9) entity = new DqmEntityMarinsuraimu(world);
+				else if (r == 10) entity = new DqmEntityMeijidoraki(world);
+				else if (r == 11) entity = new DqmEntityHitokuikibako(world);
+
+			// 「エンドポータル」Y=06～15
+			} else if (enemyGroup == LadRoomID.END_PORTAL +7) {
+				int r = rand.nextInt(12);
+
+				if (r == 0) entity = new DqmEntityDokuyazukin(world);
+				else if (r == 1) entity = new DqmEntityGenjutusi(world);
+				else if (r == 2) entity = new DqmEntityAkumanosyo(world);
+				else if (r == 3) entity = new DqmEntityMarinsuraimu(world);
+				else if (r == 4) entity = new DqmEntityMeijidoraki(world);
+				else if (r == 5) entity = new DqmEntityHitokuikibako(world);
+				else if (r == 6) entity = new DqmEntityOdoruhouseki(world);
+				else if (r == 7) entity = new DqmEntityDoroningyou(world);
+				else if (r == 8) entity = new DqmEntityMrippusu(world);
+				else if (r == 9) entity = new DqmEntityAkumanotubo(world);
+				else if (r == 10) entity = new DqmEntityMetaruraida(world);
+				else if (r == 11) entity = new DqmEntityMinidemon(world);
 			}
 		}
 
