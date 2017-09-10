@@ -7,10 +7,6 @@ import net.minecraft.world.World;
 public class LadRoomSpecial04 {
 	/*
 	 * 動画の番外編で製作した特殊な戦闘部屋(下層)
-	 *
-	 * TODO 部屋の生成
-	 * TODO 部屋のパターン作り
-	 * TODO スポーン設定
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		int roomX = (int)player.posX;			// 部屋の起点となるX座標
@@ -30,7 +26,7 @@ public class LadRoomSpecial04 {
 		roomZ -= roomCenter;
 
 		/* - - - - - - - - - -
-		 * 以下、部屋の生成
+		 * 以下、TODO 部屋の生成
 		 * - - - - - - - - - */
 
 		/* 空間 */
@@ -53,7 +49,11 @@ public class LadRoomSpecial04 {
 		}
 
 		/* - - - - - - - - - -
-		 * 以下、敵のスポーン
+		 * 以下、TODO 敵のスポーン
+		 * - - - - - - - - - */
+
+		/* - - - - - - - - - -
+		 * 以下、TODO 報酬
 		 * - - - - - - - - - */
 	}
 }

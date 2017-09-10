@@ -8,18 +8,23 @@ import net.minecraft.world.World;
 public class LadRoomID {
 	/* Room ID */
 	// 部屋の基本ID（部屋の生成や敵のスポーンに利用）
+	// 上層
 	public static final int VILLAGE_WELL = 1100;
 	public static final int WEAPON_SHOP = 1200;
 	public static final int DESERT_WELL = 1300;
 	public static final int ICE_PLAINS = 1400;
 	public static final int FOREST = 1500;
 	public static final int BEACH = 1600;
+	// 中層
 	public static final int PYRAMID = 2100;
 	public static final int MEDAL_KING = 2200;
 	public static final int MINE_SHAFT = 2300;
 	public static final int DAMA = 2400;
 	public static final int STRONGHOLD = 2500;
 	public static final int ICE_CAVE = 2600;
+	// 下層
+	public static final int NETHER = 3100;
+	// 特殊部屋
 	public static final int SPECIAL_01 = 4100;
 	public static final int SPECIAL_02 = 4200;
 	public static final int SPECIAL_04 = 4400;
@@ -61,9 +66,6 @@ public class LadRoomID {
 	/*
 	 * 破壊した「石ブロック」のY座標から、部屋の難易度を決定するメソッド。
 	 * （ランダムエンカウント形式で戦闘が起こる時は、こちらを利用）
-	 *
-	 * TODO 難易度設定方法の見直し（昼か夜かで変化する等の要素）
-	 * （デバッグのしやすさを考慮し、すべての部屋が揃うまでは、高度ごとにそのまま難易度が決まる状態に）
 	 */
 	public static void updateDifOfRoom(int y) {
 		int d = 0;
@@ -87,8 +89,6 @@ public class LadRoomID {
 	/*
 	 * 経過日数から、部屋の難易度を決定するメソッド
 	 * コンフィグ：ベッドペナルティがオンの時に、目覚めた時に生成する部屋の難易度
-	 *
-	 * TODO 難易度設定方法の見直し（難易度調整が必要）
 	 */
 	public static void updateDifOfRoom(World world) {
 		int d = 0;

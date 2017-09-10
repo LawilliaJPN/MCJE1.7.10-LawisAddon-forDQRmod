@@ -2,7 +2,6 @@ package lawisAddonDqr1.event.rooms;
 
 import java.util.Random;
 
-import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.api.event.LadSetBattleRoomsEvent;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
@@ -20,13 +19,13 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
 import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
+import lawisAddonDqr1.event.rooms.room3.LadRoomNether;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial02;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial04;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -91,6 +90,9 @@ public class LadRoomCore {
 					break;
 				case LadRoomID.ICE_CAVE:
 					LadRoomIceCave.setRoom(world, player);
+					break;
+				case LadRoomID.NETHER:
+					LadRoomNether.setRoom(world, player);
 					break;
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
@@ -206,11 +208,11 @@ public class LadRoomCore {
 				}
 			}
 
-		// Y=06～20（下層） TODO Y=06～20の戦闘部屋の実装
+		// Y=06～20（下層）
 		} else if (LadRoomID.getDifOfRoom() <= 7) {
-			player.addChatMessage(new ChatComponentTranslation("「" + LawisAddonDQR01.MOD_NAME + " ver." +LawisAddonDQR01.MOD_VERSION + "」は、"));
-			player.addChatMessage(new ChatComponentTranslation("開発途中のものです。"));
-			player.addChatMessage(new ChatComponentTranslation("Y=06～20の戦闘部屋は実装されていません。"));
+			if (!world.isRemote) {
+				LadRoomNether.setRoom(world, player);
+			}
 		}
 
 		// コンフィグ：採掘速度低下がオンの時、「採掘速度低下Ⅱ」のステータスを付与

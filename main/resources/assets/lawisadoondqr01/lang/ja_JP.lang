@@ -41,6 +41,8 @@ achievement.eventMedalKing=メダル王
 achievement.eventSpider=洞窟グモ大量発生
 achievement.eventPriest=ダーマ神官
 
+achievement.roomNether=ネザー
+
 // 実績説明
 achievement.roomSpecial01.desc=上層の特殊な部屋で戦う
 achievement.roomBeach.desc=上層の「砂浜」で戦う
@@ -65,4 +67,6 @@ achievement.roomStronghold.desc=中層の「要塞」で戦う
 achievement.eventMedalKing.desc=「メダル王の部屋」のイベント
 achievement.eventSpider.desc=「廃坑」のイベント
 achievement.eventPriest.desc=「ダーマ神殿」のイベント
+
+achievement.roomNether.desc=下層の「ネザー」で戦う
 

@@ -41,6 +41,8 @@ achievement.eventMedalKing=Medal King
 achievement.eventSpider=Outbreak of Spider
 achievement.eventPriest=Dama Priest
 
+achievement.roomNether=Nether
+
 // Achievement Description
 achievement.roomSpecial01.desc=the battle room of upper-layer
 achievement.roomBeach.desc=the battle room of upper-layer
@@ -65,3 +67,5 @@ achievement.roomStronghold.desc=the battle room of middle-layer
 achievement.eventMedalKing.desc=the event of Room of Medal King
 achievement.eventSpider.desc=the event of Mine Shaft
 achievement.eventPriest.desc=the event of Dama
+
+achievement.roomNether.desc=the battle room of lower-layer
