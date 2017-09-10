@@ -19,6 +19,7 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
 import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
+import lawisAddonDqr1.event.rooms.room3.LadRoomEndPortal;
 import lawisAddonDqr1.event.rooms.room3.LadRoomNether;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial02;
@@ -93,6 +94,9 @@ public class LadRoomCore {
 					break;
 				case LadRoomID.NETHER:
 					LadRoomNether.setRoom(world, player);
+					break;
+				case LadRoomID.END_PORTAL:
+					LadRoomEndPortal.setRoom(world, player);
 					break;
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);

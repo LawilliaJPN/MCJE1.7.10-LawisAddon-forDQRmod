@@ -121,4 +121,11 @@ public class LadDecorationCross {
 		world.setBlock(x +interval, y, z -interval, block, meta, 2);
 		world.setBlock(x +interval, y, z +interval, block, meta, 2);
 	}
+
+	public static void setFourBlockSlantingToAir(World world, int x, int z, int y, int interval) {
+		world.setBlockToAir(x -interval, y, z -interval);
+		world.setBlockToAir(x -interval, y, z +interval);
+		world.setBlockToAir(x +interval, y, z -interval);
+		world.setBlockToAir(x +interval, y, z +interval);
+	}
 }

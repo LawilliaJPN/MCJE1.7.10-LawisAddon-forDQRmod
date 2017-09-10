@@ -54,4 +54,60 @@ public class LadDecorationDeteriorated {
 			}
 		}
 	}
+
+	// 石レンガをヒビ・コケの有無ランダムで設置する
+	public static void setStoneBrick(World world, int x, int y, int z) {
+		Random rand = new Random();
+		switch (rand.nextInt(4)) {
+		case 0:
+			world.setBlock(x, y, z, Blocks.stonebrick, 1, 2);
+			break;
+		case 1:
+			world.setBlock(x, y, z, Blocks.stonebrick, 2, 2);
+			break;
+		default:
+			world.setBlock(x, y, z, Blocks.stonebrick);
+			break;
+		}
+	}
+	public static void fillStoneBrick(World world, int x1, int x2, int z1, int z2, int y1, int y2) {
+		for (int x = x1; x <= x2; x++) {
+			for (int z = z1; z <= z2; z++) {
+				for (int y = y1; y <= y2; y++) {
+					setStoneBrick(world, x, y, z);
+				}
+			}
+		}
+	}
+	public static void fillStoneBrickXZ(World world, int x1, int x2, int z1, int z2, int y) {
+		for (int x = x1; x <= x2; x++) {
+			for (int z = z1; z <= z2; z++) {
+				setStoneBrick(world, x, y, z);
+			}
+		}
+	}
+	public static void setStoneBrickEnclosure(World world, int x1, int x2, int z1, int z2, int y) {
+		for (int x = x1; x <= x2; x++) {
+			setStoneBrick(world, x, y, z1);
+			setStoneBrick(world, x, y, z2);
+		}
+
+		for (int z = z1 +1; z <= z2 -1; z++) {
+			setStoneBrick(world, x1, y, z);
+			setStoneBrick(world, x2, y, z);
+		}
+	}
+	public static void setStoneBrickWall(World world, int x1, int x2, int z1, int z2, int y1, int y2) {
+		for (int y = y1; y <= y2; y++){
+			for (int x = x1; x <= x2; x++) {
+				setStoneBrick(world, x, y, z1);
+				setStoneBrick(world, x, y, z2);
+			}
+
+			for (int z = z1 +1; z <= z2 -1; z++) {
+				setStoneBrick(world, x1, y, z);
+				setStoneBrick(world, x2, y, z);
+			}
+		}
+	}
 }
