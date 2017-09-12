@@ -176,7 +176,7 @@ public class LadEventHundler {
 			// 敵がオーバーワールドのY=45以下にいた場合
 			if ((event.target.worldObj.provider.dimensionId == 0) && (event.target.posY <= 45)) {
 				// 周囲のブロックを破壊する
-				LadMeasuresAgainstEnemySuffocation.enemyBreakBlock((EntityLivingBase) event.target, event.entityPlayer);
+				LadMeasuresAgainstEnemySuffocation.enemyBreakBlock((DqmMobBase)event.target, event.entityPlayer);
 			}
 		}
 	}
@@ -206,11 +206,13 @@ public class LadEventHundler {
 			// 敵がオーバーワールドのY=45以下にいた場合
 			if ((event.entityLiving.worldObj.provider.dimensionId == 0) && (event.entityLiving.posY <= 45)) {
 				Random rand = new Random();
+				double mY = rand.nextDouble();
+				if (mY < 0.3D) mY = 0.3D;
 
 				// 炎系のダメージを受けた時
 				if ((event.source == DamageSource.inFire) || (event.source == DamageSource.lava)) {
 					if (event.ammount > 0) {
-						enemy.motionY = 0.6;
+						enemy.motionY = mY;
 						enemy.motionX += rand.nextDouble() *1 -0.5D;
 						enemy.motionZ += rand.nextDouble() *1 -0.5D;
 					}
@@ -224,7 +226,7 @@ public class LadEventHundler {
 
 				// 壁の中で窒息した時
 				if (event.source == DamageSource.inWall) {
-					enemy.motionY = 0.6;
+					enemy.motionY = mY;
 					enemy.motionX += rand.nextDouble() *2 -1;
 					enemy.motionZ += rand.nextDouble() *2 -1;
 				}
