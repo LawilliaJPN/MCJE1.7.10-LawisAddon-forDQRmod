@@ -25,6 +25,7 @@ public class LadRoomID {
 	// 下層
 	public static final int NETHER = 3100;
 	public static final int END_PORTAL = 3200;
+	public static final int BOTTOM_OF_OVERWORLD = 3300;
 	// 特殊部屋
 	public static final int SPECIAL_01 = 4100;
 	public static final int SPECIAL_02 = 4200;

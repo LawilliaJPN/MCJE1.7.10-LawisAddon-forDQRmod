@@ -19,6 +19,7 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomMedalKing;
 import lawisAddonDqr1.event.rooms.room2.LadRoomMineShaft;
 import lawisAddonDqr1.event.rooms.room2.LadRoomPyramid;
 import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
+import lawisAddonDqr1.event.rooms.room3.LadRoomBottomOfOverWorld;
 import lawisAddonDqr1.event.rooms.room3.LadRoomEndPortal;
 import lawisAddonDqr1.event.rooms.room3.LadRoomNether;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
@@ -97,6 +98,9 @@ public class LadRoomCore {
 					break;
 				case LadRoomID.END_PORTAL:
 					LadRoomEndPortal.setRoom(world, player);
+					break;
+				case LadRoomID.BOTTOM_OF_OVERWORLD:
+					LadRoomBottomOfOverWorld.setRoom(world, player);
 					break;
 				case LadRoomID.SPECIAL_01:
 					LadRoomSpecial01.setRoom(world, player);
@@ -215,12 +219,15 @@ public class LadRoomCore {
 		// Y=06～20（下層）
 		} else if (LadRoomID.getDifOfRoom() <= 7) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(2)) {
+				switch (rand.nextInt(3)) {
 				case 0:
 					LadRoomNether.setRoom(world, player);
 					break;
 				case 1:
 					LadRoomEndPortal.setRoom(world, player);
+					break;
+				case 2:
+					LadRoomBottomOfOverWorld.setRoom(world, player);
 					break;
 				}
 			}

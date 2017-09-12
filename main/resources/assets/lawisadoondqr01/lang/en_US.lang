@@ -43,6 +43,7 @@ achievement.eventPriest=Dama Priest
 
 achievement.roomNether=Nether
 achievement.roomEndPortal=End Portal
+achievement.roomBottom=Bottom of Overworld
 
 // Achievement Description
 achievement.roomSpecial01.desc=the battle room of upper-layer
@@ -71,3 +72,4 @@ achievement.eventPriest.desc=the event of Dama
 
 achievement.roomNether.desc=the battle room of lower-layer
 achievement.roomEndPortal.desc=the battle room of lower-layer
+achievement.roomBottom.desc=the battle room of lower-layer

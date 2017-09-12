@@ -19,6 +19,9 @@ public class LadMeasuresAgainstEnemySuffocation {
 	 * 周囲のブロックを破壊する
 	 */
 	public static void enemyBreakBlock(DqmMobBase enemy, EntityPlayer player) {
+		// 敵に止めを刺した攻撃では、ブロックは破壊されない
+		if (!(enemy.isEntityAlive())) return;
+
 		World world = enemy.worldObj;
 		Random rand = new Random();
 

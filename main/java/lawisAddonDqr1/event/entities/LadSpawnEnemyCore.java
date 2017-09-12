@@ -76,6 +76,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityBerobero;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBeronyaago;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBesuking;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBuchunpa;
+import dqr.entity.mobEntity.monsterNight.DqmEntityBuraddihando;
 import dqr.entity.mobEntity.monsterNight.DqmEntityButtizukinya;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDesufuratta;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDokuyazukin;
@@ -87,12 +88,14 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityFgizumo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGaikotukensi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGenjutusi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGhost;
+import dqr.entity.mobEntity.monsterNight.DqmEntityGorotuki;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHerughost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHgizumo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHitokuiga;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHoroghost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHyouganmajin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityJeriman;
+import dqr.entity.mobEntity.monsterNight.DqmEntityKirapan2;
 import dqr.entity.mobEntity.monsterNight.DqmEntityKirasuko;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMapetman;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMarinsuraimu;
@@ -112,6 +115,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityOdoruhouseki;
 import dqr.entity.mobEntity.monsterNight.DqmEntityPinkmomon;
 import dqr.entity.mobEntity.monsterNight.DqmEntityRaimusuraimu;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySamayoutamasii;
+import dqr.entity.mobEntity.monsterNight.DqmEntitySamayouyoroi;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySibireageha;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySibiredanbira;
 import dqr.entity.mobEntity.monsterNight.DqmEntitySkullgaroo;
@@ -125,6 +129,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntitySyado;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTahodoraki;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTomosibikozou;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTonburero;
+import dqr.entity.mobEntity.monsterNight.DqmEntityTororu;
 import dqr.entity.mobEntity.monsterNight.DqmEntityTutiwarasi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityUmiusi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityYouganmajin;
@@ -904,7 +909,7 @@ public class LadSpawnEnemyCore {
 			if (enemyGroup == LadRoomID.NETHER +6) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityBakudanbebi(world);
+				if (r == 0) entity = new DqmEntityBakudaniwa(world);
 				else if (r == 1) entity = new DqmEntityHgizumo(world);
 				else if (r == 2) entity = new DqmEntitySumoruguru(world);
 				else if (r == 3) entity = new DqmEntitySamayoutamasii(world);
@@ -927,7 +932,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 3) entity = new DqmEntityBebisatan(world);
 				else if (r == 4) entity = new DqmEntityMapetman(world);
 				else if (r == 5) entity = new DqmEntitySuraimuburesu(world);
-				else if (r == 6) entity = new DqmEntityOdoruhouseki(world);
+				else if (r == 6) entity = new DqmEntityBakudaniwa(world);
 				else if (r == 7) entity = new DqmEntityMetaruhantaken(world);
 				else if (r == 8) entity = new DqmEntitySkullgaroo(world);
 				else if (r == 9) entity = new DqmEntitySumairurokku(world);
@@ -969,6 +974,41 @@ public class LadSpawnEnemyCore {
 				else if (r == 9) entity = new DqmEntityAkumanotubo(world);
 				else if (r == 10) entity = new DqmEntityMetaruraida(world);
 				else if (r == 11) entity = new DqmEntityMinidemon(world);
+
+			/* 地底 */
+			// 「地底」Y=16～20
+			} else if (enemyGroup == LadRoomID.BOTTOM_OF_OVERWORLD +6) {
+				int r = rand.nextInt(12);
+
+				if (r == 0) entity = new DqmEntitySupekutetto(world);
+				else if (r == 1) entity = new DqmEntityHoroghost(world);
+				else if (r == 2) entity = new DqmEntitySamayoutamasii(world);
+				else if (r == 3) entity = new DqmEntityNightwalker(world);
+				else if (r == 4) entity = new DqmEntityHerughost(world);
+				else if (r == 5) entity = new DqmEntityTomosibikozou(world);
+				else if (r == 6) entity = new DqmEntityBakudaniwa(world);
+				else if (r == 7) entity = new DqmEntityBeronyaago(world);
+				else if (r == 8) entity = new DqmEntitySamayouyoroi(world);
+				else if (r == 9) entity = new DqmEntityBuraddihando(world);
+				else if (r == 10) entity = new DqmEntityYouganmajin(world);
+				else if (r == 11) entity = new DqmEntityMapetman(world);
+
+			// 「地底」Y=06～15
+			} else if (enemyGroup == LadRoomID.BOTTOM_OF_OVERWORLD +7) {
+				int r = rand.nextInt(12);
+
+				if (r == 0) entity = new DqmEntityTomosibikozou(world);
+				else if (r == 1) entity = new DqmEntityBakudaniwa(world);
+				else if (r == 2) entity = new DqmEntityBeronyaago(world);
+				else if (r == 3) entity = new DqmEntitySamayouyoroi(world);
+				else if (r == 4) entity = new DqmEntityBuraddihando(world);
+				else if (r == 5) entity = new DqmEntityYouganmajin(world);
+				else if (r == 6) entity = new DqmEntityMapetman(world);
+				else if (r == 7) entity = new DqmEntityGorotuki(world);
+				else if (r == 8) entity = new DqmEntityTororu(world);
+				else if (r == 9) entity = new DqmEntitySumairurokku(world);
+				else if (r == 10) entity = new DqmEntityAxedoragon(world);
+				else if (r == 11) entity = new DqmEntityKirapan2(world);
 			}
 		}
 

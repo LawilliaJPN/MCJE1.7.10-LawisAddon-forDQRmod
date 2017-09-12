@@ -133,7 +133,7 @@ public class LadRoomNether {
 			LadFillBlock.fillBlock(world, fBlock, roomX, roomZ, roomWidth, roomY -2, 2);
 		}
 
-		//壁・天井・中の空気
+		// 壁・天井・中の空気
 		LadDecorationPillar.setWall(world, eBlock, roomX -1, roomZ -1, roomWidth +2, roomY -2, roomHeight +2);
 		LadFillBlock.fillBlockXZ(world, eBlock, roomX -1, roomZ -1, roomWidth +2, roomY +roomHeight);
 		LadFillBlock.fillBlockToAir(world, roomX, roomZ, roomWidth, roomY, roomHeight -1);

@@ -207,7 +207,8 @@ public class LadEventHundler {
 			if ((event.entityLiving.worldObj.provider.dimensionId == 0) && (event.entityLiving.posY <= 45)) {
 				Random rand = new Random();
 				double mY = rand.nextDouble();
-				if (mY < 0.3D) mY = 0.3D;
+				if (event.entityLiving.posY <= 30) mY += 0.2D;
+				if (mY < 0.5D) mY = 0.5D;
 
 				// 炎系のダメージを受けた時
 				if ((event.source == DamageSource.inFire) || (event.source == DamageSource.lava)) {

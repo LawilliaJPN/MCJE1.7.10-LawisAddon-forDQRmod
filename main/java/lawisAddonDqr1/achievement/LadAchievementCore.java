@@ -53,6 +53,7 @@ public class LadAchievementCore {
     // 下層
     public static Achievement roomNether;
     public static Achievement roomEndPortal;
+    public static Achievement roomBottom;
 
     /*
      * 実装関連の追加
@@ -88,6 +89,7 @@ public class LadAchievementCore {
 		// 下層
 		roomNether = new Achievement("roomNether", "roomNether", 1, 4, Blocks.netherrack, null).registerStat();
 		roomEndPortal = new Achievement("roomEndPortal", "roomEndPortal", 2, 4, Blocks.end_portal_frame, null).registerStat();
+		roomBottom = new Achievement("roomBottom", "roomBottom", 3, 4, Blocks.obsidian, null).registerStat();
 
 		/* 実績ページの追加 */
 		AchievementPage.registerAchievementPage(new AchievementPage("MR-Encounter for DQRmod", new Achievement[]{
@@ -95,7 +97,7 @@ public class LadAchievementCore {
 				eventAnimal, eventZombie, eventShop,
 				roomDama, roomIceCave, roomMedalKing, roomMineShaft, roomPyramid, roomStronghold,
 				eventMedalKing, eventSpider, eventPriest,
-				roomNether, roomEndPortal,
+				roomNether, roomEndPortal, roomBottom,
 				roomSpecial01, roomSpecial02
 				}));
 	}

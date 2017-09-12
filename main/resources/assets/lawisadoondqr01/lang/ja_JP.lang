@@ -43,7 +43,7 @@ achievement.eventPriest=ダーマ神官
 
 achievement.roomNether=ネザー
 achievement.roomEndPortal=エンドポータル
-
+achievement.roomBottom=地底
 
 // 実績説明
 achievement.roomSpecial01.desc=上層の特殊な部屋で戦う
@@ -72,4 +72,4 @@ achievement.eventPriest.desc=「ダーマ神殿」のイベント
 
 achievement.roomNether.desc=下層の「ネザー」で戦う
 achievement.roomEndPortal.desc=下層の「エンドポータル」で戦う
-
+achievement.roomBottom.desc=下層の「地底」で戦う
