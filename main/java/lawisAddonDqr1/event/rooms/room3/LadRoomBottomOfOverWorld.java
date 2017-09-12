@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class LadRoomBottomOfOverWorld {
 	/*
-	 * ネザーの戦闘部屋
+	 * 地底の戦闘部屋
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
