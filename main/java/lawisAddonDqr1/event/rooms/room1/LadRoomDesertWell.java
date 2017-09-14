@@ -224,10 +224,10 @@ public class LadRoomDesertWell {
 
 			// 干ばつパターン
 			if ((roomType == 2) || (roomType == 3)) {
-				if ((rand.nextInt(8) == 0) && (LadAddons.isBopLoaded())) {
+				if ((roomType == 3) && (rand.nextInt(4) == 0) && (LadAddons.isBopLoaded())) {
 					try {
 						// 井戸の中に「流砂」を敷く
-						LadDecorationFloor.setBlockAndAirCross(world, BOPCBlocks.mud, roomX +roomCenter, roomY -1, roomZ +roomCenter);
+						LadDecorationFloor.setBlockAndAirCross(world, BOPCBlocks.mud, 1, roomX +roomCenter, roomY -1, roomZ +roomCenter);
 					} catch (Throwable t) {
 						LawisAddonDQR01.logger.warn("Failed to load BoP");
 					}

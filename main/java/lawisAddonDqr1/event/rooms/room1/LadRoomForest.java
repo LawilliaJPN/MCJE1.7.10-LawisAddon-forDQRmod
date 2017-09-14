@@ -265,6 +265,11 @@ public class LadRoomForest {
 		for (int i = 0; i <= treeHeight+2; i++) {
 			world.setBlock(x, y +i, z, Blocks.log, meta, 2);
 		}
+
+		/* ジャックオランタン */
+		if (rand.nextInt(64) == 0) {
+			world.setBlock(x, y +treeHeight -1, z, Blocks.lit_pumpkin, rand.nextInt(4), 2);
+		}
 	}
 	/*
 	 * 葉を設置メソッド

@@ -44,7 +44,7 @@ public class LadMeasuresAgainstPlayerSuffocation {
 				Block block = world.getBlock(x, roomCeilingY, z);
 
 				if ((block.isAir(world, x, roomCeilingY, z)) || (block instanceof BlockLiquid) || (block instanceof BlockFalling)) {
-					world.setBlock(x, roomCeilingY, z, Blocks.stone);
+					world.setBlock(x, roomCeilingY, z, Blocks.cobblestone);
 				}
 			}
 		}
