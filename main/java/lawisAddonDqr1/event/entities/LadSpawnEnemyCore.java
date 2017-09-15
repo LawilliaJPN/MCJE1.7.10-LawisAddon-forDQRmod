@@ -14,6 +14,7 @@ import dqr.entity.mobEntity.monsterDay.DqmEntityDorozara;
 import dqr.entity.mobEntity.monsterDay.DqmEntityDoruido;
 import dqr.entity.mobEntity.monsterDay.DqmEntityDragosuraimu;
 import dqr.entity.mobEntity.monsterDay.DqmEntityDucksbill;
+import dqr.entity.mobEntity.monsterDay.DqmEntityEbiruapple;
 import dqr.entity.mobEntity.monsterDay.DqmEntityFaratto;
 import dqr.entity.mobEntity.monsterDay.DqmEntityGaikotu;
 import dqr.entity.mobEntity.monsterDay.DqmEntityGizumoAZ;
@@ -55,6 +56,7 @@ import dqr.entity.mobEntity.monsterDay.DqmEntitySuraimutawa;
 import dqr.entity.mobEntity.monsterDay.DqmEntitySuraimutumuri;
 import dqr.entity.mobEntity.monsterDay.DqmEntityTogebouzu;
 import dqr.entity.mobEntity.monsterDay.DqmEntityTukaima;
+import dqr.entity.mobEntity.monsterDay.DqmEntityUzusioking;
 import dqr.entity.mobEntity.monsterDay.DqmEntityWaraibukuro;
 import dqr.entity.mobEntity.monsterDay.DqmEntityZinmentyou;
 import dqr.entity.mobEntity.monsterDay.DqmEntityZukkinya;
@@ -62,7 +64,6 @@ import dqr.entity.mobEntity.monsterMetaru.DqmEntityHagumeta;
 import dqr.entity.mobEntity.monsterMetaru.DqmEntityMetaruburazazu;
 import dqr.entity.mobEntity.monsterMetaru.DqmEntityMetasura;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAkumanosyo;
-import dqr.entity.mobEntity.monsterNight.DqmEntityAkumanotubo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAnimaruzonbi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityArumiraji;
 import dqr.entity.mobEntity.monsterNight.DqmEntityAxedoragon;
@@ -78,6 +79,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityBesuking;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBuchunpa;
 import dqr.entity.mobEntity.monsterNight.DqmEntityBuraddihando;
 import dqr.entity.mobEntity.monsterNight.DqmEntityButtizukinya;
+import dqr.entity.mobEntity.monsterNight.DqmEntityDansunidoru;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDesufuratta;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDokuyazukin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityDoraki;
@@ -86,6 +88,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityDoroningyou;
 import dqr.entity.mobEntity.monsterNight.DqmEntityEnzeruslime;
 import dqr.entity.mobEntity.monsterNight.DqmEntityFgizumo;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGaikotukensi;
+import dqr.entity.mobEntity.monsterNight.DqmEntityGappurin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGenjutusi;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGhost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityGorotuki;
@@ -95,6 +98,7 @@ import dqr.entity.mobEntity.monsterNight.DqmEntityHitokuiga;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHoroghost;
 import dqr.entity.mobEntity.monsterNight.DqmEntityHyouganmajin;
 import dqr.entity.mobEntity.monsterNight.DqmEntityJeriman;
+import dqr.entity.mobEntity.monsterNight.DqmEntityKingsura;
 import dqr.entity.mobEntity.monsterNight.DqmEntityKirapan2;
 import dqr.entity.mobEntity.monsterNight.DqmEntityKirasuko;
 import dqr.entity.mobEntity.monsterNight.DqmEntityMapetman;
@@ -218,9 +222,9 @@ public class LadSpawnEnemyCore {
 				else if (r == 6) entity = new DqmEntitySuraimutawa(world);
 				else if (r == 7) entity = new DqmEntityFaratto(world);
 				else if (r == 8) entity = new DqmEntityOokutibasi(world);
-				else if (r == 9) entity = new DqmEntityDorakima(world);
+				else if (r == 9) entity = new DqmEntityTogebouzu(world);
 				else if (r == 10) entity = new DqmEntityItamogu(world);
-				else if (r == 11) entity = new DqmEntityHitokuiga(world);
+				else if (r == 11) entity = new DqmEntityHoimisura(world);
 
 			// 森林 Y=31～35
 			} else if (enemyGroup == LadRoomID.FOREST +3) {
@@ -229,7 +233,7 @@ public class LadSpawnEnemyCore {
 				if (r == 0) entity = new DqmEntityPapetkozou(world);
 				else if (r == 1) entity = new DqmEntitySuraimutawa(world);
 				else if (r == 2) entity = new DqmEntityFaratto(world);
-				else if (r == 3) entity = new DqmEntityDorakima(world);
+				else if (r == 3) entity = new DqmEntityHoimisura(world);
 				else if (r == 4) entity = new DqmEntityBurauni(world);
 				else if (r == 5) entity = new DqmEntityRiripat(world);
 				else if (r == 6) entity = new DqmEntityOokutibasi(world);
@@ -237,7 +241,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 8) entity = new DqmEntityHitokuiga(world);
 				else if (r == 9) entity = new DqmEntityTukaima(world);
 				else if (r == 10) entity = new DqmEntitySibireageha(world);
-				else if (r == 11) entity = new DqmEntityMatango(world);
+				else if (r == 11) entity = new DqmEntityEbiruapple(world);
 
 			// 森林 「友好動物スポーンパターン」
 			} else if (enemyGroup == LadRoomID.FOREST) {
@@ -276,7 +280,7 @@ public class LadSpawnEnemyCore {
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL +3) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityOomedama(world);
+				if (r == 0) entity = new DqmEntityUzusioking(world);
 				else if (r == 1) entity = new DqmEntityDokuroarai(world);
 				else if (r == 2) entity = new DqmEntityPapetkozou(world);
 				else if (r == 3) entity = new DqmEntityMadohando(world);
@@ -286,8 +290,8 @@ public class LadSpawnEnemyCore {
 				else if (r == 7) entity = new DqmEntityHitokuiga(world);
 				else if (r == 8) entity = new DqmEntityRaimusuraimu(world);
 				else if (r == 9) entity = new DqmEntitySibireageha(world);
-				else if (r == 10) entity = new DqmEntityMatango(world);
-				else if (r == 11) entity = new DqmEntityKirasuko(world);
+				else if (r == 10) entity = new DqmEntityBuchunpa(world);
+				else if (r == 11) entity = new DqmEntityUmiusi(world);
 
 			// 「呪われた井戸」 Y=36～40 確定スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER +2) {
@@ -316,18 +320,19 @@ public class LadSpawnEnemyCore {
 
 			// 「呪われた井戸」 Y=31～35 確定スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED_ON_WATER +3) {
-				int r = rand.nextInt(3);
+				int r = rand.nextInt(4);
 
 				if (r == 0) entity = new DqmEntityGhost(world);
 				else if (r == 1) entity = new DqmEntityTutiwarasi(world);
 				else if (r == 2) entity = new DqmEntityMeragosuto(world);
+				else if (r == 3) entity = new DqmEntityMetoroghost(world);
 
 			// 「呪われた井戸」 Y=31～35 変動スポーン
 			} else if (enemyGroup == LadRoomID.VILLAGE_WELL_HAS_CURSED +3) {
 				int r = rand.nextInt(12);
 
 				if (r == 0) entity = new DqmEntityGhost(world);
-				else if (r == 1) entity = new DqmEntityKirikabuobake(world);
+				else if (r == 1) entity = new DqmEntityMetoroghost(world);
 				else if (r == 2) entity = new DqmEntityDokuroarai(world);
 				else if (r == 3) entity = new DqmEntityMadohando(world);
 				else if (r == 4) entity = new DqmEntityDoronuba(world);
@@ -370,10 +375,10 @@ public class LadSpawnEnemyCore {
 				if (r == 0) entity = new DqmEntitySimasimacat(world);
 				else if (r == 1) entity = new DqmEntityBigguhatto(world);
 				else if (r == 2) entity = new DqmEntityIkkakuusagi(world);
-				else if (r == 3) entity = new DqmEntityGizumoAZ(world);
+				else if (r == 3) entity = new DqmEntityMomonja(world);
 				else if (r == 4) entity = new DqmEntityGuntaigani(world);
 				else if (r == 5) entity = new DqmEntityOokiduti(world);
-				else if (r == 6) entity = new DqmEntitySunomon(world);
+				else if (r == 6) entity = new DqmEntityBubsura(world);
 				else if (r == 7) entity = new DqmEntitySibirekurage(world);
 				else if (r == 8) entity = new DqmEntityHoimisura(world);
 				else if (r == 9) entity = new DqmEntitySuraimutawa(world);
@@ -384,8 +389,8 @@ public class LadSpawnEnemyCore {
 			} else if (enemyGroup == LadRoomID.BEACH +3) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityOokiduti(world);
-				else if (r == 1) entity = new DqmEntitySunomon(world);
+				if (r == 0) entity = new DqmEntityUzusioking(world);
+				else if (r == 1) entity = new DqmEntityPurizunyan(world);
 				else if (r == 2) entity = new DqmEntitySibirekurage(world);
 				else if (r == 3) entity = new DqmEntityHoimisura(world);
 				else if (r == 4) entity = new DqmEntitySuraimutawa(world);
@@ -395,7 +400,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 8) entity = new DqmEntitySuraimutumuri(world);
 				else if (r == 9) entity = new DqmEntityRaimusuraimu(world);
 				else if (r == 10) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 11) entity = new DqmEntityKirasuko(world);
+				else if (r == 11) entity = new DqmEntityUmiusi(world);
 
 			/* 砂漠の井戸 */
 			// 砂漠の井戸 Y=41～45
@@ -412,7 +417,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 7) entity = new DqmEntityOnikozou(world);
 				else if (r == 8) entity = new DqmEntityDoraki(world);
 				else if (r == 9) entity = new DqmEntityGizumoAZ(world);
-				else if (r == 10) entity = new DqmEntityGhost(world);
+				else if (r == 10) entity = new DqmEntityAyasiikage(world);
 				else if (r == 11) entity = new DqmEntityOokiduti(world);
 
 			// 砂漠の井戸 Y=31～35
@@ -425,12 +430,12 @@ public class LadSpawnEnemyCore {
 				else if (r == 3) entity = new DqmEntitySabotenboru(world);
 				else if (r == 4) entity = new DqmEntitySirudokozou(world);
 				else if (r == 5) entity = new DqmEntitySupini(world);
-				else if (r == 6) entity = new DqmEntityGaikotu(world);
+				else if (r == 6) entity = new DqmEntityUzusioking(world);
 				else if (r == 7) entity = new DqmEntityTutiwarasi(world);
 				else if (r == 8) entity = new DqmEntityRaimusuraimu(world);
 				else if (r == 9) entity = new DqmEntityObakeumiusi(world);
 				else if (r == 10) entity = new DqmEntitySuraimubogu(world);
-				else if (r == 11) entity = new DqmEntityKirasuko(world);
+				else if (r == 11) entity = new DqmEntityDragosuraimu(world);
 
 			/* 氷原 */
 			// 氷原 Y=36～40
@@ -455,7 +460,7 @@ public class LadSpawnEnemyCore {
 				int r = rand.nextInt(12);
 
 				if (r == 0) entity = new DqmEntityGhost(world);
-				else if (r == 1) entity = new DqmEntityOokiduti(world);
+				else if (r == 1) entity = new DqmEntityPurizunyan(world);
 				else if (r == 2) entity = new DqmEntitySunomon(world);
 				else if (r == 3) entity = new DqmEntitySibirekurage(world);
 				else if (r == 4) entity = new DqmEntityHoimisura(world);
@@ -470,11 +475,12 @@ public class LadSpawnEnemyCore {
 			/* 武器屋 */
 			// 武器屋 Y=36～40 確定スポーン
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER +2) {
-				int r = rand.nextInt(3);
+				int r = rand.nextInt(4);
 
 				if (r == 0) entity = new DqmEntityItamogu(world);
 				else if (r == 1) entity = new DqmEntityOokiduti(world);
 				else if (r == 2) entity = new DqmEntityHitokuisaberu(world);
+				else if (r == 3) entity = new DqmEntitySukippaa(world);
 
 			// 武器屋 Y=36～40 変動スポーン
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP +2) {
@@ -490,14 +496,14 @@ public class LadSpawnEnemyCore {
 				else if (r == 7) entity = new DqmEntityBurauni(world);
 				else if (r == 8) entity = new DqmEntityRiripat(world);
 				else if (r == 9) entity = new DqmEntityGaikotu(world);
-				else if (r == 10) entity = new DqmEntitySuraimunaito(world);
+				else if (r == 10) entity = new DqmEntitySunomon(world);
 				else if (r == 11) entity = new DqmEntityTukaima(world);
 
 			// 武器屋 Y=31～35 確定スポーン
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER +3) {
 				int r = rand.nextInt(6);
 
-				if (r == 0) entity = new DqmEntityOokiduti(world);
+				if (r == 0) entity = new DqmEntityMadohando(world);
 				else if (r == 1) entity = new DqmEntityHitokuisaberu(world);
 				else if (r == 2) entity = new DqmEntitySirudokozou(world);
 				else if (r == 3) entity = new DqmEntityBurauni(world);
@@ -508,7 +514,7 @@ public class LadSpawnEnemyCore {
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP +3) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityOokiduti(world);
+				if (r == 0) entity = new DqmEntityMadohando(world);
 				else if (r == 1) entity = new DqmEntityHitokuisaberu(world);
 				else if (r == 2) entity = new DqmEntityPapetkozou(world);
 				else if (r == 3) entity = new DqmEntitySirudokozou(world);
@@ -519,7 +525,7 @@ public class LadSpawnEnemyCore {
 				else if (r == 8) entity = new DqmEntitySuraimunaito(world);
 				else if (r == 9) entity = new DqmEntitySuraimubogu(world);
 				else if (r == 10) entity = new DqmEntityDoruido(world);
-				else if (r == 11) entity = new DqmEntityKirasuko(world);
+				else if (r == 11) entity = new DqmEntitySunomon(world);
 
 			// 武器屋 NPC
 			} else if (enemyGroup == LadRoomID.WEAPON_SHOP_CUSTOMER) {
@@ -614,37 +620,45 @@ public class LadSpawnEnemyCore {
 			/* 廃坑 */
 			// 「廃坑」Y=26～30
 			if (enemyGroup == LadRoomID.MINE_SHAFT +4) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntitySupini(world);
-				else if (r == 1) entity = new DqmEntityOokutibasi(world);
-				else if (r == 2) entity = new DqmEntityDorakima(world);
-				else if (r == 3) entity = new DqmEntityDoronuba(world);
-				else if (r == 4) entity = new DqmEntityHitokuiga(world);
-				else if (r == 5) entity = new DqmEntityHitokuikibako(world);
-				else if (r == 6) entity = new DqmEntityUmiusi(world);
-				else if (r == 7) entity = new DqmEntitySibireageha(world);
-				else if (r == 8) entity = new DqmEntityMatango(world);
-				else if (r == 9) entity = new DqmEntityBuchunpa(world);
-				else if (r == 10) entity = new DqmEntityDesufuratta(world);
-				else if (r == 11) entity = new DqmEntityTonburero(world);
+				if (r == 0) entity = new DqmEntityDragosuraimu(world);
+				else if (r == 1) entity = new DqmEntityDoronuba(world);
+				else if (r == 2) entity = new DqmEntityRiripat(world);
+				else if (r == 3) entity = new DqmEntityObakeumiusi(world);
+				else if (r == 4) entity = new DqmEntityDoruido(world);
+				else if (r == 5) entity = new DqmEntityHitokuiga(world);
+				else if (r == 6) entity = new DqmEntityEbiruapple(world);
+				else if (r == 7) entity = new DqmEntityUmiusi(world);
+				else if (r == 8) entity = new DqmEntitySibireageha(world);
+				else if (r == 9) entity = new DqmEntityTahodoraki(world);
+				else if (r == 10) entity = new DqmEntityBuchunpa(world);
+				else if (r == 11) entity = new DqmEntityMatango(world);
+				else if (r == 12) entity = new DqmEntityDesufuratta(world);
+				else if (r == 13) entity = new DqmEntityTonburero(world);
+				else if (r == 14) entity = new DqmEntityButtizukinya(world);
+				else if (r == 15) entity = new DqmEntitySupekutetto(world);
 
 			// 「廃坑」Y=21～25
 			} else if (enemyGroup == LadRoomID.MINE_SHAFT +5) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntityDoronuba(world);
-				else if (r == 1) entity = new DqmEntityHitokuiga(world);
-				else if (r == 2) entity = new DqmEntityHitokuikibako(world);
-				else if (r == 3) entity = new DqmEntityUmiusi(world);
-				else if (r == 4) entity = new DqmEntitySibireageha(world);
-				else if (r == 5) entity = new DqmEntityMatango(world);
-				else if (r == 6) entity = new DqmEntityBuchunpa(world);
-				else if (r == 7) entity = new DqmEntityDesufuratta(world);
-				else if (r == 8) entity = new DqmEntityTonburero(world);
-				else if (r == 9) entity = new DqmEntityDokuyazukin(world);
-				else if (r == 10) entity = new DqmEntityButtizukinya(world);
-				else if (r == 11) entity = new DqmEntitySupekutetto(world);
+				if (r == 0) entity = new DqmEntityEbiruapple(world);
+				else if (r == 1) entity = new DqmEntityUmiusi(world);
+				else if (r == 2) entity = new DqmEntitySibireageha(world);
+				else if (r == 3) entity = new DqmEntityBuchunpa(world);
+				else if (r == 4) entity = new DqmEntityMatango(world);
+				else if (r == 5) entity = new DqmEntityDesufuratta(world);
+				else if (r == 6) entity = new DqmEntityTonburero(world);
+				else if (r == 7) entity = new DqmEntityJeriman(world);
+				else if (r == 8) entity = new DqmEntityButtizukinya(world);
+				else if (r == 9) entity = new DqmEntitySupekutetto(world);
+				else if (r == 10) entity = new DqmEntityDorakima(world);
+				else if (r == 11) entity = new DqmEntityHitokuikibako(world);
+				else if (r == 12) entity = new DqmEntityBehoimisuraimu(world);
+				else if (r == 13) entity = new DqmEntityGappurin(world);
+				else if (r == 14) entity = new DqmEntityMrippusu(world);
+				else if (r == 15) entity = new DqmEntityGenjutusi(world);
 
 			// 「廃坑」イレギュラーパターン →バニラの洞窟グモ
 			} else if (enemyGroup == LadRoomID.MINE_SHAFT) {
@@ -655,37 +669,45 @@ public class LadSpawnEnemyCore {
 			/* ピラミッド */
 			// 「ピラミッド」Y=26～30
 			} else if (enemyGroup == LadRoomID.PYRAMID +4) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
 				if (r == 0) entity = new DqmEntitySupini(world);
-				else if (r == 1) entity = new DqmEntityKimera(world);
-				else if (r == 2) entity = new DqmEntityMadohando(world);
-				else if (r == 3) entity = new DqmEntitySabotenboru(world);
-				else if (r == 4) entity = new DqmEntityWaraibukuro(world);
-				else if (r == 5) entity = new DqmEntityTutiwarasi(world);
-				else if (r == 6) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 7) entity = new DqmEntityHgizumo(world);
-				else if (r == 8) entity = new DqmEntitySibiredanbira(world);
-				else if (r == 9) entity = new DqmEntityBakudanbebi(world);
-				else if (r == 10) entity = new DqmEntityBerobero(world);
-				else if (r == 11) entity = new DqmEntityAkumanosyo(world);
+				else if (r == 1) entity = new DqmEntitySabotenboru(world);
+				else if (r == 2) entity = new DqmEntitySirudokozou(world);
+				else if (r == 3) entity = new DqmEntityObakeumiusi(world);
+				else if (r == 4) entity = new DqmEntityTutiwarasi(world);
+				else if (r == 5) entity = new DqmEntityMetoroghost(world);
+				else if (r == 6) entity = new DqmEntityKirasuko(world);
+				else if (r == 7) entity = new DqmEntitySibiredanbira(world);
+				else if (r == 8) entity = new DqmEntityKimera(world);
+				else if (r == 9) entity = new DqmEntityBerobero(world);
+				else if (r == 10) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 11) entity = new DqmEntityButtizukinya(world);
+				else if (r == 12) entity = new DqmEntityBaburin(world);
+				else if (r == 13) entity = new DqmEntityBakudanbebi(world);
+				else if (r == 14) entity = new DqmEntitySumoruguru(world);
+				else if (r == 15) entity = new DqmEntitySamayoutamasii(world);
 
 			// 「ピラミッド」Y=21～25
 			} else if (enemyGroup == LadRoomID.PYRAMID +5) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntityTutiwarasi(world);
-				else if (r == 1) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 2) entity = new DqmEntityHgizumo(world);
-				else if (r == 3) entity = new DqmEntitySibiredanbira(world);
-				else if (r == 4) entity = new DqmEntityBakudanbebi(world);
-				else if (r == 5) entity = new DqmEntityBerobero(world);
-				else if (r == 6) entity = new DqmEntityAkumanosyo(world);
-				else if (r == 7) entity = new DqmEntityBaburin(world);
-				else if (r == 8) entity = new DqmEntityGaikotukensi(world);
-				else if (r == 9) entity = new DqmEntityOdoruhouseki(world);
-				else if (r == 10) entity = new DqmEntitySamayoutamasii(world);
-				else if (r == 11) entity = new DqmEntitySumoruguru(world);
+				if (r == 0) entity = new DqmEntityKirasuko(world);
+				else if (r == 1) entity = new DqmEntitySibiredanbira(world);
+				else if (r == 2) entity = new DqmEntityKimera(world);
+				else if (r == 3) entity = new DqmEntityBerobero(world);
+				else if (r == 4) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 5) entity = new DqmEntityButtizukinya(world);
+				else if (r == 6) entity = new DqmEntityBaburin(world);
+				else if (r == 7) entity = new DqmEntityBakudanbebi(world);
+				else if (r == 8) entity = new DqmEntitySumoruguru(world);
+				else if (r == 9) entity = new DqmEntitySamayoutamasii(world);
+				else if (r == 10) entity = new DqmEntityHgizumo(world);
+				else if (r == 11) entity = new DqmEntityWaraibukuro(world);
+				else if (r == 12) entity = new DqmEntityAnimaruzonbi(world);
+				else if (r == 13) entity = new DqmEntityDorakima(world);
+				else if (r == 14) entity = new DqmEntityBakudaniwa(world);
+				else if (r == 15) entity = new DqmEntityHerughost(world);
 
 			// 「ピラミッド」自爆敵
 			} else if (enemyGroup == LadRoomID.PYRAMID) {
@@ -711,107 +733,123 @@ public class LadSpawnEnemyCore {
 			/* 氷洞 */
 			// 「氷洞」Y=26～30
 			} else if (enemyGroup == LadRoomID.ICE_CAVE +4) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntityPurizunyan(world);
+				if (r == 0) entity = new DqmEntityHoimisura(world);
 				else if (r == 1) entity = new DqmEntityDucksbill(world);
-				else if (r == 2) entity = new DqmEntitySyado(world);
+				else if (r == 2) entity = new DqmEntitySuraimutumuri(world);
 				else if (r == 3) entity = new DqmEntityMetoroghost(world);
-				else if (r == 4) entity = new DqmEntityTahodoraki(world);
-				else if (r == 5) entity = new DqmEntityHoroghost(world);
-				else if (r == 6) entity = new DqmEntityFgizumo(world);
-				else if (r == 7) entity = new DqmEntityHerughost(world);
-				else if (r == 8) entity = new DqmEntityHyouganmajin(world);
-				else if (r == 9) entity = new DqmEntityTomosibikozou(world);
-				else if (r == 10) entity = new DqmEntityArumiraji(world);
-				else if (r == 11) entity = new DqmEntityJeriman(world);
+				else if (r == 4) entity = new DqmEntityRaimusuraimu(world);
+				else if (r == 5) entity = new DqmEntitySuraimubogu(world);
+				else if (r == 6) entity = new DqmEntityTahodoraki(world);
+				else if (r == 7) entity = new DqmEntityPurizunyan(world);
+				else if (r == 8) entity = new DqmEntityPinkmomon(world);
+				else if (r == 9) entity = new DqmEntitySura2(world);
+				else if (r == 10) entity = new DqmEntityJeriman(world);
+				else if (r == 11) entity = new DqmEntitySyado(world);
+				else if (r == 12) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 13) entity = new DqmEntityMarinsuraimu(world);
+				else if (r == 14) entity = new DqmEntitySamayoutamasii(world);
+				else if (r == 15) entity = new DqmEntityArumiraji(world);
 
 			// 「氷洞」Y=21～25
 			} else if (enemyGroup == LadRoomID.ICE_CAVE +5) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntityDucksbill(world);
-				else if (r == 1) entity = new DqmEntitySyado(world);
-				else if (r == 2) entity = new DqmEntityMetoroghost(world);
-				else if (r == 3) entity = new DqmEntityTahodoraki(world);
-				else if (r == 4) entity = new DqmEntityHoroghost(world);
-				else if (r == 5) entity = new DqmEntityFgizumo(world);
-				else if (r == 6) entity = new DqmEntityHerughost(world);
-				else if (r == 7) entity = new DqmEntityHyouganmajin(world);
-				else if (r == 8) entity = new DqmEntityTomosibikozou(world);
-				else if (r == 9) entity = new DqmEntityArumiraji(world);
-				else if (r == 10) entity = new DqmEntityJeriman(world);
-				else if (r == 11) entity = new DqmEntityMarinsuraimu(world);
+				if (r == 0) entity = new DqmEntitySuraimubogu(world);
+				else if (r == 1) entity = new DqmEntityTahodoraki(world);
+				else if (r == 2) entity = new DqmEntityPurizunyan(world);
+				else if (r == 3) entity = new DqmEntityPinkmomon(world);
+				else if (r == 4) entity = new DqmEntitySura2(world);
+				else if (r == 5) entity = new DqmEntityJeriman(world);
+				else if (r == 6) entity = new DqmEntitySyado(world);
+				else if (r == 7) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 8) entity = new DqmEntityMarinsuraimu(world);
+				else if (r == 9) entity = new DqmEntitySamayoutamasii(world);
+				else if (r == 10) entity = new DqmEntityArumiraji(world);
+				else if (r == 11) entity = new DqmEntityFgizumo(world);
+				else if (r == 12) entity = new DqmEntityHoroghost(world);
+				else if (r == 13) entity = new DqmEntityHyouganmajin(world);
+				else if (r == 14) entity = new DqmEntityTomosibikozou(world);
+				else if (r == 15) entity = new DqmEntityBuraddihando(world);
 
 			/* 要塞(Stronghold) */
 			// 「要塞(Stronghold)」Y=26～30
 			} else if (enemyGroup == LadRoomID.STRONGHOLD +4) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntityObakekyandoru(world);
-				else if (r == 1) entity = new DqmEntityKimera(world);
+				if (r == 0) entity = new DqmEntityOokutibasi(world);
+				else if (r == 1) entity = new DqmEntityTukaima(world);
 				else if (r == 2) entity = new DqmEntityTutiwarasi(world);
-				else if (r == 3) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 4) entity = new DqmEntityMetoroghost(world);
-				else if (r == 5) entity = new DqmEntityKirapan(world);
-				else if (r == 6) entity = new DqmEntitySuraimubogu(world);
-				else if (r == 7) entity = new DqmEntityHoroghost(world);
-				else if (r == 8) entity = new DqmEntityAnimaruzonbi(world);
-				else if (r == 9) entity = new DqmEntityHerughost(world);
-				else if (r == 10) entity = new DqmEntityTomosibikozou(world);
-				else if (r == 11) entity = new DqmEntityBerobero(world);
+				else if (r == 3) entity = new DqmEntityDoruido(world);
+				else if (r == 4) entity = new DqmEntityMeragosuto(world);
+				else if (r == 5) entity = new DqmEntityKirasuko(world);
+				else if (r == 6) entity = new DqmEntityObakekyandoru(world);
+				else if (r == 7) entity = new DqmEntityKimera(world);
+				else if (r == 8) entity = new DqmEntityMatango(world);
+				else if (r == 9) entity = new DqmEntityKirapan(world);
+				else if (r == 10) entity = new DqmEntityBerobero(world);
+				else if (r == 11) entity = new DqmEntitySyado(world);
+				else if (r == 12) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 13) entity = new DqmEntityButtizukinya(world);
+				else if (r == 14) entity = new DqmEntityBakudanbebi(world);
+				else if (r == 15) entity = new DqmEntitySumoruguru(world);
 
 			// 「要塞(Stronghold)」Y=21～25
 			} else if (enemyGroup == LadRoomID.STRONGHOLD +5) {
-				int r = rand.nextInt(12);
+				int r = rand.nextInt(16);
 
-				if (r == 0) entity = new DqmEntityTutiwarasi(world);
-				else if (r == 1) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 2) entity = new DqmEntityMetoroghost(world);
-				else if (r == 3) entity = new DqmEntityKirapan(world);
-				else if (r == 4) entity = new DqmEntitySuraimubogu(world);
-				else if (r == 5) entity = new DqmEntityHoroghost(world);
-				else if (r == 6) entity = new DqmEntityAnimaruzonbi(world);
-				else if (r == 7) entity = new DqmEntityHerughost(world);
-				else if (r == 8) entity = new DqmEntityTomosibikozou(world);
-				else if (r == 9) entity = new DqmEntityBerobero(world);
-				else if (r == 10) entity = new DqmEntitySamayoutamasii(world);
+				if (r == 0) entity = new DqmEntityMeragosuto(world);
+				else if (r == 1) entity = new DqmEntityKirasuko(world);
+				else if (r == 2) entity = new DqmEntityObakekyandoru(world);
+				else if (r == 3) entity = new DqmEntityKimera(world);
+				else if (r == 4) entity = new DqmEntityMatango(world);
+				else if (r == 5) entity = new DqmEntityKirapan(world);
+				else if (r == 6) entity = new DqmEntityBerobero(world);
+				else if (r == 7) entity = new DqmEntitySyado(world);
+				else if (r == 8) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 9) entity = new DqmEntityButtizukinya(world);
+				else if (r == 10) entity = new DqmEntityBakudanbebi(world);
 				else if (r == 11) entity = new DqmEntitySumoruguru(world);
+				else if (r == 12) entity = new DqmEntitySupekutetto(world);
+				else if (r == 13) entity = new DqmEntityAnimaruzonbi(world);
+				else if (r == 14) entity = new DqmEntityTomosibikozou(world);
+				else if (r == 15) entity = new DqmEntityGenjutusi(world);
 
 			/* メダル王の部屋 */
 			// 「メダル王の部屋」Y=26～30
 			} else if (enemyGroup == LadRoomID.MEDAL_KING +4) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityDorakima(world);
-				else if (r == 1) entity = new DqmEntityBurauni(world);
-				else if (r == 2) entity = new DqmEntityWaraibukuro(world);
-				else if (r == 3) entity = new DqmEntityPurizunyan(world);
-				else if (r == 4) entity = new DqmEntityDucksbill(world);
-				else if (r == 5) entity = new DqmEntityRaimusuraimu(world);
-				else if (r == 6) entity = new DqmEntityTahodoraki(world);
-				else if (r == 7) entity = new DqmEntityKirasuko(world);
+				if (r == 0) entity = new DqmEntityDragosuraimu(world);
+				else if (r == 1) entity = new DqmEntityHoimisura(world);
+				else if (r == 2) entity = new DqmEntityDucksbill(world);
+				else if (r == 3) entity = new DqmEntitySuraimutumuri(world);
+				else if (r == 4) entity = new DqmEntityRaimusuraimu(world);
+				else if (r == 5) entity = new DqmEntitySuraimubogu(world);
+				else if (r == 6) entity = new DqmEntitySuraimunaito(world);
+				else if (r == 7) entity = new DqmEntityPurizunyan(world);
 				else if (r == 8) entity = new DqmEntityPinkmomon(world);
-				else if (r == 9) entity = new DqmEntityArumiraji(world);
-				else if (r == 10) entity = new DqmEntityTonburero(world);
-				else if (r == 11) entity = new DqmEntitySura2(world);
+				else if (r == 9) entity = new DqmEntityKirapan(world);
+				else if (r == 10) entity = new DqmEntitySura2(world);
+				else if (r == 11) entity = new DqmEntityTonburero(world);
 
 			// 「メダル王の部屋」Y=21～25
 			} else if (enemyGroup == LadRoomID.MEDAL_KING +5) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityPurizunyan(world);
-				else if (r == 1) entity = new DqmEntityDucksbill(world);
-				else if (r == 2) entity = new DqmEntityRaimusuraimu(world);
-				else if (r == 3) entity = new DqmEntityTahodoraki(world);
-				else if (r == 4) entity = new DqmEntityKirasuko(world);
-				else if (r == 5) entity = new DqmEntityPinkmomon(world);
-				else if (r == 6) entity = new DqmEntityArumiraji(world);
-				else if (r == 7) entity = new DqmEntityTonburero(world);
-				else if (r == 8) entity = new DqmEntitySura2(world);
-				else if (r == 9) entity = new DqmEntityBehoimisuraimu(world);
-				else if (r == 10) entity = new DqmEntityOdoruhouseki(world);
-				else if (r == 11) entity = new DqmEntitySuraimuburesu(world);
+				if (r == 0) entity = new DqmEntitySuraimubogu(world);
+				else if (r == 1) entity = new DqmEntitySuraimunaito(world);
+				else if (r == 2) entity = new DqmEntityPurizunyan(world);
+				else if (r == 3) entity = new DqmEntityPinkmomon(world);
+				else if (r == 4) entity = new DqmEntityKirapan(world);
+				else if (r == 5) entity = new DqmEntitySura2(world);
+				else if (r == 6) entity = new DqmEntityTonburero(world);
+				else if (r == 7) entity = new DqmEntityMarinsuraimu(world);
+				else if (r == 8) entity = new DqmEntityMokomokojuu(world);
+				else if (r == 9) entity = new DqmEntityArumiraji(world);
+				else if (r == 10) entity = new DqmEntityBehoimisuraimu(world);
+				else if (r == 11) entity = new DqmEntityBesuking(world);
 
 			// 「メダル王の部屋」メダル王スポーン
 			} else if (enemyGroup == LadRoomID.MEDAL_KING) {
@@ -832,35 +870,35 @@ public class LadSpawnEnemyCore {
 			} else if (enemyGroup == LadRoomID.DAMA +4) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityRiripat(world);
-				else if (r == 1) entity = new DqmEntityDoruido(world);
-				else if (r == 2) entity = new DqmEntitySirudokozou(world);
-				else if (r == 3) entity = new DqmEntityBurauni(world);
-				else if (r == 4) entity = new DqmEntityGaikotu(world);
-				else if (r == 5) entity = new DqmEntitySuraimunaito(world);
-				else if (r == 6) entity = new DqmEntityKirapan(world);
-				else if (r == 7) entity = new DqmEntitySuraimubogu(world);
-				else if (r == 8) entity = new DqmEntityKirasuko(world);
-				else if (r == 9) entity = new DqmEntitySibiredanbira(world);
-				else if (r == 10) entity = new DqmEntityAkumanosyo(world);
-				else if (r == 11) entity = new DqmEntityBebisatan(world);
+				if (r == 0) entity = new DqmEntityGaikotu(world);
+				else if (r == 1) entity = new DqmEntitySirudokozou(world);
+				else if (r == 2) entity = new DqmEntityBurauni(world);
+				else if (r == 3) entity = new DqmEntityTukaima(world);
+				else if (r == 4) entity = new DqmEntityRiripat(world);
+				else if (r == 5) entity = new DqmEntityDoruido(world);
+				else if (r == 6) entity = new DqmEntitySuraimunaito(world);
+				else if (r == 7) entity = new DqmEntityKirasuko(world);
+				else if (r == 8) entity = new DqmEntitySibiredanbira(world);
+				else if (r == 9) entity = new DqmEntityKirapan(world);
+				else if (r == 10) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 11) entity = new DqmEntityButtizukinya(world);
 
 			// 「ダーマ神殿」Y=21～25
 			} else if (enemyGroup == LadRoomID.DAMA +5) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntitySirudokozou(world);
-				else if (r == 1) entity = new DqmEntityBurauni(world);
-				else if (r == 2) entity = new DqmEntitySuraimunaito(world);
+				if (r == 0) entity = new DqmEntitySuraimunaito(world);
+				else if (r == 1) entity = new DqmEntityKirasuko(world);
+				else if (r == 2) entity = new DqmEntitySibiredanbira(world);
 				else if (r == 3) entity = new DqmEntityKirapan(world);
-				else if (r == 4) entity = new DqmEntitySuraimubogu(world);
-				else if (r == 5) entity = new DqmEntityKirasuko(world);
-				else if (r == 6) entity = new DqmEntitySibiredanbira(world);
-				else if (r == 7) entity = new DqmEntityAkumanosyo(world);
-				else if (r == 8) entity = new DqmEntityBebisatan(world);
-				else if (r == 9) entity = new DqmEntityDokuyazukin(world);
-				else if (r == 10) entity = new DqmEntityGaikotukensi(world);
-				else if (r == 11) entity = new DqmEntityButtizukinya(world);
+				else if (r == 4) entity = new DqmEntityGaikotukensi(world);
+				else if (r == 5) entity = new DqmEntityButtizukinya(world);
+				else if (r == 6) entity = new DqmEntityBaburin(world);
+				else if (r == 7) entity = new DqmEntityWaraibukuro(world);
+				else if (r == 8) entity = new DqmEntityHitokuikibako(world);
+				else if (r == 9) entity = new DqmEntityHyouganmajin(world);
+				else if (r == 10) entity = new DqmEntityBuraddihando(world);
+				else if (r == 11) entity = new DqmEntityGenjutusi(world);
 
 			// 「ダーマ神殿」NPCスポーン
 			} else if (enemyGroup == LadRoomID.DAMA) {
@@ -910,34 +948,34 @@ public class LadSpawnEnemyCore {
 				int r = rand.nextInt(12);
 
 				if (r == 0) entity = new DqmEntityBakudaniwa(world);
-				else if (r == 1) entity = new DqmEntityHgizumo(world);
-				else if (r == 2) entity = new DqmEntitySumoruguru(world);
-				else if (r == 3) entity = new DqmEntitySamayoutamasii(world);
-				else if (r == 4) entity = new DqmEntityNightwalker(world);
-				else if (r == 5) entity = new DqmEntityHerughost(world);
+				else if (r == 1) entity = new DqmEntityBuraddihando(world);
+				else if (r == 2) entity = new DqmEntityBesuking(world);
+				else if (r == 3) entity = new DqmEntityHerughost(world);
+				else if (r == 4) entity = new DqmEntityGenjutusi(world);
+				else if (r == 5) entity = new DqmEntitySuraimuburesu(world);
 				else if (r == 6) entity = new DqmEntityBeronyaago(world);
-				else if (r == 7) entity = new DqmEntityBesuking(world);
-				else if (r == 8) entity = new DqmEntityYouganmajin(world);
-				else if (r == 9) entity = new DqmEntityBebisatan(world);
-				else if (r == 10) entity = new DqmEntityMapetman(world);
-				else if (r == 11) entity = new DqmEntitySuraimuburesu(world);
+				else if (r == 7) entity = new DqmEntityBebisatan(world);
+				else if (r == 8) entity = new DqmEntitySamayouyoroi(world);
+				else if (r == 9) entity = new DqmEntityDoroningyou(world);
+				else if (r == 10) entity = new DqmEntityMetaruhantaken(world);
+				else if (r == 11) entity = new DqmEntitySumairurokku(world);
 
 			// 「ネザー」Y=06～15
 			} else if (enemyGroup == LadRoomID.NETHER +7) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityBeronyaago(world);
-				else if (r == 1) entity = new DqmEntityBesuking(world);
-				else if (r == 2) entity = new DqmEntityYouganmajin(world);
-				else if (r == 3) entity = new DqmEntityBebisatan(world);
-				else if (r == 4) entity = new DqmEntityMapetman(world);
-				else if (r == 5) entity = new DqmEntitySuraimuburesu(world);
-				else if (r == 6) entity = new DqmEntityBakudaniwa(world);
-				else if (r == 7) entity = new DqmEntityMetaruhantaken(world);
-				else if (r == 8) entity = new DqmEntitySkullgaroo(world);
-				else if (r == 9) entity = new DqmEntitySumairurokku(world);
-				else if (r == 10) entity = new DqmEntityMeijikimera(world);
-				else if (r == 11) entity = new DqmEntityAxedoragon(world);
+				if (r == 0) entity = new DqmEntitySuraimuburesu(world);
+				else if (r == 1) entity = new DqmEntityBeronyaago(world);
+				else if (r == 2) entity = new DqmEntityBebisatan(world);
+				else if (r == 3) entity = new DqmEntitySamayouyoroi(world);
+				else if (r == 4) entity = new DqmEntityDoroningyou(world);
+				else if (r == 5) entity = new DqmEntityMetaruhantaken(world);
+				else if (r == 6) entity = new DqmEntitySumairurokku(world);
+				else if (r == 7) entity = new DqmEntitySkullgaroo(world);
+				else if (r == 8) entity = new DqmEntityMeijidoraki(world);
+				else if (r == 9) entity = new DqmEntityYouganmajin(world);
+				else if (r == 10) entity = new DqmEntityAxedoragon(world);
+				else if (r == 11) entity = new DqmEntityMetaruraida(world);
 
 
 			/* エンドポータル */
@@ -945,70 +983,70 @@ public class LadSpawnEnemyCore {
 			} else if (enemyGroup == LadRoomID.END_PORTAL +6) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntitySumoruguru(world);
-				else if (r == 1) entity = new DqmEntitySupekutetto(world);
-				else if (r == 2) entity = new DqmEntityEnzeruslime(world);
-				else if (r == 3) entity = new DqmEntityMokomokojuu(world);
-				else if (r == 4) entity = new DqmEntityBuchunpa(world);
-				else if (r == 5) entity = new DqmEntityBehoimusuraimu(world);
-				else if (r == 6) entity = new DqmEntityDokuyazukin(world);
-				else if (r == 7) entity = new DqmEntityGenjutusi(world);
+				if (r == 0) entity = new DqmEntityHoroghost(world);
+				else if (r == 1) entity = new DqmEntityHyouganmajin(world);
+				else if (r == 2) entity = new DqmEntityGappurin(world);
+				else if (r == 3) entity = new DqmEntityMrippusu(world);
+				else if (r == 4) entity = new DqmEntityDansunidoru(world);
+				else if (r == 5) entity = new DqmEntityKingsura(world);
+				else if (r == 6) entity = new DqmEntityEnzeruslime(world);
+				else if (r == 7) entity = new DqmEntityDokuyazukin(world);
 				else if (r == 8) entity = new DqmEntityAkumanosyo(world);
-				else if (r == 9) entity = new DqmEntityMarinsuraimu(world);
-				else if (r == 10) entity = new DqmEntityMeijidoraki(world);
-				else if (r == 11) entity = new DqmEntityHitokuikibako(world);
+				else if (r == 9) entity = new DqmEntitySamayouyoroi(world);
+				else if (r == 10) entity = new DqmEntityGorotuki(world);
+				else if (r == 11) entity = new DqmEntityBehoimusuraimu(world);
 
 			// 「エンドポータル」Y=06～15
 			} else if (enemyGroup == LadRoomID.END_PORTAL +7) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityDokuyazukin(world);
-				else if (r == 1) entity = new DqmEntityGenjutusi(world);
+				if (r == 0) entity = new DqmEntityEnzeruslime(world);
+				else if (r == 1) entity = new DqmEntityDokuyazukin(world);
 				else if (r == 2) entity = new DqmEntityAkumanosyo(world);
-				else if (r == 3) entity = new DqmEntityMarinsuraimu(world);
-				else if (r == 4) entity = new DqmEntityMeijidoraki(world);
-				else if (r == 5) entity = new DqmEntityHitokuikibako(world);
+				else if (r == 3) entity = new DqmEntitySamayouyoroi(world);
+				else if (r == 4) entity = new DqmEntityGorotuki(world);
+				else if (r == 5) entity = new DqmEntityBehoimusuraimu(world);
 				else if (r == 6) entity = new DqmEntityOdoruhouseki(world);
-				else if (r == 7) entity = new DqmEntityDoroningyou(world);
-				else if (r == 8) entity = new DqmEntityMrippusu(world);
-				else if (r == 9) entity = new DqmEntityAkumanotubo(world);
-				else if (r == 10) entity = new DqmEntityMetaruraida(world);
-				else if (r == 11) entity = new DqmEntityMinidemon(world);
+				else if (r == 7) entity = new DqmEntitySkullgaroo(world);
+				else if (r == 8) entity = new DqmEntityNightwalker(world);
+				else if (r == 9) entity = new DqmEntityMinidemon(world);
+				else if (r == 10) entity = new DqmEntityMeijikimera(world);
+				else if (r == 11) entity = new DqmEntityKirapan2(world);
 
 			/* 地底 */
 			// 「地底」Y=16～20
 			} else if (enemyGroup == LadRoomID.BOTTOM_OF_OVERWORLD +6) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntitySupekutetto(world);
-				else if (r == 1) entity = new DqmEntityHoroghost(world);
-				else if (r == 2) entity = new DqmEntitySamayoutamasii(world);
-				else if (r == 3) entity = new DqmEntityNightwalker(world);
-				else if (r == 4) entity = new DqmEntityHerughost(world);
-				else if (r == 5) entity = new DqmEntityTomosibikozou(world);
-				else if (r == 6) entity = new DqmEntityBakudaniwa(world);
+				if (r == 0) entity = new DqmEntityBakudaniwa(world);
+				else if (r == 1) entity = new DqmEntityBehoimisuraimu(world);
+				else if (r == 2) entity = new DqmEntityHoroghost(world);
+				else if (r == 3) entity = new DqmEntityTomosibikozou(world);
+				else if (r == 4) entity = new DqmEntityBuraddihando(world);
+				else if (r == 5) entity = new DqmEntityHerughost(world);
+				else if (r == 6) entity = new DqmEntitySuraimuburesu(world);
 				else if (r == 7) entity = new DqmEntityBeronyaago(world);
-				else if (r == 8) entity = new DqmEntitySamayouyoroi(world);
-				else if (r == 9) entity = new DqmEntityBuraddihando(world);
-				else if (r == 10) entity = new DqmEntityYouganmajin(world);
-				else if (r == 11) entity = new DqmEntityMapetman(world);
+				else if (r == 8) entity = new DqmEntityBebisatan(world);
+				else if (r == 9) entity = new DqmEntityDoroningyou(world);
+				else if (r == 10) entity = new DqmEntityMapetman(world);
+				else if (r == 11) entity = new DqmEntitySumairurokku(world);
 
 			// 「地底」Y=06～15
 			} else if (enemyGroup == LadRoomID.BOTTOM_OF_OVERWORLD +7) {
 				int r = rand.nextInt(12);
 
-				if (r == 0) entity = new DqmEntityTomosibikozou(world);
-				else if (r == 1) entity = new DqmEntityBakudaniwa(world);
-				else if (r == 2) entity = new DqmEntityBeronyaago(world);
-				else if (r == 3) entity = new DqmEntitySamayouyoroi(world);
-				else if (r == 4) entity = new DqmEntityBuraddihando(world);
-				else if (r == 5) entity = new DqmEntityYouganmajin(world);
-				else if (r == 6) entity = new DqmEntityMapetman(world);
-				else if (r == 7) entity = new DqmEntityGorotuki(world);
-				else if (r == 8) entity = new DqmEntityTororu(world);
-				else if (r == 9) entity = new DqmEntitySumairurokku(world);
-				else if (r == 10) entity = new DqmEntityAxedoragon(world);
-				else if (r == 11) entity = new DqmEntityKirapan2(world);
+				if (r == 0) entity = new DqmEntitySuraimuburesu(world);
+				else if (r == 1) entity = new DqmEntityBeronyaago(world);
+				else if (r == 2) entity = new DqmEntityBebisatan(world);
+				else if (r == 3) entity = new DqmEntityDoroningyou(world);
+				else if (r == 4) entity = new DqmEntityMapetman(world);
+				else if (r == 5) entity = new DqmEntitySumairurokku(world);
+				else if (r == 6) entity = new DqmEntityTororu(world);
+				else if (r == 7) entity = new DqmEntityMeijidoraki(world);
+				else if (r == 8) entity = new DqmEntityYouganmajin(world);
+				else if (r == 9) entity = new DqmEntityAxedoragon(world);
+				else if (r == 10) entity = new DqmEntityMeijikimera(world);
+				else if (r == 11) entity = new DqmEntityMetaruraida(world);
 			}
 		}
 

@@ -45,10 +45,13 @@ public class LadRoomCore {
 
 
 		/* 戦闘部屋の生成の前に */
-		// プレイヤーの窒息対策
-		LadMeasuresAgainstPlayerSuffocation.adjustPlayerPos(world, player);
-		// 周囲のペットの窒息対策
-		LadMeasuresAgainstPetSuffocation.pullPets(world, player);
+		if (!world.isRemote) {
+			// プレイヤーの窒息対策
+			LadMeasuresAgainstPlayerSuffocation.adjustPlayerPos(world, player);
+			// 周囲のペットの窒息対策
+			LadMeasuresAgainstPetSuffocation.pullPets(world, player);
+		}
+
 
 		/* 戦闘部屋の生成 */
 		// [Debug]戦闘部屋の種類を固定する処理（デバッグ用）
