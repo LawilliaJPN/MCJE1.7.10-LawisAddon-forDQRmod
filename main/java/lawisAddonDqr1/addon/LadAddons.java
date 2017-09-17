@@ -6,7 +6,7 @@ import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.block.LadInitBlocks;
 import lawisAddonDqr1.block.LadRecipesBlocks;
 import lawisAddonDqr1.config.LadConfigEventHundler;
-import lawisAddonDqr1.event.LadEventHundler;
+import lawisAddonDqr1.event.LadEventHandler;
 import lawisAddonDqr1.item.LadInitItems;
 import lawisAddonDqr1.item.LadRecipesItems;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,7 +51,7 @@ public class LadAddons {
 				LadAchievementCore.initLadAchievements();
 
 				// ブロックを破壊した時のイベント処理
-				MinecraftForge.EVENT_BUS.register(new LadEventHundler());
+				MinecraftForge.EVENT_BUS.register(new LadEventHandler());
 
 			} catch (Throwable t) {
 				LawisAddonDQR01.logger.warn("Failed to load DQRmod");

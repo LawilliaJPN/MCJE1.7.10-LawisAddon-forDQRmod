@@ -25,7 +25,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
-public class LadEventHundler {
+public class LadEventHandler {
 	// 戦闘が起こるかどうかのカウント
 	private static int countRandomEncounter = 0;
 

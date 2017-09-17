@@ -30,7 +30,7 @@ public class LadMeasuresAgainstPetSuffocation {
 
         		if (target != null) {
         			// EntityがDQRのペットだった場合
-        			if(target instanceof DqmPetBase) {
+        			if (target instanceof DqmPetBase) {
         				// 以下、自分のペットかどうかの確認
 						DqmPetBase petMob = (DqmPetBase)target;
         				EntityLivingBase petMobE = petMob.getOwner();

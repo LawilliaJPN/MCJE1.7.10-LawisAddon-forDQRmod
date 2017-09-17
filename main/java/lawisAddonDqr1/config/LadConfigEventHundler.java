@@ -3,7 +3,7 @@ package lawisAddonDqr1.config;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import lawisAddonDqr1.LawisAddonDQR01;
-import lawisAddonDqr1.event.LadEventHundler;
+import lawisAddonDqr1.event.LadEventHandler;
 
 /*
  * コンフィグ変更を反映させるイベント。
@@ -32,6 +32,6 @@ public class LadConfigEventHundler {
 		LadConfigCore.syncConfig();
 
 		// ランダムエンカウントのためのカウントのリセットを行う
-		LadEventHundler.updateCountRandomEncounter();
+		LadEventHandler.updateCountRandomEncounter();
 	}
 }
