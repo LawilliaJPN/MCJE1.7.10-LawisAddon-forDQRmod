@@ -11,7 +11,7 @@ import lawisAddonDqr1.event.LadEventHandler;
  * 「TNT MODDERS」様の「MOD製作チュートリアル」を参考にさせていただきました。
  * https://www63.atwiki.jp/akasatanahama/pages/131.html
  */
-public class LadConfigEventHundler {
+public class LadConfigEventHandler {
 	/*
 	 * コンフィグが変更されたときに呼び出されるメソッド
 	 */

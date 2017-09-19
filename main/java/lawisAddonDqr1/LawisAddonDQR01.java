@@ -13,7 +13,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import lawisAddonDqr1.addon.LadAddons;
 import lawisAddonDqr1.config.LadConfigCore;
-import lawisAddonDqr1.config.LadConfigEventHundler;
+import lawisAddonDqr1.config.LadConfigEventHandler;
 import lawisAddonDqr1.config.LadInfoCore;
 
 @Mod(modid = LawisAddonDQR01.MOD_ID, name = LawisAddonDQR01.MOD_NAME, version = LawisAddonDQR01.MOD_VERSION, guiFactory = "lawisAddonDqr1.config.LadGuiFactory")
@@ -38,7 +38,7 @@ public class LawisAddonDQR01 {
 	@EventHandler
 	public void init(FMLInitializationEvent event){
 		// ゲーム内コンフィグ変更の反映
-		FMLCommonHandler.instance().bus().register(new LadConfigEventHundler());
+		FMLCommonHandler.instance().bus().register(new LadConfigEventHandler());
 	}
 
 	@EventHandler
