@@ -5,6 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dqr.api.Items.DQMagicTools;
 import dqr.entity.mobEntity.DqmMobBase;
+import lawisAddonDqr1.addon.LadAddons;
 import lawisAddonDqr1.config.LadConfigCore;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstEnemySuffocation;
@@ -79,6 +80,9 @@ public class LadEventHandler {
 	@SubscribeEvent
 	public void WakeUpEvent(PlayerWakeUpEvent event) {
 		// System.out.println("UseBedEvent OK");
+
+		// ベッドを使い捨てにする自作modが併用されている場合は動作しない。
+		if (LadAddons.isDbmLoaded()) return;
 
 		// コンフィグ：ベッドペナルティがオンの時は、目覚めたら戦闘
 		if (LadConfigCore.isBedPenalty) {

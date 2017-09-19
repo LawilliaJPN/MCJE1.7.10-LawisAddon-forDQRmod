@@ -5,7 +5,7 @@ import lawisAddonDqr1.LawisAddonDQR01;
 import lawisAddonDqr1.achievement.LadAchievementCore;
 import lawisAddonDqr1.block.LadInitBlocks;
 import lawisAddonDqr1.block.LadRecipesBlocks;
-import lawisAddonDqr1.config.LadConfigEventHundler;
+import lawisAddonDqr1.config.LadConfigEventHandler;
 import lawisAddonDqr1.event.LadEventHandler;
 import lawisAddonDqr1.item.LadInitItems;
 import lawisAddonDqr1.item.LadRecipesItems;
@@ -19,6 +19,7 @@ public class LadAddons {
 	private static boolean DqrLoaded = false;
 	private static boolean Amt2Loaded = false;
 	private static boolean BopLoaded = false;
+	private static boolean Dbmloaded = false;
 
 	/*
 	 *  連携先のDQRmodが併用されているかを確認するメソッド
@@ -30,12 +31,13 @@ public class LadAddons {
 				// 他のmodの確認
 				loadAMT2();
 				loadBoP();
+				loadMyMods();
 
 				// System.out.println("DQRAddon OK");
 				DqrLoaded = true;
 
 				// コンフィグの反映
-				LadConfigEventHundler.syncConfigAndResetCount();
+				LadConfigEventHandler.syncConfigAndResetCount();
 
 				// ブロックの追加
 				LadInitBlocks.initBlocks();
@@ -80,6 +82,16 @@ public class LadAddons {
 	}
 
 	/*
+	 *  自作の他modが併用されているかを確認するメソッド
+	 */
+	public static void loadMyMods() {
+		// Disposable Bed Mod (Lawi's Mini Mod 01)
+		if (Loader.isModLoaded("DisposableBedMod")) {
+			Dbmloaded = true;
+		}
+	}
+
+	/*
 	 *  getter
 	 */
 	public static boolean isDqrLoaded(){
@@ -92,6 +104,10 @@ public class LadAddons {
 
 	public static boolean isBopLoaded(){
 		return BopLoaded;
+	}
+
+	public static boolean isDbmLoaded(){
+		return Dbmloaded;
 	}
 }
 
