@@ -16,10 +16,14 @@ import net.minecraftforge.common.MinecraftForge;
  * DQRmodと併用されている時のみ有効な処理の呼び出し。
  */
 public class LadAddons {
+	// DQRmod（アドオン対象）
 	private static boolean DqrLoaded = false;
+	// 他のmod
 	private static boolean Amt2Loaded = false;
 	private static boolean BopLoaded = false;
-	private static boolean Dbmloaded = false;
+	// 自作mod
+	private static boolean Lad2Loaded = false;
+	private static boolean DbmLoaded = false;
 
 	/*
 	 *  連携先のDQRmodが併用されているかを確認するメソッド
@@ -85,29 +89,40 @@ public class LadAddons {
 	 *  自作の他modが併用されているかを確認するメソッド
 	 */
 	public static void loadMyMods() {
+		// Lawi's Addon for DQRmod 02(仮)
+		if (Loader.isModLoaded("LawisAddonDQR02")) {
+			Lad2Loaded = true;
+		}
+
+
 		// Disposable Bed Mod (Lawi's Mini Mod 01)
 		if (Loader.isModLoaded("DisposableBedMod")) {
-			Dbmloaded = true;
+			DbmLoaded = true;
 		}
 	}
 
 	/*
 	 *  getter
 	 */
-	public static boolean isDqrLoaded(){
+	public static boolean isDqrLoaded() {
 		return DqrLoaded;
 	}
 
-	public static boolean isAmt2Loaded(){
+	public static boolean isAmt2Loaded() {
 		return Amt2Loaded;
 	}
 
-	public static boolean isBopLoaded(){
+	public static boolean isBopLoaded() {
 		return BopLoaded;
 	}
 
-	public static boolean isDbmLoaded(){
-		return Dbmloaded;
+	public static boolean isLad2Loaded() {
+		return Lad2Loaded;
 	}
+
+	public static boolean isDbmLoaded() {
+		return DbmLoaded;
+	}
+
 }
 

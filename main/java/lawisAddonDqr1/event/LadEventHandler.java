@@ -167,6 +167,9 @@ public class LadEventHandler {
 	public void PlayerAttackEvent(AttackEntityEvent event) {
 		// System.out.println("PlayerAttackEvent OK");
 
+		// 同様の処理を持つ自作アドオンが併用されている場合は動作しない。
+		if (LadAddons.isLad2Loaded()) return;
+
 		// ピースフルの時は、このイベントは動作しない
 		if (event.entityPlayer.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
 			return;
@@ -194,6 +197,9 @@ public class LadEventHandler {
 	@SubscribeEvent
 	public void EnemyHurtEvent(LivingHurtEvent event) {
 		// System.out.println("EnemyHurtEvent OK");
+
+		// 同様の処理を持つ自作アドオンが併用されている場合は動作しない。
+		if (LadAddons.isLad2Loaded()) return;
 
 		// ピースフルの時は、このイベントは動作しない
 		if (event.entityLiving.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
