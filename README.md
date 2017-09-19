@@ -22,7 +22,7 @@ Mining Random Encounter for DQRmod (Minecraft Java Edition ver.1.7.10)
 * Copyright © 2017 Lawillia  
   
 ### ダウンロード(Download)  
-ver.0.2.1：<https://github.com/LawilliaJPN/MCJE1.7.10-LawisAddon-forDQRmod/releases/tag/ver.0.2.1>  
+ver.0.2.2：<https://github.com/LawilliaJPN/MCJE1.7.10-LawisAddon-forDQRmod/releases/tag/ver.0.2.2>  
   
 ## 関連リンク(Websights)  
 * modの攻略情報や製作過程(Blog)  
