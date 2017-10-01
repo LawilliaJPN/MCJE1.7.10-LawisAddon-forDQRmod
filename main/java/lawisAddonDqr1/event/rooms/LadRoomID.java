@@ -38,6 +38,7 @@ public class LadRoomID {
 	public static final int Metal_Slime_With_Log = 2210;
 	// デバッグ用ID
 	public static final int DEBUG_IS_FALSE = -1;
+	public static final int DEBUG_ROOM = 4900;
 
 	/* Difficulty of Room */
 	// 戦闘部屋の難易度

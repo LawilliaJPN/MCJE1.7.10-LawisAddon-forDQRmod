@@ -22,6 +22,7 @@ import lawisAddonDqr1.event.rooms.room2.LadRoomStronghold;
 import lawisAddonDqr1.event.rooms.room3.LadRoomBottomOfOverWorld;
 import lawisAddonDqr1.event.rooms.room3.LadRoomEndPortal;
 import lawisAddonDqr1.event.rooms.room3.LadRoomNether;
+import lawisAddonDqr1.event.rooms.room4.LadRoomDebug;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial01;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial02;
 import lawisAddonDqr1.event.rooms.room4.LadRoomSpecial04;
@@ -114,6 +115,8 @@ public class LadRoomCore {
 				case LadRoomID.SPECIAL_04:
 					LadRoomSpecial04.setRoom(world, player);
 					break;
+				case LadRoomID.DEBUG_ROOM:
+					LadRoomDebug.setRoom(world, player);
 				default:
 					System.out.println("デバッグ用の戦闘部屋ID指定が間違っています。");
 				}
