@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room2;
+package lawisAddonDqr1.event.rooms.room02middle;
 
 import java.util.Random;
 
@@ -83,21 +83,21 @@ public class LadRoomStronghold {
 		// 「石ブロック」等の設置
 		for (int x = 0; x <= roomWidth; x++) {
 			for (int z = 0; z <= roomWidth; z++) {
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +roomFloorY, roomZ +z);
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +roomHeight, roomZ +z);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +z, roomY +roomFloorY);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +z, roomY +roomHeight);
 			}
 		}
 
 		// 「石ブロック」等の設置
 		for (int y = 0; y < roomHeight; y++) {
 			for (int x = 0; x <= roomWidth; x++) {
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ);
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ +roomWidth);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ, roomY +y);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +roomWidth, roomY +y);
 			}
 
 			for (int z = 0; z <= roomWidth; z++) {
-				LadDecorationDeteriorated.setStoneBrick(world, roomX, roomY +y, roomZ +z);
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomWidth, roomY +y, roomZ +z);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX, roomZ +z, roomY +y);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomWidth, roomZ +z, roomY +y);
 			}
 		}
 
@@ -164,7 +164,7 @@ public class LadRoomStronghold {
 			for (int x = roomCenter -1; x <= roomCenter +1; x++) {
 				for (int z = roomCenter -1; z <= roomCenter +1; z++) {
 					for (int y = 0; y < roomHeight; y++) {
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ +z);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +z, roomY +y);
 					}
 				}
 			}
@@ -172,10 +172,10 @@ public class LadRoomStronghold {
 		} else {
 			// 「石ブロック」等の設置
 			for (int y = 0; y < roomHeight; y++) {
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter +2, roomY +y, roomZ +roomCenter +2);
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter +2, roomY +y, roomZ +roomCenter -2);
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter -2, roomY +y, roomZ +roomCenter +2);
-				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter -2, roomY +y, roomZ +roomCenter -2);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter +2, roomZ +roomCenter +2, roomY +y);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter +2, roomZ +roomCenter -2, roomY +y);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter -2, roomZ +roomCenter +2, roomY +y);
+				LadDecorationDeteriorated.setStoneBrick(world, roomX +roomCenter -2, roomZ +roomCenter -2, roomY +y);
 			}
 
 			switch (roomDirection) {
@@ -189,8 +189,8 @@ public class LadRoomStronghold {
 					}
 					// 「石ブロック」等の設置
 					for (int y = 3; y < roomHeight; y++) {
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +3, roomY +y, roomZ +z);
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +roomWidth -3, roomY +y, roomZ +z);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +3, roomZ +z, roomY +y);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +roomWidth -3, roomZ +z, roomY +y);
 					}
 				}
 
@@ -202,8 +202,8 @@ public class LadRoomStronghold {
 					}
 					// 「石ブロック」等の設置
 					for (int y = 0; y <= 2; y++) {
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ +3);
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ +roomWidth -3);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +3, roomY +y);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +roomWidth -3, roomY +y);
 					}
 				}
 
@@ -229,8 +229,8 @@ public class LadRoomStronghold {
 					}
 					// 「石ブロック」等の設置
 					for (int y = 3; y < roomHeight; y++) {
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ +3);
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomY +y, roomZ +roomWidth -3);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +3, roomY +y);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +x, roomZ +roomWidth -3, roomY +y);
 					}
 				}
 
@@ -242,8 +242,8 @@ public class LadRoomStronghold {
 					}
 					// 「石ブロック」等の設置
 					for (int y = 0; y <= 2; y++) {
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +3, roomY +y, roomZ +z);
-						LadDecorationDeteriorated.setStoneBrick(world, roomX +roomWidth -3, roomY +y, roomZ +z);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +3, roomZ +z, roomY +y);
+						LadDecorationDeteriorated.setStoneBrick(world, roomX +roomWidth -3, roomZ +z, roomY +y);
 					}
 				}
 
@@ -274,7 +274,6 @@ public class LadRoomStronghold {
 			world.setBlock(roomX +roomWidth -1, roomY, roomZ +1, Blocks.torch, 5, 3);
 			world.setBlock(roomX +roomWidth -1, roomY, roomZ +roomWidth -1, Blocks.torch, 5, 3);
 		}
-
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
@@ -315,19 +314,17 @@ public class LadRoomStronghold {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 			break;
 		}
 	}
-
-
 }

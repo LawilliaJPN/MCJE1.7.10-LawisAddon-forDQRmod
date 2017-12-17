@@ -182,7 +182,6 @@ public class LadSpawnEnemyCore {
 		// false にすると「～が あらわれた！」というログが表示されなくなる
 		Boolean encounterLog = true;
 
-
 		/* - - - - - - - - - - - - - - - - - - - -
 		 * 以下、どの敵をスポーンさせるか決める処理
 		 * - - - - - - - - - - - - - - - - - - - */
@@ -1049,7 +1048,6 @@ public class LadSpawnEnemyCore {
 				else if (r == 11) entity = new DqmEntityMetaruraida(world);
 			}
 		}
-
 
 		/* - - - - - - - - - - - - - - - - - - - -
 		 * 以下、決めた敵をスポーンさせる処理

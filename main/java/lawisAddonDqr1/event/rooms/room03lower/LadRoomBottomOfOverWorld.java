@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room3;
+package lawisAddonDqr1.event.rooms.room03lower;
 
 import java.util.Random;
 
@@ -130,18 +130,19 @@ public class LadRoomBottomOfOverWorld {
 		/* - - - - - - - - - -
 		 * 以下、報酬
 		 * - - - - - - - - - */
+
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 			break;
 		}
 	}
@@ -160,7 +161,7 @@ public class LadRoomBottomOfOverWorld {
 
 			if (r <= 2) {
 				// 柱と高床
-				LadDecorationPillar.setPillar(world, Blocks.cobblestone, x +xF +1, y, z +zF +1, 4 +r);
+				LadDecorationPillar.setPillar(world, Blocks.cobblestone, x +xF +1, z +zF +1, y, 4 +r);
 				LadFillBlock.fillBlockXZ(world, Blocks.cobblestone, x +xF, x +xF +2, z + zF, z +zF +2, y +4 +r);
 				if (r == 0) {
 					world.setBlock(x +xF +1, y +4 +r, z +zF +1, Blocks.flowing_lava);
@@ -179,11 +180,11 @@ public class LadRoomBottomOfOverWorld {
 			if (r == 0) {
 				// 水を流す
 				LadDecorationCross.setFourBlock(world, Blocks.cobblestone, x +xF, x +xF +2, z + zF, z +zF +2, y +floorType[xFT][zFT] +1);
-				LadDecorationCross.setBlockCross(world, Blocks.flowing_water, x +xF +1, y +1, z +zF +1, 1);
+				LadDecorationCross.setBlockCross(world, Blocks.flowing_water, x +xF +1, z +zF +1, y +1, 1);
 			} else if (r == 1) {
 				// 溶岩を流す
 				LadDecorationCross.setFourBlock(world, Blocks.cobblestone, x +xF, x +xF +2, z + zF, z +zF +2, y +floorType[xFT][zFT] +1);
-				LadDecorationCross.setBlockCross(world, Blocks.flowing_lava, x +xF +1, y +1, z +zF +1, 1);
+				LadDecorationCross.setBlockCross(world, Blocks.flowing_lava, x +xF +1, z +zF +1, y +1, 1);
 			} else if (r == 2) {
 				// 火(9つ)
 				LadFillBlock.fillBlockXZ(world, Blocks.fire, x +xF, x +xF +2, z + zF, z +zF +2, y +1);

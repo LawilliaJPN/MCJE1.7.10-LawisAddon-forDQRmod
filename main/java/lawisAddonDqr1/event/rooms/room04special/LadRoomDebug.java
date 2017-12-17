@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room4;
+package lawisAddonDqr1.event.rooms.room04special;
 
 import java.util.Random;
 

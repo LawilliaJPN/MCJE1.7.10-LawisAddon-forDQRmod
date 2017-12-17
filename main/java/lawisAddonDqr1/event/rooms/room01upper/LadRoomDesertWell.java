@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room1;
+package lawisAddonDqr1.event.rooms.room01upper;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
-import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationDesert;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationFloor;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -158,8 +158,8 @@ public class LadRoomDesertWell {
 			case 0:
 			case 2:
 				// 井戸を2つ設置
-				setDesertWell(world, roomX +3, roomZ +3, roomY);
-				setDesertWell(world, roomX +roomWidth -3, roomZ +roomWidth -3, roomY);
+				LadDecorationDesert.setDesertWell(world, roomX +3, roomZ +3, roomY);
+				LadDecorationDesert.setDesertWell(world, roomX +roomWidth -3, roomZ +roomWidth -3, roomY);
 
 				if (type/2 == 0) {
 					// 明るさ確保のために「村の街灯」を設置
@@ -170,8 +170,8 @@ public class LadRoomDesertWell {
 			case 1:
 			case 3:
 				// 井戸を2つ設置
-				setDesertWell(world, roomX +3, roomZ +roomWidth -3, roomY);
-				setDesertWell(world, roomX +roomWidth -3, roomZ +3, roomY);
+				LadDecorationDesert.setDesertWell(world, roomX +3, roomZ +roomWidth -3, roomY);
+				LadDecorationDesert.setDesertWell(world, roomX +roomWidth -3, roomZ +3, roomY);
 
 				if (type/2 == 0) {
 					// 明るさ確保のために「村の街灯」を設置
@@ -189,52 +189,52 @@ public class LadRoomDesertWell {
 			/* 装飾 */
 			if (type%3 == 0) {
 				// 枯れ木・サボテン
-				setCactus(world, rand, roomX +roomCenter, roomZ +roomCenter +2, roomY);
-				setCactus(world, rand, roomX +roomCenter, roomZ +roomCenter -2, roomY);
-				setCactus(world, rand, roomX +roomCenter +2, roomZ +roomCenter, roomY);
-				setCactus(world, rand, roomX +roomCenter -2, roomZ +roomCenter, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter, roomZ +roomCenter +2, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter, roomZ +roomCenter -2, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter +2, roomZ +roomCenter, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter -2, roomZ +roomCenter, roomY);
 
 				if (type%6 == 0) {
 					// 枯れ木・サボテン
-					setCactus(world, rand, roomX +roomCenter, roomZ +roomCenter +6, roomY);
-					setCactus(world, rand, roomX +roomCenter, roomZ +roomCenter -6, roomY);
-					setCactus(world, rand, roomX +roomCenter +6, roomZ +roomCenter, roomY);
-					setCactus(world, rand, roomX +roomCenter -6, roomZ +roomCenter, roomY);
+					LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter, roomZ +roomCenter +6, roomY);
+					LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter, roomZ +roomCenter -6, roomY);
+					LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter +6, roomZ +roomCenter, roomY);
+					LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomCenter -6, roomZ +roomCenter, roomY);
 				}
 			} else if (type%3 == 1) {
 				// 砂岩の柱
-				setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter +2, roomY);
-				setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter -2, roomY);
-				setSandstonePillar(world, rand, roomX +roomCenter +2, roomZ +roomCenter, roomY);
-				setSandstonePillar(world, rand, roomX +roomCenter -2, roomZ +roomCenter, roomY);
+				LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter +2, roomY);
+				LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter -2, roomY);
+				LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter +2, roomZ +roomCenter, roomY);
+				LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter -2, roomZ +roomCenter, roomY);
 
 				if (type%6 == 1) {
 					// 砂岩の柱
-					setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter +6, roomY);
-					setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter -6, roomY);
-					setSandstonePillar(world, rand, roomX +roomCenter +6, roomZ +roomCenter, roomY);
-					setSandstonePillar(world, rand, roomX +roomCenter -6, roomZ +roomCenter, roomY);
+					LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter +6, roomY);
+					LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter, roomZ +roomCenter -6, roomY);
+					LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter +6, roomZ +roomCenter, roomY);
+					LadDecorationDesert.setSandstonePillar(world, rand, roomX +roomCenter -6, roomZ +roomCenter, roomY);
 				}
 			}
 
 		// 井戸2つパターン以外
 		} else {
 			// 井戸を生成する
-			setDesertWell(world, roomX +roomCenter, roomZ +roomCenter, roomY);
+			LadDecorationDesert.setDesertWell(world, roomX +roomCenter, roomZ +roomCenter, roomY);
 
 			// 干ばつパターン
 			if ((roomType == 2) || (roomType == 3)) {
 				if ((roomType == 3) && (rand.nextInt(4) == 0) && (LadAddons.isBopLoaded())) {
 					try {
 						// 井戸の中に「流砂」を敷く
-						LadDecorationFloor.setBlockAndAirCross(world, BOPCBlocks.mud, 1, roomX +roomCenter, roomY -1, roomZ +roomCenter);
+						LadDecorationFloor.setBlockAndAirCross(world, BOPCBlocks.mud, 1, roomX +roomCenter, roomZ +roomCenter, roomY -1);
 					} catch (Throwable t) {
 						LawisAddonDQR01.logger.warn("Failed to load BoP");
 					}
 
 				} else {
 					// 井戸の中に「砂」を敷く
-					LadDecorationFloor.setBlockAndAirCross(world, Blocks.sand, roomX +roomCenter, roomY -1, roomZ +roomCenter);
+					LadDecorationFloor.setBlockAndAirCross(world, Blocks.sand, roomX +roomCenter, roomZ +roomCenter, roomY -1);
 				}
 
 
@@ -254,10 +254,10 @@ public class LadRoomDesertWell {
 
 			// 枯れ木・サボテン
 			} else {
-				setCactus(world, rand, roomX +1, roomZ +1, roomY);
-				setCactus(world, rand, roomX +1, roomZ +roomWidth -1, roomY);
-				setCactus(world, rand, roomX +roomWidth -1, roomZ +1, roomY);
-				setCactus(world, rand, roomX +roomWidth -1, roomZ +roomWidth -1, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +1, roomZ +1, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +1, roomZ +roomWidth -1, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomWidth -1, roomZ +1, roomY);
+				LadDecorationDesert.setCactusOrDeadbush(world, rand, roomX +roomWidth -1, roomZ +roomWidth -1, roomY);
 			}
 
 			/* 光源 */
@@ -267,7 +267,7 @@ public class LadRoomDesertWell {
 			/* 地下室 */
 			if (roomType == 3) {
 				// 井戸の底の中央のブロックをなくす
-				LadDecorationPillar.setPillarToAir(world, roomX +roomCenter, roomY -2, roomZ +roomCenter, 2);
+				LadDecorationPillar.setPillarToAir(world, roomX +roomCenter, roomZ +roomCenter, roomY -2, 2);
 
 				// 「砂岩ブロック」の地面を設置
 				LadFillBlock.fillBlockXZ(world, Blocks.sandstone, roomX, roomZ, roomWidth, roomY +roomDepth);
@@ -387,16 +387,16 @@ public class LadRoomDesertWell {
 		if (roomType == 4) {
 			switch (roomDirection) {
 			case 0:
-				LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ);
+				LadDecorationReward.setChest(world, roomX +roomWidth, roomZ, roomY);
 				break;
 			case 1:
-				LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomWidth);
+				LadDecorationReward.setChest(world, roomX +roomWidth, roomZ +roomWidth, roomY);
 				break;
 			case 2:
-				LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomWidth);
+				LadDecorationReward.setChest(world, roomX, roomZ +roomWidth, roomY);
 				break;
 			case 3:
-				LadDecorationReward.setChest(world, roomX, roomY, roomZ);
+				LadDecorationReward.setChest(world, roomX, roomZ, roomY);
 				break;
 			}
 
@@ -404,76 +404,19 @@ public class LadRoomDesertWell {
 		} else {
 			switch (roomDirection) {
 			case 0:
-				LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+				LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 				break;
 			case 1:
-				LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+				LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 				break;
 			case 2:
-				LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+				LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 				break;
 			case 3:
-				LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+				LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 				break;
 			}
 		}
-	}
-
-	/*
-	 * 砂漠の井戸を生成するメソッド
-	 */
-	public static void setDesertWell(World world, int centerX, int centerZ, int floorY){
-		// 井戸の底に「砂岩ブロック」を敷く
-		for (int x = centerX -2; x <= centerX +2; x++) {
-			for (int z = centerZ -2; z <= centerZ +2; z++) {
-				for (int y = -1; y <= 0; y++) {
-					world.setBlock(x, floorY +y, z, Blocks.sandstone);
-				}
-			}
-		}
-
-		// 井戸の中に「水」を敷く
-		LadDecorationFloor.setBlockAndAirCross(world, Blocks.water, centerX, floorY -1, centerZ);
-
-		// 井戸の周りに「砂岩ハーフブロック」を敷く
-		LadDecorationCross.setFourBlockCross(world, Blocks.stone_slab, 1, centerX, centerZ, floorY, 2);
-
-		// 柱となる「砂岩」を設置
-		LadDecorationPillar.setFourPillarSlanting(world, Blocks.sandstone, centerX, centerZ, floorY +1, 2, 1);
-
-		// 屋根となる「砂岩ハーフブロック」を設置
-		for (int x = centerX -1; x <= centerX +1; x++) {
-			for (int z = centerZ -1; z <= centerZ +1; z++) {
-				world.setBlock(x, floorY +3, z, Blocks.stone_slab, 1, 2);
-			}
-		}
-
-		// 頂点の「砂岩」を設置
-		world.setBlock(centerX, floorY +3, centerZ, Blocks.sandstone);
-	}
-
-	/*
-	 * サボテンや枯れ木を設置するメソッド
-	 */
-	public static void setCactus(World world, Random rand, int x, int z, int roomY) {
-		int r = rand.nextInt(8);
-
-		if (r/4 == 1) {
-			world.setBlock(x, roomY, z, Blocks.deadbush);
-		} else {
-			for (int y = 0; y < r; y++) {
-				world.setBlock(x, roomY +y, z, Blocks.cactus);
-			}
-		}
-	}
-
-	/*
-	 * 砂岩の柱を設置するメソッド
-	 */
-	public static void setSandstonePillar(World world, Random rand, int x, int z, int roomY) {
-		world.setBlock(x, roomY, z, Blocks.sandstone, 2, 2);
-		world.setBlock(x, roomY +1, z, Blocks.sandstone, 2, 2);
-		world.setBlock(x, roomY +2, z, Blocks.sandstone, 1, 2);
 	}
 }
 /* 設計図

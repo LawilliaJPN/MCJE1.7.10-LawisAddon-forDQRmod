@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room2;
+package lawisAddonDqr1.event.rooms.room02middle;
 
 import java.util.Random;
 
@@ -386,16 +386,16 @@ public class LadRoomMedalKing {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY +roomHeight +1, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY +roomHeight +1);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY +roomHeight +1, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY +roomHeight +1);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY +roomHeight +1, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY +roomHeight +1);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY +roomHeight +1, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY +roomHeight +1);
 			break;
 		}
 	}

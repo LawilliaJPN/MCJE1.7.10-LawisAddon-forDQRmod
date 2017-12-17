@@ -9,7 +9,6 @@ import lawisAddonDqr1.event.LadEventHandler;
  * コンフィグ変更を反映させるイベント。
  *
  * 「TNT MODDERS」様の「MOD製作チュートリアル」を参考にさせていただきました。
- * https://www63.atwiki.jp/akasatanahama/pages/131.html
  */
 public class LadConfigEventHandler {
 	/*

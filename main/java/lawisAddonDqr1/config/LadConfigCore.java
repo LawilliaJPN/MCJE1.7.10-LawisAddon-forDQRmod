@@ -8,7 +8,6 @@ import net.minecraftforge.common.config.Configuration;
  * コンフィグ設定の中心となるクラス。
  *
  * 「TNT MODDERS」様の「MOD製作チュートリアル」を参考にさせていただきました。
- * https://www63.atwiki.jp/akasatanahama/pages/131.html
  */
 public class LadConfigCore {
 	public static Configuration cfg;

@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room1;
+package lawisAddonDqr1.event.rooms.room01upper;
 
 import java.util.Random;
 
@@ -175,7 +175,7 @@ public class LadRoomVillageWell {
 		} else {
 			for (int x = 5; x <= roomWidth -5; x++) {
 				for (int z = 5; z <= roomWidth -5; z++) {
-					LadDecorationFloor.setBlockAndAir(world, Blocks.water, roomX +x, roomY, roomZ +z);
+					LadDecorationFloor.setBlockAndAir(world, Blocks.water, roomX +x, roomZ +z, roomY);
 				}
 			}
 		}
@@ -355,50 +355,49 @@ public class LadRoomVillageWell {
 		if (hasCursed) {
 			switch (roomDirection) {
 			case 0:
-				LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+				LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 				break;
 			case 1:
-				LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+				LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 				break;
 			case 2:
-				LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+				LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 				break;
 			case 3:
-				LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+				LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 				break;
 			}
 		} else {
 			switch (roomDirection) {
 			case 0:
-				LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ);
+				LadDecorationReward.setChest(world, roomX +roomWidth, roomZ, roomY);
 				break;
 			case 1:
-				LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomWidth);
+				LadDecorationReward.setChest(world, roomX +roomWidth, roomZ +roomWidth, roomY);
 				break;
 			case 2:
-				LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomWidth);
+				LadDecorationReward.setChest(world, roomX, roomZ +roomWidth, roomY);
 				break;
 			case 3:
-				LadDecorationReward.setChest(world, roomX, roomY, roomZ);
+				LadDecorationReward.setChest(world, roomX, roomZ, roomY);
 				break;
 			}
 		}
 	}
-	/* 設計図
-	o,0,1,2,3,4,5,6,7,8,9,0,1,x
-	0,_,_,_,_,_,g,g,_,_,_,_,_
-	1,_,3,_,_,_,g,g,_,_,_,2,_
-	2,_,_,t,_,_,g,g,_,_,t,_,_
-	3,_,_,_,g,g,g,g,g,g,_,_,_
-	4,_,_,_,g,c,c,c,c,g,_,_,_
-	5,g,g,g,g,c,w,w,c,g,g,g,g
-	6,g,g,g,g,c,w,w,c,g,g,g,g
-	7,_,_,_,g,c,c,c,c,g,_,_,_
-	8,_,_,_,g,g,g,g,g,g,_,_,_
-	9,_,_,t,_,_,g,g,_,_,t,_,_
-	0,_,0,_,_,_,g,g,_,_,_,1,_
-	1,_,_,_,_,_,g,g,_,_,_,_,_
-	z
-	*/
 }
-
+/* 設計図
+o,0,1,2,3,4,5,6,7,8,9,0,1,x
+0,_,_,_,_,_,g,g,_,_,_,_,_
+1,_,3,_,_,_,g,g,_,_,_,2,_
+2,_,_,t,_,_,g,g,_,_,t,_,_
+3,_,_,_,g,g,g,g,g,g,_,_,_
+4,_,_,_,g,c,c,c,c,g,_,_,_
+5,g,g,g,g,c,w,w,c,g,g,g,g
+6,g,g,g,g,c,w,w,c,g,g,g,g
+7,_,_,_,g,c,c,c,c,g,_,_,_
+8,_,_,_,g,g,g,g,g,g,_,_,_
+9,_,_,t,_,_,g,g,_,_,t,_,_
+0,_,0,_,_,_,g,g,_,_,_,1,_
+1,_,_,_,_,_,g,g,_,_,_,_,_
+z
+*/

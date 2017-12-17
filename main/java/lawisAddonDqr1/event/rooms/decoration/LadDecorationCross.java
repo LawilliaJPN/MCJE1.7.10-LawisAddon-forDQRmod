@@ -8,7 +8,7 @@ public class LadDecorationCross {
 	 * 十字型にブロックを設置するメソッド
 	 * sizeは0～3に対応
 	 */
-	public static void setBlockCross(World world, Block block, int x, int y, int z, int size) {
+	public static void setBlockCross(World world, Block block, int x, int z, int y, int size) {
 		switch(size) {
 		case 3:
 			world.setBlock(x, y, z +3, block);
@@ -34,7 +34,7 @@ public class LadDecorationCross {
 	 * 菱型にブロックを設置するメソッド
 	 * sizeは0～3に対応
 	 */
-	public static void setBlockDiamond(World world, Block block, int x, int y, int z, int size) {
+	public static void setBlockDiamond(World world, Block block, int x, int z, int y, int size) {
 		switch(size) {
 		case 3:
 			world.setBlock(x, y, z +3, block);

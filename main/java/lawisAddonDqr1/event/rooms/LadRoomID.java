@@ -29,7 +29,6 @@ public class LadRoomID {
 	// 特殊部屋
 	public static final int SPECIAL_01 = 4100;
 	public static final int SPECIAL_02 = 4200;
-	public static final int SPECIAL_04 = 4400;
 	// その他のID（敵のスポーンに利用）
 	public static final int VILLAGE_WELL_HAS_CURSED = 1110;
 	public static final int VILLAGE_WELL_HAS_CURSED_ON_WATER = 1120;
@@ -144,6 +143,22 @@ public class LadRoomID {
 			return "砂浜";
 		case 2100:
 			return "ピラミッド";
+		case 2200:
+			return "メダル王の部屋";
+		case 2300:
+			return "廃坑";
+		case 2400:
+			return "ダーマ神殿";
+		case 2500:
+			return "要塞";
+		case 2600:
+			return "氷洞";
+		case 3100:
+			return "ネザー";
+		case 3200:
+			return "エンドポータル";
+		case 3300:
+			return "地底";
 		case 4100:
 			return "特殊な部屋";
 		}
@@ -174,6 +189,22 @@ public class LadRoomID {
 			return "BEACH";
 		case 2100:
 			return "PYRAMID";
+		case 2200:
+			return "MEDAL_KING";
+		case 2300:
+			return "MINE_SHAFT";
+		case 2400:
+			return "DAMA";
+		case 2500:
+			return "STRONGHOLD";
+		case 2600:
+			return "ICE_CAVE";
+		case 3100:
+			return "NETHER";
+		case 3200:
+			return "END_PORTAL";
+		case 3300:
+			return "BOTTOM_OF_OVERWORLD";
 		case 4100:
 			return "SPECIAL_01";
 		}

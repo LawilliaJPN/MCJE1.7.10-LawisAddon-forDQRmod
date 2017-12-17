@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room1;
+package lawisAddonDqr1.event.rooms.room01upper;
 
 import java.util.Random;
 
@@ -9,6 +9,7 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationCrops;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
@@ -210,13 +211,13 @@ public class LadRoomBeach {
 
 				// 手前の両端の「サトウキビ」の設置
 				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-					setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
-					setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
 				}
 				// 奥の両端の「サトウキビ」の設置
 				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
-					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
 				}
 			}
 			break;
@@ -248,13 +249,13 @@ public class LadRoomBeach {
 
 				// 手前の両端の「サトウキビ」の設置
 				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-					setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
-					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
 				}
 				// 奥の両端の「サトウキビ」の設置
 				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-					setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
-					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
 				}
 			}
 			break;
@@ -286,13 +287,13 @@ public class LadRoomBeach {
 
 				// 手前の両端の「サトウキビ」の設置
 				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
-					setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +roomWidth -4, roomX +roomWidth -2, roomZ +roomWidth -4, roomY);
 				}
 				// 奥の両端の「サトウキビ」の設置
 				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-					setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
-					setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +2, roomX +4, roomZ +4, roomY);
+					LadDecorationCrops.setReedsX(world, rand, roomX +2, roomX +4, roomZ +roomWidth -4, roomY);
 				}
 			}
 			break;
@@ -324,14 +325,14 @@ public class LadRoomBeach {
 
 				// 手前の両端の「サトウキビ」の設置
 				if ((roomType%3 != 0) && (rand.nextInt(4) == 0)) {
-					setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
-					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +roomWidth -4, roomZ +roomWidth -4, roomZ +roomWidth -2, roomY);
 				}
 
 				// 奥の両端の「サトウキビ」の設置
 				if ((roomType%3 != 1) && (rand.nextInt(4) == 0)) {
-					setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
-					setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +4, roomZ +2, roomZ +4, roomY);
+					LadDecorationCrops.setReedsZ(world, rand, roomX +roomWidth -4, roomZ +2, roomZ +4, roomY);
 				}
 			}
 			break;
@@ -447,47 +448,17 @@ public class LadRoomBeach {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ, roomY);
 			break;
-		}
-	}
-
-	/*
-	 * サトウキビを生成するメソッド
-	 */
-	public static void setReeds(World world, Random rand, int x, int y, int z) {
-		int height = rand.nextInt(3) +1;
-		LadDecorationPillar.setPillar(world, Blocks.reeds, x, y, z, height);
-	}
-	/*
-	 * サトウキビを生成するメソッド
-	 */
-	public static void setReedsX(World world, Random rand, int x1, int x2, int z, int y) {
-		int height = 0;
-
-		for (int x = x1; x <= x2; x++) {
-			height = rand.nextInt(3) +1;
-			LadDecorationPillar.setPillar(world, Blocks.reeds, x, y, z, height);
-		}
-	}
-	/*
-	 * サトウキビを生成するメソッド
-	 */
-	public static void setReedsZ(World world, Random rand, int x, int z1, int z2, int y) {
-		int height = 0;
-
-		for (int z = z1; z <= z2; z++) {
-			height = rand.nextInt(3) +1;
-			LadDecorationPillar.setPillar(world, Blocks.reeds, x, y, z, height);
 		}
 	}
 }

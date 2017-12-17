@@ -1,13 +1,12 @@
-package lawisAddonDqr1.event.rooms.room2;
+package lawisAddonDqr1.event.rooms.room02middle;
 
 import java.util.Random;
 
 import lawisAddonDqr1.achievement.LadAchievementCore;
-import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
-import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationIce;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -89,31 +88,31 @@ public class LadRoomIceCave {
 
 		/* 装飾 */
 		// 柱となる「氷塊」の設置
-		setIcePillar(world, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloorY, roomHeight, false);
-		setIcePillar(world, roomX +roomCenter +6, roomZ +roomCenter +6, roomY +roomFloorY, roomHeight, true);
-		setIcePillar(world, roomX +roomCenter +6, roomZ +roomCenter -6, roomY +roomFloorY, roomHeight, true);
-		setIcePillar(world, roomX +roomCenter -6, roomZ +roomCenter +6, roomY +roomFloorY, roomHeight, true);
-		setIcePillar(world, roomX +roomCenter -6, roomZ +roomCenter -6, roomY +roomFloorY, roomHeight, true);
+		LadDecorationIce.setIcePillar(world, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloorY, roomHeight, false);
+		LadDecorationIce.setIcePillar(world, roomX +roomCenter +6, roomZ +roomCenter +6, roomY +roomFloorY, roomHeight, true);
+		LadDecorationIce.setIcePillar(world, roomX +roomCenter +6, roomZ +roomCenter -6, roomY +roomFloorY, roomHeight, true);
+		LadDecorationIce.setIcePillar(world, roomX +roomCenter -6, roomZ +roomCenter +6, roomY +roomFloorY, roomHeight, true);
+		LadDecorationIce.setIcePillar(world, roomX +roomCenter -6, roomZ +roomCenter -6, roomY +roomFloorY, roomHeight, true);
 
 		if (rand.nextInt(2) == 0) {
 			// 斜め方向の逆三角柱の設置
-			setIceTriangularPrism(world, roomX +roomCenter +4, roomZ +roomCenter +4, roomY +roomFloorY, true);
-			setIceTriangularPrism(world, roomX +roomCenter +4, roomZ +roomCenter -4, roomY +roomFloorY, true);
-			setIceTriangularPrism(world, roomX +roomCenter -4, roomZ +roomCenter +4, roomY +roomFloorY, true);
-			setIceTriangularPrism(world, roomX +roomCenter -4, roomZ +roomCenter -4, roomY +roomFloorY, true);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter +4, roomZ +roomCenter +4, roomY +roomFloorY, true);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter +4, roomZ +roomCenter -4, roomY +roomFloorY, true);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter -4, roomZ +roomCenter +4, roomY +roomFloorY, true);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter -4, roomZ +roomCenter -4, roomY +roomFloorY, true);
 		}
 
 		if (rand.nextInt(2) == 0) {
 			// 水の設置
-			setWater(world, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloorY, roomHeight);
+			LadDecorationIce.setWater(world, roomX +roomCenter, roomZ +roomCenter, roomY +roomFloorY, roomHeight);
 		}
 
 		if (rand.nextInt(2) == 0) {
 			// 四隅の三角柱の設置
-			setIceTriangularPrism(world, roomX +1, roomZ +1, roomY +roomFloorY, false);
-			setIceTriangularPrism(world, roomX +1, roomZ +roomWidth -1, roomY +roomFloorY, false);
-			setIceTriangularPrism(world, roomX +roomWidth -1, roomZ +1, roomY +roomFloorY, false);
-			setIceTriangularPrism(world, roomX +roomWidth -1, roomZ +roomWidth -1, roomY +roomFloorY, false);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +1, roomZ +1, roomY +roomFloorY, false);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +1, roomZ +roomWidth -1, roomY +roomFloorY, false);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +roomWidth -1, roomZ +1, roomY +roomFloorY, false);
+			LadDecorationIce.setIceTriangularPrism(world, roomX +roomWidth -1, roomZ +roomWidth -1, roomY +roomFloorY, false);
 		}
 
 		if (rand.nextInt(2) == 0) {
@@ -124,13 +123,13 @@ public class LadRoomIceCave {
 			switch (roomDirection) {
 			case 0:
 			case 2:
-				setIceTriangularPrism(world, roomX +roomCenter, roomZ +2, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomCenter, roomZ +roomWidth -2, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter, roomZ +2, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter, roomZ +roomWidth -2, roomY +roomFloorY, hasInverted);
 				break;
 			case 1:
 			case 3:
-				setIceTriangularPrism(world, roomX +2, roomZ +roomCenter, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomWidth -2, roomZ +roomCenter, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +2, roomZ +roomCenter, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomWidth -2, roomZ +roomCenter, roomY +roomFloorY, hasInverted);
 				break;
 			}
 		}
@@ -143,17 +142,17 @@ public class LadRoomIceCave {
 			switch (roomDirection) {
 			case 0:
 			case 2:
-				setIceTriangularPrism(world, roomX +roomCenter +2, roomZ +4, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomCenter -2, roomZ +4, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomCenter +2, roomZ +roomWidth -4, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomCenter -2, roomZ +roomWidth -4, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter +2, roomZ +4, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter -2, roomZ +4, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter +2, roomZ +roomWidth -4, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomCenter -2, roomZ +roomWidth -4, roomY +roomFloorY, hasInverted);
 				break;
 			case 1:
 			case 3:
-				setIceTriangularPrism(world, roomX +4, roomZ +roomCenter +2, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +4, roomZ +roomCenter -2, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomWidth -4, roomZ +roomCenter +2, roomY +roomFloorY, hasInverted);
-				setIceTriangularPrism(world, roomX +roomWidth -4, roomZ +roomCenter -2, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +4, roomZ +roomCenter +2, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +4, roomZ +roomCenter -2, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomWidth -4, roomZ +roomCenter +2, roomY +roomFloorY, hasInverted);
+				LadDecorationIce.setIceTriangularPrism(world, roomX +roomWidth -4, roomZ +roomCenter -2, roomY +roomFloorY, hasInverted);
 				break;
 			}
 		}
@@ -161,6 +160,7 @@ public class LadRoomIceCave {
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+
 		switch (roomDirection) {
 		case 0:
 			// 逆三角柱の上にスポーン
@@ -202,77 +202,17 @@ public class LadRoomIceCave {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 			break;
-		}
-	}
-
-	/*
-	 * 氷の柱を設置するメソッド
-	 *
-	 * hasInvertedがtrueの時は、天井に近いほど大きい
-	 * falseの時は、床に近いほど大きい
-	 */
-	public static void setIcePillar(World world, int x, int z, int floorY, int height, boolean hasInverted) {
-		for (int y = 0; y <= height; y++){
-			int i = 0;
-
-			if (hasInverted) {
-				if (y == height) i = 3;
-				else if (y >= height -2) i = 2;
-				else if (y >= height -5) i = 1;
-			} else {
-				if (y == 0) i = 3;
-				else if (y <= 2) i = 2;
-				else if (y <= 5) i = 1;
-			}
-
-			LadDecorationCross.setBlockDiamond(world, LadBlocks.ladPackedIce, x, floorY +y +1, z, i);
-		}
-	}
-
-	/*
-	 * 三角柱の氷を設置するメソッド
-	 *
-	 * hasInvertedがtrueの時は、天井に近いほど大きい
-	 * falseの時は、床に近いほど大きい
-	 */
-	public static void setIceTriangularPrism(World world, int x, int z, int floorY, boolean hasInverted) {
-		if (hasInverted) {
-			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +1, z, 0);
-			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1);
-			LadDecorationCross.setBlockDiamond(world, Blocks.packed_ice, x, floorY +3, z, 2);
-		} else {
-			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +3, z, 0);
-			LadDecorationCross.setBlockCross(world, Blocks.packed_ice, x, floorY +2, z, 1);
-			LadDecorationCross.setBlockDiamond(world, Blocks.packed_ice, x, floorY +1, z, 2);
-		}
-	}
-
-	/*
-	 * 中央の柱を噴水のようにするメソッド
-	 */
-	public static void setWater(World world, int x, int z, int floorY, int height) {
-		world.setBlock(x, floorY +height +1, z, Blocks.flowing_water);
-
-		for (int i = 0; i <= 2; i++) {
-			world.setBlock(x +i, floorY +1, z +5 -i, LadBlocks.ladPackedIce);
-			world.setBlock(x -i, floorY +1, z +5 -i, LadBlocks.ladPackedIce);
-			world.setBlock(x +i, floorY +1, z -5 +i, LadBlocks.ladPackedIce);
-			world.setBlock(x -i, floorY +1, z -5 +i, LadBlocks.ladPackedIce);
-			world.setBlock(x +5 -i, floorY +1, z +i, LadBlocks.ladPackedIce);
-			world.setBlock(x +5 -i, floorY +1, z -i, LadBlocks.ladPackedIce);
-			world.setBlock(x -5 +i, floorY +1, z +i, LadBlocks.ladPackedIce);
-			world.setBlock(x -5 +i, floorY +1, z -i, LadBlocks.ladPackedIce);
 		}
 	}
 }

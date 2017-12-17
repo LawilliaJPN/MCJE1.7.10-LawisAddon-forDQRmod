@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room1;
+package lawisAddonDqr1.event.rooms.room01upper;
 
 import java.util.Random;
 
@@ -11,6 +11,7 @@ import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationTorch;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationTree;
 import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -70,7 +71,6 @@ public class LadRoomForest {
 			break;
 		}
 
-
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
 		 * - - - - - - - - - */
@@ -91,18 +91,18 @@ public class LadRoomForest {
 
 		/* 木 */
 		// 「オークの木」の生成
-		setTree(world, rand, roomX +2, roomY, roomZ +2, roomType/2);
-		setTree(world, rand, roomX +2, roomY, roomZ +roomWidth -2, roomType/2);
-		setTree(world, rand, roomX +roomWidth -2, roomY, roomZ +2, roomType/2);
-		setTree(world, rand, roomX +roomWidth -2, roomY, roomZ +roomWidth -2, roomType/2);
+		LadDecorationTree.setTree(world, rand, roomX +2, roomZ +2, roomY, roomType/2);
+		LadDecorationTree.setTree(world, rand, roomX +2, roomZ +roomWidth -2, roomY, roomType/2);
+		LadDecorationTree.setTree(world, rand, roomX +roomWidth -2, roomZ +2, roomY, roomType/2);
+		LadDecorationTree.setTree(world, rand, roomX +roomWidth -2, roomZ +roomWidth -2, roomY, roomType/2);
 
 		// 木の多い森
 		if (roomType%2 == 0) {
-			setTree(world, rand, roomX +3, roomY, roomZ +roomCenter, roomType/2);
-			setTree(world, rand, roomX +roomCenter, roomY, roomZ +3, roomType/2);
-			setTree(world, rand, roomX +roomWidth -3, roomY, roomZ +roomCenter, roomType/2);
-			setTree(world, rand, roomX +roomCenter, roomY, roomZ +roomWidth -3, roomType/2);
-			setTree(world, rand, roomX +roomCenter, roomY, roomZ +roomCenter, roomType/2);
+			LadDecorationTree.setTree(world, rand, roomX +3, roomZ +roomCenter, roomY, roomType/2);
+			LadDecorationTree.setTree(world, rand, roomX +roomCenter, roomZ +3, roomY, roomType/2);
+			LadDecorationTree.setTree(world, rand, roomX +roomWidth -3, roomZ +roomCenter, roomY, roomType/2);
+			LadDecorationTree.setTree(world, rand, roomX +roomCenter, roomZ +roomWidth -3, roomY, roomType/2);
+			LadDecorationTree.setTree(world, rand, roomX +roomCenter, roomZ +roomCenter, roomY, roomType/2);
 
 			// 部屋の四隅に明るさ確保のための「松明」の設置
 			LadDecorationTorch.setFourTorchSlanting(world, roomX, roomZ, roomY, roomWidth, 0);
@@ -128,7 +128,6 @@ public class LadRoomForest {
 				}
 			}
 		}
-
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
@@ -200,83 +199,23 @@ public class LadRoomForest {
 			}
 		}
 
-
 		/* - - - - - - - - - -
 		 * 以下、報酬
 		 * - - - - - - - - - */
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 			break;
-		}
-	}
-
-
-	/*
-	 * 木を生成するメソッド
-	 */
-	public static void setTree(World world, Random rand, int x, int y, int z, int meta) {
-		int treeHeight = 2;
-
-		if (rand.nextInt(2) == 0)  x++;
-		if (rand.nextInt(2) == 0)  x--;
-		if (rand.nextInt(2) == 0)  z++;
-		if (rand.nextInt(2) == 0)  z--;
-		if (rand.nextInt(2) == 0)  treeHeight++;
-
-		// 木の下を「土ブロック」に変える
-		world.setBlock(x, y -1, z, Blocks.dirt);
-
-		/* 葉ブロック */
-		// 頂上 十字
-		setLeaves(world, x, y +treeHeight +3, z, meta);
-		setLeaves(world, x, y +treeHeight +3, z +1, meta);
-		setLeaves(world, x, y +treeHeight +3, z -1, meta);
-		setLeaves(world, x +1, y +treeHeight +3, z, meta);
-		setLeaves(world, x -1, y +treeHeight +3, z, meta);
-
-		// 上段
-		for (int x2 = -1; x2 <= 1; x2++) {
-			for (int z2 = -1; z2 <= 1; z2++) {
-				setLeaves(world, x +x2, y +treeHeight +2, z +z2, meta);
-			}
-		}
-
-		// 下段
-		for (int x2 = -2; x2 <= 2; x2++) {
-			for (int z2 = -2; z2 <= 2; z2++) {
-				for (int y2 = 0; y2 <= 1; y2++) {
-					setLeaves(world, x +x2, y +treeHeight +y2, z +z2, meta);
-				}
-			}
-		}
-
-		/* 原木 */
-		for (int i = 0; i <= treeHeight+2; i++) {
-			world.setBlock(x, y +i, z, Blocks.log, meta, 2);
-		}
-
-		/* ジャックオランタン */
-		if (rand.nextInt(64) == 0) {
-			world.setBlock(x, y +treeHeight -1, z, Blocks.lit_pumpkin, rand.nextInt(4), 2);
-		}
-	}
-	/*
-	 * 葉を設置メソッド
-	 */
-	public static void setLeaves(World world, int x, int y, int z, int meta) {
-		if (world.getBlock(x, y, z).isAir(world, x, y, z)) {
-			world.setBlock(x, y, z, Blocks.leaves, meta, 2);
 		}
 	}
 }

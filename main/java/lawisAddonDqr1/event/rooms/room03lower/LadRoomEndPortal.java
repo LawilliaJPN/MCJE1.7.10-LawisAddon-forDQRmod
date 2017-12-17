@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room3;
+package lawisAddonDqr1.event.rooms.room03lower;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class LadRoomEndPortal {
 	/*
-	 * 動画の番外編で製作した特殊な戦闘部屋(下層)
+	 * エンドポータルの戦闘部屋
 	 */
 	public static void setRoom(World world, EntityPlayer player) {
 		Random rand = new Random();
@@ -126,6 +126,7 @@ public class LadRoomEndPortal {
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
+
 		switch (roomDirection) {
 		case 0:
 			LadSpawnEnemyCore.spawnEnemy(world, player, roomX +roomWidthX -1, roomY +1, roomZ +roomCenterZ, LadRoomID.END_PORTAL + LadRoomID.getDifOfRoom());
@@ -168,18 +169,19 @@ public class LadRoomEndPortal {
 		/* - - - - - - - - - -
 		 * 以下、報酬
 		 * - - - - - - - - - */
+
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidthX +1, roomY, roomZ +roomCenterZ);
+			LadDecorationReward.setChest(world, roomX +roomWidthX +1, roomZ +roomCenterZ, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ +roomWidthZ +1);
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomZ +roomWidthZ +1, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenterZ);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenterZ, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomZ -1, roomY);
 			break;
 		}
 	}
@@ -262,60 +264,60 @@ public class LadRoomEndPortal {
 	public static void setStoneBrickStairs(World world, int x, int y, int z, int meta) {
 		if (meta == 0) {
 			for (int i = -1; i <= 1; i++) {
-				LadDecorationDeteriorated.setStoneBrick(world, x, y, z +i);
-				LadDecorationDeteriorated.setStoneBrick(world, x, y +1, z +i);
-				LadDecorationDeteriorated.setStoneBrick(world, x, y +2, z +i);
+				LadDecorationDeteriorated.setStoneBrick(world, x, z +i, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x, z +i, y +1);
+				LadDecorationDeteriorated.setStoneBrick(world, x, z +i, y +2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x -1, y, z +i);
-				LadDecorationDeteriorated.setStoneBrick(world, x -1, y +1, z +i);
+				LadDecorationDeteriorated.setStoneBrick(world, x -1, z +i, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x -1, z +i, y +1);
 				world.setBlock(x -1, y +2, z +i, Blocks.stone_brick_stairs, meta, 2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x -2, y, z +i);
+				LadDecorationDeteriorated.setStoneBrick(world, x -2, z +i, y);
 				world.setBlock(x -2, y +1, z +i, Blocks.stone_brick_stairs, meta, 2);
 
 				world.setBlock(x -3, y, z +i, Blocks.stone_brick_stairs, meta, 2);
 			}
 		} else if (meta == 1) {
 			for (int i = -1; i <= 1; i++) {
-				LadDecorationDeteriorated.setStoneBrick(world, x, y, z +i);
-				LadDecorationDeteriorated.setStoneBrick(world, x, y +1, z +i);
-				LadDecorationDeteriorated.setStoneBrick(world, x, y +2, z +i);
+				LadDecorationDeteriorated.setStoneBrick(world, x, z +i, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x, z +i, y +1);
+				LadDecorationDeteriorated.setStoneBrick(world, x, z +i, y +2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x +1, y, z +i);
-				LadDecorationDeteriorated.setStoneBrick(world, x +1, y +1, z +i);
+				LadDecorationDeteriorated.setStoneBrick(world, x +1, z +i, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x +1, z +i, y +1);
 				world.setBlock(x +1, y +2, z +i, Blocks.stone_brick_stairs, meta, 2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x +2, y, z +i);
+				LadDecorationDeteriorated.setStoneBrick(world, x +2, z +i, y);
 				world.setBlock(x +2, y +1, z +i, Blocks.stone_brick_stairs, meta, 2);
 
 				world.setBlock(x +3, y, z +i, Blocks.stone_brick_stairs, meta, 2);
 			}
 		} else if (meta == 2) {
 			for (int i = -1; i <= 1; i++) {
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y, z);
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y +1, z);
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y +2, z);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z, y +1);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z, y +2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y, z -1);
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y +1, z -1);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z -1, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z -1, y +1);
 				world.setBlock(x +i, y +2, z -1, Blocks.stone_brick_stairs, meta, 2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y, z -2);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z -2, y);
 				world.setBlock(x +i, y +1, z -2, Blocks.stone_brick_stairs, meta, 2);
 
 				world.setBlock(x +i, y, z -3, Blocks.stone_brick_stairs, meta, 2);
 			}
 		} else {
 			for (int i = -1; i <= 1; i++) {
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y, z);
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y +1, z);
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y +2, z);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z, y +1);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z, y +2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y, z +1);
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y +1, z +1);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z +1, y);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z +1, y +1);
 				world.setBlock(x +i, y +2, z +1, Blocks.stone_brick_stairs, meta, 2);
 
-				LadDecorationDeteriorated.setStoneBrick(world, x +i, y, z +2);
+				LadDecorationDeteriorated.setStoneBrick(world, x +i, z +2, y);
 				world.setBlock(x +i, y +1, z +2, Blocks.stone_brick_stairs, meta, 2);
 
 				world.setBlock(x +i, y, z +3, Blocks.stone_brick_stairs, meta, 2);

@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room3;
+package lawisAddonDqr1.event.rooms.room03lower;
 
 import java.util.Random;
 
@@ -256,10 +256,10 @@ public class LadRoomNether {
 
 		// 柱の一番下のブロックを再度上書き
 		if (isFourNetherPillarSlanting) {
-			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +2, roomY -1, roomZ +2, 2);
-			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +2, roomY -1, roomZ +roomWidth -2, 2);
-			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +roomWidth -2, roomY -1, roomZ +2, 2);
-			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +roomWidth -2, roomY -1, roomZ +roomWidth -2, 2);
+			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +2, roomZ +2, roomY -1, 2);
+			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +2, roomZ +roomWidth -2, roomY -1, 2);
+			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +roomWidth -2, roomZ +2, roomY -1, 2);
+			LadDecorationCross.setBlockDiamond(world, eBlock, roomX +roomWidth -2, roomZ +roomWidth -2, roomY -1, 2);
 		}
 
 		/* - - - - - - - - - -
@@ -295,16 +295,16 @@ public class LadRoomNether {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth +1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth +1, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -1, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX -1, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ -1);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ -1, roomY);
 			break;
 		}
 	}
@@ -313,7 +313,7 @@ public class LadRoomNether {
 	 * 天井から溶岩を流すメソッド
 	 */
 	public static void setLavaPillar(World world, int x, int z, int floorY, int height) {
-		LadDecorationPillar.setPillarToAir(world, x, floorY, z, height +1);
+		LadDecorationPillar.setPillarToAir(world, x, z, floorY, height +1);
 		world.setBlock(x, floorY +height +1, z, Blocks.flowing_lava);
 	}
 
@@ -322,10 +322,10 @@ public class LadRoomNether {
 	 * type rand.nextInt(4)を入れることを想定
 	 */
 	public static void setNetherPillar(World world, Block block, int x, int z, int floorY, int height, int type) {
-		LadDecorationPillar.setPillar(world, block, x, floorY, z, height +1);
+		LadDecorationPillar.setPillar(world, block, x, z, floorY, height +1);
 
-		LadDecorationCross.setBlockDiamond(world, block, x, floorY +1, z, 2);
-		LadDecorationCross.setBlockDiamond(world, block, x, floorY +height, z, 2);
+		LadDecorationCross.setBlockDiamond(world, block, x, z, floorY +1, 2);
+		LadDecorationCross.setBlockDiamond(world, block, x, z, floorY +height, 2);
 
 		LadDecorationCross.setFourBlockCross(world, block, x, z, floorY +2, 1);
 		LadDecorationCross.setFourBlockCross(world, block, x, z, floorY +3, 1);
@@ -347,24 +347,24 @@ public class LadRoomNether {
 	 * type rand.nextInt(18)を入れることを想定
 	 */
 	public static void setGlowstonePillar(World world, Block block, int x, int z, int floorY, int height, int type) {
-		LadDecorationCross.setBlockDiamond(world, Blocks.glowstone, x, floorY +height, z, 2);
+		LadDecorationCross.setBlockDiamond(world, Blocks.glowstone, x, z, floorY +height, 2);
 
 		if (type /6 == 0) {
-			LadDecorationCross.setBlockDiamond(world, Blocks.glowstone, x, floorY +height -2, z, 2);
+			LadDecorationCross.setBlockDiamond(world, Blocks.glowstone, x, z, floorY +height -2, 2);
 			if (type %2 == 0) {
-				LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, floorY +height -1, z, 1);
+				LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, z, floorY +height -1, 1);
 			}
 		} else if (type /6 == 1) {
-			LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, floorY +height -2, z, 1);
+			LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, z, floorY +height -2, 1);
 		} else {
-			LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, floorY +height -1, z, 1);
+			LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, z, floorY +height -1, 1);
 		}
 
 		if (type /6  <= 1) {
-			if (type %3 == 0) LadDecorationCross.setBlockDiamond(world, Blocks.glowstone, x, floorY +height -4, z, 2);
-			else if (type %3 == 1) LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, floorY +height -4, z, 1);
+			if (type %3 == 0) LadDecorationCross.setBlockDiamond(world, Blocks.glowstone, x, z, floorY +height -4, 2);
+			else if (type %3 == 1) LadDecorationCross.setBlockCross(world, Blocks.glowstone, x, z, floorY +height -4, 1);
 		}
 
-		LadDecorationPillar.setPillar(world, block, x, floorY, z, height +1);
+		LadDecorationPillar.setPillar(world, block, x, z, floorY, height +1);
 	}
 }

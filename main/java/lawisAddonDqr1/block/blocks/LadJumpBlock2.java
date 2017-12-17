@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 /*
  * 追加した「ジャンプブロック」のクラス。
- * DQRの「ジャンプブロック」を継承し、一部仕様を変更したブロック。
+ * DQRmodの「ジャンプブロック」を継承し、一部仕様を変更したブロック。
  */
 public class LadJumpBlock2 extends DqmJumpBlock2 {
 	/*

@@ -99,6 +99,6 @@ public class LadAchievementCore {
 				eventMedalKing, eventSpider, eventPriest,
 				roomNether, roomEndPortal, roomBottom,
 				roomSpecial01, roomSpecial02
-				}));
+		}));
 	}
 }

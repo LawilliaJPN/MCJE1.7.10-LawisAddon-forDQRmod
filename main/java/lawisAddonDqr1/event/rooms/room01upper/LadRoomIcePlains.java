@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room1;
+package lawisAddonDqr1.event.rooms.room01upper;
 
 import java.util.Random;
 
@@ -11,6 +11,7 @@ import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationCross;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationFloor;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationIce;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
@@ -607,7 +608,7 @@ public class LadRoomIcePlains {
 		if (treeType <= 1) {
 			if (treeType == 1) {
 				// 中央に1本
-				setIceTree(world, roomX +roomCenter, roomY, roomZ +roomCenter, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomCenter, roomZ +roomCenter, roomY, roomDepth, roomHeight);
 			}
 
 			if (rand.nextInt(2) == 0) {
@@ -615,17 +616,17 @@ public class LadRoomIcePlains {
 				switch (roomDirection) {
 				case 0:
 				case 2:
-					setIceTree(world, roomX +2, roomY, roomZ +1, roomDepth, roomHeight);
-					setIceTree(world, roomX +2, roomY, roomZ +roomWidth -1, roomDepth, roomHeight);
-					setIceTree(world, roomX +roomWidth -2, roomY, roomZ +1, roomDepth, roomHeight);
-					setIceTree(world, roomX +roomWidth -2, roomY, roomZ +roomWidth -1, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +2, roomZ +1, roomY, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +2, roomZ +roomWidth -1, roomY, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +roomWidth -2, roomZ +1, roomY, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +roomWidth -2, roomZ +roomWidth -1, roomY, roomDepth, roomHeight);
 					break;
 				case 1:
 				case 3:
-					setIceTree(world, roomX +1, roomY, roomZ +2, roomDepth, roomHeight);
-					setIceTree(world, roomX +1, roomY, roomZ +roomWidth -2, roomDepth, roomHeight);
-					setIceTree(world, roomX +roomWidth -1, roomY, roomZ +2, roomDepth, roomHeight);
-					setIceTree(world, roomX +roomWidth -1, roomY, roomZ +roomWidth -2, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +1, roomZ +2, roomY, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +1, roomZ +roomWidth -2, roomY, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +roomWidth -1, roomZ +2, roomY, roomDepth, roomHeight);
+					LadDecorationIce.setIceTree(world, roomX +roomWidth -1, roomZ +roomWidth -2, roomY, roomDepth, roomHeight);
 					break;
 				}
 			} else {
@@ -634,17 +635,17 @@ public class LadRoomIcePlains {
 
 				// コンフィグ：負荷軽減 オフの時に水中に木を生成
 				if (!LadConfigCore.isRoomReduction) {
-					setIceTreeInWater(world, roomX +roomCenter, roomY, roomZ +roomCenter, roomDepth);
+					LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter, roomZ +roomCenter, roomY, roomDepth);
 					if (isRoomDirection02) {
-						setIceTreeInWater(world, roomX +roomCenter -3, roomY, roomZ +roomCenter -4, roomDepth);
-						setIceTreeInWater(world, roomX +roomCenter -3, roomY, roomZ +roomCenter +4, roomDepth);
-						setIceTreeInWater(world, roomX +roomCenter +3, roomY, roomZ +roomCenter -4, roomDepth);
-						setIceTreeInWater(world, roomX +roomCenter +3, roomY, roomZ +roomCenter +4, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter -3, roomZ +roomCenter -4, roomY, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter -3, roomZ +roomCenter +4, roomY, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter +3, roomZ +roomCenter -4, roomY, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter +3, roomZ +roomCenter +4, roomY, roomDepth);
 					} else {
-						setIceTreeInWater(world, roomX +roomCenter -4, roomY, roomZ +roomCenter -3, roomDepth);
-						setIceTreeInWater(world, roomX +roomCenter -4, roomY, roomZ +roomCenter +3, roomDepth);
-						setIceTreeInWater(world, roomX +roomCenter +4, roomY, roomZ +roomCenter -3, roomDepth);
-						setIceTreeInWater(world, roomX +roomCenter +4, roomY, roomZ +roomCenter +3, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter -4, roomZ +roomCenter -3, roomY, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter -4, roomZ +roomCenter +3, roomY, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter +4, roomZ +roomCenter -3, roomY, roomDepth);
+						LadDecorationIce.setIceTreeInWater(world, roomX +roomCenter +4, roomZ +roomCenter +3, roomY, roomDepth);
 					}
 				}
 			}
@@ -652,23 +653,23 @@ public class LadRoomIcePlains {
 		} else if (treeType == 2) {
 			// 中央両端に1本ずつ、手前・奥に1本ずつ
 			if (isRoomDirection02) {
-				setIceTree(world, roomX +roomCenter, roomY, roomZ +2, roomDepth, roomHeight);
-				setIceTree(world, roomX +roomCenter, roomY, roomZ +roomWidth -2, roomDepth, roomHeight);
-				setIceTree(world, roomX +4, roomY, roomZ +roomCenter, roomDepth, roomHeight);
-				setIceTree(world, roomX +roomWidth -4, roomY, roomZ +roomCenter, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomCenter, roomZ +2, roomY, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomCenter, roomZ +roomWidth -2, roomY, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +4, roomZ +roomCenter, roomY, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomWidth -4, roomZ +roomCenter, roomY, roomDepth, roomHeight);
 			} else {
-				setIceTree(world, roomX +2, roomY, roomZ +roomCenter, roomDepth, roomHeight);
-				setIceTree(world, roomX +roomWidth -2, roomY, roomZ +roomCenter, roomDepth, roomHeight);
-				setIceTree(world, roomX +roomCenter, roomY, roomZ +4, roomDepth, roomHeight);
-				setIceTree(world, roomX +roomCenter, roomY, roomZ +roomWidth -4, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +2, roomZ +roomCenter, roomY, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomWidth -2, roomZ +roomCenter, roomY, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomCenter, roomZ +4, roomY, roomDepth, roomHeight);
+				LadDecorationIce.setIceTree(world, roomX +roomCenter, roomZ +roomWidth -4, roomY, roomDepth, roomHeight);
 			}
 
 		} else if (treeType == 3) {
 			// 中央に4本
-			setIceTree(world, roomX +4, roomY, roomZ +4, roomDepth, roomHeight);
-			setIceTree(world, roomX +4, roomY, roomZ +roomWidth -4, roomDepth, roomHeight);
-			setIceTree(world, roomX +roomWidth -4, roomY, roomZ +4, roomDepth, roomHeight);
-			setIceTree(world, roomX +roomWidth -4, roomY, roomZ +roomWidth -4, roomDepth, roomHeight);
+			LadDecorationIce.setIceTree(world, roomX +4, roomZ +4, roomY, roomDepth, roomHeight);
+			LadDecorationIce.setIceTree(world, roomX +4, roomZ +roomWidth -4, roomY, roomDepth, roomHeight);
+			LadDecorationIce.setIceTree(world, roomX +roomWidth -4, roomZ +4, roomY, roomDepth, roomHeight);
+			LadDecorationIce.setIceTree(world, roomX +roomWidth -4, roomZ +roomWidth -4, roomY, roomDepth, roomHeight);
 		}
 
 		/* - - - - - - - - - -
@@ -719,45 +720,17 @@ public class LadRoomIcePlains {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX +roomWidth, roomZ +roomCenter, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomCenter);
+			LadDecorationReward.setChest(world, roomX, roomZ +roomCenter, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ);
+			LadDecorationReward.setChest(world, roomX +roomCenter, roomZ, roomY);
 			break;
 		}
 	}
-
-	/*
-	 * 氷の木を生成するメソッド
-	 */
-	public static void setIceTree(World world, int x, int y, int z, int roomDepth, int roomHeight) {
-		// 柱となる「氷塊」を設置する
-		LadDecorationPillar.setPillar(world, LadBlocks.ladPackedIce, x, y +roomDepth, z, roomHeight -roomDepth +1);
-
-		// 3段目の「氷塊」を設置する
-		LadDecorationCross.setFourBlockCross(world, LadBlocks.ladPackedIce, x, z, y +3, 1);
-
-		// 4段目の「氷塊」を設置する
-		LadDecorationCross.setFourBlockSlanting(world, LadBlocks.ladPackedIce, x, z, y +4, 1);
-	}
-	/*
-	 * 水中の氷の木を生成するメソッド
-	 */
-	public static void setIceTreeInWater(World world, int x, int y, int z, int roomDepth) {
-		// 柱となる「氷塊」を設置する
-		LadDecorationPillar.setPillar(world, LadBlocks.ladPackedIce, x, y +roomDepth, z, -roomDepth -1);
-
-		// 3段目の「氷塊」を設置する
-		LadDecorationCross.setFourBlockCross(world, LadBlocks.ladPackedIce, x, z, y +roomDepth +2, 1);
-
-		// 4段目の「氷塊」を設置する
-		LadDecorationCross.setFourBlockSlanting(world, LadBlocks.ladPackedIce, x, z, y +roomDepth +3, 1);
-	}
-
 }

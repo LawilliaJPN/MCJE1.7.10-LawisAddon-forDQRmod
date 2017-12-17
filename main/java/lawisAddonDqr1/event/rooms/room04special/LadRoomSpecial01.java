@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room4;
+package lawisAddonDqr1.event.rooms.room04special;
 
 import java.util.Random;
 
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class LadRoomSpecial01 {
 	/*
-	 * DQRのブロックを利用した特殊な戦闘部屋(上層)
+	 * DQRmodのブロックを利用した特殊な戦闘部屋(上層)
 	 *
 	 * TODO 要素不足
 	 */
@@ -60,7 +60,6 @@ public class LadRoomSpecial01 {
 		}
 		// 実績の取得
 		player.triggerAchievement(LadAchievementCore.roomSpecial01);
-
 
 		/* - - - - - - - - - -
 		 * 以下、部屋の生成
@@ -287,7 +286,7 @@ public class LadRoomSpecial01 {
 		 * 以下、報酬
 		 * - - - - - - - - - */
 
-		LadDecorationReward.setChest(world, roomX -1, roomY +roomFloor1Y +1, roomZ +5);
-		LadDecorationReward.setChest(world, roomX +roomWidth +1, roomY +roomFloor1Y +1, roomZ +roomWidth -5);
+		LadDecorationReward.setChest(world, roomX -1, roomZ +5, roomY +roomFloor1Y +1);
+		LadDecorationReward.setChest(world, roomX +roomWidth +1, roomZ +roomWidth -5, roomY +roomFloor1Y +1);
 	}
 }

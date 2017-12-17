@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room2;
+package lawisAddonDqr1.event.rooms.room02middle;
 
 import java.util.Random;
 
@@ -265,10 +265,10 @@ public class LadRoomPyramid {
 			}
 
 			// 「チェスト」を設置
-			LadDecorationReward.setChestP(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter +2);
-			LadDecorationReward.setChestP(world, roomX +roomCenter, roomY +roomFloorB1Y +2, roomZ +roomCenter -2);
-			LadDecorationReward.setChestP(world, roomX +roomCenter +2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
-			LadDecorationReward.setChestP(world, roomX +roomCenter -2, roomY +roomFloorB1Y +2, roomZ +roomCenter);
+			LadDecorationReward.setChestP(world, roomX +roomCenter, roomZ +roomCenter +2, roomY +roomFloorB1Y +2);
+			LadDecorationReward.setChestP(world, roomX +roomCenter, roomZ +roomCenter -2, roomY +roomFloorB1Y +2);
+			LadDecorationReward.setChestP(world, roomX +roomCenter +2, roomZ +roomCenter, roomY +roomFloorB1Y +2);
+			LadDecorationReward.setChestP(world, roomX +roomCenter -2, roomZ +roomCenter, roomY +roomFloorB1Y +2);
 
 
 			if (roomType == 0) {
@@ -309,7 +309,6 @@ public class LadRoomPyramid {
 			}
 			world.setBlockToAir(roomX +roomCenter, roomY +roomHeight -1, roomZ +roomCenter);
 		}
-
 
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン

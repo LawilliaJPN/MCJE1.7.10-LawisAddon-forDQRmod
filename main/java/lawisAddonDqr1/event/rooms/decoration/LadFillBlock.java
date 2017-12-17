@@ -29,6 +29,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockToAir(World world, int x1, int x2, int z1, int z2, int y1, int y2) {
 		for (int x = x1; x <= x2; x++) {
 			for (int z = z1; z <= z2; z++) {
@@ -53,6 +54,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockToAir(World world, int x1, int z1, int width, int y1, int height) {
 		if ((width >=50) || (height >=50)) {
 			System.out.println("There is the improbable WIDTH or HEIGHT.");
@@ -78,6 +80,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockCube(World world, Block block, int meta, int x1, int z1, int y1, int size) {
 		for (int x = x1; x <= x1 +size; x++) {
 			for (int z = z1; z <= z1 +size; z++) {
@@ -87,6 +90,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockCubeToAir(World world, int x1, int z1, int y1, int size) {
 		for (int x = x1; x <= x1 +size; x++) {
 			for (int z = z1; z <= z1 +size; z++) {
@@ -105,6 +109,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockXZ(World world, Block block, int x1, int z1, int width, int y) {
 		if (width >=50) {
 			System.out.println("There is the improbable WIDTH or HEIGHT.");
@@ -117,6 +122,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockXZToAir(World world, int x1, int x2, int z1, int z2, int y) {
 		for (int x = x1; x <= x2; x++) {
 			for (int z = z1; z <= z2; z++) {
@@ -124,6 +130,7 @@ public class LadFillBlock {
 			}
 		}
 	}
+
 	public static void fillBlockXZToAir(World world, int x1, int z1, int width, int y) {
 		if (width >=50) {
 			System.out.println("There is the improbable WIDTH or HEIGHT.");

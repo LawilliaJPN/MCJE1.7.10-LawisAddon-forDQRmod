@@ -16,7 +16,7 @@ public class LadDecorationPillar {
 	/*
 	 * 指定座標x,y,zから高さheight分のブロックを設置する。
 	 */
-	public static void setPillar(World world, Block block, int x, int y, int z, int height) {
+	public static void setPillar(World world, Block block, int x, int z, int y, int height) {
 		for (int i = 0; i < height; i++) {
 			world.setBlock(x, y +i, z, block);
 		}
@@ -25,7 +25,7 @@ public class LadDecorationPillar {
 	/*
 	 * 指定座標x,y,zから高さheight分のブロック（データ値meta）を設置する。
 	 */
-	public static void setPillar(World world, Block block, int meta, int x, int y, int z, int height) {
+	public static void setPillar(World world, Block block, int meta, int x, int z, int y, int height) {
 		for (int i = 0; i < height; i++) {
 			world.setBlock(x, y +i, z, block, meta, 2);
 		}
@@ -34,7 +34,7 @@ public class LadDecorationPillar {
 	/*
 	 * 指定座標x,y,zから高さheight分の空気ブロックを設置する。
 	 */
-	public static void setPillarToAir(World world, int x, int y, int z, int height) {
+	public static void setPillarToAir(World world, int x, int z, int y, int height) {
 		for (int i = 0; i < height; i++) {
 			world.setBlockToAir(x, y +i, z);
 		}
@@ -50,7 +50,7 @@ public class LadDecorationPillar {
 	public static void setThickPillar(World world, Block block, int x1, int z1, int width, int y, int height) {
 		for (int x = x1; x <= x1 +width; x++) {
 			for (int z = z1; z <= z1 +width; z++) {
-				setPillar(world, block, x, y, z, height);
+				setPillar(world, block, x, z, y, height);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class LadDecorationPillar {
 	public static void setThickPillar(World world, Block block, int x1, int x2, int z1, int z2, int y, int height) {
 		for (int x = x1; x <= x2; x++) {
 			for (int z = z1; z <= z2; z++) {
-				setPillar(world, block, x, y, z, height);
+				setPillar(world, block, x, z, y, height);
 			}
 		}
 	}
@@ -67,42 +67,44 @@ public class LadDecorationPillar {
 	 * 4つの柱を設置
 	 */
 	public static void setFourPillar(World world, Block block, int x1, int x2, int z1, int z2, int y, int height) {
-		setPillar(world, block, x1, y, z1, height);
-		setPillar(world, block, x1, y, z2, height);
-		setPillar(world, block, x2, y, z1, height);
-		setPillar(world, block, x2, y, z2, height);
+		setPillar(world, block, x1, z1, y, height);
+		setPillar(world, block, x1, z2, y, height);
+		setPillar(world, block, x2, z1, y, height);
+		setPillar(world, block, x2, z2, y, height);
 	}
+
 	public static void setFourPillarToAir(World world, int x1, int x2, int z1, int z2, int y, int height) {
-		setPillarToAir(world, x1, y, z1, height);
-		setPillarToAir(world, x1, y, z2, height);
-		setPillarToAir(world, x2, y, z1, height);
-		setPillarToAir(world, x2, y, z2, height);
+		setPillarToAir(world, x1, z1, y, height);
+		setPillarToAir(world, x1, z2, y, height);
+		setPillarToAir(world, x2, z1, y, height);
+		setPillarToAir(world, x2, z2, y, height);
 	}
 
 	/*
 	 * 四方向(東西南北)に柱を設置
 	 */
 	public static void setFourPillarCross(World world, Block block, int centerX, int centerZ, int y, int height, int position) {
-		setPillar(world, block, centerX, y, centerZ -position, height);
-		setPillar(world, block, centerX, y, centerZ +position, height);
-		setPillar(world, block, centerX +position, y, centerZ, height);
-		setPillar(world, block, centerX -position, y, centerZ, height);
+		setPillar(world, block, centerX, centerZ -position, y, height);
+		setPillar(world, block, centerX, centerZ +position, y, height);
+		setPillar(world, block, centerX +position, centerZ, y, height);
+		setPillar(world, block, centerX -position, centerZ, y, height);
 	}
+
 	public static void setFourPillarCrossToAir(World world, int centerX, int centerZ, int y, int height, int position) {
-		setPillarToAir(world, centerX, y, centerZ -position, height);
-		setPillarToAir(world, centerX, y, centerZ +position, height);
-		setPillarToAir(world, centerX +position, y, centerZ, height);
-		setPillarToAir(world, centerX -position, y, centerZ, height);
+		setPillarToAir(world, centerX, centerZ -position, y, height);
+		setPillarToAir(world, centerX, centerZ +position, y, height);
+		setPillarToAir(world, centerX +position, centerZ, y, height);
+		setPillarToAir(world, centerX -position, centerZ, y, height);
 	}
 
 	/*
 	 * 斜め四方向に柱を設置
 	 */
 	public static void setFourPillarSlanting(World world, Block block, int centerX, int centerZ, int y, int height, int position) {
-		setPillar(world, block, centerX -position, y, centerZ -position, height);
-		setPillar(world, block, centerX -position, y, centerZ +position, height);
-		setPillar(world, block, centerX +position, y, centerZ -position, height);
-		setPillar(world, block, centerX +position, y, centerZ +position, height);
+		setPillar(world, block, centerX -position, centerZ -position, y, height);
+		setPillar(world, block, centerX -position, centerZ +position, y, height);
+		setPillar(world, block, centerX +position, centerZ -position, y, height);
+		setPillar(world, block, centerX +position, centerZ +position, y, height);
 	}
 
 	/*
@@ -111,12 +113,13 @@ public class LadDecorationPillar {
 	 */
 	public static void setWallX(World world, Block block, int x1, int x2, int z, int y, int height) {
 		for (int x = x1; x <= x2; x++) {
-			setPillar(world, block, x, y, z, height);
+			setPillar(world, block, x, z, y, height);
 		}
 	}
+
 	public static void setWallXToAir(World world, int x1, int x2, int z, int y, int height) {
 		for (int x = x1; x <= x2; x++) {
-			setPillarToAir(world, x, y, z, height);
+			setPillarToAir(world, x, z, y, height);
 		}
 	}
 
@@ -126,12 +129,13 @@ public class LadDecorationPillar {
 	 */
 	public static void setWallZ(World world, Block block, int x, int z1, int z2, int y, int height) {
 		for (int z = z1; z <= z2; z++) {
-			setPillar(world, block, x, y, z, height);
+			setPillar(world, block, x, z, y, height);
 		}
 	}
+
 	public static void setWallZToAir(World world, int x, int z1, int z2, int y, int height) {
 		for (int z = z1; z <= z2; z++) {
-			setPillarToAir(world, x, y, z, height);
+			setPillarToAir(world, x, z, y, height);
 		}
 	}
 

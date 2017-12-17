@@ -69,7 +69,6 @@ public class LadMeasuresAgainstEnemySuffocation {
 		}
 	}
 }
-
 /* 未使用
 public static void enemyBreakBlockInWall(EntityLivingBase enemy) {
 	World world = enemy.worldObj;

@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room1;
+package lawisAddonDqr1.event.rooms.room01upper;
 
 import java.util.Random;
 
@@ -425,16 +425,16 @@ public class LadRoomWeaponShop {
 
 		switch (roomDirection) {
 		case 0:
-			LadDecorationReward.setChest(world, roomX +roomWidthX +3, roomY, roomZ +roomCenterZ);
+			LadDecorationReward.setChest(world, roomX +roomWidthX +3, roomZ +roomCenterZ, roomY);
 			break;
 		case 1:
-			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ +roomWidthZ +3);
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomZ +roomWidthZ +3, roomY);
 			break;
 		case 2:
-			LadDecorationReward.setChest(world, roomX -3, roomY, roomZ +roomCenterZ);
+			LadDecorationReward.setChest(world, roomX -3, roomZ +roomCenterZ, roomY);
 			break;
 		case 3:
-			LadDecorationReward.setChest(world, roomX +roomCenterX, roomY, roomZ -3);
+			LadDecorationReward.setChest(world, roomX +roomCenterX, roomZ -3, roomY);
 			break;
 		}
 	}

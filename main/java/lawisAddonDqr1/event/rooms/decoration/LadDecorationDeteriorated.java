@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 /*
  * 戦闘部屋を生成する時に利用するメソッドを集めたクラスのうちの1つ。
  *
- * ブロックを老朽化させるメソッド。
+ * 老朽化したブロックなどの装飾をするためのメソッド。
  */
 public class LadDecorationDeteriorated {
 	// 「草ブロック」や「土ブロック」を「荒い土」に変える
@@ -70,44 +70,60 @@ public class LadDecorationDeteriorated {
 			break;
 		}
 	}
+
 	public static void fillStoneBrick(World world, int x1, int x2, int z1, int z2, int y1, int y2) {
 		for (int x = x1; x <= x2; x++) {
 			for (int z = z1; z <= z2; z++) {
 				for (int y = y1; y <= y2; y++) {
-					setStoneBrick(world, x, y, z);
+					setStoneBrick(world, x, z, y);
 				}
 			}
 		}
 	}
+
 	public static void fillStoneBrickXZ(World world, int x1, int x2, int z1, int z2, int y) {
 		for (int x = x1; x <= x2; x++) {
 			for (int z = z1; z <= z2; z++) {
-				setStoneBrick(world, x, y, z);
+				setStoneBrick(world, x, z, y);
 			}
 		}
 	}
+
 	public static void setStoneBrickEnclosure(World world, int x1, int x2, int z1, int z2, int y) {
 		for (int x = x1; x <= x2; x++) {
-			setStoneBrick(world, x, y, z1);
-			setStoneBrick(world, x, y, z2);
+			setStoneBrick(world, x, z1, y);
+			setStoneBrick(world, x, z2, y);
 		}
 
 		for (int z = z1 +1; z <= z2 -1; z++) {
-			setStoneBrick(world, x1, y, z);
-			setStoneBrick(world, x2, y, z);
+			setStoneBrick(world, x1, z, y);
+			setStoneBrick(world, x2, z, y);
 		}
 	}
+
 	public static void setStoneBrickWall(World world, int x1, int x2, int z1, int z2, int y1, int y2) {
-		for (int y = y1; y <= y2; y++){
+		for (int y = y1; y <= y2; y++) {
 			for (int x = x1; x <= x2; x++) {
-				setStoneBrick(world, x, y, z1);
-				setStoneBrick(world, x, y, z2);
+				setStoneBrick(world, x, z1, y);
+				setStoneBrick(world, x, z2, y);
 			}
 
 			for (int z = z1 +1; z <= z2 -1; z++) {
-				setStoneBrick(world, x1, y, z);
-				setStoneBrick(world, x2, y, z);
+				setStoneBrick(world, x1, z, y);
+				setStoneBrick(world, x2, z, y);
 			}
+		}
+	}
+
+	// 空気か蜘蛛の巣を設置する。
+	public static void setBlockToAirOrWeb(World world, Random rand, int x, int y, int z, int roomType) {
+		int r = 8;
+		if (roomType == 0) r = 4;
+
+		if (rand.nextInt(r) == 0) {
+			world.setBlock(x, y, z, Blocks.web);
+		} else {
+			world.setBlockToAir(x, y, z);
 		}
 	}
 }

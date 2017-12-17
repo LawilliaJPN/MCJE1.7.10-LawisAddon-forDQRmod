@@ -1,11 +1,11 @@
 package lawisAddonDqr1.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import dqr.DQR;
 import lawisAddonDqr1.api.blocks.LadBlocks;
 import lawisAddonDqr1.block.blocks.LadJumpBlock2;
 import lawisAddonDqr1.block.blocks.LadPackedIce;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 
 /*
  * ブロックを追加するクラス。
@@ -20,7 +20,7 @@ public class LadInitBlocks {
 			// 変更なし
 			.setResistance(2000.0F)
 			.setStepSound(Block.soundTypeStone)
-			.setCreativeTab(DQR.tabs.DqmTabBlock)
+			.setCreativeTab(CreativeTabs.tabBlock)
 			.setBlockTextureName("dqr:JumpBlock2")
 			// 変更あり
 			.setHardness(0.5f)

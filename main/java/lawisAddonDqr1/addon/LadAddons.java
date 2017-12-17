@@ -77,7 +77,7 @@ public class LadAddons {
 
 	/*
 	 *  連携先のBoPが併用されているかを確認するメソッド
-	 *  MOD ID：DCsAppleMilk
+	 *  MOD ID：BiomesOPlenty
 	 */
 	public static void loadBoP() {
 		if (Loader.isModLoaded("BiomesOPlenty")) {
@@ -123,6 +123,4 @@ public class LadAddons {
 	public static boolean isDbmLoaded() {
 		return DbmLoaded;
 	}
-
 }
-

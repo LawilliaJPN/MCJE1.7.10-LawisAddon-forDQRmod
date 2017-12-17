@@ -1,4 +1,4 @@
-package lawisAddonDqr1.event.rooms.room2;
+package lawisAddonDqr1.event.rooms.room02middle;
 
 import java.util.Random;
 
@@ -7,6 +7,8 @@ import lawisAddonDqr1.config.LadDebug;
 import lawisAddonDqr1.event.entities.LadMeasuresAgainstPlayerSuffocation;
 import lawisAddonDqr1.event.entities.LadSpawnEnemyCore;
 import lawisAddonDqr1.event.rooms.LadRoomID;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationCrops;
+import lawisAddonDqr1.event.rooms.decoration.LadDecorationDeteriorated;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationPillar;
 import lawisAddonDqr1.event.rooms.decoration.LadDecorationReward;
 import lawisAddonDqr1.event.rooms.decoration.LadFillBlock;
@@ -88,8 +90,8 @@ public class LadRoomMineShaft {
 			for (int z = 1; z <= 3; z++) {
 				for (int y = 0; y <= roomHeight; y++) {
 					if ((roomType%2 == 0) && (y < roomFloor2Y)) {
-						setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +z, roomType);
-						setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +roomWidth -z, roomType);
+						LadDecorationDeteriorated.setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +z, roomType);
+						LadDecorationDeteriorated.setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +roomWidth -z, roomType);
 					} else if (y != roomFloor2Y) {
 						world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 						world.setBlockToAir(roomX +x, roomY +y, roomZ +roomWidth -z);
@@ -103,8 +105,8 @@ public class LadRoomMineShaft {
 			for (int z = 4; z <= roomWidth -4; z++) {
 				for (int y = 0; y <= roomHeight; y++) {
 					if ((roomType%2 == 0) && (y < roomFloor2Y)) {
-						setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +z, roomType);
-						setBlockToAirOrWeb(world, rand, roomX +roomWidth -x, roomY +y, roomZ +z, roomType);
+						LadDecorationDeteriorated.setBlockToAirOrWeb(world, rand, roomX +x, roomY +y, roomZ +z, roomType);
+						LadDecorationDeteriorated.setBlockToAirOrWeb(world, rand, roomX +roomWidth -x, roomY +y, roomZ +z, roomType);
 					} else if (y != roomFloor2Y) {
 						world.setBlockToAir(roomX +x, roomY +y, roomZ +z);
 						world.setBlockToAir(roomX +roomWidth -x, roomY +y, roomZ +z);
@@ -129,21 +131,21 @@ public class LadRoomMineShaft {
 		LadDecorationPillar.setFourPillarCrossToAir(world, roomX +2, roomZ +roomWidth -2, roomY, roomHeight +1, 1);
 		LadDecorationPillar.setFourPillarCrossToAir(world, roomX +roomWidth -2, roomZ +roomWidth -2, roomY, roomHeight +1, 1);
 
-		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX, roomY, roomZ +2, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ +2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomZ, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX, roomZ +2, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomZ +2, roomY, roomHeight +1);
 
-		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth, roomY, roomZ +2, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ +2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomZ, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth, roomZ +2, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomZ +2, roomY, roomHeight +1);
 
-		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ +roomWidth, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX, roomY, roomZ +roomWidth -2, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX +2, roomY, roomZ +roomWidth -2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomZ +roomWidth, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX, roomZ +roomWidth -2, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +2, roomZ +roomWidth -2, roomY, roomHeight +1);
 
-		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ +roomWidth, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth, roomY, roomZ +roomWidth -2, roomHeight +1);
-		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomY, roomZ +roomWidth -2, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomZ +roomWidth, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth, roomZ +roomWidth -2, roomY, roomHeight +1);
+		LadDecorationPillar.setPillarToAir(world, roomX +roomWidth -2, roomZ +roomWidth -2, roomY, roomHeight +1);
 
 		LadFillBlock.fillBlockToAir(world, roomX +roomCenter -1, roomX +roomCenter +1, roomZ +roomCenter -1, roomZ +roomCenter +1, roomY, roomY +roomHeight);
 
@@ -155,7 +157,7 @@ public class LadRoomMineShaft {
 		// 「キノコ」の設置
 		for (int x = roomCenter -1; x <= roomCenter +1; x++) {
 			for (int z = roomCenter -1; z <= roomCenter +1; z++) {
-				setMushroom(world, rand, roomX +x, roomY +roomFloor1Y +1, roomZ +z);
+				LadDecorationCrops.setMushroom(world, rand, roomX +x, roomY +roomFloor1Y +1, roomZ +z);
 			}
 		}
 
@@ -248,7 +250,6 @@ public class LadRoomMineShaft {
 		world.setBlock(roomX +roomCenter +3, roomY +roomFloor2Y +3, roomZ +roomCenter, Blocks.torch, 1, 3);
 		world.setBlock(roomX +roomCenter -3, roomY +roomFloor2Y +3, roomZ +roomCenter, Blocks.torch, 2, 3);
 
-
 		/* - - - - - - - - - -
 		 * 以下、敵のスポーン
 		 * - - - - - - - - - */
@@ -339,46 +340,18 @@ public class LadRoomMineShaft {
 
 			switch (roomDirection) {
 			case 0:
-				LadDecorationReward.setChest(world, roomX +roomWidth, roomY, roomZ +roomCenter);
+				LadDecorationReward.setChest(world, roomX +roomWidth, roomZ +roomCenter, roomY);
 				break;
 			case 1:
-				LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ +roomWidth);
+				LadDecorationReward.setChest(world, roomX +roomCenter, roomZ +roomWidth, roomY);
 				break;
 			case 2:
-				LadDecorationReward.setChest(world, roomX, roomY, roomZ +roomCenter);
+				LadDecorationReward.setChest(world, roomX, roomZ +roomCenter, roomY);
 				break;
 			case 3:
-				LadDecorationReward.setChest(world, roomX +roomCenter, roomY, roomZ);
+				LadDecorationReward.setChest(world, roomX +roomCenter, roomZ, roomY);
 				break;
 			}
-		}
-	}
-
-	/*
-	 * 空気か蜘蛛の巣を設置する。
-	 */
-	public static void setBlockToAirOrWeb(World world, Random rand, int x, int y, int z, int roomType) {
-		int r = 8;
-		if (roomType == 0) r = 4;
-
-		if (rand.nextInt(r) == 0) {
-			world.setBlock(x, y, z, Blocks.web);
-		} else {
-			world.setBlockToAir(x, y, z);
-		}
-	}
-
-	/*
-	 * キノコを設置するかもしれない。
-	 */
-	public static void setMushroom(World world, Random rand, int x, int y, int z) {
-		switch (rand.nextInt(4)) {
-		case 0:
-			world.setBlock(x, y, z, Blocks.brown_mushroom);
-			break;
-		case 1:
-			world.setBlock(x, y, z, Blocks.red_mushroom);
-			break;
 		}
 	}
 }

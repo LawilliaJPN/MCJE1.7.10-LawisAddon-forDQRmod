@@ -13,7 +13,6 @@ import net.minecraftforge.common.config.ConfigElement;
  * ゲーム内でコンフィグを変更するためのGUI。
  *
  * 「TNT MODDERS」様の「MOD製作チュートリアル」を参考にさせていただきました。
- * https://www63.atwiki.jp/akasatanahama/pages/131.html
  */
 public class LadGuiFactory implements IModGuiFactory {
 	@Override

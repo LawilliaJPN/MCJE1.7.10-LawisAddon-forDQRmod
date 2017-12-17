@@ -19,7 +19,7 @@ public class LadDecorationReward {
 	/*
 	 * 各部屋の報酬チェストを設置するためのメソッド
 	 */
-	public static void setChest(World world, int x, int y, int z) {
+	public static void setChest(World world, int x, int z, int y) {
 		Random rand = new Random();
 
 		// [Debug] 戦闘部屋固定時に、チェストが100%生成される（デバッグ用）
@@ -76,7 +76,7 @@ public class LadDecorationReward {
 	 * チェストを設置するためのメソッド（ピラミッド等用）。
 	 * 4分の1の確率で空になる。
 	 */
-	public static void setChestP(World world, int x, int y, int z) {
+	public static void setChestP(World world, int x, int z, int y) {
 		Random rand = new Random();
 		world.setBlock(x, y, z, Blocks.chest);
 
