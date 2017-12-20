@@ -121,116 +121,94 @@ public class LadRoomCore {
 		// Y=41～45
 		} else if (LadRoomID.getDifOfRoom() == 1) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(4)) {
-				case 0:
+				int r = rand.nextInt(LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.DESERT_WELL));
+
+				if (r < LadRoomID.getWeightOfRoom(LadRoomID.FOREST)) {
 					LadRoomForest.setRoom(world, player);
-					break;
-				case 1:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL)) {
 					LadRoomVillageWell.setRoom(world, player);
-					break;
-				case 2:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH)) {
 					LadRoomBeach.setRoom(world, player);
-					break;
-				case 3:
+				} else {
 					LadRoomDesertWell.setRoom(world, player);
-					break;
 				}
 			}
 
 		// Y=36～40
 		} else if (LadRoomID.getDifOfRoom() == 2) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(6)) {
-				case 0:
+				int r = rand.nextInt(LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.ICE_PLAINS, LadRoomID.WEAPON_SHOP, LadRoomID.SPECIAL_01));
+
+				if (r < LadRoomID.getWeightOfRoom(LadRoomID.FOREST)) {
 					LadRoomForest.setRoom(world, player);
-					break;
-				case 1:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL)) {
 					LadRoomVillageWell.setRoom(world, player);
-					break;
-				case 2:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH)) {
 					LadRoomBeach.setRoom(world, player);
-					break;
-				case 3:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.ICE_PLAINS)) {
 					LadRoomIcePlains.setRoom(world, player);
-					break;
-				case 4:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.ICE_PLAINS, LadRoomID.WEAPON_SHOP)) {
 					LadRoomWeaponShop.setRoom(world, player);
-					break;
-				case 5:
+				} else {
 					LadRoomSpecial01.setRoom(world, player);
-					break;
 				}
 			}
 
 		// Y=31～35
 		} else if (LadRoomID.getDifOfRoom() == 3) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(7)) {
-				case 0:
+				int r = rand.nextInt(LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.DESERT_WELL, LadRoomID.ICE_PLAINS, LadRoomID.WEAPON_SHOP, LadRoomID.SPECIAL_01));
+
+				if (r < LadRoomID.getWeightOfRoom(LadRoomID.FOREST)) {
 					LadRoomForest.setRoom(world, player);
-					break;
-				case 1:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL)) {
 					LadRoomVillageWell.setRoom(world, player);
-					break;
-				case 2:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH)) {
 					LadRoomBeach.setRoom(world, player);
-					break;
-				case 3:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.DESERT_WELL)) {
 					LadRoomDesertWell.setRoom(world, player);
-					break;
-				case 4:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.DESERT_WELL, LadRoomID.ICE_PLAINS)) {
 					LadRoomIcePlains.setRoom(world, player);
-					break;
-				case 5:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.FOREST, LadRoomID.VILLAGE_WELL, LadRoomID.BEACH, LadRoomID.DESERT_WELL, LadRoomID.ICE_PLAINS, LadRoomID.WEAPON_SHOP)) {
 					LadRoomWeaponShop.setRoom(world, player);
-					break;
-				case 6:
+				} else {
 					LadRoomSpecial01.setRoom(world, player);
-					break;
 				}
 			}
 
 		// Y=21～30（中層）
 		} else if (LadRoomID.getDifOfRoom() <= 5) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(7)) {
-					case 0:
-						LadRoomPyramid.setRoom(world, player);
-						break;
-					case 1:
-						LadRoomMedalKing.setRoom(world, player);
-						break;
-					case 2:
-						LadRoomMineShaft.setRoom(world, player);
-						break;
-					case 3:
-						LadRoomDama.setRoom(world, player);
-						break;
-					case 4:
-						LadRoomStronghold.setRoom(world, player);
-						break;
-					case 5:
-						LadRoomIceCave.setRoom(world, player);
-						break;
-					case 6:
-						LadRoomSpecial02.setRoom(world, player);
-						break;
+				int r = rand.nextInt(LadRoomID.getWeightOfRooms(LadRoomID.PYRAMID, LadRoomID.MEDAL_KING, LadRoomID.MINE_SHAFT, LadRoomID.DAMA, LadRoomID.STRONGHOLD, LadRoomID.ICE_CAVE, LadRoomID.SPECIAL_02));
+
+				if (r < LadRoomID.getWeightOfRoom(LadRoomID.PYRAMID)) {
+					LadRoomPyramid.setRoom(world, player);
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.PYRAMID, LadRoomID.MEDAL_KING)) {
+					LadRoomMedalKing.setRoom(world, player);
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.PYRAMID, LadRoomID.MEDAL_KING, LadRoomID.MINE_SHAFT)) {
+					LadRoomMineShaft.setRoom(world, player);
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.PYRAMID, LadRoomID.MEDAL_KING, LadRoomID.MINE_SHAFT, LadRoomID.DAMA)) {
+					LadRoomDama.setRoom(world, player);
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.PYRAMID, LadRoomID.MEDAL_KING, LadRoomID.MINE_SHAFT, LadRoomID.DAMA, LadRoomID.STRONGHOLD)) {
+					LadRoomStronghold.setRoom(world, player);
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.PYRAMID, LadRoomID.MEDAL_KING, LadRoomID.MINE_SHAFT, LadRoomID.DAMA, LadRoomID.STRONGHOLD, LadRoomID.ICE_CAVE)) {
+					LadRoomIceCave.setRoom(world, player);
+				} else {
+					LadRoomSpecial02.setRoom(world, player);
 				}
 			}
 
 		// Y=06～20（下層）
 		} else if (LadRoomID.getDifOfRoom() <= 7) {
 			if (!world.isRemote) {
-				switch (rand.nextInt(3)) {
-				case 0:
+				int r = rand.nextInt(LadRoomID.getWeightOfRooms(LadRoomID.NETHER, LadRoomID.END_PORTAL, LadRoomID.BOTTOM_OF_OVERWORLD));
+
+				if (r < LadRoomID.getWeightOfRoom(LadRoomID.NETHER)) {
 					LadRoomNether.setRoom(world, player);
-					break;
-				case 1:
+				} else if (r < LadRoomID.getWeightOfRooms(LadRoomID.NETHER, LadRoomID.END_PORTAL)) {
 					LadRoomEndPortal.setRoom(world, player);
-					break;
-				case 2:
+				} else {
 					LadRoomBottomOfOverWorld.setRoom(world, player);
-					break;
 				}
 			}
 		}

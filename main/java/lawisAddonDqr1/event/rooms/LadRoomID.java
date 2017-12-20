@@ -103,6 +103,78 @@ public class LadRoomID {
 	}
 
 	/*
+	 * 各戦闘部屋の生成率の重みの取得
+	 */
+	public static int getWeightOfRoom(int roomID) {
+		roomID = roomID /100;
+
+		switch (roomID) {
+		case 11:
+			// 村の井戸
+			return 6;
+		case 12:
+			// 武器屋
+			return 4;
+		case 13:
+			// 砂漠の井戸
+			return 6;
+		case 14:
+			// 氷原
+			return 4;
+		case 15:
+			// 森林
+			return 6;
+		case 16:
+			// 砂浜
+			return 6;
+		case 21:
+			// ピラミッド
+			return 4;
+		case 22:
+			// メダル王の部屋
+			return 4;
+		case 23:
+			// 廃坑
+			return 6;
+		case 24:
+			// ダーマ神殿
+			return 4;
+		case 25:
+			// 要塞
+			return 6;
+		case 26:
+			// 氷洞
+			return 4;
+		case 31:
+			// ネザー
+			return 6;
+		case 32:
+			// エンドポータル
+			return 4;
+		case 33:
+			// 地底
+			return 6;
+		case 41:
+			// 上層特殊部屋
+			return 2;
+		case 42:
+			// 中層特殊部屋
+			return 2;
+		}
+		return 0;
+	}
+
+	public static int getWeightOfRooms(int... roomIDs) {
+		int sum = 0;
+
+		for (int i = 0; i < roomIDs.length; i++) {
+			sum += getWeightOfRoom(roomIDs[i]);
+		}
+
+		return sum;
+	}
+
+	/*
 	 * 変数 difOfRoom の getter
 	 */
 	public static int getDifOfRoom() {
@@ -123,44 +195,46 @@ public class LadRoomID {
 	 * Room ID(int) ⇒ 戦闘部屋の日本語名
 	 */
 	public static String getNameRoom(int roomID) {
-		roomID = roomID /10 *10;
+		roomID = roomID /10;
 
 		switch (roomID) {
-		case 1100:
-		case 1110:
-		case 1120:
+		case 110:
+		case 111:
+		case 112:
 			return "村の井戸";
-		case 1200:
-		case 1210:
+		case 120:
+		case 121:
 			return "武器屋";
-		case 1300:
+		case 130:
 			return "砂漠の井戸";
-		case 1400:
+		case 140:
 			return "氷原";
-		case 1500:
+		case 150:
 			return "森林";
-		case 1600:
+		case 160:
 			return "砂浜";
-		case 2100:
+		case 210:
 			return "ピラミッド";
-		case 2200:
+		case 220:
 			return "メダル王の部屋";
-		case 2300:
+		case 230:
 			return "廃坑";
-		case 2400:
+		case 240:
 			return "ダーマ神殿";
-		case 2500:
+		case 250:
 			return "要塞";
-		case 2600:
+		case 260:
 			return "氷洞";
-		case 3100:
+		case 310:
 			return "ネザー";
-		case 3200:
+		case 320:
 			return "エンドポータル";
-		case 3300:
+		case 330:
 			return "地底";
-		case 4100:
-			return "特殊な部屋";
+		case 410:
+			return "上層特殊部屋";
+		case 420:
+			return "中層特殊部屋";
 		}
 		return "";
 	}
@@ -169,44 +243,46 @@ public class LadRoomID {
 	 * Room ID(int) ⇒ 変数名（部屋の基本ID）
 	 */
 	public static String getNameRoomID(int roomID) {
-		roomID = roomID /10 *10;
+		roomID = roomID /10;
 
 		switch (roomID) {
-		case 1100:
-		case 1110:
-		case 1120:
+		case 110:
+		case 111:
+		case 112:
 			return "VILLAGE_WELL";
-		case 1200:
-		case 1210:
+		case 120:
+		case 121:
 			return "WEAPON_SHOP";
-		case 1300:
+		case 130:
 			return "DESERT_WELL";
-		case 1400:
+		case 140:
 			return "ICE_PLAINS";
-		case 1500:
+		case 150:
 			return "FOREST";
-		case 1600:
+		case 160:
 			return "BEACH";
-		case 2100:
+		case 210:
 			return "PYRAMID";
-		case 2200:
+		case 220:
 			return "MEDAL_KING";
-		case 2300:
+		case 230:
 			return "MINE_SHAFT";
-		case 2400:
+		case 240:
 			return "DAMA";
-		case 2500:
+		case 250:
 			return "STRONGHOLD";
-		case 2600:
+		case 260:
 			return "ICE_CAVE";
-		case 3100:
+		case 310:
 			return "NETHER";
-		case 3200:
+		case 320:
 			return "END_PORTAL";
-		case 3300:
+		case 330:
 			return "BOTTOM_OF_OVERWORLD";
-		case 4100:
+		case 410:
 			return "SPECIAL_01";
+		case 420:
+			return "SPECIAL_02";
 		}
 		return "";
 	}

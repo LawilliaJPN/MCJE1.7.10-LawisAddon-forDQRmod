@@ -71,7 +71,7 @@ public class LadDecorationTorch {
 	 */
 	public static void setVillageLight(World world, int x, int z, int y) {
 		// 村の灯りのパーツ「フェンス」を設置
-		LadDecorationPillar.setPillar(world, Blocks.fence, x, y, z, 3);
+		LadDecorationPillar.setPillar(world, Blocks.fence, x, z, y, 3);
 		// 村の灯りのパーツ「黒色の羊毛」を設置
 		world.setBlock(x, y +3, z, Blocks.wool, 15, 2);
 		// 「黒色の羊毛」の周りに「松明」の設置
